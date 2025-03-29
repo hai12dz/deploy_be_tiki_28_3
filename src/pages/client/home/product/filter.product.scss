@@ -159,7 +159,7 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
             align-self: center;
             position: absolute;
             right: 90px;
-            top: 23px;
+            top: 15px;
             transition: transform 0.3s ease, opacity 0.3s ease;
             opacity: 0.7;
             font-size: 18px;
@@ -172,7 +172,7 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
     .filter-header {
         position: absolute;
         right: 0;
-        top: 57%;
+        top: 54%;
         transform: translateY(-50%);
 
         .filter-button {
@@ -204,6 +204,7 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
         position: relative;
         transition: transform 0.3s ease;
         will-change: transform;
+        padding: 0px 0px 15px 0px;
         border-bottom: 1px solid #f1f1f1;
 
         &.translated {
@@ -269,9 +270,9 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
 
         .vertical-divider {
             width: 1.5px;
-            height: 30px;
+            height: 33px;
             background-color: $border-light;
-            margin-top: 38px;
+            margin-top: 21px;
             margin-left: -16px;
             margin-right: -16px;
             align-self: flex-start;
@@ -351,6 +352,8 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
 
 
             .option-chip {
+                color: $text-color;
+
                 @include chip-style;
                 padding: 4px 12px;
                 font-size: 14px;
@@ -359,7 +362,7 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
                 white-space: nowrap;
                 border: 1px solid rgb(221, 221, 227);
 
-                &:hover {}
+
             }
 
 
@@ -403,7 +406,7 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
         position: relative;
         font-size: 14px;
         line-height: 21px;
-        margin-top: 13px;
+        margin-top: 15px;
 
         .option {
             position: relative;
