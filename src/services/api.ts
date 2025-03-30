@@ -93,7 +93,6 @@ export const getBookByIdAPI = (id: string) => {
 }
 
 
-
 export const getHistoryAPI = () => {
     const urlBackend = `/api/v1/history`;
     return axios.get<IBackendRes<IHistory[]>>(urlBackend)

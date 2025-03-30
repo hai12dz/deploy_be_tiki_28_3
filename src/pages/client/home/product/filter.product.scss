@@ -277,6 +277,30 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
         padding-left: 0;
     }
 
+    // Add specific styling for supplier option chips
+    .filter-sections-supplier {
+        .option-chip {
+            display: block;
+            /* Changed from inline-flex */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 180px;
+            padding: 4px 12px;
+            font-size: 14px;
+            line-height: 21px !important;
+            height: 32px;
+            box-sizing: border-box;
+            text-align: center;
+            /* Add text alignment */
+
+            /* Make sure these properties don't conflict */
+            &::before {
+                display: none;
+            }
+        }
+    }
+
     .filter-section-groups {
         @include flex;
         gap: 32px;
@@ -370,7 +394,8 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
             .option-chip {
                 color: $text-color;
                 @include chip-style;
-                padding: 4px 12px;
+                padding: 6px 12px;
+
                 font-size: 14px;
                 height: 32px;
                 @include flex(row, null, center);
