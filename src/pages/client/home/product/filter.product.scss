@@ -280,23 +280,30 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
     // Add specific styling for supplier option chips
     .filter-sections-supplier {
         .option-chip {
-            display: block;
-            /* Changed from inline-flex */
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 180px;
-            padding: 4px 12px;
-            font-size: 14px;
-            line-height: 21px !important;
-            height: 32px;
-            box-sizing: border-box;
-            text-align: center;
-            /* Add text alignment */
+            display: inline-block !important;
+            /* Changed from block */
+            flex-direction: unset !important;
+            /* Disable flex properties */
+            justify-content: unset !important;
+            align-items: unset !important;
 
-            /* Make sure these properties don't conflict */
-            &::before {
-                display: none;
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            max-width: 208px !important;
+            /* Make narrower to ensure overflow */
+
+            padding: 4px 12px !important;
+            font-size: 14px !important;
+            line-height: 24px !important;
+            height: 32px !important;
+            box-sizing: border-box !important;
+            text-align: center !important;
+
+            /* Prevent other elements from interfering */
+            &::before,
+            &::after {
+                display: none !important;
             }
         }
     }
