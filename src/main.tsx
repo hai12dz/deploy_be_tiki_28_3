@@ -14,11 +14,9 @@ import HomePage from 'pages/client/home';
 import { App, ConfigProvider } from 'antd';
 import { AppProvider } from 'components/context/app.context';
 import ProtectedRoute from '@/components/auth';
-import OrderPage from 'pages/client/order';
 import HistoryPage from 'pages/client/history';
 
 import enUS from 'antd/locale/en_US';
-import ReturnURLPage from 'components/client/order/return.url';
 
 const router = createBrowserRouter([
   {
@@ -33,14 +31,7 @@ const router = createBrowserRouter([
         path: "/book/:id",
         element: <BookPage />,
       },
-      {
-        path: "/order",
-        element: (
-          <ProtectedRoute>
-            <OrderPage />
-          </ProtectedRoute>
-        )
-      },
+
       {
         path: "/about",
         element: <AboutPage />,
@@ -53,14 +44,7 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-      {
-        path: "/vnpay/return-url",
-        element: (
-          <ProtectedRoute>
-            <ReturnURLPage />
-          </ProtectedRoute>
-        )
-      },
+
     ]
   },
 

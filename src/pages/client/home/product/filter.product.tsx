@@ -88,8 +88,8 @@ const ProductFilter: React.FC = () => {
     const brands = ["Deli", "Thiên Long", "MAGIX", "Hồng Hà"];
     const brandsFull = ["Deli", "Thiên Long", "MAGIX", "Hồng Hà"];
 
-    const suppliers = ["Nhà Sách Vĩnh Thụy", "Bamboo Books", "HỆ THỐNG NHÀ SÁCH AB..."];
-    const suppliersFull = ["Nhà Sách Vĩnh Thụy", "Bamboo Books", "HỆ THỐNG NHÀ SÁCH AB...", "info book"];
+    const suppliers = ["Nhà Sách Vĩnh Thụy", "Bamboo Books", "HỆ THỐNG NHÀ SÁCH ABC"];
+    const suppliersFull = ["Nhà Sách Vĩnh Thụy", "Bamboo Books", "HỆ THỐNG NHÀ SÁCH ABC", "info book"];
 
     const allBrands = [
         "Deli", "Thiên Long", "MAGIX", "Hồng Hà",
