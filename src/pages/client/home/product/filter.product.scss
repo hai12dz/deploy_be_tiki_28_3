@@ -39,9 +39,10 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
     }
 
     &.selected {
-        border-color: $primary-color;
-        color: $primary-color;
-        background-color: $bg-selected;
+        text-shadow: rgb(10, 104, 255) 0px 0px 0.5px;
+        color: rgb(10, 104, 255);
+        border: 1px solid rgb(10, 104, 255);
+        background-color: white;
     }
 }
 

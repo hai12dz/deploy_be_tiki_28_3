@@ -131,21 +131,21 @@ const ProductFilter: React.FC = () => {
     const handleSupplierToggle = () => {
         // Always close brand modal first
         setBrandExpanded(false);
-        
+
         // First click - supplier section not expanded yet
         if (!supplierExpanded) {
             // Open the supplier section
             setSupplierExpanded(true);
             return;
         }
-        
+
         // Second click - supplier section expanded, modal not yet open
         if (supplierExpanded && !followSupplier) {
             // Open the supplier modal
             setFollowSupplier(true);
             return;
         }
-        
+
         // Third click - supplier modal is open
         if (followSupplier) {
             // Close the supplier modal but keep section expanded
@@ -383,7 +383,11 @@ const ProductFilter: React.FC = () => {
                                     <div className="brand-options-container">
                                         <div className="filter-options">
                                             {(brandExpanded ? brandsFull : brands).map((brand, index) => (
-                                                <button key={index} className="option-chip">
+                                                <button
+                                                    key={index}
+                                                    className={`option-chip ${selectedBrands.includes(brand) ? 'selected' : ''}`}
+                                                    onClick={() => handleBrandSelect(brand)}
+                                                >
                                                     {brand}
                                                 </button>
                                             ))}
@@ -411,7 +415,11 @@ const ProductFilter: React.FC = () => {
                                     <div className="supplier-options-container">
                                         <div className="filter-options">
                                             {(supplierExpanded ? suppliersFull : suppliers).map((supplier, index) => (
-                                                <button key={index} className="option-chip">
+                                                <button
+                                                    key={index}
+                                                    className={`option-chip ${selectedSuppliers.includes(supplier) ? 'selected' : ''}`}
+                                                    onClick={() => handleSupplierSelect(supplier)}
+                                                >
                                                     {supplier}
                                                 </button>
                                             ))}
