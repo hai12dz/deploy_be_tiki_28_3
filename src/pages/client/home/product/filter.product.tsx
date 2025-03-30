@@ -129,17 +129,28 @@ const ProductFilter: React.FC = () => {
     };
 
     const handleSupplierToggle = () => {
-        setBrandExpanded(false); // Close the brand modal if it's open
-        if (!supplierExpanded && !showLeftArrow) {
-            // First click: translate the container
+        // Always close brand modal first
+        setBrandExpanded(false);
+        
+        // First click - supplier section not expanded yet
+        if (!supplierExpanded) {
+            // Open the supplier section
             setSupplierExpanded(true);
-        } else if (showLeftArrow && !followSupplier) {
-            // Second click: show the supplier modal
+            return;
+        }
+        
+        // Second click - supplier section expanded, modal not yet open
+        if (supplierExpanded && !followSupplier) {
+            // Open the supplier modal
             setFollowSupplier(true);
-            setSupplierExpanded(true);
-        } else {
-            // Close the supplier modal
+            return;
+        }
+        
+        // Third click - supplier modal is open
+        if (followSupplier) {
+            // Close the supplier modal but keep section expanded
             setFollowSupplier(false);
+            return;
         }
     };
 
@@ -164,9 +175,7 @@ const ProductFilter: React.FC = () => {
             !(event.target as HTMLElement).closest('.arrow-button') // Exclude clicks on the supplier toggle button
         ) {
             setBrandExpanded(false);
-            if (supplierExpanded) {
-                setFollowSupplier(false); // Ensure followSupplier is set to false
-            }
+            setFollowSupplier(false); // Ensure followSupplier is set to false
         }
     };
 
