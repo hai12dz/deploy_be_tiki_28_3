@@ -88,8 +88,8 @@ const ProductFilter: React.FC = () => {
     const brands = ["Deli", "Thiên Long", "MAGIX", "Hồng Hà"];
     const brandsFull = ["Deli", "Thiên Long", "MAGIX", "Hồng Hà"];
 
-    const suppliers = ["Nhà Sách Vĩnh Thụy", "Bamboo Books", "HỆ THỐNG NHÀ SÁCH ABC"];
-    const suppliersFull = ["Nhà Sách Vĩnh Thụy", "Bamboo Books", "HỆ THỐNG NHÀ SÁCH ABC", "info book"];
+    const suppliers = ["Nhà Sách Vĩnh Thụy", "Bamboo Books", "HỆ THỐNG NHÀ SÁCH AB..."];
+    const suppliersFull = ["Nhà Sách Vĩnh Thụy", "Bamboo Books", "HỆ THỐNG NHÀ SÁCH AB...", "info book"];
 
     const allBrands = [
         "Deli", "Thiên Long", "MAGIX", "Hồng Hà",
@@ -112,6 +112,14 @@ const ProductFilter: React.FC = () => {
     const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
     const [selectedSuppliers, setSelectedSuppliers] = useState<string[]>([]);
 
+    const isSupplierSelected = (supplier: string) => {
+        if (supplier.endsWith('...')) {
+            const baseText = supplier.slice(0, -3);
+            return selectedSuppliers.some(s => s.startsWith(baseText));
+        }
+        return selectedSuppliers.includes(supplier);
+    };
+
     const handleBrandToggle = () => {
         setBrandExpanded(prev => !prev);
     };
@@ -129,36 +137,33 @@ const ProductFilter: React.FC = () => {
     };
 
     const handleSupplierToggle = () => {
-        // Always close brand modal first
         setBrandExpanded(false);
 
-        // First click - supplier section not expanded yet
         if (!supplierExpanded) {
-            // Open the supplier section
             setSupplierExpanded(true);
             return;
         }
 
-        // Second click - supplier section expanded, modal not yet open
         if (supplierExpanded && !followSupplier) {
-            // Open the supplier modal
             setFollowSupplier(true);
             return;
         }
 
-        // Third click - supplier modal is open
         if (followSupplier) {
-            // Close the supplier modal but keep section expanded
             setFollowSupplier(false);
             return;
         }
     };
 
     const handleSupplierSelect = (supplier: string) => {
+        const actualSupplier = supplier.endsWith('...')
+            ? allSuppliers.find(s => s.startsWith(supplier.slice(0, -3))) || supplier
+            : supplier;
+
         setSelectedSuppliers(prev =>
-            prev.includes(supplier)
-                ? prev.filter(s => s !== supplier)
-                : [...prev, supplier]
+            prev.includes(actualSupplier)
+                ? prev.filter(s => s !== actualSupplier)
+                : [...prev, actualSupplier]
         );
     };
 
@@ -172,10 +177,10 @@ const ProductFilter: React.FC = () => {
             !modalRef.current.contains(event.target as Node) &&
             expandButtonRef.current &&
             !expandButtonRef.current.contains(event.target as Node) &&
-            !(event.target as HTMLElement).closest('.arrow-button') // Exclude clicks on the supplier toggle button
+            !(event.target as HTMLElement).closest('.arrow-button')
         ) {
             setBrandExpanded(false);
-            setFollowSupplier(false); // Ensure followSupplier is set to false
+            setFollowSupplier(false);
         }
     };
 
@@ -188,7 +193,7 @@ const ProductFilter: React.FC = () => {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [brandExpanded, supplierExpanded]); // Ensure supplierExpanded is included in dependencies
+    }, [brandExpanded, supplierExpanded]);
 
     const renderBrandModal = () => {
         if (!brandExpanded || !expandButtonRef.current) {
@@ -417,7 +422,7 @@ const ProductFilter: React.FC = () => {
                                             {(supplierExpanded ? suppliersFull : suppliers).map((supplier, index) => (
                                                 <button
                                                     key={index}
-                                                    className={`option-chip ${selectedSuppliers.includes(supplier) ? 'selected' : ''}`}
+                                                    className={`option-chip ${isSupplierSelected(supplier) ? 'selected' : ''}`}
                                                     onClick={() => handleSupplierSelect(supplier)}
                                                 >
                                                     {supplier}
