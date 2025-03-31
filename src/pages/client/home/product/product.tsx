@@ -1,3 +1,4 @@
+import { useFilterContext } from "@/context/FilterContext";
 import { getBooksAPI } from "@/services/api";
 import { ReloadOutlined, StarFilled } from "@ant-design/icons";
 import { Button, Rate, Row, Col, Tag, Divider, message } from "antd"; // Add message from antd
@@ -25,6 +26,10 @@ const CustomStar = () => (
 );
 
 const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
+    const { isLoading, setIsLoading, selectedBrands, selectedSuppliers,
+        fastDeliveryChecked, cheapPriceChecked, freeShipChecked, fourStarsChecked, selectedSort,
+        pageSize: contextPageSize, setPageSize: setContextPageSize
+    } = useFilterContext();
     const [searchTerm, setSearchTerm] = useOutletContext() as any;
     const navigate = useNavigate();
 
@@ -34,7 +39,6 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
     const [total, setTotal] = useState<number>(0);
     const [current, setCurrent] = useState<number>(1);
 
-    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [filter, setFilter] = useState<string>("");
     const [sortQuery, setSortQuery] = useState<string>("sort=-sold");
     const [showMobileFilter, setShowMobileFilter] = useState<boolean>(false);
@@ -71,7 +75,7 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
     const fetchBook = async () => {
         setIsLoading(true);
 
-        // Build query params to match the backend API structure
+        // Build query params using context variables
         let query = new URLSearchParams();
 
         // Base pagination params
@@ -88,35 +92,38 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
             query.append('filter', filter);
         }
 
-        // Use consistent sort parameter based on selectedSort
-        const sortCode = getSortCode('Phổ biến');
-        query.append('sort', sortCode);
-
-        // Brand filter - using the array of brand IDs/names
-        if (brand && brand.length > 0) {
-            query.append('brands', brand.join(','));
+        // Sort parameter based on selectedSort from context
+        if (selectedSort) {
+            const sortCode = getSortCode(selectedSort);
+            query.append('sort', sortCode);
+        } else {
+            query.append('sort', 'popular');
         }
 
-        // Supplier filter - using the array of supplier IDs/names
-        if (supplier && supplier.length > 0) {
-            query.append('suppliers', supplier.join(','));
+        // Brand filter from context
+        if (selectedBrands && selectedBrands.length > 0) {
+            query.append('brands', selectedBrands.join(','));
         }
 
-        // Rating filter
-        if (minRating > 0) {
-            query.append('minRating', minRating.toString());
+        // Supplier filter from context
+        if (selectedSuppliers && selectedSuppliers.length > 0) {
+            query.append('suppliers', selectedSuppliers.join(','));
         }
 
-        // Shipping and price filters from state variables
-        if (freeShipping) {
+        // Add checkbox filters from context
+        if (fourStarsChecked) {
+            query.append('minRating', '4');
+        }
+
+        if (freeShipChecked) {
             query.append('freeShipping', 'true');
         }
 
-        if (cheapPrice) {
+        if (cheapPriceChecked) {
             query.append('cheapPrice', 'true');
         }
 
-        if (fastDelivery) {
+        if (fastDeliveryChecked) {
             query.append('fastDelivery', 'true');
         }
 
@@ -126,7 +133,8 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
 
         try {
             // Save the current count before fetching
-            setPreviousItemCount(localListBook.length);
+            const prevCount = localListBook.length;
+            setPreviousItemCount(prevCount);
 
             const res = await getBooksAPI(queryString);
             if (res && res.data) {
@@ -159,13 +167,12 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
 
                 // Set total from meta or use a placeholder value if not available
                 const totalItems = res.data.meta?.totalItems || items.length + 10;
-                console.log(`API Response - Items count: ${items.length}, Total items: ${totalItems}`);
-
-                // Always ensure total is greater than current items to allow "View More"
                 setTotal(Math.max(totalItems, items.length + 10));
             }
         } catch (error) {
             console.error("Error fetching books:", error);
+            message.error('Đã xảy ra lỗi khi tải sách');
+            setHasMoreItems(false);
         } finally {
             setIsLoading(false);
         }
@@ -380,11 +387,16 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
                                 className="view-more-button"
                                 onClick={() => {
                                     console.log("View More clicked - increasing page size");
-                                    setPageSize(prevPageSize => {
-                                        const newSize = prevPageSize + 10;
-                                        console.log(`Increasing page size from ${prevPageSize} to ${newSize}`);
-                                        return newSize;
-                                    });
+                                    // Increase pageSize by 10
+                                    const newSize = pageSize + 10;
+                                    setPageSize(newSize);
+
+                                    // If using context pageSize, update it too
+                                    if (setContextPageSize) {
+                                        setContextPageSize(newSize);
+                                    }
+
+                                    // After updating pageSize, fetch more books
                                     fetchBook();
                                 }}
                             >
@@ -398,6 +410,13 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
                                     "Xem thêm"
                                 )}
                             </div>
+                        </div>
+                    )}
+
+                    {/* Show a message when there are no more items to load */}
+                    {filteredBooks?.length > 0 && !hasMoreItems && !isLoading && (
+                        <div className="no-more-items-message">
+                            Đã hiển thị tất cả sản phẩm
                         </div>
                     )}
                 </div>

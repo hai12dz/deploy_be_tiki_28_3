@@ -5,6 +5,7 @@ import FilterProduct from './modal.filter';
 import { useOutletContext } from 'react-router-dom';
 import { getBooksAPI, getBrandsAPI, getFullCategories, getSuppliersAPI } from '@/services/api';
 import { set } from 'lodash';
+import { useFilterContext } from '@/context/FilterContext';
 
 // Update props interface to make isLoading and setIsLoading optional
 interface ProductFilterProps {
@@ -15,14 +16,11 @@ interface ProductFilterProps {
 
 const ProductFilter: React.FC<ProductFilterProps> = ({
     onListBookChange,
-    isLoading = false,
-    setIsLoading = () => { }
 }) => {
     const [brandExpanded, setBrandExpanded] = useState(false);
     const [supplierExpanded, setSupplierExpanded] = useState(false);
     const [showLeftArrow, setShowLeftArrow] = useState(false);
     const [sortMenuVisible, setSortMenuVisible] = useState(false);
-    const [selectedSort, setSelectedSort] = useState('Phổ biến');
     const sortOptions = ['Phổ biến', 'Bán chạy', 'Hàng mới', 'Giá thấp đến cao', 'Giá cao đến thấp'];
     const sortButtonRef = useRef<HTMLButtonElement>(null);
     const sortMenuRef = useRef<HTMLDivElement>(null);
@@ -43,15 +41,14 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
     const [sortQuery, setSortQuery] = useState<string>("sort=-sold");
     const [searchTerm, setSearchTerm] = useOutletContext() as any;
     const [followSupplier, setFollowSupplier] = useState<boolean>(false);
-    const [fastDeliveryChecked, setFastDeliveryChecked] = useState(false);
-    const [cheapPriceChecked, setCheapPriceChecked] = useState(false);
-    const [freeShipChecked, setFreeShipChecked] = useState(false);
-    const [fourStarsChecked, setFourStarsChecked] = useState(false);
 
-    const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
-    const [selectedSuppliers, setSelectedSuppliers] = useState<string[]>([]);
+
     const [tempSelectedBrands, setTempSelectedBrands] = useState<string[]>([]);
     const [tempSelectedSuppliers, setTempSelectedSuppliers] = useState<string[]>([]);
+    const { isLoading, setIsLoading, selectedBrands, setSelectedBrands, selectedSuppliers, setSelectedSuppliers,
+        fastDeliveryChecked, setFastDeliveryChecked, cheapPriceChecked, setCheapPriceChecked, freeShipChecked, setFreeShipChecked, fourStarsChecked, setFourStarsChecked, selectedSort, setSelectedSort,
+
+    } = useFilterContext();
 
     useEffect(() => {
         fetchBrand();

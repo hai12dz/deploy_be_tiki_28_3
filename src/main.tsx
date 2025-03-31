@@ -17,6 +17,7 @@ import ProtectedRoute from '@/components/auth';
 import HistoryPage from 'pages/client/history';
 
 import enUS from 'antd/locale/en_US';
+import { FilterProvider } from './context/FilterContext';
 
 const router = createBrowserRouter([
   {
@@ -59,13 +60,17 @@ const router = createBrowserRouter([
 
 ]);
 
+const defaultFilterContext = {}; // Define the default value for FilterContext
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App>
       <AppProvider>
-        <ConfigProvider locale={enUS}>
-          <RouterProvider router={router} />
-        </ConfigProvider>
+        <FilterProvider>
+          <ConfigProvider locale={enUS}>
+            <RouterProvider router={router} />
+          </ConfigProvider>
+        </FilterProvider>
       </AppProvider>
     </App>
   </StrictMode>,
