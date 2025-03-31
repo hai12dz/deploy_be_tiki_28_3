@@ -513,282 +513,290 @@ const ProductFilter: React.FC<ProductFilterProps> = ({ onListBookChange }) => {
 
     return (
         <div className="product-filter-container">
-            {showLeftArrow && (
-                <div
-                    onClick={handleLeftArrowClick}
-                    className="left-arrow-button arrow-icon-wrapper"
-                    style={{ zIndex: 1000 }}
-                >
-                    <div className="isolated-img-container">
-                        <img
-                            src="https://frontend.tikicdn.com/_desktop-next/static/img/catalog/arrow.svg"
-                            alt="arrow"
-                            className="left-arrow-icon"
-                        />
-                    </div>
+            {isLoading && (
+                <div className="filter-loading-spinner">
+                    <div className="spinner"></div>
                 </div>
             )}
 
-            <div className="filter-sections-wrapper">
-                <div className="filter-sections" ref={containerRef}>
-                    <div className="filter-section-groups">
-                        <div className="filter-sections-brand">
-                            <div className="filter-section">
-                                <div className="section-label">Thương hiệu</div>
-                                <div className="filter-options-wrapper">
-                                    <div className="brand-options-container">
-                                        <div className="filter-options">
-                                            {(brandExpanded ? brandsFull : brands).map((brand, index) => (
-                                                <button
-                                                    key={index}
-                                                    className={`option-chip ${selectedBrands.includes(brand) ? 'selected' : ''}`}
-                                                    onClick={() => handleBrandSelect(brand)}
-                                                >
-                                                    {brand}
-                                                </button>
-                                            ))}
+            <div className={`filter-content ${isLoading ? 'filter-content-loading' : ''}`}>
+                {showLeftArrow && (
+                    <div
+                        onClick={handleLeftArrowClick}
+                        className="left-arrow-button arrow-icon-wrapper"
+                        style={{ zIndex: 1000 }}
+                    >
+                        <div className="isolated-img-container">
+                            <img
+                                src="https://frontend.tikicdn.com/_desktop-next/static/img/catalog/arrow.svg"
+                                alt="arrow"
+                                className="left-arrow-icon"
+                            />
+                        </div>
+                    </div>
+                )}
+
+                <div className="filter-sections-wrapper">
+                    <div className="filter-sections" ref={containerRef}>
+                        <div className="filter-section-groups">
+                            <div className="filter-sections-brand">
+                                <div className="filter-section">
+                                    <div className="section-label">Thương hiệu</div>
+                                    <div className="filter-options-wrapper">
+                                        <div className="brand-options-container">
+                                            <div className="filter-options">
+                                                {(brandExpanded ? brandsFull : brands).map((brand, index) => (
+                                                    <button
+                                                        key={index}
+                                                        className={`option-chip ${selectedBrands.includes(brand) ? 'selected' : ''}`}
+                                                        onClick={() => handleBrandSelect(brand)}
+                                                    >
+                                                        {brand}
+                                                    </button>
+                                                ))}
+                                            </div>
                                         </div>
+                                        <button ref={expandButtonRef} className="expand-button" onClick={handleBrandToggle}>
+                                            <div>
+                                                <img
+                                                    src="https://frontend.tikicdn.com/_desktop-next/static/img/catalog/arrow.svg"
+                                                    alt="arrow"
+                                                    className="arrow-icon-brand"
+                                                />
+                                            </div>
+                                        </button>
                                     </div>
-                                    <button ref={expandButtonRef} className="expand-button" onClick={handleBrandToggle}>
-                                        <div>
+                                </div>
+                            </div>
+
+                            <div className="vertical-divider"></div>
+
+                            <div className="filter-sections-supplier">
+                                <div className="filter-section">
+                                    <div className="section-label">Nhà cung cấp</div>
+                                    <div className="filter-options-wrapper">
+                                        <div className="supplier-options-container">
+                                            <div className="filter-options">
+                                                {(supplierExpanded ? suppliersFull : suppliers).map((supplier, index) => (
+                                                    <button
+                                                        key={index}
+                                                        className={`option-chip ${isSupplierSelected(supplier) ? 'selected' : ''}`}
+                                                        onClick={() => handleSupplierSelect(supplier)}
+                                                    >
+                                                        {supplier}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+                                        <div onClick={handleSupplierToggle} className="gradient-wrapper">
                                             <img
                                                 src="https://frontend.tikicdn.com/_desktop-next/static/img/catalog/arrow.svg"
                                                 alt="arrow"
-                                                className="arrow-icon-brand"
+                                                className={`arrow-icon-supplier ${supplierExpanded ? 'rotated' : ''}`}
                                             />
                                         </div>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="vertical-divider"></div>
-
-                        <div className="filter-sections-supplier">
-                            <div className="filter-section">
-                                <div className="section-label">Nhà cung cấp</div>
-                                <div className="filter-options-wrapper">
-                                    <div className="supplier-options-container">
-                                        <div className="filter-options">
-                                            {(supplierExpanded ? suppliersFull : suppliers).map((supplier, index) => (
-                                                <button
-                                                    key={index}
-                                                    className={`option-chip ${isSupplierSelected(supplier) ? 'selected' : ''}`}
-                                                    onClick={() => handleSupplierSelect(supplier)}
-                                                >
-                                                    {supplier}
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <div onClick={handleSupplierToggle} className="gradient-wrapper">
-                                        <img
-                                            src="https://frontend.tikicdn.com/_desktop-next/static/img/catalog/arrow.svg"
-                                            alt="arrow"
-                                            className={`arrow-icon-supplier ${supplierExpanded ? 'rotated' : ''}`}
-                                        />
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="section-header-divider"></div>
+                    <div className="section-header-divider"></div>
 
-                <div className="filter-header">
-                    <div
-                        onClick={() => { setIsModalOpen(true) }}
-                        className="filter-button">
-                        {(selectedBrands.length > 0 || selectedSuppliers.length > 0 ||
-                            fastDeliveryChecked || cheapPriceChecked ||
-                            freeShipChecked || fourStarsChecked) && (
-                                <div className="icon-click"></div>
-                            )}
-                        <img
-                            src="https://salt.tikicdn.com/ts/upload/3f/23/35/2d29fcaea0d10cbb85ce5b0d4cd20add.png"
-                            alt="filters"
-                            className="filter-icon"
-                        />
-                        <span>Tất cả</span>
-                    </div>
-                </div>
-            </div>
-
-            <div className="filter-options-row">
-                <label className="option">
-                    <span
-                        className="box"
-                        onClick={handleFastDeliveryChange}
-                    >
-                        <img
-                            className={`icon-check-on ${fastDeliveryChecked ? 'visible' : ''}`}
-                            src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
-                            alt="active-checkbox"
-                        />
-                        <img
-                            className={`icon-check-off ${!fastDeliveryChecked ? 'visible' : ''}`}
-                            src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
-                            alt="default-checkbox"
-                        />
-                        <img
-                            className="icon-check-hover"
-                            src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
-                            alt="hovered-checkbox"
-                        />
-                    </span>
-                    <div
-                        className="option-content"
-                        onClick={handleFastDeliveryChange}
-                    >
-                        <img
-                            src="https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png"
-                            alt="Giao siêu tốc 2H"
-                            className="now-tag"
-                        />
-                        <span className="option-text">Giao siêu tốc 2H</span>
-                    </div>
-                </label>
-
-                <label className="option">
-                    <span
-                        className="box"
-                        onClick={handleCheapPriceChange}
-                    >
-                        <img
-                            className={`icon-check-on ${cheapPriceChecked ? 'visible' : ''}`}
-                            src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
-                            alt="active-checkbox"
-                        />
-                        <img
-                            className={`icon-check-off ${!cheapPriceChecked ? 'visible' : ''}`}
-                            src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
-                            alt="default-checkbox"
-                        />
-                        <img
-                            className="icon-check-hover"
-                            src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
-                            alt="hovered-checkbox"
-                        />
-                    </span>
-                    <div
-                        className="option-content"
-                        onClick={handleCheapPriceChange}
-                    >
-                        <img
-                            src="https://salt.tikicdn.com/ts/upload/b5/aa/48/2305c5e08e536cfb840043df12818146.png"
-                            alt="Siêu rẻ"
-                            className="deal-tag"
-                        />
-                        <span className="option-text">Siêu rẻ</span>
-                    </div>
-                </label>
-
-                <label className="option">
-                    <span
-                        className="box"
-                        onClick={handleFreeShipChange}
-                    >
-                        <img
-                            className={`icon-check-on ${freeShipChecked ? 'visible' : ''}`}
-                            src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
-                            alt="active-checkbox"
-                        />
-                        <img
-                            className={`icon-check-off ${!freeShipChecked ? 'visible' : ''}`}
-                            src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
-                            alt="default-checkbox"
-                        />
-                        <img
-                            className="icon-check-hover"
-                            src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
-                            alt="hovered-checkbox"
-                        />
-                    </span>
-                    <div
-                        className="option-content"
-                        onClick={handleFreeShipChange}
-                    >
-                        <img
-                            src="https://salt.tikicdn.com/ts/upload/2f/20/77/0f96cfafdf7855d5e7fe076dd4f34ce0.png"
-                            alt="FREESHIP XTRA"
-                            className="freeship-tag"
-                        />
-                    </div>
-                </label>
-
-                <label className="option">
-                    <span
-                        className="box"
-                        onClick={handleFourStarsChange}
-                    >
-                        <img
-                            className={`icon-check-on ${fourStarsChecked ? 'visible' : ''}`}
-                            src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
-                            alt="active-checkbox"
-                        />
-                        <img
-                            className={`icon-check-off ${!fourStarsChecked ? 'visible' : ''}`}
-                            src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
-                            alt="default-checkbox"
-                        />
-                        <img
-                            className="icon-check-hover"
-                            src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
-                            alt="hovered-checkbox"
-                        />
-                    </span>
-                    <div
-                        className="option-content"
-                        onClick={handleFourStarsChange}
-                    >
-                        <div className="star-rating">
-                            {[...Array(4)].map((_, index) => (
-                                <svg key={index} width="14" height="14" viewBox="0 0 24 24" fill="#FFC400">
-                                    <path d="M12 17.8L5.8 21.2L7.3 14.3L2 9.6L9.2 8.7L12 2.5L14.8 8.7L22 9.6L16.7 14.3L18.2 21.2L12 17.8Z" />
-                                </svg>
-                            ))}
+                    <div className="filter-header">
+                        <div
+                            onClick={() => { setIsModalOpen(true) }}
+                            className="filter-button">
+                            {(selectedBrands.length > 0 || selectedSuppliers.length > 0 ||
+                                fastDeliveryChecked || cheapPriceChecked ||
+                                freeShipChecked || fourStarsChecked) && (
+                                    <div className="icon-click"></div>
+                                )}
+                            <img
+                                src="https://salt.tikicdn.com/ts/upload/3f/23/35/2d29fcaea0d10cbb85ce5b0d4cd20add.png"
+                                alt="filters"
+                                className="filter-icon"
+                            />
+                            <span>Tất cả</span>
                         </div>
-                        <span className="option-text">từ 4 sao</span>
                     </div>
-                </label>
-
-                <div className="sort">
-                    <span className="sort-label">Sắp xếp</span>
-                    <button ref={sortButtonRef} className="sort-button" onClick={toggleSortMenu}>
-                        <span>{selectedSort}</span>
-                        <img
-                            src="https://frontend.tikicdn.com/_desktop-next/static/img/catalog/arrow.svg"
-                            alt="arrow"
-                            className="arrow-icon-brand"
-                        />
-                    </button>
-                    {renderSortDropdown()}
                 </div>
+
+                <div className="filter-options-row">
+                    <label className="option">
+                        <span
+                            className="box"
+                            onClick={handleFastDeliveryChange}
+                        >
+                            <img
+                                className={`icon-check-on ${fastDeliveryChecked ? 'visible' : ''}`}
+                                src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
+                                alt="active-checkbox"
+                            />
+                            <img
+                                className={`icon-check-off ${!fastDeliveryChecked ? 'visible' : ''}`}
+                                src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
+                                alt="default-checkbox"
+                            />
+                            <img
+                                className="icon-check-hover"
+                                src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
+                                alt="hovered-checkbox"
+                            />
+                        </span>
+                        <div
+                            className="option-content"
+                            onClick={handleFastDeliveryChange}
+                        >
+                            <img
+                                src="https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png"
+                                alt="Giao siêu tốc 2H"
+                                className="now-tag"
+                            />
+                            <span className="option-text">Giao siêu tốc 2H</span>
+                        </div>
+                    </label>
+
+                    <label className="option">
+                        <span
+                            className="box"
+                            onClick={handleCheapPriceChange}
+                        >
+                            <img
+                                className={`icon-check-on ${cheapPriceChecked ? 'visible' : ''}`}
+                                src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
+                                alt="active-checkbox"
+                            />
+                            <img
+                                className={`icon-check-off ${!cheapPriceChecked ? 'visible' : ''}`}
+                                src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
+                                alt="default-checkbox"
+                            />
+                            <img
+                                className="icon-check-hover"
+                                src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
+                                alt="hovered-checkbox"
+                            />
+                        </span>
+                        <div
+                            className="option-content"
+                            onClick={handleCheapPriceChange}
+                        >
+                            <img
+                                src="https://salt.tikicdn.com/ts/upload/b5/aa/48/2305c5e08e536cfb840043df12818146.png"
+                                alt="Siêu rẻ"
+                                className="deal-tag"
+                            />
+                            <span className="option-text">Siêu rẻ</span>
+                        </div>
+                    </label>
+
+                    <label className="option">
+                        <span
+                            className="box"
+                            onClick={handleFreeShipChange}
+                        >
+                            <img
+                                className={`icon-check-on ${freeShipChecked ? 'visible' : ''}`}
+                                src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
+                                alt="active-checkbox"
+                            />
+                            <img
+                                className={`icon-check-off ${!freeShipChecked ? 'visible' : ''}`}
+                                src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
+                                alt="default-checkbox"
+                            />
+                            <img
+                                className="icon-check-hover"
+                                src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
+                                alt="hovered-checkbox"
+                            />
+                        </span>
+                        <div
+                            className="option-content"
+                            onClick={handleFreeShipChange}
+                        >
+                            <img
+                                src="https://salt.tikicdn.com/ts/upload/2f/20/77/0f96cfafdf7855d5e7fe076dd4f34ce0.png"
+                                alt="FREESHIP XTRA"
+                                className="freeship-tag"
+                            />
+                        </div>
+                    </label>
+
+                    <label className="option">
+                        <span
+                            className="box"
+                            onClick={handleFourStarsChange}
+                        >
+                            <img
+                                className={`icon-check-on ${fourStarsChecked ? 'visible' : ''}`}
+                                src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
+                                alt="active-checkbox"
+                            />
+                            <img
+                                className={`icon-check-off ${!fourStarsChecked ? 'visible' : ''}`}
+                                src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
+                                alt="default-checkbox"
+                            />
+                            <img
+                                className="icon-check-hover"
+                                src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
+                                alt="hovered-checkbox"
+                            />
+                        </span>
+                        <div
+                            className="option-content"
+                            onClick={handleFourStarsChange}
+                        >
+                            <div className="star-rating">
+                                {[...Array(4)].map((_, index) => (
+                                    <svg key={index} width="14" height="14" viewBox="0 0 24 24" fill="#FFC400">
+                                        <path d="M12 17.8L5.8 21.2L7.3 14.3L2 9.6L9.2 8.7L12 2.5L14.8 8.7L22 9.6L16.7 14.3L18.2 21.2L12 17.8Z" />
+                                    </svg>
+                                ))}
+                            </div>
+                            <span className="option-text">từ 4 sao</span>
+                        </div>
+                    </label>
+
+                    <div className="sort">
+                        <span className="sort-label">Sắp xếp</span>
+                        <button ref={sortButtonRef} className="sort-button" onClick={toggleSortMenu}>
+                            <span>{selectedSort}</span>
+                            <img
+                                src="https://frontend.tikicdn.com/_desktop-next/static/img/catalog/arrow.svg"
+                                alt="arrow"
+                                className="arrow-icon-brand"
+                            />
+                        </button>
+                        {renderSortDropdown()}
+                    </div>
+                </div>
+
+                {brandExpanded && renderBrandModal()}
+                {followSupplier && renderSupplierModal()}
+
+                <FilterProduct
+                    isModalOpen={isModalOpen}
+                    setIsModalOpen={setIsModalOpen}
+                    queryFiler={queryFiler}
+                    setQueryFilter={setQueryFilter}
+                    listBrand={listBrand}
+                    listSupplier={listSupplier}
+                    pageSize={pageSize}
+                    setListBook={setListBook}
+                    setTotal={setTotal}
+                    listFullCategory={listFullCategory}
+                    selectedBrands={selectedBrands}
+                    selectedSuppliers={selectedSuppliers}
+                    // Add callbacks to update state when the modal filter is applied
+                    setParentSelectedBrands={setSelectedBrands}
+                    setParentSelectedSuppliers={setSelectedSuppliers}
+                    setParentTempSelectedBrands={setTempSelectedBrands}
+                    setParentTempSelectedSuppliers={setTempSelectedSuppliers}
+                />
             </div>
-
-            {brandExpanded && renderBrandModal()}
-            {followSupplier && renderSupplierModal()}
-
-            <FilterProduct
-                isModalOpen={isModalOpen}
-                setIsModalOpen={setIsModalOpen}
-                queryFiler={queryFiler}
-                setQueryFilter={setQueryFilter}
-                listBrand={listBrand}
-                listSupplier={listSupplier}
-                pageSize={pageSize}
-                setListBook={setListBook}
-                setTotal={setTotal}
-                listFullCategory={listFullCategory}
-                selectedBrands={selectedBrands}
-                selectedSuppliers={selectedSuppliers}
-                // Add callbacks to update state when the modal filter is applied
-                setParentSelectedBrands={setSelectedBrands}
-                setParentSelectedSuppliers={setSelectedSuppliers}
-                setParentTempSelectedBrands={setTempSelectedBrands}
-                setParentTempSelectedSuppliers={setTempSelectedSuppliers}
-            />
         </div>
     );
 };
