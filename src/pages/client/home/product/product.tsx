@@ -94,6 +94,9 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
         const currentPageSize = requestPageSize || contextPageSize || 10;
         console.log(`Fetching with pageSize: ${currentPageSize}, Previous pageSize: ${pageSizeRef.current}`);
 
+        // Track if we should show notification (only show ONCE)
+        let shouldShowNoMoreItemsMessage = false;
+
         // Build query params using context variables
         let query = new URLSearchParams();
 
@@ -198,10 +201,10 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
                     setItemIds(newItemIds);
                     setLocalListBook(existingItems);
 
-                    // If we didn't add any new items, show message and hide button
+                    // If we didn't add any new items, hide button and flag to show notification
                     if (newItemsCount === 0) {
                         console.log("No new items found, hiding 'View More' button");
-                        message.info('Không còn sản phẩm để hiển thị');
+                        shouldShowNoMoreItemsMessage = true;
                         setHasMoreItems(false);
                     }
                 } else {
@@ -221,9 +224,10 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
                     if (items.length < currentPageSize) {
                         console.log("Received fewer items than requested pageSize, no more to load");
                         setHasMoreItems(false);
-                        // Also show notification when hiding button on initial load
+
+                        // Only show message if this isn't the initial page load
                         if (currentPageSize > 10) {
-                            message.info('Không còn sản phẩm để hiển thị');
+                            shouldShowNoMoreItemsMessage = true;
                         }
                     }
                 }
@@ -236,22 +240,21 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
                     setTotal(res.data.meta.totalItems);
 
                     // Additional check: if we've loaded all items based on total, hide button
-                    if (responseItemIds.size >= res.data.meta.totalItems) {
+                    if (responseItemIds.size >= res.data.meta.totalItems && items.length > 0) {
                         console.log("All items loaded based on totalItems");
                         setHasMoreItems(false);
-                        // Also show notification when total items are loaded
-                        if (currentPageSize > 10) {
-                            message.info('Không còn sản phẩm để hiển thị');
+
+                        // Only show message if this isn't the initial page load and we're loading more
+                        if (currentPageSize > 10 && requestedMoreItems) {
+                            shouldShowNoMoreItemsMessage = true;
                         }
                     }
                 }
+            }
 
-                // Extra check: if received items are the same as before and we requested more
-                if (requestedMoreItems && items.length === prevItemCount && prevItemCount > 0) {
-                    console.log("Same number of items returned, likely no more to load");
-                    message.info('Không còn sản phẩm để hiển thị');
-                    setHasMoreItems(false);
-                }
+            // Show the notification ONCE outside all the conditional checks
+            if (shouldShowNoMoreItemsMessage) {
+                message.info('Không còn sản phẩm để hiển thị');
             }
         } catch (error) {
             console.error("Error fetching books:", error);
