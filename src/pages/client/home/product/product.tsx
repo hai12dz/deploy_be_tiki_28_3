@@ -1,6 +1,6 @@
 import { getBooksAPI } from "@/services/api";
 import { ReloadOutlined, StarFilled } from "@ant-design/icons";
-import { Button, Rate, Row, Col, Tag, Divider } from "antd";
+import { Button, Rate, Row, Col, Tag, Divider, message } from "antd"; // Add message from antd
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import 'styles/product.scss';
@@ -39,12 +39,12 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
     const [sortQuery, setSortQuery] = useState<string>("sort=-sold");
     const [showMobileFilter, setShowMobileFilter] = useState<boolean>(false);
     const [nameCategory, setNameCategory] = useState<{ [key: string]: string[] }>({});
-    const [listBrand, setListBrand] = useState<IBrands[]>([])
-    const [listSupplier, setListSupplier] = useState<ISupplier[]>([])
+    const [listBrand, setListBrand] = useState<IBrands[]>([]);
+    const [listSupplier, setListSupplier] = useState<ISupplier[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [queryFiler, setQueryFilter] = useState<string>("")
-    const [category, setCategory] = useState<string>("")
-    const [listFullCategory, setListFullCategory] = useState<ICategory[]>([])
+    const [queryFiler, setQueryFilter] = useState<string>("");
+    const [category, setCategory] = useState<string>("");
+    const [listFullCategory, setListFullCategory] = useState<ICategory[]>([]);
 
     // Change these from string to arrays
     const [brand, setBrand] = useState<string[]>([]);
@@ -55,6 +55,9 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
     const [cheapPrice, setCheapPrice] = useState(false);
     const [fastDelivery, setFastDelivery] = useState(false);
     const [minRating, setMinRating] = useState(0);
+
+    const [previousItemCount, setPreviousItemCount] = useState<number>(0);
+    const [hasMoreItems, setHasMoreItems] = useState<boolean>(true);
 
     // Use prop books if available, otherwise use local state
     const listBook = propListBook || localListBook;
@@ -85,12 +88,9 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
             query.append('filter', filter);
         }
 
-        // Sort parameter (previously sortQuery)
-        if (sortQuery) {
-            // Extract actual sort value from sortQuery (e.g., "sort=-sold" → "-sold")
-            const sortValue = sortQuery.replace('sort=', '');
-            query.append('sort', sortValue);
-        }
+        // Use consistent sort parameter based on selectedSort
+        const sortCode = getSortCode('Phổ biến');
+        query.append('sort', sortCode);
 
         // Brand filter - using the array of brand IDs/names
         if (brand && brand.length > 0) {
@@ -125,6 +125,9 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
         console.log("Fetching with query:", queryString);
 
         try {
+            // Save the current count before fetching
+            setPreviousItemCount(localListBook.length);
+
             const res = await getBooksAPI(queryString);
             if (res && res.data) {
                 // Get the new items from the API
@@ -138,11 +141,20 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
                         const uniqueItems = Array.from(
                             new Map(allItems.map(item => [item.id, item])).values()
                         );
+
+                        // Check if we got any new items
+                        if (uniqueItems.length === prevItems.length) {
+                            message.info('Không còn sản phẩm để hiển thị');
+                            setHasMoreItems(false);
+                        }
+
                         return uniqueItems;
                     });
                 } else {
                     // Initial load - just set the items
                     setLocalListBook(items);
+                    // Reset the hasMoreItems flag on initial load
+                    setHasMoreItems(true);
                 }
 
                 // Set total from meta or use a placeholder value if not available
@@ -156,6 +168,24 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
             console.error("Error fetching books:", error);
         } finally {
             setIsLoading(false);
+        }
+    };
+
+    // Helper function to get consistent sort code
+    const getSortCode = (sortText: string): string => {
+        switch (sortText) {
+            case 'Phổ biến':
+                return 'popular';
+            case 'Bán chạy':
+                return 'bestselling';
+            case 'Hàng mới':
+                return 'newest';
+            case 'Giá thấp đến cao':
+                return 'price-asc';
+            case 'Giá cao đến thấp':
+                return 'price-desc';
+            default:
+                return 'popular'; // Default to popular
         }
     };
 
@@ -342,8 +372,8 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
                         Debug: Current Items: {filteredBooks?.length || 0}, Total Items: {total || 0}
                     </div>
 
-                    {/* Show View More button regardless of total, as long as we have items */}
-                    {filteredBooks?.length > 0 && (
+                    {/* Show View More button only if we have items and hasMoreItems is true */}
+                    {filteredBooks?.length > 0 && hasMoreItems && (
                         <div className="view-more-container">
                             <div
                                 data-view-id="category_infinity_view.more"
