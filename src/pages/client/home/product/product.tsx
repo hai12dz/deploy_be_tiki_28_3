@@ -155,7 +155,6 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
             message.destroy();
 
             // IMPORTANT: Store the current item IDs before fetching
-            // But only consider it if we've already initialized
             const isInitialized = initializedRef.current;
             const prevItemIds = new Set([...itemIds]);
             const prevItemCount = prevItemIds.size;
@@ -222,6 +221,10 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
                     if (items.length < currentPageSize) {
                         console.log("Received fewer items than requested pageSize, no more to load");
                         setHasMoreItems(false);
+                        // Also show notification when hiding button on initial load
+                        if (currentPageSize > 10) {
+                            message.info('Không còn sản phẩm để hiển thị');
+                        }
                     }
                 }
 
@@ -236,7 +239,18 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
                     if (responseItemIds.size >= res.data.meta.totalItems) {
                         console.log("All items loaded based on totalItems");
                         setHasMoreItems(false);
+                        // Also show notification when total items are loaded
+                        if (currentPageSize > 10) {
+                            message.info('Không còn sản phẩm để hiển thị');
+                        }
                     }
+                }
+
+                // Extra check: if received items are the same as before and we requested more
+                if (requestedMoreItems && items.length === prevItemCount && prevItemCount > 0) {
+                    console.log("Same number of items returned, likely no more to load");
+                    message.info('Không còn sản phẩm để hiển thị');
+                    setHasMoreItems(false);
                 }
             }
         } catch (error) {
