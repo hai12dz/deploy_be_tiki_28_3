@@ -600,9 +600,11 @@ const ProductFilter: React.FC<ProductFilterProps> = ({ onListBookChange }) => {
                     <div
                         onClick={() => { setIsModalOpen(true) }}
                         className="filter-button">
-                        {(selectedBrands.length > 0 || selectedSuppliers.length > 0) && (
-                            <div className="icon-click"></div>
-                        )}
+                        {(selectedBrands.length > 0 || selectedSuppliers.length > 0 ||
+                            fastDeliveryChecked || cheapPriceChecked ||
+                            freeShipChecked || fourStarsChecked) && (
+                                <div className="icon-click"></div>
+                            )}
                         <img
                             src="https://salt.tikicdn.com/ts/upload/3f/23/35/2d29fcaea0d10cbb85ce5b0d4cd20add.png"
                             alt="filters"
