@@ -38,6 +38,11 @@ const ProductFilter: React.FC = () => {
     const [freeShipChecked, setFreeShipChecked] = useState(false);
     const [fourStarsChecked, setFourStarsChecked] = useState(false);
 
+    const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+    const [selectedSuppliers, setSelectedSuppliers] = useState<string[]>([]);
+    const [tempSelectedBrands, setTempSelectedBrands] = useState<string[]>([]);
+    const [tempSelectedSuppliers, setTempSelectedSuppliers] = useState<string[]>([]);
+
     useEffect(() => {
         fetchBrand();
         fetchSupplier();
@@ -109,9 +114,6 @@ const ProductFilter: React.FC = () => {
         "Nhà sách Hà Nội Books", "NewShop Official", "Sống Official", "Phương Đông Books", "Sống Official", "Sống Official", "Sống Official", "Sống Official", "Sống Official", "Sống Official", "Sống Official", "Sống Official", "Sống Official"
     ];
 
-    const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
-    const [selectedSuppliers, setSelectedSuppliers] = useState<string[]>([]);
-
     const isSupplierSelected = (supplier: string) => {
         if (supplier.endsWith('...')) {
             const baseText = supplier.slice(0, -3);
@@ -121,19 +123,24 @@ const ProductFilter: React.FC = () => {
     };
 
     const handleBrandToggle = () => {
+        if (!brandExpanded) {
+            setTempSelectedBrands([...selectedBrands]);
+        }
         setBrandExpanded(prev => !prev);
     };
 
     const handleBrandSelect = (brand: string) => {
-        setSelectedBrands(prev =>
-            prev.includes(brand)
-                ? prev.filter(b => b !== brand)
-                : [...prev, brand]
-        );
+        if (!brandExpanded) {
+            setSelectedBrands(prev =>
+                prev.includes(brand)
+                    ? prev.filter(b => b !== brand)
+                    : [...prev, brand]
+            );
+        }
     };
 
     const handleResetBrands = () => {
-        setSelectedBrands([]);
+        setTempSelectedBrands([]);
     };
 
     const handleSupplierToggle = () => {
@@ -141,11 +148,13 @@ const ProductFilter: React.FC = () => {
 
         if (!supplierExpanded) {
             setSupplierExpanded(true);
+            setTempSelectedSuppliers([...selectedSuppliers]);
             return;
         }
 
         if (supplierExpanded && !followSupplier) {
             setFollowSupplier(true);
+            setTempSelectedSuppliers([...selectedSuppliers]);
             return;
         }
 
@@ -156,19 +165,21 @@ const ProductFilter: React.FC = () => {
     };
 
     const handleSupplierSelect = (supplier: string) => {
-        const actualSupplier = supplier.endsWith('...')
-            ? allSuppliers.find(s => s.startsWith(supplier.slice(0, -3))) || supplier
-            : supplier;
+        if (!supplierExpanded) {
+            const actualSupplier = supplier.endsWith('...')
+                ? allSuppliers.find(s => s.startsWith(supplier.slice(0, -3))) || supplier
+                : supplier;
 
-        setSelectedSuppliers(prev =>
-            prev.includes(actualSupplier)
-                ? prev.filter(s => s !== actualSupplier)
-                : [...prev, actualSupplier]
-        );
+            setSelectedSuppliers(prev =>
+                prev.includes(actualSupplier)
+                    ? prev.filter(s => s !== actualSupplier)
+                    : [...prev, actualSupplier]
+            );
+        }
     };
 
     const handleResetSuppliers = () => {
-        setSelectedSuppliers([]);
+        setTempSelectedSuppliers([]);
     };
 
     const handleClickOutside = (event: MouseEvent) => {
@@ -216,8 +227,14 @@ const ProductFilter: React.FC = () => {
                         {allBrands.map((brand, index) => (
                             <button
                                 key={index}
-                                className={`brand-selection-chip ${selectedBrands.includes(brand) ? 'selected' : ''}`}
-                                onClick={() => handleBrandSelect(brand)}
+                                className={`brand-selection-chip ${tempSelectedBrands.includes(brand) ? 'selected' : ''}`}
+                                onClick={() => {
+                                    setTempSelectedBrands(prev =>
+                                        prev.includes(brand)
+                                            ? prev.filter(b => b !== brand)
+                                            : [...prev, brand]
+                                    );
+                                }}
                             >
                                 {brand}
                             </button>
@@ -227,7 +244,10 @@ const ProductFilter: React.FC = () => {
                         <button className="reset-button" onClick={handleResetBrands}>
                             Xóa lọc
                         </button>
-                        <button className="apply-button" onClick={handleBrandToggle}>
+                        <button className="apply-button" onClick={() => {
+                            setSelectedBrands(tempSelectedBrands);
+                            handleBrandToggle();
+                        }}>
                             Xem kết quả
                         </button>
                     </div>
@@ -258,8 +278,14 @@ const ProductFilter: React.FC = () => {
                         {allSuppliers.map((supplier, index) => (
                             <button
                                 key={index}
-                                className={`supplier-selection-chip ${selectedSuppliers.includes(supplier) ? 'selected' : ''}`}
-                                onClick={() => handleSupplierSelect(supplier)}
+                                className={`supplier-selection-chip ${tempSelectedSuppliers.includes(supplier) ? 'selected' : ''}`}
+                                onClick={() => {
+                                    setTempSelectedSuppliers(prev =>
+                                        prev.includes(supplier)
+                                            ? prev.filter(s => s !== supplier)
+                                            : [...prev, supplier]
+                                    );
+                                }}
                             >
                                 {supplier}
                             </button>
@@ -269,7 +295,10 @@ const ProductFilter: React.FC = () => {
                         <button className="reset-button" onClick={handleResetSuppliers}>
                             Xóa lọc
                         </button>
-                        <button className="apply-button" onClick={handleSupplierToggle}>
+                        <button className="apply-button" onClick={() => {
+                            setSelectedSuppliers(tempSelectedSuppliers);
+                            handleSupplierToggle();
+                        }}>
                             Xem kết quả
                         </button>
                     </div>
