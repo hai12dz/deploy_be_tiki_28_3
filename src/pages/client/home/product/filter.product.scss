@@ -290,8 +290,8 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
             white-space: nowrap !important;
             overflow: hidden !important;
             text-overflow: ellipsis !important;
-            max-width: 212px !important;
-            /* Make narrower to ensure overflow */
+            max-width: 215px !important;
+            /* Adjusted to ensure proper truncation */
 
             padding: 4px 12px !important;
             font-size: 14px !important;

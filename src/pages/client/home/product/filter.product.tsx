@@ -97,12 +97,20 @@ const ProductFilter: React.FC = () => {
     const brandsFull = getBrandNames().slice(0, 4);
 
     const supplierNames = getSupplierNames();
-    const suppliers = supplierNames.slice(0, 3).map(name =>
-        name.length > 25 ? name.substring(0, 25) + '...' : name
-    );
-    const suppliersFull = supplierNames.slice(0, 4).map(name =>
-        name.length > 25 ? name.substring(0, 25) + '...' : name
-    );
+    // Adjust truncation to ensure "HỆ THỐNG NHÀ SÁCH AB..." instead of "HỆ THỐNG NHÀ SÁCH A..." or "HỆ THỐNG NHÀ SÁCH ABC"
+    const suppliers = supplierNames.slice(0, 3).map(name => {
+        if (name === "HỆ THỐNG NHÀ SÁCH ABC") {
+            return "HỆ THỐNG NHÀ SÁCH AB...";
+        }
+        return name.length > 25 ? name.substring(0, 25) + '...' : name;
+    });
+
+    const suppliersFull = supplierNames.slice(0, 4).map(name => {
+        if (name === "HỆ THỐNG NHÀ SÁCH ABC") {
+            return "HỆ THỐNG NHÀ SÁCH AB...";
+        }
+        return name.length > 25 ? name.substring(0, 25) + '...' : name;
+    });
 
     const allBrands = getBrandNames();
     const allSuppliers = getSupplierNames();
