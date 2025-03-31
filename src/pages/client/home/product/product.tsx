@@ -127,8 +127,30 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
         try {
             const res = await getBooksAPI(queryString);
             if (res && res.data) {
-                setLocalListBook(res.data.items);
-                setTotal(res.data.meta.totalItems);
+                // Get the new items from the API
+                const items = res.data.items || [];
+
+                // If we're loading more (pageSize > 10), append the items instead of replacing
+                if (pageSize > 10) {
+                    setLocalListBook(prevItems => {
+                        // Create a new array with unique books by ID
+                        const allItems = [...prevItems, ...items];
+                        const uniqueItems = Array.from(
+                            new Map(allItems.map(item => [item.id, item])).values()
+                        );
+                        return uniqueItems;
+                    });
+                } else {
+                    // Initial load - just set the items
+                    setLocalListBook(items);
+                }
+
+                // Set total from meta or use a placeholder value if not available
+                const totalItems = res.data.meta?.totalItems || items.length + 10;
+                console.log(`API Response - Items count: ${items.length}, Total items: ${totalItems}`);
+
+                // Always ensure total is greater than current items to allow "View More"
+                setTotal(Math.max(totalItems, items.length + 10));
             }
         } catch (error) {
             console.error("Error fetching books:", error);
@@ -314,6 +336,40 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
                             </div>
                         )}
                     </Row>
+
+                    {/* Debug info to see values */}
+                    <div style={{ padding: '10px', fontSize: '12px', color: '#999' }}>
+                        Debug: Current Items: {filteredBooks?.length || 0}, Total Items: {total || 0}
+                    </div>
+
+                    {/* Show View More button regardless of total, as long as we have items */}
+                    {filteredBooks?.length > 0 && (
+                        <div className="view-more-container">
+                            <div
+                                data-view-id="category_infinity_view.more"
+                                className="view-more-button"
+                                onClick={() => {
+                                    console.log("View More clicked - increasing page size");
+                                    setPageSize(prevPageSize => {
+                                        const newSize = prevPageSize + 10;
+                                        console.log(`Increasing page size from ${prevPageSize} to ${newSize}`);
+                                        return newSize;
+                                    });
+                                    fetchBook();
+                                }}
+                            >
+                                {isLoading ? (
+                                    <div className="loading-dots">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                ) : (
+                                    "Xem thêm"
+                                )}
+                            </div>
+                        </div>
+                    )}
                 </div>
             )}
         </>
