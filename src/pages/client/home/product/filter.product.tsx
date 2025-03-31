@@ -51,29 +51,101 @@ const ProductFilter: React.FC = () => {
 
     useEffect(() => {
         fetchBook();
-    }, [current, pageSize, filter, sortQuery]);
+    }, [
+        current,
+        pageSize,
+        filter,
+        selectedSort,
+        fastDeliveryChecked,
+        cheapPriceChecked,
+        freeShipChecked,
+        fourStarsChecked,
+        selectedBrands,
+        selectedSuppliers,
+        searchTerm
+    ]);
 
     const fetchBook = async () => {
-        setIsLoading(true)
+        setIsLoading(true);
+
+        // Build the query string with all filter parameters
         let query = `current=${current}&pageSize=${pageSize}`;
+
+        // Add sort parameter based on selectedSort
+        if (selectedSort) {
+            // Chuyển đổi text hiển thị thành mã sort trước khi gửi đi
+            const sortCode = getSortCode(selectedSort);
+            query += `&sort=${sortCode}`;
+        }
+
+        // Add filter parameter if it exists
         if (filter) {
             query += `&${filter}`;
         }
-        if (sortQuery) {
-            query += `&${sortQuery}`;
-        }
 
+        // Add search term if available
         if (searchTerm) {
-            query += `&mainText=/${searchTerm}/i`;
+            query += `&mainText=${encodeURIComponent(searchTerm)}`;
         }
 
-        const res = await getBooksAPI(query);
-        if (res && res.data) {
-            setListBook(res.data.items);
-            setTotal(res.data.meta.totalItems)
+        // Add selected brands as a filter parameter
+        if (selectedBrands && selectedBrands.length > 0) {
+            query += `&brands=${selectedBrands.join(',')}`;
         }
-        setIsLoading(false)
-    }
+
+        // Add selected suppliers as a filter parameter
+        if (selectedSuppliers && selectedSuppliers.length > 0) {
+            query += `&suppliers=${selectedSuppliers.join(',')}`;
+        }
+
+        // Add checkbox filters
+        if (fourStarsChecked) {
+            query += `&minRating=4`;
+        }
+
+        if (freeShipChecked) {
+            query += `&freeShipping=true`;
+        }
+
+        if (cheapPriceChecked) {
+            query += `&cheapPrice=true`;
+        }
+
+        if (fastDeliveryChecked) {
+            query += `&fastDelivery=true`;
+        }
+
+        try {
+            const res = await getBooksAPI(query);
+            if (res && res.data) {
+                setListBook(res.data.items);
+                setTotal(res.data.meta.totalItems);
+            }
+        } catch (error) {
+            console.error("Error fetching books:", error);
+            // Xử lý lỗi ở đây (hiển thị thông báo, v.v.)
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    // Hàm chuyển đổi từ text hiển thị sang mã sort
+    const getSortCode = (sortText: string) => {
+        switch (sortText) {
+            case 'Phổ biến':
+                return 'popular';
+            case 'Bán chạy':
+                return 'bestselling';
+            case 'Hàng mới':
+                return 'newest';
+            case 'Giá thấp đến cao':
+                return 'price-asc';
+            case 'Giá cao đến thấp':
+                return 'price-desc';
+            default:
+                return encodeURIComponent(sortText); // Mã hóa giá trị nếu không khớp với các case
+        }
+    };
 
     const fetchBrand = async () => {
         const res = await getBrandsAPI();
@@ -412,6 +484,22 @@ const ProductFilter: React.FC = () => {
         );
     };
 
+    const handleFastDeliveryChange = () => {
+        setFastDeliveryChecked(!fastDeliveryChecked);
+    };
+
+    const handleCheapPriceChange = () => {
+        setCheapPriceChecked(!cheapPriceChecked);
+    };
+
+    const handleFreeShipChange = () => {
+        setFreeShipChecked(!freeShipChecked);
+    };
+
+    const handleFourStarsChange = () => {
+        setFourStarsChecked(!fourStarsChecked);
+    };
+
     return (
         <div className="product-filter-container">
             {showLeftArrow && (
@@ -518,7 +606,7 @@ const ProductFilter: React.FC = () => {
                 <label className="option">
                     <span
                         className="box"
-                        onClick={() => setFastDeliveryChecked(!fastDeliveryChecked)}
+                        onClick={handleFastDeliveryChange}
                     >
                         <img
                             className={`icon-check-on ${fastDeliveryChecked ? 'visible' : ''}`}
@@ -538,7 +626,7 @@ const ProductFilter: React.FC = () => {
                     </span>
                     <div
                         className="option-content"
-                        onClick={() => setFastDeliveryChecked(!fastDeliveryChecked)}
+                        onClick={handleFastDeliveryChange}
                     >
                         <img
                             src="https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png"
@@ -552,7 +640,7 @@ const ProductFilter: React.FC = () => {
                 <label className="option">
                     <span
                         className="box"
-                        onClick={() => setCheapPriceChecked(!cheapPriceChecked)}
+                        onClick={handleCheapPriceChange}
                     >
                         <img
                             className={`icon-check-on ${cheapPriceChecked ? 'visible' : ''}`}
@@ -572,7 +660,7 @@ const ProductFilter: React.FC = () => {
                     </span>
                     <div
                         className="option-content"
-                        onClick={() => setCheapPriceChecked(!cheapPriceChecked)}
+                        onClick={handleCheapPriceChange}
                     >
                         <img
                             src="https://salt.tikicdn.com/ts/upload/b5/aa/48/2305c5e08e536cfb840043df12818146.png"
@@ -586,7 +674,7 @@ const ProductFilter: React.FC = () => {
                 <label className="option">
                     <span
                         className="box"
-                        onClick={() => setFreeShipChecked(!freeShipChecked)}
+                        onClick={handleFreeShipChange}
                     >
                         <img
                             className={`icon-check-on ${freeShipChecked ? 'visible' : ''}`}
@@ -606,7 +694,7 @@ const ProductFilter: React.FC = () => {
                     </span>
                     <div
                         className="option-content"
-                        onClick={() => setFreeShipChecked(!freeShipChecked)}
+                        onClick={handleFreeShipChange}
                     >
                         <img
                             src="https://salt.tikicdn.com/ts/upload/2f/20/77/0f96cfafdf7855d5e7fe076dd4f34ce0.png"
@@ -619,7 +707,7 @@ const ProductFilter: React.FC = () => {
                 <label className="option">
                     <span
                         className="box"
-                        onClick={() => setFourStarsChecked(!fourStarsChecked)}
+                        onClick={handleFourStarsChange}
                     >
                         <img
                             className={`icon-check-on ${fourStarsChecked ? 'visible' : ''}`}
@@ -639,7 +727,7 @@ const ProductFilter: React.FC = () => {
                     </span>
                     <div
                         className="option-content"
-                        onClick={() => setFourStarsChecked(!fourStarsChecked)}
+                        onClick={handleFourStarsChange}
                     >
                         <div className="star-rating">
                             {[...Array(4)].map((_, index) => (

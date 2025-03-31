@@ -42,35 +42,105 @@ const Product = () => {
     const [brand, setBrand] = useState<string[]>([]);
     const [supplier, setSupplier] = useState<string[]>([]);
 
+    // Add state for filters
+    const [freeShipping, setFreeShipping] = useState(false);
+    const [cheapPrice, setCheapPrice] = useState(false);
+    const [fastDelivery, setFastDelivery] = useState(false);
+    const [minRating, setMinRating] = useState(0);
+
     const filteredBooks = useMemo(() => {
         return listBook.filter((book) =>
             book.mainText.toLowerCase().includes(searchTerm.toLowerCase())
         );
     }, [searchTerm, listBook]);
+
     const fetchBook = async () => {
-        setIsLoading(true)
-        let query = `current=${current}&pageSize=${pageSize}`;
-        if (filter) {
-            query += `&${filter}`;
-        }
-        if (sortQuery) {
-            query += `&${sortQuery}`;
-        }
+        setIsLoading(true);
 
+        // Build query params to match the backend API structure
+        let query = new URLSearchParams();
+
+        // Base pagination params
+        query.append('current', current.toString());
+        query.append('pageSize', pageSize.toString());
+
+        // Search by text
         if (searchTerm) {
-            query += `&mainText=/${searchTerm}/i`;
+            query.append('mainText', searchTerm);
         }
 
-        const res = await getBooksAPI(query);
-        if (res && res.data) {
-            setListBook(res.data.items);
-            setTotal(res.data.meta.totalItems)
+        // Category filter
+        if (filter) {
+            query.append('filter', filter);
         }
-        setIsLoading(false)
-    }
+
+        // Sort parameter (previously sortQuery)
+        if (sortQuery) {
+            // Extract actual sort value from sortQuery (e.g., "sort=-sold" → "-sold")
+            const sortValue = sortQuery.replace('sort=', '');
+            query.append('sort', sortValue);
+        }
+
+        // Brand filter - using the array of brand IDs/names
+        if (brand && brand.length > 0) {
+            query.append('brands', brand.join(','));
+        }
+
+        // Supplier filter - using the array of supplier IDs/names
+        if (supplier && supplier.length > 0) {
+            query.append('suppliers', supplier.join(','));
+        }
+
+        // Rating filter
+        if (minRating > 0) {
+            query.append('minRating', minRating.toString());
+        }
+
+        // Shipping and price filters from state variables
+        if (freeShipping) {
+            query.append('freeShipping', 'true');
+        }
+
+        if (cheapPrice) {
+            query.append('cheapPrice', 'true');
+        }
+
+        if (fastDelivery) {
+            query.append('fastDelivery', 'true');
+        }
+
+        // Convert URLSearchParams to string
+        const queryString = query.toString();
+        console.log("Fetching with query:", queryString);
+
+        try {
+            const res = await getBooksAPI(queryString);
+            if (res && res.data) {
+                setListBook(res.data.items);
+                setTotal(res.data.meta.totalItems);
+            }
+        } catch (error) {
+            console.error("Error fetching books:", error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     useEffect(() => {
         fetchBook();
-    }, [current, pageSize, filter, sortQuery]);
+    }, [
+        current,
+        pageSize,
+        filter,
+        sortQuery,
+        searchTerm,
+        brand, // Brand changes trigger API call
+        supplier, // Supplier changes trigger API call
+        freeShipping, // Checkbox states trigger API call
+        cheapPrice,
+        fastDelivery,
+        minRating
+    ]);
 
 
     const addViewedProduct = (productId: string) => {
