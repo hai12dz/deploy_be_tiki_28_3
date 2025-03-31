@@ -557,23 +557,18 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
             )}
 
             <div className={`filter-content ${isLoading ? 'filter-content-loading' : ''}`}>
-                {showLeftArrow && (
-                    <div
-                        onClick={handleLeftArrowClick}
-                        className="left-arrow-button arrow-icon-wrapper"
-                        style={{ zIndex: 1000 }}
-                    >
-                        <div className="isolated-img-container">
+                <div className="filter-sections-wrapper">
+                    {showLeftArrow && (
+                        <div className="left-arrow-button">
                             <img
+                                onClick={handleLeftArrowClick}
                                 src="https://frontend.tikicdn.com/_desktop-next/static/img/catalog/arrow.svg"
                                 alt="arrow"
                                 className="left-arrow-icon"
                             />
                         </div>
-                    </div>
-                )}
+                    )}
 
-                <div className="filter-sections-wrapper">
                     <div className="filter-sections" ref={containerRef}>
                         <div className="filter-section-groups">
                             <div className="filter-sections-brand">

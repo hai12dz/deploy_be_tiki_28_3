@@ -17,17 +17,14 @@ interface IProps {
     listFullCategory: ICategory[];
     selectedBrands?: string[];
     selectedSuppliers?: string[];
-    // Add new callbacks to update parent component's state
     setParentSelectedBrands?: React.Dispatch<React.SetStateAction<string[]>>;
     setParentSelectedSuppliers?: React.Dispatch<React.SetStateAction<string[]>>;
     setParentTempSelectedBrands?: React.Dispatch<React.SetStateAction<string[]>>;
     setParentTempSelectedSuppliers?: React.Dispatch<React.SetStateAction<string[]>>;
-    // Add checkbox states from parent
     fastDeliveryChecked?: boolean;
     cheapPriceChecked?: boolean;
     freeShipChecked?: boolean;
     fourStarsChecked?: boolean;
-    // Add callbacks for checkbox states
     setFastDeliveryChecked?: React.Dispatch<React.SetStateAction<boolean>>;
     setCheapPriceChecked?: React.Dispatch<React.SetStateAction<boolean>>;
     setFreeShipChecked?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -47,7 +44,6 @@ const FilterProduct: React.FC<IProps> = ({
     listFullCategory,
     selectedBrands: initialSelectedBrands = [],
     selectedSuppliers: initialSelectedSuppliers = [],
-    // Add the new props
     fastDeliveryChecked = false,
     cheapPriceChecked = false,
     freeShipChecked = false,
@@ -69,22 +65,19 @@ const FilterProduct: React.FC<IProps> = ({
     const [selectedSuppliers, setSelectedSuppliers] = useState<string[]>([]);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
     const [category, setCategory] = useState<string>('');
-    const [selectedServices, setSelectedServices] = useState<string[]>([]); // State for "Dịch vụ"
-    const [selectedPromotions, setSelectedPromotions] = useState<string[]>([]); // State for "Ưu đãi"
-    const [selectedRatings, setSelectedRatings] = useState<string[]>([]); // State for "Đánh giá"
+    const [selectedServices, setSelectedServices] = useState<string[]>([]);
+    const [selectedPromotions, setSelectedPromotions] = useState<string[]>([]);
+    const [selectedRatings, setSelectedRatings] = useState<string[]>([]);
 
     const [form] = Form.useForm();
 
-    // Initialize selected brands and suppliers when the modal opens or when props change
     useEffect(() => {
         if (isModalOpen) {
             setSelectedBrands(initialSelectedBrands);
             setBrand(initialSelectedBrands.join(','));
 
-            // Handle supplier names that might end with '...'
             const resolvedSuppliers = initialSelectedSuppliers.map(supplier => {
                 if (supplier.endsWith('...')) {
-                    // Find the full supplier name if it exists
                     const fullSupplier = listSupplier.find(s =>
                         s.name.startsWith(supplier.slice(0, -3))
                     )?.name;
@@ -96,66 +89,50 @@ const FilterProduct: React.FC<IProps> = ({
             setSelectedSuppliers(resolvedSuppliers);
             setSupplier(resolvedSuppliers.join(','));
 
-            // Initialize selected services based on parent's fastDeliveryChecked
             setSelectedServices(prevServices => {
                 const newServices = [...prevServices];
-
-                // Update "Giao siêu tốc 2H" based on fastDeliveryChecked
                 if (fastDeliveryChecked && !newServices.includes('Giao siêu tốc 2H')) {
                     newServices.push('Giao siêu tốc 2H');
                 } else if (!fastDeliveryChecked) {
                     return newServices.filter(s => s !== 'Giao siêu tốc 2H');
                 }
-
                 return newServices;
             });
 
-            // Initialize selected promotions based on parent's cheapPriceChecked and freeShipChecked
             setSelectedPromotions(prevPromotions => {
                 let newPromotions = [...prevPromotions];
-
-                // Update "Siêu rẻ" based on cheapPriceChecked
                 if (cheapPriceChecked && !newPromotions.includes('Siêu rẻ')) {
                     newPromotions.push('Siêu rẻ');
                 } else if (!cheapPriceChecked) {
                     newPromotions = newPromotions.filter(p => p !== 'Siêu rẻ');
                 }
-
-                // Update "FREESHIP XTRA" based on freeShipChecked
                 if (freeShipChecked && !newPromotions.includes('FREESHIP XTRA')) {
                     newPromotions.push('FREESHIP XTRA');
                 } else if (!freeShipChecked) {
                     newPromotions = newPromotions.filter(p => p !== 'FREESHIP XTRA');
                 }
-
                 return newPromotions;
             });
 
-            // Initialize selected ratings based on parent's fourStarsChecked
             setSelectedRatings(prevRatings => {
                 let newRatings = [...prevRatings];
-
-                // Update "4 sao" based on fourStarsChecked
                 if (fourStarsChecked && !newRatings.includes('4 sao')) {
                     newRatings.push('4 sao');
                 } else if (!fourStarsChecked) {
                     newRatings = newRatings.filter(r => r !== '4 sao');
                 }
-
                 return newRatings;
             });
         }
     }, [isModalOpen, initialSelectedBrands, initialSelectedSuppliers, listSupplier, fastDeliveryChecked, cheapPriceChecked, freeShipChecked, fourStarsChecked]);
 
     const handleOk = async (values: any) => {
-        // Update parent component's state with our selections before closing
         if (setParentSelectedBrands) {
             setParentSelectedBrands(selectedBrands);
         }
         if (setParentSelectedSuppliers) {
             setParentSelectedSuppliers(selectedSuppliers);
         }
-        // Also update temporary selections for consistency
         if (setParentTempSelectedBrands) {
             setParentTempSelectedBrands(selectedBrands);
         }
@@ -213,59 +190,36 @@ const FilterProduct: React.FC<IProps> = ({
         } else if (type === 'service') {
             setSelectedServices((prev) => {
                 const updatedServices = prev.includes(name) ? prev.filter((item) => item !== name) : [...prev, name];
-
-                // Update parent's fastDeliveryChecked when "Giao siêu tốc 2H" is checked/unchecked
                 if (name === 'Giao siêu tốc 2H' && setFastDeliveryChecked) {
                     setFastDeliveryChecked(!prev.includes(name));
                 }
-
                 return updatedServices;
             });
         } else if (type === 'promotion') {
             setSelectedPromotions((prev) => {
                 const updatedPromotions = prev.includes(name) ? prev.filter((item) => item !== name) : [...prev, name];
-
-                // Update parent's cheapPriceChecked when "Siêu rẻ" is checked/unchecked
                 if (name === 'Siêu rẻ' && setCheapPriceChecked) {
                     setCheapPriceChecked(!prev.includes(name));
                 }
-
-                // Update parent's freeShipChecked when "FREESHIP XTRA" is checked/unchecked
                 if (name === 'FREESHIP XTRA' && setFreeShipChecked) {
                     setFreeShipChecked(!prev.includes(name));
                 }
-
                 return updatedPromotions;
             });
         } else if (type === 'rating') {
             setSelectedRatings((prev) => {
                 const updatedRatings = prev.includes(name) ? prev.filter((item) => item !== name) : [...prev, name];
-
-                // Update parent's fourStarsChecked when "4 sao" is checked/unchecked
                 if (name === '4 sao' && setFourStarsChecked) {
                     setFourStarsChecked(!prev.includes(name));
                 }
-
                 return updatedRatings;
             });
         }
     };
 
     const modalContent = (
-        <div
-            style={{
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}
-        >
+        <div className="filter-modal-container">
             <Modal
-                bodyStyle={{ maxHeight: '500px', overflowY: 'auto', overflowX: 'hidden' }}
                 title="Tất cả bộ lọc"
                 open={isModalOpen}
                 onOk={async () => {
@@ -278,9 +232,7 @@ const FilterProduct: React.FC<IProps> = ({
                 }}
                 onCancel={handleCancel}
                 footer={null}
-                style={{
-                    position: 'relative',
-                }}
+                className="modal-wrapper"
             >
                 <Divider />
                 <h3>Dịch vụ</h3>
@@ -345,7 +297,6 @@ const FilterProduct: React.FC<IProps> = ({
                                         height="12"
                                         fill="none"
                                         xmlns="http://www.w3.org/2000/svg"
-                                        style={{ width: '12px', height: '12px' }}
                                     >
                                         <g clipPath="url(#a)">
                                             <path
@@ -381,7 +332,6 @@ const FilterProduct: React.FC<IProps> = ({
                                         height="12"
                                         fill="none"
                                         xmlns="http://www.w3.org/2000/svg"
-                                        style={{ width: '12px', height: '12px' }}
                                     >
                                         <g clipPath="url(#a)">
                                             <path
@@ -417,7 +367,6 @@ const FilterProduct: React.FC<IProps> = ({
                                         height="12"
                                         fill="none"
                                         xmlns="http://www.w3.org/2000/svg"
-                                        style={{ width: '12px', height: '12px' }}
                                     >
                                         <g clipPath="url(#a)">
                                             <path
@@ -443,23 +392,23 @@ const FilterProduct: React.FC<IProps> = ({
                 </Row>
                 <Divider />
                 <h3>Giá</h3>
-                <div style={{ marginBottom: '10px' }}>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-                        <Button style={{ border: '0.5px solid #666' }} type="text" onClick={() => setPriceRange(0, 60000)}>
+                <div className="price-wrapper">
+                    <div className="price-buttons-container">
+                        <Button className="price-button" type="text" onClick={() => setPriceRange(0, 60000)}>
                             Dưới 60.000
                         </Button>
-                        <Button style={{ border: '0.5px solid #666' }} type="text" onClick={() => setPriceRange(60000, 140000)}>
+                        <Button className="price-button" type="text" onClick={() => setPriceRange(60000, 140000)}>
                             60.000 - 140.000
                         </Button>
-                        <Button style={{ border: '0.5px solid #666' }} type="text" onClick={() => setPriceRange(140000, 280000)}>
+                        <Button className="price-button" type="text" onClick={() => setPriceRange(140000, 280000)}>
                             140.000 - 280.000
                         </Button>
-                        <Button style={{ border: '0.5px solid #666' }} type="text" onClick={() => setPriceRange(280000, 10000000)}>
+                        <Button className="price-button" type="text" onClick={() => setPriceRange(280000, 10000000)}>
                             Trên 280.000
                         </Button>
                     </div>
-                    <Form form={form} name="control-hooks" onFinish={handleOk} style={{ maxWidth: 600 }}>
-                        <div style={{ marginTop: '10px', marginBottom: '10px' }}>Tự nhập khoảng giá</div>
+                    <Form form={form} name="control-hooks" onFinish={handleOk} className="filter-form">
+                        <div className="price-range-container">Tự nhập khoảng giá</div>
                         <Row gutter={16} align="middle">
                             <Col span={10}>
                                 <Form.Item name="minPrice">
@@ -467,13 +416,13 @@ const FilterProduct: React.FC<IProps> = ({
                                         placeholder="Từ"
                                         addonAfter="₫"
                                         controls={false}
-                                        style={{ width: '100%' }}
+                                        className="full-width-input"
                                         formatter={(value) => (value ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '')}
                                         parser={(value) => value?.replace(/\./g, '') || ''}
                                     />
                                 </Form.Item>
                             </Col>
-                            <Col span={4} style={{ textAlign: 'center', paddingBottom: '30px' }}>
+                            <Col span={4} className="price-separator">
                                 <span>-</span>
                             </Col>
                             <Col span={10}>
@@ -482,7 +431,7 @@ const FilterProduct: React.FC<IProps> = ({
                                         placeholder="Đến"
                                         addonAfter="₫"
                                         controls={false}
-                                        style={{ width: '100%' }}
+                                        className="full-width-input"
                                         formatter={(value) => (value ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '')}
                                         parser={(value) => value?.replace(/\./g, '') || ''}
                                     />
@@ -505,7 +454,7 @@ const FilterProduct: React.FC<IProps> = ({
                 {listBrand.length > 5 && (
                     <p
                         onClick={() => setShowFullBrandList(!showFullBrandList)}
-                        style={{ color: 'black', textDecoration: 'underline', cursor: 'pointer', marginTop: 10, marginBottom: 10 }}
+                        className="show-more-less"
                     >
                         {showFullBrandList ? 'Thu gọn' : 'Xem thêm'}
                     </p>
@@ -524,7 +473,7 @@ const FilterProduct: React.FC<IProps> = ({
                 {listBrand.length > 5 && (
                     <p
                         onClick={() => setShowFullBrandList(!showFullBrandList)}
-                        style={{ color: 'black', textDecoration: 'underline', cursor: 'pointer', marginTop: 10, marginBottom: 10 }}
+                        className="show-more-less"
                     >
                         {showFullBrandList ? 'Thu gọn' : 'Xem thêm'}
                     </p>
@@ -543,57 +492,33 @@ const FilterProduct: React.FC<IProps> = ({
                 {listSupplier.length > 5 && (
                     <p
                         onClick={() => setShowFullSupplierList(!showFullSupplierList)}
-                        style={{ color: 'black', textDecoration: 'underline', cursor: 'pointer', marginTop: 10, marginBottom: 10 }}
+                        className="show-more-less"
                     >
                         {showFullSupplierList ? 'Thu gọn' : 'Xem thêm'}
                     </p>
                 )}
                 <Divider />
-                <div
-                    style={{
-                        position: 'sticky',
-                        bottom: 0,
-                        backgroundColor: 'white',
-                        padding: '10px 0',
-                        borderTop: '1px solid #f0f0f0',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        zIndex: 10,
-                    }}
-                >
+                <div className="modal-footer">
                     <Button
-                        style={{
-                            backgroundColor: 'white',
-                            border: '1px solid #D8D8D8',
-                            color: '#38383D',
-                            padding: '10px 20px',
-                            borderRadius: '4px',
-                        }}
+                        className="reset-button"
                         onClick={() => {
-                            form.resetFields(); // Reset form fields
-                            setSelectedBrands([]); // Clear selected brands
-                            setSelectedSuppliers([]); // Clear selected suppliers
-                            setSelectedCategories([]); // Clear selected categories
-                            setBrand(''); // Reset brand state
-                            setSupplier(''); // Reset supplier state
-                            setCategory(''); // Reset category state
-
-                            // Clear additional states for "Dịch vụ", "Ưu đãi", and "Đánh giá"
-                            setSelectedServices([]); // Clear selected services
-                            setSelectedPromotions([]); // Clear selected promotions
-                            setSelectedRatings([]); // Clear selected ratings
+                            form.resetFields();
+                            setSelectedBrands([]);
+                            setSelectedSuppliers([]);
+                            setSelectedCategories([]);
+                            setBrand('');
+                            setSupplier('');
+                            setCategory('');
+                            setSelectedServices([]);
+                            setSelectedPromotions([]);
+                            setSelectedRatings([]);
                         }}
                     >
                         Xóa tất cả
                     </Button>
                     <Button
                         type="primary"
-                        style={{
-                            backgroundColor: '#0B74E5',
-                            color: 'white',
-                            padding: '10px 20px',
-                            borderRadius: '4px',
-                        }}
+                        className="apply-button"
                         onClick={async () => {
                             try {
                                 const values = await form.validateFields();

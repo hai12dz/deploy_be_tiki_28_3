@@ -132,23 +132,21 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
     position: relative;
     overflow: hidden;
 
-    // Left arrow button
-    >.left-arrow-button {
-        position: absolute;
-        top: 40px;
-        left: 5px;
-        width: 32px;
-        height: 32px;
-        @include flex(row, center, center);
-        cursor: pointer;
-        opacity: 1;
-        visibility: visible;
-    }
 
     .filter-sections-wrapper {
         position: relative;
         overflow: visible;
         margin-top: -5px;
+
+        .left-arrow-button {
+            position: absolute;
+            top: 32px;
+            left: 10px;
+            z-index: 10;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
 
         .section-header-divider {
             width: 1.5px;
@@ -342,12 +340,6 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
             opacity: 0.7;
         }
 
-        .left-arrow-button {
-            display: flex;
-            visibility: visible;
-            opacity: 1;
-            left: -40px;
-        }
     }
 
     // Supplier options container
@@ -624,21 +616,15 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
 }
 
 // Icon container
-.isolated-img-container {
-    isolation: isolate;
-    width: 16px;
-    height: 16px;
-    position: relative;
-    z-index: 1;
-    @include flex(row, center, center);
-    transform: rotate(90deg);
-    margin-top: 3px;
-}
+.isolated-img-container {}
 
 .left-arrow-icon {
     position: absolute;
-    top: 0px;
-    left: -15px;
+    isolation: isolate;
+    width: 16px;
+    height: 16px;
+    z-index: 1;
+    transform: rotate(90deg);
 }
 
 .arrow-icon-brand {

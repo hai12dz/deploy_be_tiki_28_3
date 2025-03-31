@@ -45,7 +45,6 @@
             height: 17px;
             width: 34px;
             object-fit: contain;
-
         }
 
         .promotion-icon {
@@ -60,8 +59,8 @@
             gap: 2px;
 
             svg {
-                width: 16px;
-                height: 16px;
+                width: 12px;
+                height: 12px;
             }
         }
     }
@@ -88,4 +87,96 @@
             color: #38383d;
         }
     }
+}
+
+// Modal container styles
+.filter-modal-container {
+    position: fixed;
+    transform: translate(-50%, -50%);
+    height: calc(-64px + 100vh);
+    width: 566px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+// Modal wrapper styles
+.modal-wrapper {
+    position: relative;
+}
+
+// Price wrapper styles
+.price-wrapper {
+    margin-bottom: 10px;
+}
+
+// Price buttons container
+.price-buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+// Price button styles
+.price-button {
+    border: 0.5px solid #666;
+}
+
+// Price range container
+.price-range-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+// Price separator styles
+.price-separator {
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+// Form container
+.filter-form {
+    max-width: 600px;
+}
+
+// Input number styles
+.full-width-input {
+    width: 100%;
+}
+
+// Show more/less link
+.show-more-less {
+    color: black;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+// Footer container
+.modal-footer {
+    position: sticky;
+    bottom: 0;
+    background-color: white;
+    padding: 10px 0;
+    border-top: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    z-index: 10;
+}
+
+// Reset button
+.reset-button {
+    background-color: white;
+    border: 1px solid #D8D8D8;
+    color: #38383D;
+    padding: 10px 20px;
+    border-radius: 4px;
+}
+
+// Apply button
+.apply-button {
+    background-color: #0B74E5;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
 }
