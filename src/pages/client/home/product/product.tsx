@@ -28,7 +28,7 @@ const CustomStar = () => (
 const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
     const { isLoading, setIsLoading, selectedBrands, selectedSuppliers,
         fastDeliveryChecked, cheapPriceChecked, freeShipChecked, fourStarsChecked, selectedSort,
-        pageSize: contextPageSize, setPageSize: setContextPageSize
+        pageSize: contextPageSize, setPageSize
     } = useFilterContext();
     const [searchTerm, setSearchTerm] = useOutletContext() as any;
     const navigate = useNavigate();
@@ -73,6 +73,18 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
 
     // Add a ref to track if we've initialized the item IDs from the initial load
     const initializedRef = useRef<boolean>(false);
+
+    // Keep track of previous filter values to detect changes
+    const prevFiltersRef = useRef({
+        brands: [] as string[],
+        suppliers: [] as string[],
+        fastDelivery: false,
+        cheapPrice: false,
+        freeShip: false,
+        fourStars: false,
+        sort: '',
+        search: ''
+    });
 
     // Use prop books if available, otherwise use local state
     const listBook = propListBook || localListBook;
@@ -284,6 +296,64 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
         }
     };
 
+    // Check for filter changes when component updates
+    useEffect(() => {
+        // Track if filters have changed
+        const filtersChanged =
+            !arraysEqual(prevFiltersRef.current.brands, selectedBrands) ||
+            !arraysEqual(prevFiltersRef.current.suppliers, selectedSuppliers) ||
+            prevFiltersRef.current.fastDelivery !== fastDeliveryChecked ||
+            prevFiltersRef.current.cheapPrice !== cheapPriceChecked ||
+            prevFiltersRef.current.freeShip !== freeShipChecked ||
+            prevFiltersRef.current.fourStars !== fourStarsChecked ||
+            prevFiltersRef.current.sort !== selectedSort ||
+            prevFiltersRef.current.search !== searchTerm;
+
+        // If filters changed, reset pagination state and show "View More" button
+        if (filtersChanged) {
+            console.log("Filters changed, resetting pagination state and enabling 'View More' button");
+            setHasMoreItems(true); // Important: Show the View More button again
+            pageSizeRef.current = 10;
+            initializedRef.current = false;
+            setItemIds(new Set());
+
+            // Reset context pageSize to 10
+            if (setPageSize) {
+                setPageSize(10);
+            }
+        }
+
+        // Update the filter reference for next comparison
+        prevFiltersRef.current = {
+            brands: [...selectedBrands],
+            suppliers: [...selectedSuppliers],
+            fastDelivery: fastDeliveryChecked,
+            cheapPrice: cheapPriceChecked,
+            freeShip: freeShipChecked,
+            fourStars: fourStarsChecked,
+            sort: selectedSort,
+            search: searchTerm
+        };
+    }, [
+        selectedBrands,
+        selectedSuppliers,
+        fastDeliveryChecked,
+        cheapPriceChecked,
+        freeShipChecked,
+        fourStarsChecked,
+        selectedSort,
+        searchTerm,
+        setPageSize
+    ]);
+
+    // Helper function to compare arrays
+    const arraysEqual = (a: string[], b: string[]): boolean => {
+        if (a.length !== b.length) return false;
+        const sortedA = [...a].sort();
+        const sortedB = [...b].sort();
+        return sortedA.every((val, idx) => val === sortedB[idx]);
+    };
+
     // Only fetch books if we're not receiving them from props
     useEffect(() => {
         if (!propListBook && !isFetching) {
@@ -479,12 +549,12 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
                                     const newSize = pageSizeRef.current + 10;
                                     console.log(`View More clicked - increasing pageSize from ${pageSizeRef.current} to ${newSize}`);
 
-                                    // Update context pageSize first
-                                    if (setContextPageSize) {
-                                        setContextPageSize(newSize);
+                                    // Update context pageSize
+                                    if (setPageSize) {
+                                        setPageSize(newSize);
                                     }
 
-                                    // Fetch with new size immediately - this is critical!
+                                    // Fetch with new size immediately
                                     fetchBook(newSize);
                                 }}
                             >

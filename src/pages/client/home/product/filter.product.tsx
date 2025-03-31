@@ -30,7 +30,6 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
     const [listBrand, setListBrand] = useState<IBrands[]>([])
     const [listSupplier, setListSupplier] = useState<ISupplier[]>([])
     const [listBook, setListBook] = useState<IBookTable[]>([]);
-    const [pageSize, setPageSize] = useState<number>(10);
     const [total, setTotal] = useState<number>(0);
     const [listFullCategory, setListFullCategory] = useState<ICategory[]>([])
     const containerRef = useRef<HTMLDivElement>(null);
@@ -46,7 +45,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
     const [tempSelectedBrands, setTempSelectedBrands] = useState<string[]>([]);
     const [tempSelectedSuppliers, setTempSelectedSuppliers] = useState<string[]>([]);
     const { isLoading, setIsLoading, selectedBrands, setSelectedBrands, selectedSuppliers, setSelectedSuppliers,
-        fastDeliveryChecked, setFastDeliveryChecked, cheapPriceChecked, setCheapPriceChecked, freeShipChecked, setFreeShipChecked, fourStarsChecked, setFourStarsChecked, selectedSort, setSelectedSort,
+        fastDeliveryChecked, setFastDeliveryChecked, cheapPriceChecked, setCheapPriceChecked, freeShipChecked, setFreeShipChecked, fourStarsChecked, setFourStarsChecked, selectedSort, setSelectedSort, pageSize, setPageSize,
 
     } = useFilterContext();
 
@@ -222,6 +221,11 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
 
     const handleBrandSelect = (brand: string) => {
         if (!brandExpanded) {
+            // When selecting a brand, reset page size to 10 in the context
+            if (setPageSize) {
+                setPageSize(10);
+            }
+
             setSelectedBrands(prev =>
                 prev.includes(brand)
                     ? prev.filter(b => b !== brand)
@@ -267,6 +271,11 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
             const actualSupplier = supplier.endsWith('...')
                 ? allSuppliers.find(s => s.startsWith(supplier.slice(0, -3))) || supplier
                 : supplier;
+
+            // When selecting a supplier, reset page size to 10 in the context
+            if (setPageSize) {
+                setPageSize(10);
+            }
 
             setSelectedSuppliers(prev =>
                 prev.includes(actualSupplier)
@@ -442,6 +451,11 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
     };
 
     const handleSortSelect = (option: string) => {
+        // When changing sort, reset page size to 10 in the context
+        if (setPageSize) {
+            setPageSize(10);
+        }
+
         setSelectedSort(option);
         setSortMenuVisible(false);
     };
@@ -503,18 +517,34 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
     };
 
     const handleFastDeliveryChange = () => {
+        // Reset page size when filter changes
+        if (setPageSize) {
+            setPageSize(10);
+        }
         setFastDeliveryChecked(!fastDeliveryChecked);
     };
 
     const handleCheapPriceChange = () => {
+        // Reset page size when filter changes
+        if (setPageSize) {
+            setPageSize(10);
+        }
         setCheapPriceChecked(!cheapPriceChecked);
     };
 
     const handleFreeShipChange = () => {
+        // Reset page size when filter changes
+        if (setPageSize) {
+            setPageSize(10);
+        }
         setFreeShipChecked(!freeShipChecked);
     };
 
     const handleFourStarsChange = () => {
+        // Reset page size when filter changes
+        if (setPageSize) {
+            setPageSize(10);
+        }
         setFourStarsChecked(!fourStarsChecked);
     };
 
