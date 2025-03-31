@@ -6,7 +6,12 @@ import { useOutletContext } from 'react-router-dom';
 import { getBooksAPI, getBrandsAPI, getFullCategories, getSuppliersAPI } from '@/services/api';
 import { set } from 'lodash';
 
-const ProductFilter: React.FC = () => {
+// Add props interface to receive callback function
+interface ProductFilterProps {
+    onListBookChange?: (books: IBookTable[]) => void;
+}
+
+const ProductFilter: React.FC<ProductFilterProps> = ({ onListBookChange }) => {
     const [brandExpanded, setBrandExpanded] = useState(false);
     const [supplierExpanded, setSupplierExpanded] = useState(false);
     const [showLeftArrow, setShowLeftArrow] = useState(false);
@@ -118,8 +123,14 @@ const ProductFilter: React.FC = () => {
         try {
             const res = await getBooksAPI(query);
             if (res && res.data) {
-                setListBook(res.data.items);
+                const books = res.data.items;
+                setListBook(books);
                 setTotal(res.data.meta.totalItems);
+
+                // Share the books with parent component if callback is provided
+                if (onListBookChange) {
+                    onListBookChange(books);
+                }
             }
         } catch (error) {
             console.error("Error fetching books:", error);
@@ -589,14 +600,9 @@ const ProductFilter: React.FC = () => {
                     <div
                         onClick={() => { setIsModalOpen(true) }}
                         className="filter-button">
-                        {(selectedBrands.length > 0 ||
-                            selectedSuppliers.length > 0 ||
-                            fastDeliveryChecked ||
-                            cheapPriceChecked ||
-                            freeShipChecked ||
-                            fourStarsChecked) && (
-                                <div className="icon-click"></div>
-                            )}
+                        {(selectedBrands.length > 0 || selectedSuppliers.length > 0) && (
+                            <div className="icon-click"></div>
+                        )}
                         <img
                             src="https://salt.tikicdn.com/ts/upload/3f/23/35/2d29fcaea0d10cbb85ce5b0d4cd20add.png"
                             alt="filters"
@@ -780,19 +786,14 @@ const ProductFilter: React.FC = () => {
                 setParentSelectedSuppliers={setSelectedSuppliers}
                 setParentTempSelectedBrands={setTempSelectedBrands}
                 setParentTempSelectedSuppliers={setTempSelectedSuppliers}
-                // Add checkbox states
-                fastDeliveryChecked={fastDeliveryChecked}
-                cheapPriceChecked={cheapPriceChecked}
-                freeShipChecked={freeShipChecked}
-                fourStarsChecked={fourStarsChecked}
-                // Add callbacks for checkbox states
-                setFastDeliveryChecked={setFastDeliveryChecked}
-                setCheapPriceChecked={setCheapPriceChecked}
-                setFreeShipChecked={setFreeShipChecked}
-                setFourStarsChecked={setFourStarsChecked}
             />
         </div>
     );
+};
+
+// Set default props
+ProductFilter.defaultProps = {
+    onListBookChange: undefined
 };
 
 export default ProductFilter;

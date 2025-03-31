@@ -29,7 +29,6 @@ import TikiBestsellers from './home/best.seller';
 import Product from './home/product/product';
 
 
-
 type FieldType = {
     range: {
         from: number;
@@ -50,6 +49,7 @@ const HomePage = () => {
     }[]>([]);
 
     const [listBook, setListBook] = useState<IBookTable[]>([]);
+    const [sharedListBook, setSharedListBook] = useState<IBookTable[]>([]);
     const [current, setCurrent] = useState<number>(1);
     const [pageSize, setPageSize] = useState<number>(10);
     const [total, setTotal] = useState<number>(0);
@@ -322,9 +322,10 @@ const HomePage = () => {
                         <CategoryExplorer />
 
                         <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-                            <TikiBookstore />
+                            <TikiBookstore onListBookChange={setSharedListBook} />
+
                             <div className="product-wrapper">
-                                <Product />
+                                <Product listBook={sharedListBook} />
                             </div>
                         </div>
 

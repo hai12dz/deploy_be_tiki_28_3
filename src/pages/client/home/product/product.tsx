@@ -3,7 +3,12 @@ import { ReloadOutlined, StarFilled } from "@ant-design/icons";
 import { Button, Rate, Row, Col, Tag, Divider } from "antd";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import 'styles/product.scss'
+import 'styles/product.scss';
+
+// Add props interface
+interface ProductProps {
+    listBook?: IBookTable[];
+}
 
 const CustomStar = () => (
     <svg
@@ -17,10 +22,12 @@ const CustomStar = () => (
     </svg>
 );
 
-const Product = () => {
-
+const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
     const [searchTerm, setSearchTerm] = useOutletContext() as any;
-    const [listBook, setListBook] = useState<IBookTable[]>([]);
+    const navigate = useNavigate();
+
+    // Use local state as a fallback if props are not provided
+    const [localListBook, setLocalListBook] = useState<IBookTable[]>([]);
     const [pageSize, setPageSize] = useState<number>(10);
     const [total, setTotal] = useState<number>(0);
     const [current, setCurrent] = useState<number>(1);
@@ -37,7 +44,6 @@ const Product = () => {
     const [category, setCategory] = useState<string>("")
     const [listFullCategory, setListFullCategory] = useState<ICategory[]>([])
 
-    const navigate = useNavigate();
     // Change these from string to arrays
     const [brand, setBrand] = useState<string[]>([]);
     const [supplier, setSupplier] = useState<string[]>([]);
@@ -47,6 +53,9 @@ const Product = () => {
     const [cheapPrice, setCheapPrice] = useState(false);
     const [fastDelivery, setFastDelivery] = useState(false);
     const [minRating, setMinRating] = useState(0);
+
+    // Use prop books if available, otherwise use local state
+    const listBook = propListBook || localListBook;
 
     const filteredBooks = useMemo(() => {
         return listBook.filter((book) =>
@@ -116,7 +125,7 @@ const Product = () => {
         try {
             const res = await getBooksAPI(queryString);
             if (res && res.data) {
-                setListBook(res.data.items);
+                setLocalListBook(res.data.items);
                 setTotal(res.data.meta.totalItems);
             }
         } catch (error) {
@@ -126,9 +135,13 @@ const Product = () => {
         }
     };
 
+    // Only fetch books if we're not receiving them from props
     useEffect(() => {
-        fetchBook();
+        if (!propListBook) {
+            fetchBook();
+        }
     }, [
+        propListBook,
         current,
         pageSize,
         filter,
@@ -141,7 +154,6 @@ const Product = () => {
         fastDelivery,
         minRating
     ]);
-
 
     const addViewedProduct = (productId: string) => {
         const viewedProducts = JSON.parse(localStorage.getItem("viewedProducts") || "[]").map(Number);
@@ -300,6 +312,11 @@ const Product = () => {
             </Row>
         </div>
     );
+};
+
+// Set default props
+Product.defaultProps = {
+    listBook: undefined
 };
 
 export default Product;
