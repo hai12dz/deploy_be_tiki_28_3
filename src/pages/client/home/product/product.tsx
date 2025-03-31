@@ -8,6 +8,8 @@ import 'styles/product.scss';
 // Add props interface
 interface ProductProps {
     listBook?: IBookTable[];
+    isLoading?: boolean;
+    setIsLoading?: (loading: boolean) => void;
 }
 
 const CustomStar = () => (
@@ -172,145 +174,149 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
     };
 
     return (
-        <div className="product-container">
-            <Row className="customize-row" > {/* Điều chỉnh gutter */}
-                {filteredBooks?.length > 0 ? (
-                    filteredBooks.map((item, index) => (
-                        <Col
-                            xs={24}
-                            sm={12}
-                            md={8}
-                            lg={6}
-                            xl={6}
-                            key={`book-${index}`}
-                        >
-                            <div
-                                onClick={() => {
-                                    navigate(`/book/${item.id}`);
-                                    addViewedProduct(item.id);
-                                }}
-                                className="column top-deal-column"
-                            >
-                                <div className="wrapper">
-                                    {/* Thumbnail */}
-                                    <div className="thumbnail">
-                                        <img
-                                            src={item.thumbnail}
-
-                                            alt="thumbnail book"
-                                        />
-                                        {/* Badge */}
-                                        <div className="badge-container">
-                                            <picture className="webpimg-container">
-                                                <source
-                                                    type="image/webp"
-                                                    srcSet="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-                                                />
+        <>
+            {!isLoading && (
+                <div className="product-container">
+                    <Row className="customize-row" > {/* Điều chỉnh gutter */}
+                        {filteredBooks?.length > 0 ? (
+                            filteredBooks.map((item, index) => (
+                                <Col
+                                    xs={24}
+                                    sm={12}
+                                    md={8}
+                                    lg={6}
+                                    xl={6}
+                                    key={`book-${index}`}
+                                >
+                                    <div
+                                        onClick={() => {
+                                            navigate(`/book/${item.id}`);
+                                            addViewedProduct(item.id);
+                                        }}
+                                        className="column top-deal-column"
+                                    >
+                                        <div className="wrapper">
+                                            {/* Thumbnail */}
+                                            <div className="thumbnail">
                                                 <img
-                                                    src="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
-                                                    alt="product_image_badge"
-                                                    className="product-badge"
+                                                    src={item.thumbnail}
+
+                                                    alt="thumbnail book"
                                                 />
-                                            </picture>
+                                                {/* Badge */}
+                                                <div className="badge-container">
+                                                    <picture className="webpimg-container">
+                                                        <source
+                                                            type="image/webp"
+                                                            srcSet="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
+                                                        />
+                                                        <img
+                                                            src="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
+                                                            alt="product_image_badge"
+                                                            className="product-badge"
+                                                        />
+                                                    </picture>
+                                                </div>
+                                                <div className="left-badge">25.3</div>
+                                                {/* Badge "AD" */}
+                                                <p className="ads-badge">AD</p>
+                                            </div>
+
+                                            {/* Price and Promotion */}
+                                            <div className="price-section">
+                                                <div className="price">
+                                                    {new Intl.NumberFormat("vi-VN", {
+                                                        style: "currency",
+                                                        currency: "VND",
+                                                    }).format(item?.price ?? 0)}
+                                                </div>
+                                                <div className="discount">
+                                                    {item.promotion && (
+                                                        <span className="promotion-tag">-{item.promotion}%</span>
+                                                    )}
+                                                </div>
+                                            </div>
+                                            <div className="author" title={item.author}>
+                                                <span>{item.author}</span>
+                                            </div>
+                                            {/* Text */}
+                                            <div className="text" title={item.mainText}>
+                                                <span>{item.mainText}</span>
+                                            </div>
+
+                                            {/* Rating - đặt ngay sau text, không có spacer */}
+                                            <div className="rating">
+                                                <Rate
+                                                    className="rate"
+                                                    value={5}
+                                                    disabled
+                                                    style={{ fontSize: 12, lineHeight: '13.8px' }} // Thêm lineHeight: '13.8px'
+                                                    character={<CustomStar />}
+                                                />
+                                                <span>Đã bán {item?.sold ?? 0}</span>
+                                            </div>
+
+                                            {/* Spacer - sẽ đẩy divider xuống cuối */}
+                                            <div style={{ flex: '1' }}></div>
+
+                                            {/* Divider */}
+                                            <Divider className="divider" style={{ margin: '0' }} />
+
+                                            <div className="delivery">
+                                                <img
+
+                                                    src="https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png"
+                                                    alt="Giao siêu tốc 2H"
+                                                    className="service-icon"
+                                                />
+                                                <span className="service-text"> Giao siêu tốc 2H </span>
+
+                                            </div>
+
                                         </div>
-                                        <div className="left-badge">25.3</div>
-                                        {/* Badge "AD" */}
-                                        <p className="ads-badge">AD</p>
-                                    </div>
-
-                                    {/* Price and Promotion */}
-                                    <div className="price-section">
-                                        <div className="price">
-                                            {new Intl.NumberFormat("vi-VN", {
-                                                style: "currency",
-                                                currency: "VND",
-                                            }).format(item?.price ?? 0)}
-                                        </div>
-                                        <div className="discount">
-                                            {item.promotion && (
-                                                <span className="promotion-tag">-{item.promotion}%</span>
-                                            )}
-                                        </div>
-                                    </div>
-                                    <div className="author" title={item.author}>
-                                        <span>{item.author}</span>
-                                    </div>
-                                    {/* Text */}
-                                    <div className="text" title={item.mainText}>
-                                        <span>{item.mainText}</span>
-                                    </div>
-
-                                    {/* Rating - đặt ngay sau text, không có spacer */}
-                                    <div className="rating">
-                                        <Rate
-                                            className="rate"
-                                            value={5}
-                                            disabled
-                                            style={{ fontSize: 12, lineHeight: '13.8px' }} // Thêm lineHeight: '13.8px'
-                                            character={<CustomStar />}
-                                        />
-                                        <span>Đã bán {item?.sold ?? 0}</span>
-                                    </div>
-
-                                    {/* Spacer - sẽ đẩy divider xuống cuối */}
-                                    <div style={{ flex: '1' }}></div>
-
-                                    {/* Divider */}
-                                    <Divider className="divider" style={{ margin: '0' }} />
-
-                                    <div className="delivery">
-                                        <img
-
-                                            src="https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png"
-                                            alt="Giao siêu tốc 2H"
-                                            className="service-icon"
-                                        />
-                                        <span className="service-text"> Giao siêu tốc 2H </span>
 
                                     </div>
 
+
+
+                                </Col>
+                            ))
+                        ) : (
+                            <div
+                                style={{
+                                    width: "100%",
+                                    textAlign: "center",
+                                    padding: "50px 0",
+                                    fontSize: "18px",
+                                    color: "#666",
+                                    border: "1px dashed #ddd",
+                                    borderRadius: "8px",
+                                    margin: "20px 0",
+                                }}
+                            >
+                                <div style={{ marginBottom: "15px" }}>
+                                    <ReloadOutlined style={{ fontSize: "32px", color: "#999" }} />
                                 </div>
-
+                                <p>Chúng tôi không có sản phẩm phù hợp</p>
+                                <Button
+                                    type="primary"
+                                    onClick={() => {
+                                        setSearchTerm("");
+                                        setCategory("");
+                                        setBrand([]); // Reset brand filter to empty array
+                                        setSupplier([]); // Reset supplier filter to empty array
+                                        fetchBook();
+                                    }}
+                                    icon={<ReloadOutlined />}
+                                >
+                                    Xem tất cả sản phẩm
+                                </Button>
                             </div>
-
-
-
-                        </Col>
-                    ))
-                ) : (
-                    <div
-                        style={{
-                            width: "100%",
-                            textAlign: "center",
-                            padding: "50px 0",
-                            fontSize: "18px",
-                            color: "#666",
-                            border: "1px dashed #ddd",
-                            borderRadius: "8px",
-                            margin: "20px 0",
-                        }}
-                    >
-                        <div style={{ marginBottom: "15px" }}>
-                            <ReloadOutlined style={{ fontSize: "32px", color: "#999" }} />
-                        </div>
-                        <p>Chúng tôi không có sản phẩm phù hợp</p>
-                        <Button
-                            type="primary"
-                            onClick={() => {
-                                setSearchTerm("");
-                                setCategory("");
-                                setBrand([]); // Reset brand filter to empty array
-                                setSupplier([]); // Reset supplier filter to empty array
-                                fetchBook();
-                            }}
-                            icon={<ReloadOutlined />}
-                        >
-                            Xem tất cả sản phẩm
-                        </Button>
-                    </div>
-                )}
-            </Row>
-        </div>
+                        )}
+                    </Row>
+                </div>
+            )}
+        </>
     );
 };
 

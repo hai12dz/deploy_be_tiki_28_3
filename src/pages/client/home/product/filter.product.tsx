@@ -6,12 +6,18 @@ import { useOutletContext } from 'react-router-dom';
 import { getBooksAPI, getBrandsAPI, getFullCategories, getSuppliersAPI } from '@/services/api';
 import { set } from 'lodash';
 
-// Add props interface to receive callback function
+// Update props interface to make isLoading and setIsLoading optional
 interface ProductFilterProps {
     onListBookChange?: (books: IBookTable[]) => void;
+    isLoading?: boolean;
+    setIsLoading?: (loading: boolean) => void;
 }
 
-const ProductFilter: React.FC<ProductFilterProps> = ({ onListBookChange }) => {
+const ProductFilter: React.FC<ProductFilterProps> = ({
+    onListBookChange,
+    isLoading = false,
+    setIsLoading = () => { }
+}) => {
     const [brandExpanded, setBrandExpanded] = useState(false);
     const [supplierExpanded, setSupplierExpanded] = useState(false);
     const [showLeftArrow, setShowLeftArrow] = useState(false);
@@ -35,7 +41,6 @@ const ProductFilter: React.FC<ProductFilterProps> = ({ onListBookChange }) => {
     const [current, setCurrent] = useState<number>(1);
     const [filter, setFilter] = useState<string>("");
     const [sortQuery, setSortQuery] = useState<string>("sort=-sold");
-    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [searchTerm, setSearchTerm] = useOutletContext() as any;
     const [followSupplier, setFollowSupplier] = useState<boolean>(false);
     const [fastDeliveryChecked, setFastDeliveryChecked] = useState(false);
@@ -71,7 +76,10 @@ const ProductFilter: React.FC<ProductFilterProps> = ({ onListBookChange }) => {
     ]);
 
     const fetchBook = async () => {
-        setIsLoading(true);
+        // If setIsLoading is provided, use it, otherwise use local state
+        if (setIsLoading) {
+            setIsLoading(true);
+        }
 
         // Build the query string with all filter parameters
         let query = `current=${current}&pageSize=${pageSize}`;
@@ -136,7 +144,9 @@ const ProductFilter: React.FC<ProductFilterProps> = ({ onListBookChange }) => {
             console.error("Error fetching books:", error);
             // Xử lý lỗi ở đây (hiển thị thông báo, v.v.)
         } finally {
-            setIsLoading(false);
+            if (setIsLoading) {
+                setIsLoading(false);
+            }
         }
     };
 
@@ -801,9 +811,11 @@ const ProductFilter: React.FC<ProductFilterProps> = ({ onListBookChange }) => {
     );
 };
 
-// Set default props
+// Update default props
 ProductFilter.defaultProps = {
-    onListBookChange: undefined
+    onListBookChange: undefined,
+    isLoading: false,
+    setIsLoading: undefined
 };
 
 export default ProductFilter;

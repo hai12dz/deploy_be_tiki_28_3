@@ -6,9 +6,12 @@ import ProductFilter from "./product/filter.product";
 // Add a proper interface for the component props
 interface TikiBookstoreProps {
     onListBookChange: (books: IBookTable[]) => void;
+    isLoading: boolean;
+    setIsLoading: (loading: boolean) => void;
+
 }
 
-const TikiBookstore: React.FC<TikiBookstoreProps> = ({ onListBookChange }) => {
+const TikiBookstore: React.FC<TikiBookstoreProps> = ({ onListBookChange, isLoading, setIsLoading }) => {
     const [listFullCategory, setListFullCategory] = useState<ICategory[]>([]);
 
     useEffect(() => {
@@ -47,7 +50,10 @@ const TikiBookstore: React.FC<TikiBookstoreProps> = ({ onListBookChange }) => {
                 <div className="sc-9f1e84db-2 cASiea">Tất cả sản phẩm</div>
                 <div>
                     {/* Only keep the ProductFilter here and pass the callback function */}
-                    <ProductFilter onListBookChange={onListBookChange} />
+                    <ProductFilter
+                        isLoading={isLoading}
+                        setIsLoading={setIsLoading}
+                        onListBookChange={onListBookChange} />
                 </div>
             </div>
         </div>

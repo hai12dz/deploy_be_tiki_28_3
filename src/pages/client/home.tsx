@@ -322,10 +322,16 @@ const HomePage = () => {
                         <CategoryExplorer />
 
                         <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-                            <TikiBookstore onListBookChange={setSharedListBook} />
+                            <TikiBookstore
+                                isLoading={isLoading}
+                                setIsLoading={setIsLoading}
+                                onListBookChange={setSharedListBook} />
 
                             <div className="product-wrapper">
-                                <Product listBook={sharedListBook} />
+                                <Product
+                                    isLoading={isLoading}
+                                    setIsLoading={setIsLoading}
+                                    listBook={sharedListBook} />
                             </div>
                         </div>
 
