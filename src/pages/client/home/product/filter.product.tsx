@@ -172,7 +172,9 @@ const ProductFilter: React.FC = () => {
     };
 
     const handleSupplierSelect = (supplier: string) => {
-        if (!supplierExpanded) {
+        // Only process clicks if we're NOT in "followSupplier" mode
+        // This allows clicks to work in both normal and expanded states
+        if (!followSupplier) {
             const actualSupplier = supplier.endsWith('...')
                 ? allSuppliers.find(s => s.startsWith(supplier.slice(0, -3))) || supplier
                 : supplier;
@@ -197,6 +199,10 @@ const ProductFilter: React.FC = () => {
     };
 
     const handleClickOutside = (event: MouseEvent) => {
+        // Check if the click was on the left arrow button to prevent interference
+        const isLeftArrowClick = (event.target as HTMLElement).closest('.left-arrow-button');
+        if (isLeftArrowClick) return;
+
         if (
             modalRef.current &&
             !modalRef.current.contains(event.target as Node) &&
@@ -322,7 +328,9 @@ const ProductFilter: React.FC = () => {
         );
     };
 
-    const handleLeftArrowClick = () => {
+    const handleLeftArrowClick = (e: React.MouseEvent) => {
+        // Stop propagation to prevent the click from affecting other elements
+        e.stopPropagation();
         setSupplierExpanded(false);
         setShowLeftArrow(false);
         setBrandExpanded(false);
@@ -410,7 +418,11 @@ const ProductFilter: React.FC = () => {
     return (
         <div className="product-filter-container">
             {showLeftArrow && (
-                <div onClick={handleLeftArrowClick} className="left-arrow-button arrow-icon-wrapper">
+                <div
+                    onClick={handleLeftArrowClick}
+                    className="left-arrow-button arrow-icon-wrapper"
+                    style={{ zIndex: 1000 }} // Ensure arrow is above other elements but doesn't block interactions
+                >
                     <div className="isolated-img-container">
                         <img
                             src="https://frontend.tikicdn.com/_desktop-next/static/img/catalog/arrow.svg"
