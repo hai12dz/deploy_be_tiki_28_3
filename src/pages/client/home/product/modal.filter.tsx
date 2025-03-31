@@ -22,6 +22,16 @@ interface IProps {
     setParentSelectedSuppliers?: React.Dispatch<React.SetStateAction<string[]>>;
     setParentTempSelectedBrands?: React.Dispatch<React.SetStateAction<string[]>>;
     setParentTempSelectedSuppliers?: React.Dispatch<React.SetStateAction<string[]>>;
+    // Add checkbox states from parent
+    fastDeliveryChecked?: boolean;
+    cheapPriceChecked?: boolean;
+    freeShipChecked?: boolean;
+    fourStarsChecked?: boolean;
+    // Add callbacks for checkbox states
+    setFastDeliveryChecked?: React.Dispatch<React.SetStateAction<boolean>>;
+    setCheapPriceChecked?: React.Dispatch<React.SetStateAction<boolean>>;
+    setFreeShipChecked?: React.Dispatch<React.SetStateAction<boolean>>;
+    setFourStarsChecked?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const FilterProduct: React.FC<IProps> = ({
@@ -37,11 +47,19 @@ const FilterProduct: React.FC<IProps> = ({
     listFullCategory,
     selectedBrands: initialSelectedBrands = [],
     selectedSuppliers: initialSelectedSuppliers = [],
-    // Add the new callback props
+    // Add the new props
+    fastDeliveryChecked = false,
+    cheapPriceChecked = false,
+    freeShipChecked = false,
+    fourStarsChecked = false,
     setParentSelectedBrands,
     setParentSelectedSuppliers,
     setParentTempSelectedBrands,
-    setParentTempSelectedSuppliers
+    setParentTempSelectedSuppliers,
+    setFastDeliveryChecked,
+    setCheapPriceChecked,
+    setFreeShipChecked,
+    setFourStarsChecked
 }) => {
     const [brand, setBrand] = useState<string>('');
     const [supplier, setSupplier] = useState<string>('');
@@ -77,8 +95,57 @@ const FilterProduct: React.FC<IProps> = ({
 
             setSelectedSuppliers(resolvedSuppliers);
             setSupplier(resolvedSuppliers.join(','));
+
+            // Initialize selected services based on parent's fastDeliveryChecked
+            setSelectedServices(prevServices => {
+                const newServices = [...prevServices];
+
+                // Update "Giao siêu tốc 2H" based on fastDeliveryChecked
+                if (fastDeliveryChecked && !newServices.includes('Giao siêu tốc 2H')) {
+                    newServices.push('Giao siêu tốc 2H');
+                } else if (!fastDeliveryChecked) {
+                    return newServices.filter(s => s !== 'Giao siêu tốc 2H');
+                }
+
+                return newServices;
+            });
+
+            // Initialize selected promotions based on parent's cheapPriceChecked and freeShipChecked
+            setSelectedPromotions(prevPromotions => {
+                let newPromotions = [...prevPromotions];
+
+                // Update "Siêu rẻ" based on cheapPriceChecked
+                if (cheapPriceChecked && !newPromotions.includes('Siêu rẻ')) {
+                    newPromotions.push('Siêu rẻ');
+                } else if (!cheapPriceChecked) {
+                    newPromotions = newPromotions.filter(p => p !== 'Siêu rẻ');
+                }
+
+                // Update "FREESHIP XTRA" based on freeShipChecked
+                if (freeShipChecked && !newPromotions.includes('FREESHIP XTRA')) {
+                    newPromotions.push('FREESHIP XTRA');
+                } else if (!freeShipChecked) {
+                    newPromotions = newPromotions.filter(p => p !== 'FREESHIP XTRA');
+                }
+
+                return newPromotions;
+            });
+
+            // Initialize selected ratings based on parent's fourStarsChecked
+            setSelectedRatings(prevRatings => {
+                let newRatings = [...prevRatings];
+
+                // Update "4 sao" based on fourStarsChecked
+                if (fourStarsChecked && !newRatings.includes('4 sao')) {
+                    newRatings.push('4 sao');
+                } else if (!fourStarsChecked) {
+                    newRatings = newRatings.filter(r => r !== '4 sao');
+                }
+
+                return newRatings;
+            });
         }
-    }, [isModalOpen, initialSelectedBrands, initialSelectedSuppliers, listSupplier]);
+    }, [isModalOpen, initialSelectedBrands, initialSelectedSuppliers, listSupplier, fastDeliveryChecked, cheapPriceChecked, freeShipChecked, fourStarsChecked]);
 
     const handleOk = async (values: any) => {
         // Update parent component's state with our selections before closing
@@ -146,16 +213,39 @@ const FilterProduct: React.FC<IProps> = ({
         } else if (type === 'service') {
             setSelectedServices((prev) => {
                 const updatedServices = prev.includes(name) ? prev.filter((item) => item !== name) : [...prev, name];
+
+                // Update parent's fastDeliveryChecked when "Giao siêu tốc 2H" is checked/unchecked
+                if (name === 'Giao siêu tốc 2H' && setFastDeliveryChecked) {
+                    setFastDeliveryChecked(!prev.includes(name));
+                }
+
                 return updatedServices;
             });
         } else if (type === 'promotion') {
             setSelectedPromotions((prev) => {
                 const updatedPromotions = prev.includes(name) ? prev.filter((item) => item !== name) : [...prev, name];
+
+                // Update parent's cheapPriceChecked when "Siêu rẻ" is checked/unchecked
+                if (name === 'Siêu rẻ' && setCheapPriceChecked) {
+                    setCheapPriceChecked(!prev.includes(name));
+                }
+
+                // Update parent's freeShipChecked when "FREESHIP XTRA" is checked/unchecked
+                if (name === 'FREESHIP XTRA' && setFreeShipChecked) {
+                    setFreeShipChecked(!prev.includes(name));
+                }
+
                 return updatedPromotions;
             });
         } else if (type === 'rating') {
             setSelectedRatings((prev) => {
                 const updatedRatings = prev.includes(name) ? prev.filter((item) => item !== name) : [...prev, name];
+
+                // Update parent's fourStarsChecked when "4 sao" is checked/unchecked
+                if (name === '4 sao' && setFourStarsChecked) {
+                    setFourStarsChecked(!prev.includes(name));
+                }
+
                 return updatedRatings;
             });
         }
@@ -201,7 +291,6 @@ const FilterProduct: React.FC<IProps> = ({
                             checked={selectedServices.includes('Giao siêu tốc 2H')}
                         >
                             <img
-
                                 src="https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png"
                                 alt="Giao siêu tốc 2H"
                                 className="service-icon"

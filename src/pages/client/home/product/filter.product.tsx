@@ -775,6 +775,16 @@ const ProductFilter: React.FC = () => {
                 setParentSelectedSuppliers={setSelectedSuppliers}
                 setParentTempSelectedBrands={setTempSelectedBrands}
                 setParentTempSelectedSuppliers={setTempSelectedSuppliers}
+                // Add checkbox states
+                fastDeliveryChecked={fastDeliveryChecked}
+                cheapPriceChecked={cheapPriceChecked}
+                freeShipChecked={freeShipChecked}
+                fourStarsChecked={fourStarsChecked}
+                // Add callbacks for checkbox states
+                setFastDeliveryChecked={setFastDeliveryChecked}
+                setCheapPriceChecked={setCheapPriceChecked}
+                setFreeShipChecked={setFreeShipChecked}
+                setFourStarsChecked={setFourStarsChecked}
             />
         </div>
     );
