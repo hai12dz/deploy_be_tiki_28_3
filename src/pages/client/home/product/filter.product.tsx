@@ -136,6 +136,13 @@ const ProductFilter: React.FC = () => {
                     ? prev.filter(b => b !== brand)
                     : [...prev, brand]
             );
+            setTempSelectedBrands(prev => {
+                if (prev.includes(brand)) {
+                    return prev.filter(b => b !== brand);
+                } else {
+                    return [...prev, brand];
+                }
+            });
         }
     };
 
@@ -175,6 +182,13 @@ const ProductFilter: React.FC = () => {
                     ? prev.filter(s => s !== actualSupplier)
                     : [...prev, actualSupplier]
             );
+            setTempSelectedSuppliers(prev => {
+                if (prev.includes(actualSupplier)) {
+                    return prev.filter(s => s !== actualSupplier);
+                } else {
+                    return [...prev, actualSupplier];
+                }
+            });
         }
     };
 
