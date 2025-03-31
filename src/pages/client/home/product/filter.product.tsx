@@ -628,6 +628,8 @@ const ProductFilter: React.FC = () => {
                 setListBook={setListBook}
                 setTotal={setTotal}
                 listFullCategory={listFullCategory}
+                selectedBrands={selectedBrands}
+                selectedSuppliers={selectedSuppliers}
             />
         </div>
     );

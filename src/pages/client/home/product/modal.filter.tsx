@@ -15,6 +15,8 @@ interface IProps {
     setListBook: React.Dispatch<React.SetStateAction<IBookTable[]>>;
     setTotal: React.Dispatch<React.SetStateAction<number>>;
     listFullCategory: ICategory[];
+    selectedBrands?: string[]; // Add this prop
+    selectedSuppliers?: string[]; // Add this prop
 }
 
 const FilterProduct: React.FC<IProps> = ({
@@ -28,6 +30,8 @@ const FilterProduct: React.FC<IProps> = ({
     setListBook,
     setTotal,
     listFullCategory,
+    selectedBrands: initialSelectedBrands = [], // Default to empty array
+    selectedSuppliers: initialSelectedSuppliers = [], // Default to empty array
 }) => {
     const [brand, setBrand] = useState<string>('');
     const [supplier, setSupplier] = useState<string>('');
@@ -42,6 +46,29 @@ const FilterProduct: React.FC<IProps> = ({
     const [selectedRatings, setSelectedRatings] = useState<string[]>([]); // State for "Đánh giá"
 
     const [form] = Form.useForm();
+
+    // Initialize selected brands and suppliers when the modal opens or when props change
+    useEffect(() => {
+        if (isModalOpen) {
+            setSelectedBrands(initialSelectedBrands);
+            setBrand(initialSelectedBrands.join(','));
+
+            // Handle supplier names that might end with '...'
+            const resolvedSuppliers = initialSelectedSuppliers.map(supplier => {
+                if (supplier.endsWith('...')) {
+                    // Find the full supplier name if it exists
+                    const fullSupplier = listSupplier.find(s =>
+                        s.name.startsWith(supplier.slice(0, -3))
+                    )?.name;
+                    return fullSupplier || supplier;
+                }
+                return supplier;
+            });
+
+            setSelectedSuppliers(resolvedSuppliers);
+            setSupplier(resolvedSuppliers.join(','));
+        }
+    }, [isModalOpen, initialSelectedBrands, initialSelectedSuppliers, listSupplier]);
 
     const handleOk = async (values: any) => {
         handleCancel();
