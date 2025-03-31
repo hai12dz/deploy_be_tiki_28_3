@@ -90,29 +90,22 @@ const ProductFilter: React.FC = () => {
         setListFullCategory(res.data!)
     }
 
-    const brands = ["Deli", "Thiên Long", "MAGIX", "Hồng Hà"];
-    const brandsFull = ["Deli", "Thiên Long", "MAGIX", "Hồng Hà"];
+    const getBrandNames = () => listBrand.map(brand => brand.name);
+    const getSupplierNames = () => listSupplier.map(supplier => supplier.name);
 
-    const suppliers = ["Nhà Sách Vĩnh Thụy", "Bamboo Books", "HỆ THỐNG NHÀ SÁCH AB..."];
-    const suppliersFull = ["Nhà Sách Vĩnh Thụy", "Bamboo Books", "HỆ THỐNG NHÀ SÁCH AB...", "info book"];
+    const brands = getBrandNames().slice(0, 4);
+    const brandsFull = getBrandNames().slice(0, 4);
 
-    const allBrands = [
-        "Deli", "Thiên Long", "MAGIX", "Hồng Hà",
-        "K&B Handmade", "KLONG", "Pentel", "Stacom",
-        "Stabilo", "LAMY", "Plus", "Uyên Loan", "Campus",
-        "Baoke", "Enter", "Fahasa", "PROLEA PL", "Bavico",
-        "Flexoffice", "Việt Net", "Văn Lang", "The Sun",
-        "Artline", "Casio", "Mont Marte", "DAICAT",
-        "Kai Nguyên", "PILOT", "Uncle Bills", "Elephant"
-    ];
+    const supplierNames = getSupplierNames();
+    const suppliers = supplierNames.slice(0, 3).map(name =>
+        name.length > 25 ? name.substring(0, 25) + '...' : name
+    );
+    const suppliersFull = supplierNames.slice(0, 4).map(name =>
+        name.length > 25 ? name.substring(0, 25) + '...' : name
+    );
 
-    const allSuppliers = [
-        "Nhà Sách Vĩnh Thụy", "Bamboo Books", "HỆ THỐNG NHÀ SÁCH ABC", "info book",
-        "Nhà sách Fahasa", "Nhà Sách Trẻ Online", "VBooks", "Tiki Trading",
-        "Bảo Châu Books", "FishingBook", "NHBook", "Alpha Books Official",
-        "Gooda Official", "SÁCH ĐẠI NAM", "AHABOOKS", "Times Books",
-        "Nhà sách Hà Nội Books", "NewShop Official", "Sống Official", "Phương Đông Books", "Sống Official", "Sống Official", "Sống Official", "Sống Official", "Sống Official", "Sống Official", "Sống Official", "Sống Official", "Sống Official"
-    ];
+    const allBrands = getBrandNames();
+    const allSuppliers = getSupplierNames();
 
     const isSupplierSelected = (supplier: string) => {
         if (supplier.endsWith('...')) {
@@ -172,8 +165,6 @@ const ProductFilter: React.FC = () => {
     };
 
     const handleSupplierSelect = (supplier: string) => {
-        // Only process clicks if we're NOT in "followSupplier" mode
-        // This allows clicks to work in both normal and expanded states
         if (!followSupplier) {
             const actualSupplier = supplier.endsWith('...')
                 ? allSuppliers.find(s => s.startsWith(supplier.slice(0, -3))) || supplier
@@ -199,7 +190,6 @@ const ProductFilter: React.FC = () => {
     };
 
     const handleClickOutside = (event: MouseEvent) => {
-        // Check if the click was on the left arrow button to prevent interference
         const isLeftArrowClick = (event.target as HTMLElement).closest('.left-arrow-button');
         if (isLeftArrowClick) return;
 
@@ -329,7 +319,6 @@ const ProductFilter: React.FC = () => {
     };
 
     const handleLeftArrowClick = (e: React.MouseEvent) => {
-        // Stop propagation to prevent the click from affecting other elements
         e.stopPropagation();
         setSupplierExpanded(false);
         setShowLeftArrow(false);
@@ -421,7 +410,7 @@ const ProductFilter: React.FC = () => {
                 <div
                     onClick={handleLeftArrowClick}
                     className="left-arrow-button arrow-icon-wrapper"
-                    style={{ zIndex: 1000 }} // Ensure arrow is above other elements but doesn't block interactions
+                    style={{ zIndex: 1000 }}
                 >
                     <div className="isolated-img-container">
                         <img
