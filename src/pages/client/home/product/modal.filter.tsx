@@ -15,8 +15,13 @@ interface IProps {
     setListBook: React.Dispatch<React.SetStateAction<IBookTable[]>>;
     setTotal: React.Dispatch<React.SetStateAction<number>>;
     listFullCategory: ICategory[];
-    selectedBrands?: string[]; // Add this prop
-    selectedSuppliers?: string[]; // Add this prop
+    selectedBrands?: string[];
+    selectedSuppliers?: string[];
+    // Add new callbacks to update parent component's state
+    setParentSelectedBrands?: React.Dispatch<React.SetStateAction<string[]>>;
+    setParentSelectedSuppliers?: React.Dispatch<React.SetStateAction<string[]>>;
+    setParentTempSelectedBrands?: React.Dispatch<React.SetStateAction<string[]>>;
+    setParentTempSelectedSuppliers?: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const FilterProduct: React.FC<IProps> = ({
@@ -30,8 +35,13 @@ const FilterProduct: React.FC<IProps> = ({
     setListBook,
     setTotal,
     listFullCategory,
-    selectedBrands: initialSelectedBrands = [], // Default to empty array
-    selectedSuppliers: initialSelectedSuppliers = [], // Default to empty array
+    selectedBrands: initialSelectedBrands = [],
+    selectedSuppliers: initialSelectedSuppliers = [],
+    // Add the new callback props
+    setParentSelectedBrands,
+    setParentSelectedSuppliers,
+    setParentTempSelectedBrands,
+    setParentTempSelectedSuppliers
 }) => {
     const [brand, setBrand] = useState<string>('');
     const [supplier, setSupplier] = useState<string>('');
@@ -71,6 +81,21 @@ const FilterProduct: React.FC<IProps> = ({
     }, [isModalOpen, initialSelectedBrands, initialSelectedSuppliers, listSupplier]);
 
     const handleOk = async (values: any) => {
+        // Update parent component's state with our selections before closing
+        if (setParentSelectedBrands) {
+            setParentSelectedBrands(selectedBrands);
+        }
+        if (setParentSelectedSuppliers) {
+            setParentSelectedSuppliers(selectedSuppliers);
+        }
+        // Also update temporary selections for consistency
+        if (setParentTempSelectedBrands) {
+            setParentTempSelectedBrands(selectedBrands);
+        }
+        if (setParentTempSelectedSuppliers) {
+            setParentTempSelectedSuppliers(selectedSuppliers);
+        }
+
         handleCancel();
         let query = `current=1&pageSize=${pageSize}`;
 

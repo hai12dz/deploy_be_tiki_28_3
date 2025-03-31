@@ -682,6 +682,11 @@ const ProductFilter: React.FC = () => {
                 listFullCategory={listFullCategory}
                 selectedBrands={selectedBrands}
                 selectedSuppliers={selectedSuppliers}
+                // Add callbacks to update state when the modal filter is applied
+                setParentSelectedBrands={setSelectedBrands}
+                setParentSelectedSuppliers={setSelectedSuppliers}
+                setParentTempSelectedBrands={setTempSelectedBrands}
+                setParentTempSelectedSuppliers={setTempSelectedSuppliers}
             />
         </div>
     );
