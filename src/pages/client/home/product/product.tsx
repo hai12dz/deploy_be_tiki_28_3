@@ -2,7 +2,7 @@ import { useFilterContext } from "@/context/FilterContext";
 import { getBooksAPI } from "@/services/api";
 import { ReloadOutlined, StarFilled } from "@ant-design/icons";
 import { Button, Rate, Row, Col, Tag, Divider, message } from "antd"; // Add message from antd
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import 'styles/product.scss';
 
@@ -35,7 +35,6 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
 
     // Use local state as a fallback if props are not provided
     const [localListBook, setLocalListBook] = useState<IBookTable[]>([]);
-    const [pageSize, setPageSize] = useState<number>(10);
     const [total, setTotal] = useState<number>(0);
     const [current, setCurrent] = useState<number>(1);
 
@@ -63,6 +62,15 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
     const [previousItemCount, setPreviousItemCount] = useState<number>(0);
     const [hasMoreItems, setHasMoreItems] = useState<boolean>(true);
 
+    // Track if a fetch is in progress to prevent duplicate calls
+    const [isFetching, setIsFetching] = useState<boolean>(false);
+
+    // Use a ref to store and compare pageSize values explicitly
+    const pageSizeRef = useRef<number>(10);
+
+    // Replace items comparison state with more robust tracking
+    const [itemIds, setItemIds] = useState<Set<string>>(new Set());
+
     // Use prop books if available, otherwise use local state
     const listBook = propListBook || localListBook;
 
@@ -72,15 +80,23 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
         );
     }, [searchTerm, listBook]);
 
-    const fetchBook = async () => {
+    const fetchBook = async (requestPageSize?: number) => {
+        // If already fetching, don't start another fetch
+        if (isFetching) return;
+
+        setIsFetching(true);
         setIsLoading(true);
+
+        // Use the explicitly passed pageSize, or the one from context
+        const currentPageSize = requestPageSize || contextPageSize || 10;
+        console.log(`Fetching with pageSize: ${currentPageSize}, Previous pageSize: ${pageSizeRef.current}`);
 
         // Build query params using context variables
         let query = new URLSearchParams();
 
-        // Base pagination params
+        // Base pagination params - use the currentPageSize
         query.append('current', current.toString());
-        query.append('pageSize', pageSize.toString());
+        query.append('pageSize', currentPageSize.toString());
 
         // Search by text
         if (searchTerm) {
@@ -132,42 +148,62 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
         console.log("Fetching with query:", queryString);
 
         try {
-            // Save the current count before fetching
-            const prevCount = localListBook.length;
-            setPreviousItemCount(prevCount);
+            // Clear any existing messages to prevent duplicates
+            message.destroy();
+
+            // Keep track of current item IDs before fetching
+            const prevItemIds = new Set([...itemIds]);
+            const prevItemCount = prevItemIds.size;
 
             const res = await getBooksAPI(queryString);
             if (res && res.data) {
                 // Get the new items from the API
                 const items = res.data.items || [];
 
-                // If we're loading more (pageSize > 10), append the items instead of replacing
-                if (pageSize > 10) {
-                    setLocalListBook(prevItems => {
-                        // Create a new array with unique books by ID
-                        const allItems = [...prevItems, ...items];
-                        const uniqueItems = Array.from(
-                            new Map(allItems.map(item => [item.id, item])).values()
-                        );
+                // Track if we requested more items (increased pageSize)
+                const requestedMoreItems = currentPageSize > pageSizeRef.current;
 
-                        // Check if we got any new items
-                        if (uniqueItems.length === prevItems.length) {
-                            message.info('Không còn sản phẩm để hiển thị');
-                            setHasMoreItems(false);
+                if (requestedMoreItems) {
+                    // Add new items to existing list
+                    const newItemIds = new Set([...prevItemIds]);
+                    const existingItems = [...localListBook];
+
+                    // Keep track of whether we added any new items
+                    let addedNewItems = false;
+
+                    // Process new items
+                    items.forEach(item => {
+                        if (!newItemIds.has(item.id)) {
+                            addedNewItems = true;
+                            newItemIds.add(item.id);
+                            existingItems.push(item);
                         }
-
-                        return uniqueItems;
                     });
+
+                    // Update state with new items
+                    setItemIds(newItemIds);
+                    setLocalListBook(existingItems);
+
+                    // If we didn't add any new items, show message and hide button
+                    if (!addedNewItems || newItemIds.size === prevItemCount) {
+                        console.log("No new items found, hiding 'View More' button");
+                        message.info('Không còn sản phẩm để hiển thị');
+                        setHasMoreItems(false);
+                    }
                 } else {
-                    // Initial load - just set the items
+                    // Initial load - replace all items
+                    const newItemIds = new Set(items.map(item => item.id));
+                    setItemIds(newItemIds);
                     setLocalListBook(items);
-                    // Reset the hasMoreItems flag on initial load
                     setHasMoreItems(true);
                 }
 
+                // Update pageSize reference for next comparison
+                pageSizeRef.current = currentPageSize;
+
                 // Set total from meta or use a placeholder value if not available
-                const totalItems = res.data.meta?.totalItems || items.length + 10;
-                setTotal(Math.max(totalItems, items.length + 10));
+                const totalItems = res.data.meta?.totalItems || items.length;
+                setTotal(totalItems);
             }
         } catch (error) {
             console.error("Error fetching books:", error);
@@ -175,6 +211,7 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
             setHasMoreItems(false);
         } finally {
             setIsLoading(false);
+            setIsFetching(false);
         }
     };
 
@@ -198,22 +235,20 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
 
     // Only fetch books if we're not receiving them from props
     useEffect(() => {
-        if (!propListBook) {
+        if (!propListBook && !isFetching) {
             fetchBook();
         }
     }, [
         propListBook,
         current,
-        pageSize,
-        filter,
-        sortQuery,
-        searchTerm,
-        brand, // Brand changes trigger API call
-        supplier, // Supplier changes trigger API call
-        freeShipping, // Checkbox states trigger API call
-        cheapPrice,
-        fastDelivery,
-        minRating
+        selectedSort,
+        fastDeliveryChecked,
+        cheapPriceChecked,
+        freeShipChecked,
+        fourStarsChecked,
+        selectedBrands,
+        selectedSuppliers,
+        searchTerm
     ]);
 
     const addViewedProduct = (productId: string) => {
@@ -380,24 +415,26 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
                     </div>
 
                     {/* Show View More button only if we have items and hasMoreItems is true */}
-                    {filteredBooks?.length > 0 && hasMoreItems && (
+                    {filteredBooks?.length > 0 && hasMoreItems && !isFetching && (
                         <div className="view-more-container">
                             <div
                                 data-view-id="category_infinity_view.more"
                                 className="view-more-button"
                                 onClick={() => {
-                                    console.log("View More clicked - increasing page size");
-                                    // Increase pageSize by 10
-                                    const newSize = pageSize + 10;
-                                    setPageSize(newSize);
+                                    // Clear any existing messages first
+                                    message.destroy();
 
-                                    // If using context pageSize, update it too
+                                    // Calculate new page size - explicitly use pageSizeRef for better consistency
+                                    const newSize = pageSizeRef.current + 10;
+                                    console.log(`View More clicked - increasing pageSize from ${pageSizeRef.current} to ${newSize}`);
+
+                                    // Update context pageSize first
                                     if (setContextPageSize) {
                                         setContextPageSize(newSize);
                                     }
 
-                                    // After updating pageSize, fetch more books
-                                    fetchBook();
+                                    // Fetch with new size immediately - this is critical!
+                                    fetchBook(newSize);
                                 }}
                             >
                                 {isLoading ? (
