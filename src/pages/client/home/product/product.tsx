@@ -71,6 +71,9 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
     // Replace items comparison state with more robust tracking
     const [itemIds, setItemIds] = useState<Set<string>>(new Set());
 
+    // Add a ref to track if we've initialized the item IDs from the initial load
+    const initializedRef = useRef<boolean>(false);
+
     // Use prop books if available, otherwise use local state
     const listBook = propListBook || localListBook;
 
@@ -151,59 +154,90 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
             // Clear any existing messages to prevent duplicates
             message.destroy();
 
-            // Keep track of current item IDs before fetching
+            // IMPORTANT: Store the current item IDs before fetching
+            // But only consider it if we've already initialized
+            const isInitialized = initializedRef.current;
             const prevItemIds = new Set([...itemIds]);
             const prevItemCount = prevItemIds.size;
+
+            console.log(`Before fetch: initialized=${isInitialized}, prevItemCount=${prevItemCount}`);
 
             const res = await getBooksAPI(queryString);
             if (res && res.data) {
                 // Get the new items from the API
                 const items = res.data.items || [];
 
+                // Store all item IDs from this response for comparison
+                const responseItemIds = new Set(items.map(item => item.id));
+                console.log(`Response returned ${items.length} items with ${responseItemIds.size} unique IDs`);
+
                 // Track if we requested more items (increased pageSize)
                 const requestedMoreItems = currentPageSize > pageSizeRef.current;
 
-                if (requestedMoreItems) {
-                    // Add new items to existing list
+                if (requestedMoreItems && isInitialized) {
+                    // We're loading MORE items after initial load
+
+                    // Create sets for tracking
                     const newItemIds = new Set([...prevItemIds]);
                     const existingItems = [...localListBook];
 
-                    // Keep track of whether we added any new items
-                    let addedNewItems = false;
+                    // Count how many new items we're adding
+                    let newItemsCount = 0;
 
-                    // Process new items
+                    // Process new items from response
                     items.forEach(item => {
-                        if (!newItemIds.has(item.id)) {
-                            addedNewItems = true;
+                        if (!prevItemIds.has(item.id)) {
+                            newItemsCount++;
                             newItemIds.add(item.id);
                             existingItems.push(item);
                         }
                     });
+
+                    console.log(`Found ${newItemsCount} new items to add`);
 
                     // Update state with new items
                     setItemIds(newItemIds);
                     setLocalListBook(existingItems);
 
                     // If we didn't add any new items, show message and hide button
-                    if (!addedNewItems || newItemIds.size === prevItemCount) {
+                    if (newItemsCount === 0) {
                         console.log("No new items found, hiding 'View More' button");
                         message.info('Không còn sản phẩm để hiển thị');
                         setHasMoreItems(false);
                     }
                 } else {
                     // Initial load - replace all items
-                    const newItemIds = new Set(items.map(item => item.id));
-                    setItemIds(newItemIds);
+                    console.log("Initial load or filter change - replacing all items");
+                    initializedRef.current = true;
+
+                    // Store IDs from initial response
+                    setItemIds(responseItemIds);
                     setLocalListBook(items);
-                    setHasMoreItems(true);
+
+                    // For initial load, show "View More" button if there are items
+                    setHasMoreItems(items.length > 0);
+
+                    // Special case: Check if items received equals pageSize
+                    // If we got fewer items than requested, there are no more to load
+                    if (items.length < currentPageSize) {
+                        console.log("Received fewer items than requested pageSize, no more to load");
+                        setHasMoreItems(false);
+                    }
                 }
 
                 // Update pageSize reference for next comparison
                 pageSizeRef.current = currentPageSize;
 
-                // Set total from meta or use a placeholder value if not available
-                const totalItems = res.data.meta?.totalItems || items.length;
-                setTotal(totalItems);
+                // Set total from meta
+                if (res.data.meta && res.data.meta.totalItems) {
+                    setTotal(res.data.meta.totalItems);
+
+                    // Additional check: if we've loaded all items based on total, hide button
+                    if (responseItemIds.size >= res.data.meta.totalItems) {
+                        console.log("All items loaded based on totalItems");
+                        setHasMoreItems(false);
+                    }
+                }
             }
         } catch (error) {
             console.error("Error fetching books:", error);
