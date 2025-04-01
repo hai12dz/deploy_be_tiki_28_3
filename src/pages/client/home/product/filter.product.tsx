@@ -556,21 +556,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
         setFourStarsChecked(!fourStarsChecked);
     };
 
-    const handleFiveStarsChange = () => {
-        // Reset page size when filter changes
-        if (setPageSize) {
-            setPageSize(10);
-        }
-        setFiveStarsChecked(!fiveStarsChecked);
-    };
 
-    const handleThreeStarsChange = () => {
-        // Reset page size when filter changes
-        if (setPageSize) {
-            setPageSize(10);
-        }
-        setThreeStarsChecked(!threeStarsChecked);
-    };
 
     return (
         <div className="product-filter-container">
@@ -665,7 +651,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                             className="filter-button">
                             {(selectedBrands.length > 0 || selectedSuppliers.length > 0 ||
                                 fastDeliveryChecked || cheapPriceChecked ||
-                                freeShipChecked || fourStarsChecked || fiveStarsChecked || threeStarsChecked) && (
+                                freeShipChecked || fourStarsChecked) && (
                                     <div className="icon-click"></div>
                                 )}
                             <img
@@ -816,77 +802,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                         </div>
                     </label>
 
-                    <label className="option">
-                        <span
-                            className="box"
-                            onClick={handleFiveStarsChange}
-                        >
-                            <img
-                                className={`icon-check-on ${fiveStarsChecked ? 'visible' : ''}`}
-                                src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
-                                alt="active-checkbox"
-                            />
-                            <img
-                                className={`icon-check-off ${!fiveStarsChecked ? 'visible' : ''}`}
-                                src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
-                                alt="default-checkbox"
-                            />
-                            <img
-                                className="icon-check-hover"
-                                src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
-                                alt="hovered-checkbox"
-                            />
-                        </span>
-                        <div
-                            className="option-content"
-                            onClick={handleFiveStarsChange}
-                        >
-                            <div className="star-rating">
-                                {[...Array(5)].map((_, index) => (
-                                    <svg key={index} width="14" height="14" viewBox="0 0 24 24" fill="#FFC400">
-                                        <path d="M12 17.8L5.8 21.2L7.3 14.3L2 9.6L9.2 8.7L12 2.5L14.8 8.7L22 9.6L16.7 14.3L18.2 21.2L12 17.8Z" />
-                                    </svg>
-                                ))}
-                            </div>
-                            <span className="option-text">từ 5 sao</span>
-                        </div>
-                    </label>
 
-                    <label className="option">
-                        <span
-                            className="box"
-                            onClick={handleThreeStarsChange}
-                        >
-                            <img
-                                className={`icon-check-on ${threeStarsChecked ? 'visible' : ''}`}
-                                src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
-                                alt="active-checkbox"
-                            />
-                            <img
-                                className={`icon-check-off ${!threeStarsChecked ? 'visible' : ''}`}
-                                src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
-                                alt="default-checkbox"
-                            />
-                            <img
-                                className="icon-check-hover"
-                                src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
-                                alt="hovered-checkbox"
-                            />
-                        </span>
-                        <div
-                            className="option-content"
-                            onClick={handleThreeStarsChange}
-                        >
-                            <div className="star-rating">
-                                {[...Array(3)].map((_, index) => (
-                                    <svg key={index} width="14" height="14" viewBox="0 0 24 24" fill="#FFC400">
-                                        <path d="M12 17.8L5.8 21.2L7.3 14.3L2 9.6L9.2 8.7L12 2.5L14.8 8.7L22 9.6L16.7 14.3L18.2 21.2L12 17.8Z" />
-                                    </svg>
-                                ))}
-                            </div>
-                            <span className="option-text">từ 3 sao</span>
-                        </div>
-                    </label>
 
                     <div className="sort">
                         <span className="sort-label">Sắp xếp</span>
