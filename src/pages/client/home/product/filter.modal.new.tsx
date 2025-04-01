@@ -131,6 +131,13 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
         setIsModalOpen(false);
     };
 
+    const handleBackdropClick = (e: React.MouseEvent) => {
+        // Only close if clicking directly on the backdrop, not on the modal content
+        if (e.target === e.currentTarget) {
+            handleClose();
+        }
+    };
+
     const onChangeCheckBox = (type: 'brand' | 'supplier' | 'category' | 'service' | 'promotion' | 'rating', name: string) => {
         if (type === 'brand') {
             setTempSelectedBrands((prev) => {
@@ -258,297 +265,300 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
     if (!isModalOpen) return null;
 
     return (
-        <div className="sc-add2a4bc-2 fgRNmz filter-modal-container">
-            <div className="sc-add2a4bc-3 boGFxq">
-                <div className="btn-close" onClick={handleClose}>
-                    <img src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/close.svg" alt="Close" />
-                </div>
-                <div className="title">Tất cả bộ lọc</div>
-            </div>
-
-            <div className="sc-add2a4bc-4 kXxzcv">
-                <div className="modal-content">
-                    <Divider />
-                    <h3>Dịch vụ</h3>
-                    <Row gutter={[16, 8]} className="modal-service-section">
-                        <Col span={12}>
-                            <Checkbox
-                                onChange={() => onChangeCheckBox('service', 'Giao siêu tốc 2H')}
-                                checked={selectedServices.includes('Giao siêu tốc 2H') || localFastDeliveryChecked}
-                            >
-                                <img
-                                    src="https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png"
-                                    alt="Giao siêu tốc 2H"
-                                    className="service-icon"
-                                />
-                                <span className="service-text"> Giao siêu tốc 2H </span>
-                            </Checkbox>
-                        </Col>
-                    </Row>
-                    <Divider />
-                    <h3>Ưu đãi</h3>
-                    <Row gutter={[16, 8]} className="modal-promotion-section">
-                        <Col span={12}>
-                            <Checkbox
-                                onChange={() => onChangeCheckBox('promotion', 'Siêu rẻ')}
-                                checked={selectedPromotions.includes('Siêu rẻ') || localCheapPriceChecked}
-                            >
-                                <img
-                                    src="https://salt.tikicdn.com/ts/upload/b5/aa/48/2305c5e08e536cfb840043df12818146.png"
-                                    alt="Siêu rẻ"
-                                    className="promotion-icon"
-                                />
-                                <span className="promotion-text">  Siêu rẻ </span>
-
-                            </Checkbox>
-                        </Col>
-                        <Col span={12}>
-                            <Checkbox
-                                onChange={() => onChangeCheckBox('promotion', 'FREESHIP XTRA')}
-                                checked={selectedPromotions.includes('FREESHIP XTRA') || localFreeShipChecked}
-                            >
-                                <img
-                                    src="https://salt.tikicdn.com/ts/upload/2f/20/77/0f96cfafdf7855d5e7fe076dd4f34ce0.png"
-                                    alt="FREESHIP XTRA"
-                                    className="promotion-icon"
-                                />
-                            </Checkbox>
-                        </Col>
-                    </Row>
-                    <Divider />
-                    <h3>Đánh giá</h3>
-                    <Row gutter={[16, 8]} className="modal-rating-section">
-                        <Col span={12}>
-                            <Checkbox
-                                onChange={() => onChangeCheckBox('rating', '5 sao')}
-                                checked={selectedRatings.includes('5 sao')}
-                            >
-                                <div className="rating-stars">
-                                    {[...Array(5)].map((_, index) => (
-                                        <svg
-                                            key={index}
-                                            width="12"
-                                            height="12"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <g clipPath="url(#a)">
-                                                <path
-                                                    d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
-                                                    fill="#FFC400"
-                                                ></path>
-                                            </g>
-                                            <defs>
-                                                <clipPath id="a">
-                                                    <path
-                                                        fill="#fff"
-                                                        transform="translate(1 1.5)"
-                                                        d="M0 0h10v10H0z"
-                                                    ></path>
-                                                </clipPath>
-                                            </defs>
-                                        </svg>
-                                    ))}
-                                    từ 5 sao
-                                </div>
-                            </Checkbox>
-                        </Col>
-                        <Col span={12}>
-                            <Checkbox
-                                onChange={() => onChangeCheckBox('rating', '4 sao')}
-                                checked={selectedRatings.includes('4 sao') || localFourStarsChecked}
-                            >
-                                <div className="rating-stars">
-                                    {[...Array(4)].map((_, index) => (
-                                        <svg
-                                            key={index}
-                                            width="12"
-                                            height="12"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <g clipPath="url(#a)">
-                                                <path
-                                                    d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
-                                                    fill="#FFC400"
-                                                ></path>
-                                            </g>
-                                            <defs>
-                                                <clipPath id="a">
-                                                    <path
-                                                        fill="#fff"
-                                                        transform="translate(1 1.5)"
-                                                        d="M0 0h10v10H0z"
-                                                    ></path>
-                                                </clipPath>
-                                            </defs>
-                                        </svg>
-                                    ))}
-                                    từ 4 sao
-                                </div>
-                            </Checkbox>
-                        </Col>
-                        <Col span={12}>
-                            <Checkbox
-                                onChange={() => onChangeCheckBox('rating', '3 sao')}
-                                checked={selectedRatings.includes('3 sao')}
-                            >
-                                <div className="rating-stars">
-                                    {[...Array(3)].map((_, index) => (
-                                        <svg
-                                            key={index}
-                                            width="12"
-                                            height="12"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <g clipPath="url(#a)">
-                                                <path
-                                                    d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
-                                                    fill="#FFC400"
-                                                ></path>
-                                            </g>
-                                            <defs>
-                                                <clipPath id="a">
-                                                    <path
-                                                        fill="#fff"
-                                                        transform="translate(1 1.5)"
-                                                        d="M0 0h10v10H0z"
-                                                    ></path>
-                                                </clipPath>
-                                            </defs>
-                                        </svg>
-                                    ))}
-                                    từ 3 sao
-                                </div>
-                            </Checkbox>
-                        </Col>
-                    </Row>
-                    <Divider />
-                    <h3>Giá</h3>
-                    <div className="price-wrapper">
-                        <div className="price-buttons-container">
-                            <Button className="price-button" type="text" onClick={() => setPriceRange(0, 60000)}>
-                                Dưới 60.000
-                            </Button>
-                            <Button className="price-button" type="text" onClick={() => setPriceRange(60000, 140000)}>
-                                60.000 - 140.000
-                            </Button>
-                            <Button className="price-button" type="text" onClick={() => setPriceRange(140000, 280000)}>
-                                140.000 - 280.000
-                            </Button>
-                            <Button className="price-button" type="text" onClick={() => setPriceRange(280000, 10000000)}>
-                                Trên 280.000
-                            </Button>
-                        </div>
-                        <Form form={form} name="control-hooks" onFinish={handleApplyFilters} className="filter-form">
-                            <div className="price-range-container">Tự nhập khoảng giá</div>
-                            <Row gutter={16} align="middle">
-                                <Col span={10}>
-                                    <Form.Item name="minPrice">
-                                        <InputNumber
-                                            placeholder="Từ"
-                                            addonAfter="₫"
-                                            controls={false}
-                                            className="full-width-input"
-                                            formatter={(value) => (value ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '')}
-                                            parser={(value) => value?.replace(/\./g, '') || ''}
-                                        />
-                                    </Form.Item>
-                                </Col>
-                                <Col span={4} className="price-separator">
-                                    <span>-</span>
-                                </Col>
-                                <Col span={10}>
-                                    <Form.Item name="maxPrice">
-                                        <InputNumber
-                                            placeholder="Đến"
-                                            addonAfter="₫"
-                                            controls={false}
-                                            className="full-width-input"
-                                            formatter={(value) => (value ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '')}
-                                            parser={(value) => value?.replace(/\./g, '') || ''}
-                                        />
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                        </Form>
+        <>
+            <div className="modal-backdrop" onClick={handleBackdropClick}></div>
+            <div className="sc-add2a4bc-2 fgRNmz filter-modal-container">
+                <div className="sc-add2a4bc-3 boGFxq">
+                    <div className="btn-close" onClick={handleClose}>
+                        <img src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/close.svg" alt="Close" />
                     </div>
-                    <Divider />
-                    <h3>Thể loại</h3>
-                    <Row gutter={[16, 8]}>
-                        {listFullCategory.slice(0, showFullBrandList ? undefined : 4).map((item, index) => (
-                            <Col key={index} span={12}>
+                    <div className="title">Tất cả bộ lọc</div>
+                </div>
+
+                <div className="sc-add2a4bc-4 kXxzcv">
+                    <div className="modal-content">
+                        <Divider />
+                        <h3>Dịch vụ</h3>
+                        <Row gutter={[16, 8]} className="modal-service-section">
+                            <Col span={12}>
                                 <Checkbox
-                                    onChange={() => onChangeCheckBox('category', item.name)}
-                                    checked={selectedCategories.includes(item.name)}
+                                    onChange={() => onChangeCheckBox('service', 'Giao siêu tốc 2H')}
+                                    checked={selectedServices.includes('Giao siêu tốc 2H') || localFastDeliveryChecked}
                                 >
-                                    {item.name}
+                                    <img
+                                        src="https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png"
+                                        alt="Giao siêu tốc 2H"
+                                        className="service-icon"
+                                    />
+                                    <span className="service-text"> Giao siêu tốc 2H </span>
                                 </Checkbox>
                             </Col>
-                        ))}
-                    </Row>
-                    {listFullCategory.length > 4 && (
-                        <p
-                            onClick={() => setShowFullBrandList(!showFullBrandList)}
-                            className="show-more-less"
-                        >
-                            {showFullBrandList ? 'Thu gọn' : 'Xem thêm'}
-                        </p>
-                    )}
-                    <Divider />
-                    <h3>Thương hiệu</h3>
-                    <Row gutter={[16, 8]}>
-                        {listBrand.slice(0, showFullBrandList ? undefined : 5).map((item, index) => (
-                            <Col key={index} span={12}>
+                        </Row>
+                        <Divider />
+                        <h3>Ưu đãi</h3>
+                        <Row gutter={[16, 8]} className="modal-promotion-section">
+                            <Col span={12}>
                                 <Checkbox
-                                    onChange={() => onChangeCheckBox('brand', item.name)}
-                                    checked={tempSelectedBrands.includes(item.name)}
+                                    onChange={() => onChangeCheckBox('promotion', 'Siêu rẻ')}
+                                    checked={selectedPromotions.includes('Siêu rẻ') || localCheapPriceChecked}
                                 >
-                                    {item.name}
+                                    <img
+                                        src="https://salt.tikicdn.com/ts/upload/b5/aa/48/2305c5e08e536cfb840043df12818146.png"
+                                        alt="Siêu rẻ"
+                                        className="promotion-icon"
+                                    />
+                                    <span className="promotion-text">  Siêu rẻ </span>
+
                                 </Checkbox>
                             </Col>
-                        ))}
-                    </Row>
-                    {listBrand.length > 5 && (
-                        <p
-                            onClick={() => setShowFullBrandList(!showFullBrandList)}
-                            className="show-more-less"
-                        >
-                            {showFullBrandList ? 'Thu gọn' : 'Xem thêm'}
-                        </p>
-                    )}
-                    <Divider style={{ marginBottom: '12px' }} />
-                    <h3>Nhà cung cấp</h3>
-                    <Row gutter={[16, 8]} style={{ marginBottom: 0 }}>
-                        {listSupplier.slice(0, showFullSupplierList ? undefined : 5).map((item, index) => (
-                            <Col key={index} span={12}>
+                            <Col span={12}>
                                 <Checkbox
-                                    onChange={() => onChangeCheckBox('supplier', item.name)}
-                                    checked={tempSelectedSuppliers.includes(item.name)}
+                                    onChange={() => onChangeCheckBox('promotion', 'FREESHIP XTRA')}
+                                    checked={selectedPromotions.includes('FREESHIP XTRA') || localFreeShipChecked}
                                 >
-                                    {item.name}
+                                    <img
+                                        src="https://salt.tikicdn.com/ts/upload/2f/20/77/0f96cfafdf7855d5e7fe076dd4f34ce0.png"
+                                        alt="FREESHIP XTRA"
+                                        className="promotion-icon"
+                                    />
                                 </Checkbox>
                             </Col>
-                        ))}
-                    </Row>
-                    {listSupplier.length > 5 && (
-                        <p
-                            onClick={() => setShowFullSupplierList(!showFullSupplierList)}
-                            className="show-more-less"
-                            style={{ marginBottom: 0 }}
-                        >
-                            {showFullSupplierList ? 'Thu gọn' : 'Xem thêm'}
-                        </p>
-                    )}
+                        </Row>
+                        <Divider />
+                        <h3>Đánh giá</h3>
+                        <Row gutter={[16, 8]} className="modal-rating-section">
+                            <Col span={12}>
+                                <Checkbox
+                                    onChange={() => onChangeCheckBox('rating', '5 sao')}
+                                    checked={selectedRatings.includes('5 sao')}
+                                >
+                                    <div className="rating-stars">
+                                        {[...Array(5)].map((_, index) => (
+                                            <svg
+                                                key={index}
+                                                width="12"
+                                                height="12"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <g clipPath="url(#a)">
+                                                    <path
+                                                        d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
+                                                        fill="#FFC400"
+                                                    ></path>
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="a">
+                                                        <path
+                                                            fill="#fff"
+                                                            transform="translate(1 1.5)"
+                                                            d="M0 0h10v10H0z"
+                                                        ></path>
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        ))}
+                                        từ 5 sao
+                                    </div>
+                                </Checkbox>
+                            </Col>
+                            <Col span={12}>
+                                <Checkbox
+                                    onChange={() => onChangeCheckBox('rating', '4 sao')}
+                                    checked={selectedRatings.includes('4 sao') || localFourStarsChecked}
+                                >
+                                    <div className="rating-stars">
+                                        {[...Array(4)].map((_, index) => (
+                                            <svg
+                                                key={index}
+                                                width="12"
+                                                height="12"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <g clipPath="url(#a)">
+                                                    <path
+                                                        d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
+                                                        fill="#FFC400"
+                                                    ></path>
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="a">
+                                                        <path
+                                                            fill="#fff"
+                                                            transform="translate(1 1.5)"
+                                                            d="M0 0h10v10H0z"
+                                                        ></path>
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        ))}
+                                        từ 4 sao
+                                    </div>
+                                </Checkbox>
+                            </Col>
+                            <Col span={12}>
+                                <Checkbox
+                                    onChange={() => onChangeCheckBox('rating', '3 sao')}
+                                    checked={selectedRatings.includes('3 sao')}
+                                >
+                                    <div className="rating-stars">
+                                        {[...Array(3)].map((_, index) => (
+                                            <svg
+                                                key={index}
+                                                width="12"
+                                                height="12"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <g clipPath="url(#a)">
+                                                    <path
+                                                        d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
+                                                        fill="#FFC400"
+                                                    ></path>
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="a">
+                                                        <path
+                                                            fill="#fff"
+                                                            transform="translate(1 1.5)"
+                                                            d="M0 0h10v10H0z"
+                                                        ></path>
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        ))}
+                                        từ 3 sao
+                                    </div>
+                                </Checkbox>
+                            </Col>
+                        </Row>
+                        <Divider />
+                        <h3>Giá</h3>
+                        <div className="price-wrapper">
+                            <div className="price-buttons-container">
+                                <Button className="price-button" type="text" onClick={() => setPriceRange(0, 60000)}>
+                                    Dưới 60.000
+                                </Button>
+                                <Button className="price-button" type="text" onClick={() => setPriceRange(60000, 140000)}>
+                                    60.000 - 140.000
+                                </Button>
+                                <Button className="price-button" type="text" onClick={() => setPriceRange(140000, 280000)}>
+                                    140.000 - 280.000
+                                </Button>
+                                <Button className="price-button" type="text" onClick={() => setPriceRange(280000, 10000000)}>
+                                    Trên 280.000
+                                </Button>
+                            </div>
+                            <Form form={form} name="control-hooks" onFinish={handleApplyFilters} className="filter-form">
+                                <div className="price-range-container">Tự nhập khoảng giá</div>
+                                <Row gutter={16} align="middle">
+                                    <Col span={10}>
+                                        <Form.Item name="minPrice">
+                                            <InputNumber
+                                                placeholder="Từ"
+                                                addonAfter="₫"
+                                                controls={false}
+                                                className="full-width-input"
+                                                formatter={(value) => (value ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '')}
+                                                parser={(value) => value?.replace(/\./g, '') || ''}
+                                            />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={4} className="price-separator">
+                                        <span>-</span>
+                                    </Col>
+                                    <Col span={10}>
+                                        <Form.Item name="maxPrice">
+                                            <InputNumber
+                                                placeholder="Đến"
+                                                addonAfter="₫"
+                                                controls={false}
+                                                className="full-width-input"
+                                                formatter={(value) => (value ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '')}
+                                                parser={(value) => value?.replace(/\./g, '') || ''}
+                                            />
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+                            </Form>
+                        </div>
+                        <Divider />
+                        <h3>Thể loại</h3>
+                        <Row gutter={[16, 8]}>
+                            {listFullCategory.slice(0, showFullBrandList ? undefined : 4).map((item, index) => (
+                                <Col key={index} span={12}>
+                                    <Checkbox
+                                        onChange={() => onChangeCheckBox('category', item.name)}
+                                        checked={selectedCategories.includes(item.name)}
+                                    >
+                                        {item.name}
+                                    </Checkbox>
+                                </Col>
+                            ))}
+                        </Row>
+                        {listFullCategory.length > 4 && (
+                            <p
+                                onClick={() => setShowFullBrandList(!showFullBrandList)}
+                                className="show-more-less"
+                            >
+                                {showFullBrandList ? 'Thu gọn' : 'Xem thêm'}
+                            </p>
+                        )}
+                        <Divider />
+                        <h3>Thương hiệu</h3>
+                        <Row gutter={[16, 8]}>
+                            {listBrand.slice(0, showFullBrandList ? undefined : 5).map((item, index) => (
+                                <Col key={index} span={12}>
+                                    <Checkbox
+                                        onChange={() => onChangeCheckBox('brand', item.name)}
+                                        checked={tempSelectedBrands.includes(item.name)}
+                                    >
+                                        {item.name}
+                                    </Checkbox>
+                                </Col>
+                            ))}
+                        </Row>
+                        {listBrand.length > 5 && (
+                            <p
+                                onClick={() => setShowFullBrandList(!showFullBrandList)}
+                                className="show-more-less"
+                            >
+                                {showFullBrandList ? 'Thu gọn' : 'Xem thêm'}
+                            </p>
+                        )}
+                        <Divider style={{ marginBottom: '12px' }} />
+                        <h3>Nhà cung cấp</h3>
+                        <Row gutter={[16, 8]} style={{ marginBottom: 0 }}>
+                            {listSupplier.slice(0, showFullSupplierList ? undefined : 5).map((item, index) => (
+                                <Col key={index} span={12}>
+                                    <Checkbox
+                                        onChange={() => onChangeCheckBox('supplier', item.name)}
+                                        checked={tempSelectedSuppliers.includes(item.name)}
+                                    >
+                                        {item.name}
+                                    </Checkbox>
+                                </Col>
+                            ))}
+                        </Row>
+                        {listSupplier.length > 5 && (
+                            <p
+                                onClick={() => setShowFullSupplierList(!showFullSupplierList)}
+                                className="show-more-less"
+                                style={{ marginBottom: 0 }}
+                            >
+                                {showFullSupplierList ? 'Thu gọn' : 'Xem thêm'}
+                            </p>
+                        )}
+                    </div>
+                </div>
+
+                <div className="sc-add2a4bc-5 bubSYk">
+                    <div className="sc-add2a4bc-6 cBZRwi" onClick={handleResetFilters}>Xoá tất cả</div>
+                    <div className="sc-add2a4bc-6 UkSzZ" onClick={handleApplyFilters}>Xem kết quả</div>
                 </div>
             </div>
-
-            <div className="sc-add2a4bc-5 bubSYk">
-                <div className="sc-add2a4bc-6 cBZRwi" onClick={handleResetFilters}>Xoá tất cả</div>
-                <div className="sc-add2a4bc-6 UkSzZ" onClick={handleApplyFilters}>Xem kết quả</div>
-            </div>
-        </div>
+        </>
     );
 };
 
