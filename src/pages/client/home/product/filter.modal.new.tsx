@@ -71,6 +71,9 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
     const [localCheapPriceChecked, setLocalCheapPriceChecked] = useState<boolean>(cheapPriceChecked);
     const [localFreeShipChecked, setLocalFreeShipChecked] = useState<boolean>(freeShipChecked);
     const [localFourStarsChecked, setLocalFourStarsChecked] = useState<boolean>(fourStarsChecked);
+    const [minPrice, setMinPrice] = useState<string>('');
+    const [maxPrice, setMaxPrice] = useState<string>('');
+    const [priceError, setPriceError] = useState<string>('');
 
     const [form] = Form.useForm();
 
@@ -188,7 +191,38 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
     };
 
     const setPriceRange = (min: number, max: number) => {
+        setMinPrice(min.toString());
+        setMaxPrice(max.toString());
+        setPriceError('');
         form.setFieldsValue({ minPrice: min, maxPrice: max });
+    };
+
+    const handlePriceChange = (type: 'min' | 'max', value: string) => {
+        const numericValue = value.replace(/[^0-9]/g, '');
+
+        if (type === 'min') {
+            setMinPrice(numericValue);
+            form.setFieldsValue({ minPrice: numericValue ? parseInt(numericValue) : undefined });
+        } else {
+            setMaxPrice(numericValue);
+            form.setFieldsValue({ maxPrice: numericValue ? parseInt(numericValue) : undefined });
+        }
+
+        // Validate price range
+        if (numericValue && type === 'min' && maxPrice && parseInt(numericValue) > parseInt(maxPrice)) {
+            setPriceError('Giá trị đầu phải nhỏ hơn hoặc bằng giá trị sau');
+        } else if (numericValue && type === 'max' && minPrice && parseInt(minPrice) > parseInt(numericValue)) {
+            setPriceError('Giá trị đầu phải nhỏ hơn hoặc bằng giá trị sau');
+        } else {
+            setPriceError('');
+        }
+    };
+
+    const clearPriceInputs = () => {
+        setMinPrice('');
+        setMaxPrice('');
+        setPriceError('');
+        form.setFieldsValue({ minPrice: undefined, maxPrice: undefined });
     };
 
     const handleApplyFilters = async () => {
@@ -572,35 +606,51 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                             </div>
                             <Form form={form} name="control-hooks" onFinish={handleApplyFilters} className="filter-form">
                                 <div className="price-range-container">Tự nhập khoảng giá</div>
-                                <Row gutter={16} align="middle">
-                                    <Col span={10}>
-                                        <Form.Item name="minPrice">
-                                            <InputNumber
-                                                placeholder="Từ"
-                                                addonAfter="₫"
-                                                controls={false}
-                                                className="full-width-input"
-                                                formatter={(value) => (value ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '')}
-                                                parser={(value) => value?.replace(/\./g, '') || ''}
+                                <div className="sc-63e2c595-3 ikRKtr">
+                                    <div className="group">
+                                        <input
+                                            pattern="[0-9]*"
+                                            placeholder="Từ"
+                                            value={minPrice}
+                                            onChange={(e) => handlePriceChange('min', e.target.value)}
+                                        />
+                                        <span>₫</span>
+                                        {minPrice && (
+                                            <img
+                                                src="https://salt.tikicdn.com/ts/upload/1f/f9/28/fae2aa73d63bd27bd330055c37a74e90.png"
+                                                onClick={() => handlePriceChange('min', '')}
+                                                alt="clear"
                                             />
-                                        </Form.Item>
-                                    </Col>
-                                    <Col span={4} className="price-separator">
-                                        <span>-</span>
-                                    </Col>
-                                    <Col span={10}>
-                                        <Form.Item name="maxPrice">
-                                            <InputNumber
-                                                placeholder="Đến"
-                                                addonAfter="₫"
-                                                controls={false}
-                                                className="full-width-input"
-                                                formatter={(value) => (value ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '')}
-                                                parser={(value) => value?.replace(/\./g, '') || ''}
+                                        )}
+                                    </div>
+                                    <span>-</span>
+                                    <div className="group">
+                                        <input
+                                            pattern="[0-9]*"
+                                            placeholder="Đến"
+                                            value={maxPrice}
+                                            onChange={(e) => handlePriceChange('max', e.target.value)}
+                                        />
+                                        <span>₫</span>
+                                        {maxPrice && (
+                                            <img
+                                                src="https://salt.tikicdn.com/ts/upload/1f/f9/28/fae2aa73d63bd27bd330055c37a74e90.png"
+                                                onClick={() => handlePriceChange('max', '')}
+                                                alt="clear"
                                             />
-                                        </Form.Item>
-                                    </Col>
-                                </Row>
+                                        )}
+                                    </div>
+                                    {priceError && <p>{priceError}</p>}
+                                    {(minPrice || maxPrice) && (
+                                        <div className="btn-delete" onClick={clearPriceInputs}>Xoá</div>
+                                    )}
+                                </div>
+                                <Form.Item name="minPrice" hidden>
+                                    <InputNumber />
+                                </Form.Item>
+                                <Form.Item name="maxPrice" hidden>
+                                    <InputNumber />
+                                </Form.Item>
                             </Form>
                         </div>
                         <Divider />
