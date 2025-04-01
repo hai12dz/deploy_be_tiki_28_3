@@ -66,19 +66,20 @@
     }
 }
 
-// Modal container styles
-.filter-modal-container {
-    position: fixed;
-    transform: translate(-50%, -50%);
-    height: calc(-64px + 100vh);
-    width: 566px;
-    overflow: hidden;
-    border-radius: 8px;
-}
 
 // Modal wrapper styles
 .modal-wrapper {
-    position: relative;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: calc(-64px + 100vh);
+    width: 566px !important;
+    overflow-y: auto; // Changed from overflow: hidden to allow vertical scrolling
+    z-index: 9999;
+    background: rgb(255, 255, 255);
+    border-radius: 8px;
 }
 
 // Price wrapper styles
