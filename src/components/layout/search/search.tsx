@@ -19,11 +19,9 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose }) =
 
         if (isVisible) {
             document.addEventListener('mousedown', handleClickOutside);
-            // Prevent scrolling on body when modal is open
-            document.body.style.overflow = 'hidden';
 
             // Get the header container element (parent of the header)
-            const headerContainer = document.querySelector('header#main-header').closest('.rgsXe');
+            const headerContainer = document.querySelector('header#main-header')!.closest('.rgsXe');
             if (headerContainer) {
                 const headerBottom = headerContainer.getBoundingClientRect().bottom;
                 document.documentElement.style.setProperty('--header-bottom', `${headerBottom}px`);
@@ -32,8 +30,6 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose }) =
 
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
-            // Re-enable scrolling when modal is closed
-            document.body.style.overflow = '';
         };
     }, [isVisible, onClose]);
 

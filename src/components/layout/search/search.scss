@@ -7,7 +7,7 @@
     width: 100%;
 }
 
-// Modify overlay styles to start below header
+// Modify overlay styles to start below header and allow scrolling
 .search-overlay {
     position: fixed;
     top: var(--header-bottom); // Start below the header
@@ -16,16 +16,17 @@
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5); // Semi-transparent gray
     z-index: 900; // Higher than content but lower than header and search modal
-    pointer-events: none; // Allow clicks to pass through to elements underneath
+    pointer-events: auto; // Allow scrolling and interactions
 }
 
-// Make sure search modal is above overlay
+// Ensure the search modal is properly positioned and doesn't scroll with the page
 .search-modal-visible {
     display: block !important;
     opacity: 1 !important;
     visibility: visible !important;
     z-index: 1000 !important; // Above everything
-    position: relative;
+    position: absolute; // Position relative to its container
+    pointer-events: auto; // Ensure interactions with the modal work
 }
 
 .iNGxKa {
@@ -223,4 +224,37 @@
 .hilSzk .item>.item-icon {
     width: 35px;
     height: 35px;
+}
+
+.hXsySQ .item>.thumb-wrap {
+    padding: 0px 40px;
+}
+
+.hXsySQ .item>.thumb-wrap .thumb {
+    width: 100%;
+    padding-top: 100%;
+    border-radius: 36%;
+    position: relative;
+    overflow: hidden;
+    background: rgb(250, 250, 250);
+}
+
+.hXsySQ .item>.thumb-wrap .thumb>img {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.hXsySQ .item>.title {
+    font-size: 12px;
+    line-height: 16px;
+    padding: 6px 0px 0px;
+    text-align: center;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
