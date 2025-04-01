@@ -222,7 +222,10 @@
 
         .service-icon,
         .promotion-icon {
-            height: 20px;
+            height: 17px;
+            width: auto;
+            object-fit: contain;
+
             margin-right: 8px;
         }
 
@@ -284,6 +287,78 @@
             cursor: pointer;
             margin-top: 8px;
             text-align: center;
+        }
+    }
+}
+
+// Add styles for the custom checkboxes
+.custom-checkbox {
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 20px;
+    color: rgb(39, 39, 42);
+    margin-bottom: 8px;
+
+    .checkbox-box {
+        position: relative;
+        width: 24px;
+        height: 24px;
+        margin-right: 8px;
+        flex-shrink: 0;
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        .icon-check-on,
+        .icon-check-off {
+            display: none;
+        }
+
+        .icon-check-on.visible,
+        .icon-check-off.visible {
+            display: block;
+        }
+
+        .icon-check-hover {
+            display: none;
+        }
+    }
+
+    &:hover {
+        .checkbox-box {
+
+            .icon-check-on:not(.visible),
+            .icon-check-off:not(.visible) {
+                display: none;
+            }
+
+            .icon-check-hover {
+                display: block;
+            }
+        }
+    }
+
+    .checkbox-content {
+        display: flex;
+        align-items: center;
+
+        .service-icon,
+        .promotion-icon {
+            height: 17px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .checkbox-text {
+            display: inline-block;
         }
     }
 }

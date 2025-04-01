@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './filter.modal.new.scss';
 import { filterBookWithFullInfoAPI } from '@/services/api';
-import { Form, InputNumber, Checkbox, Row, Col, Divider, Button } from 'antd';
+import { Form, InputNumber, Row, Col, Divider, Button } from 'antd';
 
 interface FilterNewProductModalProps {
     isModalOpen: boolean;
@@ -280,156 +280,251 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                         <h4>Dịch vụ</h4>
                         <Row gutter={[16, 8]} className="modal-service-section">
                             <Col span={12}>
-                                <Checkbox
-                                    onChange={() => onChangeCheckBox('service', 'Giao siêu tốc 2H')}
-                                    checked={selectedServices.includes('Giao siêu tốc 2H') || localFastDeliveryChecked}
-                                >
-                                    <img
-                                        src="https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png"
-                                        alt="Giao siêu tốc 2H"
-                                        className="service-icon"
-                                    />
-                                    <span className="service-text"> Giao siêu tốc 2H </span>
-                                </Checkbox>
+                                <div className="custom-checkbox" onClick={() => onChangeCheckBox('service', 'Giao siêu tốc 2H')}>
+                                    <span className="checkbox-box">
+                                        <img
+                                            className={`icon-check-on ${selectedServices.includes('Giao siêu tốc 2H') || localFastDeliveryChecked ? 'visible' : ''}`}
+                                            src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
+                                            alt="active-checkbox"
+                                        />
+                                        <img
+                                            className={`icon-check-off ${!(selectedServices.includes('Giao siêu tốc 2H') || localFastDeliveryChecked) ? 'visible' : ''}`}
+                                            src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
+                                            alt="default-checkbox"
+                                        />
+                                        <img
+                                            className="icon-check-hover"
+                                            src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
+                                            alt="hovered-checkbox"
+                                        />
+                                    </span>
+                                    <div className="checkbox-content">
+                                        <img
+                                            src="https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png"
+                                            alt="Giao siêu tốc 2H"
+                                            className="service-icon"
+                                        />
+                                        <span className="checkbox-text">Giao siêu tốc 2H</span>
+                                    </div>
+                                </div>
                             </Col>
                         </Row>
                         <Divider />
                         <h3>Ưu đãi</h3>
                         <Row gutter={[16, 8]} className="modal-promotion-section">
                             <Col span={12}>
-                                <Checkbox
-                                    onChange={() => onChangeCheckBox('promotion', 'Siêu rẻ')}
-                                    checked={selectedPromotions.includes('Siêu rẻ') || localCheapPriceChecked}
-                                >
-                                    <img
-                                        src="https://salt.tikicdn.com/ts/upload/b5/aa/48/2305c5e08e536cfb840043df12818146.png"
-                                        alt="Siêu rẻ"
-                                        className="promotion-icon"
-                                    />
-                                    <span className="promotion-text">  Siêu rẻ </span>
-
-                                </Checkbox>
+                                <div className="custom-checkbox" onClick={() => onChangeCheckBox('promotion', 'Siêu rẻ')}>
+                                    <span className="checkbox-box">
+                                        <img
+                                            className={`icon-check-on ${selectedPromotions.includes('Siêu rẻ') || localCheapPriceChecked ? 'visible' : ''}`}
+                                            src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
+                                            alt="active-checkbox"
+                                        />
+                                        <img
+                                            className={`icon-check-off ${!(selectedPromotions.includes('Siêu rẻ') || localCheapPriceChecked) ? 'visible' : ''}`}
+                                            src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
+                                            alt="default-checkbox"
+                                        />
+                                        <img
+                                            className="icon-check-hover"
+                                            src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
+                                            alt="hovered-checkbox"
+                                        />
+                                    </span>
+                                    <div className="checkbox-content">
+                                        <img
+                                            src="https://salt.tikicdn.com/ts/upload/b5/aa/48/2305c5e08e536cfb840043df12818146.png"
+                                            alt="Siêu rẻ"
+                                            className="promotion-icon"
+                                        />
+                                        <span className="promotion-text">Siêu rẻ</span>
+                                    </div>
+                                </div>
                             </Col>
                             <Col span={12}>
-                                <Checkbox
-                                    onChange={() => onChangeCheckBox('promotion', 'FREESHIP XTRA')}
-                                    checked={selectedPromotions.includes('FREESHIP XTRA') || localFreeShipChecked}
-                                >
-                                    <img
-                                        src="https://salt.tikicdn.com/ts/upload/2f/20/77/0f96cfafdf7855d5e7fe076dd4f34ce0.png"
-                                        alt="FREESHIP XTRA"
-                                        className="promotion-icon"
-                                    />
-                                </Checkbox>
+                                <div className="custom-checkbox" onClick={() => onChangeCheckBox('promotion', 'FREESHIP XTRA')}>
+                                    <span className="checkbox-box">
+                                        <img
+                                            className={`icon-check-on ${selectedPromotions.includes('FREESHIP XTRA') || localFreeShipChecked ? 'visible' : ''}`}
+                                            src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
+                                            alt="active-checkbox"
+                                        />
+                                        <img
+                                            className={`icon-check-off ${!(selectedPromotions.includes('FREESHIP XTRA') || localFreeShipChecked) ? 'visible' : ''}`}
+                                            src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
+                                            alt="default-checkbox"
+                                        />
+                                        <img
+                                            className="icon-check-hover"
+                                            src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
+                                            alt="hovered-checkbox"
+                                        />
+                                    </span>
+                                    <div className="checkbox-content">
+                                        <img
+                                            src="https://salt.tikicdn.com/ts/upload/2f/20/77/0f96cfafdf7855d5e7fe076dd4f34ce0.png"
+                                            alt="FREESHIP XTRA"
+                                            className="promotion-icon"
+                                        />
+                                    </div>
+                                </div>
                             </Col>
                         </Row>
                         <Divider />
                         <h3>Đánh giá</h3>
                         <Row gutter={[16, 8]} className="modal-rating-section">
                             <Col span={12}>
-                                <Checkbox
-                                    onChange={() => onChangeCheckBox('rating', '5 sao')}
-                                    checked={selectedRatings.includes('5 sao')}
-                                >
-                                    <div className="rating-stars">
-                                        {[...Array(5)].map((_, index) => (
-                                            <svg
-                                                key={index}
-                                                width="12"
-                                                height="12"
-                                                fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <g clipPath="url(#a)">
-                                                    <path
-                                                        d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
-                                                        fill="#FFC400"
-                                                    ></path>
-                                                </g>
-                                                <defs>
-                                                    <clipPath id="a">
+                                <div className="custom-checkbox" onClick={() => onChangeCheckBox('rating', '5 sao')}>
+                                    <span className="checkbox-box">
+                                        <img
+                                            className={`icon-check-on ${selectedRatings.includes('5 sao') ? 'visible' : ''}`}
+                                            src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
+                                            alt="active-checkbox"
+                                        />
+                                        <img
+                                            className={`icon-check-off ${!selectedRatings.includes('5 sao') ? 'visible' : ''}`}
+                                            src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
+                                            alt="default-checkbox"
+                                        />
+                                        <img
+                                            className="icon-check-hover"
+                                            src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
+                                            alt="hovered-checkbox"
+                                        />
+                                    </span>
+                                    <div className="checkbox-content">
+                                        <div className="rating-stars">
+                                            {[...Array(5)].map((_, index) => (
+                                                <svg
+                                                    key={index}
+                                                    width="12"
+                                                    height="12"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <g clipPath="url(#a)">
                                                         <path
-                                                            fill="#fff"
-                                                            transform="translate(1 1.5)"
-                                                            d="M0 0h10v10H0z"
+                                                            d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
+                                                            fill="#FFC400"
                                                         ></path>
-                                                    </clipPath>
-                                                </defs>
-                                            </svg>
-                                        ))}
-                                        từ 5 sao
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="a">
+                                                            <path
+                                                                fill="#fff"
+                                                                transform="translate(1 1.5)"
+                                                                d="M0 0h10v10H0z"
+                                                            ></path>
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                            ))}
+                                            từ 5 sao
+                                        </div>
                                     </div>
-                                </Checkbox>
+                                </div>
                             </Col>
                             <Col span={12}>
-                                <Checkbox
-                                    onChange={() => onChangeCheckBox('rating', '4 sao')}
-                                    checked={selectedRatings.includes('4 sao') || localFourStarsChecked}
-                                >
-                                    <div className="rating-stars">
-                                        {[...Array(4)].map((_, index) => (
-                                            <svg
-                                                key={index}
-                                                width="12"
-                                                height="12"
-                                                fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <g clipPath="url(#a)">
-                                                    <path
-                                                        d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
-                                                        fill="#FFC400"
-                                                    ></path>
-                                                </g>
-                                                <defs>
-                                                    <clipPath id="a">
+                                <div className="custom-checkbox" onClick={() => onChangeCheckBox('rating', '4 sao')}>
+                                    <span className="checkbox-box">
+                                        <img
+                                            className={`icon-check-on ${selectedRatings.includes('4 sao') || localFourStarsChecked ? 'visible' : ''}`}
+                                            src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
+                                            alt="active-checkbox"
+                                        />
+                                        <img
+                                            className={`icon-check-off ${!(selectedRatings.includes('4 sao') || localFourStarsChecked) ? 'visible' : ''}`}
+                                            src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
+                                            alt="default-checkbox"
+                                        />
+                                        <img
+                                            className="icon-check-hover"
+                                            src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
+                                            alt="hovered-checkbox"
+                                        />
+                                    </span>
+                                    <div className="checkbox-content">
+                                        <div className="rating-stars">
+                                            {[...Array(4)].map((_, index) => (
+                                                <svg
+                                                    key={index}
+                                                    width="12"
+                                                    height="12"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <g clipPath="url(#a)">
                                                         <path
-                                                            fill="#fff"
-                                                            transform="translate(1 1.5)"
-                                                            d="M0 0h10v10H0z"
+                                                            d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
+                                                            fill="#FFC400"
                                                         ></path>
-                                                    </clipPath>
-                                                </defs>
-                                            </svg>
-                                        ))}
-                                        từ 4 sao
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="a">
+                                                            <path
+                                                                fill="#fff"
+                                                                transform="translate(1 1.5)"
+                                                                d="M0 0h10v10H0z"
+                                                            ></path>
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                            ))}
+                                            từ 4 sao
+                                        </div>
                                     </div>
-                                </Checkbox>
+                                </div>
                             </Col>
                             <Col span={12}>
-                                <Checkbox
-                                    onChange={() => onChangeCheckBox('rating', '3 sao')}
-                                    checked={selectedRatings.includes('3 sao')}
-                                >
-                                    <div className="rating-stars">
-                                        {[...Array(3)].map((_, index) => (
-                                            <svg
-                                                key={index}
-                                                width="12"
-                                                height="12"
-                                                fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <g clipPath="url(#a)">
-                                                    <path
-                                                        d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
-                                                        fill="#FFC400"
-                                                    ></path>
-                                                </g>
-                                                <defs>
-                                                    <clipPath id="a">
+                                <div className="custom-checkbox" onClick={() => onChangeCheckBox('rating', '3 sao')}>
+                                    <span className="checkbox-box">
+                                        <img
+                                            className={`icon-check-on ${selectedRatings.includes('3 sao') ? 'visible' : ''}`}
+                                            src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
+                                            alt="active-checkbox"
+                                        />
+                                        <img
+                                            className={`icon-check-off ${!selectedRatings.includes('3 sao') ? 'visible' : ''}`}
+                                            src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
+                                            alt="default-checkbox"
+                                        />
+                                        <img
+                                            className="icon-check-hover"
+                                            src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
+                                            alt="hovered-checkbox"
+                                        />
+                                    </span>
+                                    <div className="checkbox-content">
+                                        <div className="rating-stars">
+                                            {[...Array(3)].map((_, index) => (
+                                                <svg
+                                                    key={index}
+                                                    width="12"
+                                                    height="12"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <g clipPath="url(#a)">
                                                         <path
-                                                            fill="#fff"
-                                                            transform="translate(1 1.5)"
-                                                            d="M0 0h10v10H0z"
+                                                            d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
+                                                            fill="#FFC400"
                                                         ></path>
-                                                    </clipPath>
-                                                </defs>
-                                            </svg>
-                                        ))}
-                                        từ 3 sao
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="a">
+                                                            <path
+                                                                fill="#fff"
+                                                                transform="translate(1 1.5)"
+                                                                d="M0 0h10v10H0z"
+                                                            ></path>
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                            ))}
+                                            từ 3 sao
+                                        </div>
                                     </div>
-                                </Checkbox>
+                                </div>
                             </Col>
                         </Row>
                         <Divider />
@@ -487,12 +582,26 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                         <Row gutter={[16, 8]}>
                             {listFullCategory.slice(0, showFullBrandList ? undefined : 4).map((item, index) => (
                                 <Col key={index} span={12}>
-                                    <Checkbox
-                                        onChange={() => onChangeCheckBox('category', item.name)}
-                                        checked={selectedCategories.includes(item.name)}
-                                    >
-                                        {item.name}
-                                    </Checkbox>
+                                    <div className="custom-checkbox" onClick={() => onChangeCheckBox('category', item.name)}>
+                                        <span className="checkbox-box">
+                                            <img
+                                                className={`icon-check-on ${selectedCategories.includes(item.name) ? 'visible' : ''}`}
+                                                src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
+                                                alt="active-checkbox"
+                                            />
+                                            <img
+                                                className={`icon-check-off ${!selectedCategories.includes(item.name) ? 'visible' : ''}`}
+                                                src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
+                                                alt="default-checkbox"
+                                            />
+                                            <img
+                                                className="icon-check-hover"
+                                                src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
+                                                alt="hovered-checkbox"
+                                            />
+                                        </span>
+                                        <span className="checkbox-text">{item.name}</span>
+                                    </div>
                                 </Col>
                             ))}
                         </Row>
@@ -509,12 +618,26 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                         <Row gutter={[16, 8]}>
                             {listBrand.slice(0, showFullBrandList ? undefined : 5).map((item, index) => (
                                 <Col key={index} span={12}>
-                                    <Checkbox
-                                        onChange={() => onChangeCheckBox('brand', item.name)}
-                                        checked={tempSelectedBrands.includes(item.name)}
-                                    >
-                                        {item.name}
-                                    </Checkbox>
+                                    <div className="custom-checkbox" onClick={() => onChangeCheckBox('brand', item.name)}>
+                                        <span className="checkbox-box">
+                                            <img
+                                                className={`icon-check-on ${tempSelectedBrands.includes(item.name) ? 'visible' : ''}`}
+                                                src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
+                                                alt="active-checkbox"
+                                            />
+                                            <img
+                                                className={`icon-check-off ${!tempSelectedBrands.includes(item.name) ? 'visible' : ''}`}
+                                                src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
+                                                alt="default-checkbox"
+                                            />
+                                            <img
+                                                className="icon-check-hover"
+                                                src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
+                                                alt="hovered-checkbox"
+                                            />
+                                        </span>
+                                        <span className="checkbox-text">{item.name}</span>
+                                    </div>
                                 </Col>
                             ))}
                         </Row>
@@ -531,12 +654,26 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                         <Row gutter={[16, 8]} style={{ marginBottom: 0 }}>
                             {listSupplier.slice(0, showFullSupplierList ? undefined : 5).map((item, index) => (
                                 <Col key={index} span={12}>
-                                    <Checkbox
-                                        onChange={() => onChangeCheckBox('supplier', item.name)}
-                                        checked={tempSelectedSuppliers.includes(item.name)}
-                                    >
-                                        {item.name}
-                                    </Checkbox>
+                                    <div className="custom-checkbox" onClick={() => onChangeCheckBox('supplier', item.name)}>
+                                        <span className="checkbox-box">
+                                            <img
+                                                className={`icon-check-on ${tempSelectedSuppliers.includes(item.name) ? 'visible' : ''}`}
+                                                src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
+                                                alt="active-checkbox"
+                                            />
+                                            <img
+                                                className={`icon-check-off ${!tempSelectedSuppliers.includes(item.name) ? 'visible' : ''}`}
+                                                src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
+                                                alt="default-checkbox"
+                                            />
+                                            <img
+                                                className="icon-check-hover"
+                                                src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
+                                                alt="hovered-checkbox"
+                                            />
+                                        </span>
+                                        <span className="checkbox-text">{item.name}</span>
+                                    </div>
                                 </Col>
                             ))}
                         </Row>
