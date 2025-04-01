@@ -74,6 +74,9 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
     const [minPrice, setMinPrice] = useState<string>('');
     const [maxPrice, setMaxPrice] = useState<string>('');
     const [priceError, setPriceError] = useState<string>('');
+    const [minPriceBlurred, setMinPriceBlurred] = useState<boolean>(false);
+    const [maxPriceBlurred, setMaxPriceBlurred] = useState<boolean>(false);
+    const [priceInputFocused, setPriceInputFocused] = useState<boolean>(false);
 
     const [form] = Form.useForm();
 
@@ -210,10 +213,28 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
 
         if (type === 'min') {
             setMinPrice(numericValue);
+            if (minPriceBlurred) setMinPriceBlurred(false);
             form.setFieldsValue({ minPrice: numericValue ? parseInt(numericValue) : undefined });
         } else {
             setMaxPrice(numericValue);
+            if (maxPriceBlurred) setMaxPriceBlurred(false);
             form.setFieldsValue({ maxPrice: numericValue ? parseInt(numericValue) : undefined });
+        }
+    };
+
+    const handleInputFocus = () => {
+        setPriceInputFocused(true);
+        setMinPriceBlurred(false);
+        setMaxPriceBlurred(false);
+    };
+
+    const handlePriceInputBlur = (e: React.FocusEvent) => {
+        const relatedTarget = e.relatedTarget as HTMLElement;
+        if (!relatedTarget || !relatedTarget.closest('.price-input-container')) {
+            setPriceInputFocused(false);
+            setMinPriceBlurred(true);
+            setMaxPriceBlurred(true);
+            validatePriceRange();
         }
     };
 
@@ -221,6 +242,8 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
         setMinPrice('');
         setMaxPrice('');
         setPriceError('');
+        setMinPriceBlurred(false);
+        setMaxPriceBlurred(false);
         form.setFieldsValue({ minPrice: undefined, maxPrice: undefined });
     };
 
@@ -606,17 +629,17 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                             <Form form={form} name="control-hooks" onFinish={handleApplyFilters} className="filter-form">
                                 <div className="price-range-container">Tự nhập khoảng giá</div>
                                 <div className="sc-63e2c595-3 ikRKtr">
-                                    <div className="price-input-container">
+                                    <div className="price-input-container" onBlur={handlePriceInputBlur}>
                                         <div className="group">
                                             <input
                                                 pattern="[0-9]*"
                                                 placeholder="Từ"
                                                 value={minPrice}
                                                 onChange={(e) => handlePriceChange('min', e.target.value)}
-                                                onBlur={validatePriceRange}
+                                                onFocus={handleInputFocus}
                                             />
                                             <span>₫</span>
-                                            {minPrice && (
+                                            {minPrice && !priceInputFocused && (
                                                 <img
                                                     src="https://salt.tikicdn.com/ts/upload/1f/f9/28/fae2aa73d63bd27bd330055c37a74e90.png"
                                                     onClick={() => handlePriceChange('min', '')}
@@ -631,10 +654,10 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                                                 placeholder="Đến"
                                                 value={maxPrice}
                                                 onChange={(e) => handlePriceChange('max', e.target.value)}
-                                                onBlur={validatePriceRange}
+                                                onFocus={handleInputFocus}
                                             />
                                             <span>₫</span>
-                                            {maxPrice && (
+                                            {maxPrice && !priceInputFocused && (
                                                 <img
                                                     src="https://salt.tikicdn.com/ts/upload/1f/f9/28/fae2aa73d63bd27bd330055c37a74e90.png"
                                                     onClick={() => handlePriceChange('max', '')}
