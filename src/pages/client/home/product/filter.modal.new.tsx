@@ -317,12 +317,13 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                 query += '&freeShipping=true';
             }
 
-            if (selectedRatings.includes('5 sao') || localFiveStarsChecked) {
-                query += '&minRating=5';
+            // Updated logic for rating filters - use the lowest selected rating
+            if (selectedRatings.includes('3 sao') || localThreeStarsChecked) {
+                query += '&minRating=3';
             } else if (selectedRatings.includes('4 sao') || localFourStarsChecked) {
                 query += '&minRating=4';
-            } else if (selectedRatings.includes('3 sao') || localThreeStarsChecked) {
-                query += '&minRating=3';
+            } else if (selectedRatings.includes('5 sao') || localFiveStarsChecked) {
+                query += '&minRating=5';
             }
 
             const res = await getBooksAPI(query);

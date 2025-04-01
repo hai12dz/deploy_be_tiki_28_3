@@ -111,17 +111,13 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
             query += `&suppliers=${selectedSuppliers.join(',')}`;
         }
 
-        // Add checkbox filters
-        if (fourStarsChecked) {
-            query += `&minRating=4`;
-        }
-
-        if (fiveStarsChecked) {
-            query += `&minRating=5`;
-        }
-
+        // Updated logic for rating filters - use the lowest selected rating
         if (threeStarsChecked) {
             query += `&minRating=3`;
+        } else if (fourStarsChecked) {
+            query += `&minRating=4`;
+        } else if (fiveStarsChecked) {
+            query += `&minRating=5`;
         }
 
         if (freeShipChecked) {
