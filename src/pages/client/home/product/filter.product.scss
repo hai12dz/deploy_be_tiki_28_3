@@ -275,7 +275,7 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
         padding-left: 0;
     }
 
-    // Add specific styling for supplier option chips
+
 
     .filter-section-groups {
         @include flex;
@@ -412,8 +412,18 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
         line-height: 21px;
         margin-top: 15px;
 
-        .option {
+        // Update vertical divider styling with proper spacing
+        .vertical-divider {
             position: relative;
+            width: 1px;
+            height: 24px;
+            background-color: rgb(235, 235, 240);
+            align-self: center;
+            flex-shrink: 0;
+        }
+
+        .option {
+            position: relative; // Add relative positioning to option elements
             @include flex(row, null, center, 8px);
             cursor: pointer;
             font-size: 13px;
@@ -508,6 +518,7 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
 
         // Sort section
         .sort {
+            position: relative; // Add relative positioning
             margin-left: auto;
             @include flex(row, null, center, 8px);
 

@@ -697,6 +697,8 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                         </div>
                     </label>
 
+                    <div className="vertical-divider"></div>
+
                     <label className="option">
                         <span
                             className="box"
@@ -731,6 +733,8 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                         </div>
                     </label>
 
+                    <div className="vertical-divider"></div>
+
                     <label className="option">
                         <span
                             className="box"
@@ -761,8 +765,11 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                                 alt="FREESHIP XTRA"
                                 className="freeship-tag"
                             />
+                            <span className="option-text">FREESHIP XTRA</span>
                         </div>
                     </label>
+
+                    <div className="vertical-divider"></div>
 
                     <label className="option">
                         <span
@@ -787,7 +794,6 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                         </span>
                         <div className="option-content" onClick={handleFourStarsChange}>
                             <div className="star-rating" style={{ gap: '0px' }}> {/* Reduced spacing between stars */}
-                                {/* Replace with 5 stars where 4 stars are filled and 1 is gray */}
                                 {[...Array(5)].map((_, index) => (
                                     <svg
                                         key={index}
@@ -818,6 +824,8 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                             <span className="option-text">từ 4 sao</span>
                         </div>
                     </label>
+
+                    <div className="vertical-divider"></div>
 
                     <div className="sort">
                         <span className="sort-label">Sắp xếp</span>
