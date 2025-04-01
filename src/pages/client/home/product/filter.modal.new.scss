@@ -499,14 +499,20 @@
 
 .sc-63e2c595-3.ikRKtr {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    flex-direction: column;
     width: 100%;
     margin-bottom: 10px;
 
+    .price-input-container {
+        display: flex;
+        position: relative;
+        align-items: center;
+        width: 100%;
+    }
+
     .group {
         position: relative;
-        flex: 1;
+        flex: 0 0 calc(40% - 8px);
         height: 36px;
 
         input {
@@ -543,12 +549,12 @@
         }
     }
 
-    >span {
+    .separator {
         margin: 0 8px;
         color: #808089;
     }
 
-    p {
+    .price-error {
         width: 100%;
         margin-top: 8px;
         font-size: 12px;
@@ -557,13 +563,13 @@
     }
 
     .btn-delete {
-        width: 100%;
-        margin-top: 8px;
-        padding: 8px 0;
-        font-size: 14px;
-        line-height: 20px;
-        color: #0a68ff;
-        text-align: center;
+        margin-left: 8px;
+        padding: 8px 12px;
+        color: rgb(10, 104, 255);
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 150%;
         cursor: pointer;
+        flex: 0 0 auto;
     }
 }

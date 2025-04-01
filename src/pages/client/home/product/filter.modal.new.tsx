@@ -190,6 +190,14 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
         }
     };
 
+    const validatePriceRange = () => {
+        if (minPrice && maxPrice && parseInt(minPrice) > parseInt(maxPrice)) {
+            setPriceError('Giá trị đầu phải nhỏ hơn hoặc bằng giá trị sau');
+        } else {
+            setPriceError('');
+        }
+    };
+
     const setPriceRange = (min: number, max: number) => {
         setMinPrice(min.toString());
         setMaxPrice(max.toString());
@@ -206,15 +214,6 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
         } else {
             setMaxPrice(numericValue);
             form.setFieldsValue({ maxPrice: numericValue ? parseInt(numericValue) : undefined });
-        }
-
-        // Validate price range
-        if (numericValue && type === 'min' && maxPrice && parseInt(numericValue) > parseInt(maxPrice)) {
-            setPriceError('Giá trị đầu phải nhỏ hơn hoặc bằng giá trị sau');
-        } else if (numericValue && type === 'max' && minPrice && parseInt(minPrice) > parseInt(numericValue)) {
-            setPriceError('Giá trị đầu phải nhỏ hơn hoặc bằng giá trị sau');
-        } else {
-            setPriceError('');
         }
     };
 
@@ -607,43 +606,45 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                             <Form form={form} name="control-hooks" onFinish={handleApplyFilters} className="filter-form">
                                 <div className="price-range-container">Tự nhập khoảng giá</div>
                                 <div className="sc-63e2c595-3 ikRKtr">
-                                    <div className="group">
-                                        <input
-                                            pattern="[0-9]*"
-                                            placeholder="Từ"
-                                            value={minPrice}
-                                            onChange={(e) => handlePriceChange('min', e.target.value)}
-                                        />
-                                        <span>₫</span>
-                                        {minPrice && (
-                                            <img
-                                                src="https://salt.tikicdn.com/ts/upload/1f/f9/28/fae2aa73d63bd27bd330055c37a74e90.png"
-                                                onClick={() => handlePriceChange('min', '')}
-                                                alt="clear"
+                                    <div className="price-input-container">
+                                        <div className="group">
+                                            <input
+                                                pattern="[0-9]*"
+                                                placeholder="Từ"
+                                                value={minPrice}
+                                                onChange={(e) => handlePriceChange('min', e.target.value)}
+                                                onBlur={validatePriceRange}
                                             />
-                                        )}
-                                    </div>
-                                    <span>-</span>
-                                    <div className="group">
-                                        <input
-                                            pattern="[0-9]*"
-                                            placeholder="Đến"
-                                            value={maxPrice}
-                                            onChange={(e) => handlePriceChange('max', e.target.value)}
-                                        />
-                                        <span>₫</span>
-                                        {maxPrice && (
-                                            <img
-                                                src="https://salt.tikicdn.com/ts/upload/1f/f9/28/fae2aa73d63bd27bd330055c37a74e90.png"
-                                                onClick={() => handlePriceChange('max', '')}
-                                                alt="clear"
+                                            <span>₫</span>
+                                            {minPrice && (
+                                                <img
+                                                    src="https://salt.tikicdn.com/ts/upload/1f/f9/28/fae2aa73d63bd27bd330055c37a74e90.png"
+                                                    onClick={() => handlePriceChange('min', '')}
+                                                    alt="clear"
+                                                />
+                                            )}
+                                        </div>
+                                        <span className="separator">-</span>
+                                        <div className="group">
+                                            <input
+                                                pattern="[0-9]*"
+                                                placeholder="Đến"
+                                                value={maxPrice}
+                                                onChange={(e) => handlePriceChange('max', e.target.value)}
+                                                onBlur={validatePriceRange}
                                             />
-                                        )}
-                                    </div>
-                                    {priceError && <p>{priceError}</p>}
-                                    {(minPrice || maxPrice) && (
+                                            <span>₫</span>
+                                            {maxPrice && (
+                                                <img
+                                                    src="https://salt.tikicdn.com/ts/upload/1f/f9/28/fae2aa73d63bd27bd330055c37a74e90.png"
+                                                    onClick={() => handlePriceChange('max', '')}
+                                                    alt="clear"
+                                                />
+                                            )}
+                                        </div>
                                         <div className="btn-delete" onClick={clearPriceInputs}>Xoá</div>
-                                    )}
+                                    </div>
+                                    {priceError && <p className="price-error">{priceError}</p>}
                                 </div>
                                 <Form.Item name="minPrice" hidden>
                                     <InputNumber />
