@@ -424,7 +424,7 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                                                         <g clipPath="url(#a)">
                                                             <path
                                                                 d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
-                                                                fill="#FFC400"
+                                                                fill={index < 5 ? "#FFC400" : "#DDDDDD"}
                                                             ></path>
                                                         </g>
                                                         <defs>
@@ -466,7 +466,7 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                                         </div>
                                         <div className="sc-aaa42ade-2 hCmoWw">
                                             <div className="rating-stars">
-                                                {[...Array(4)].map((_, index) => (
+                                                {[...Array(5)].map((_, index) => (
                                                     <svg
                                                         key={index}
                                                         width="12"
@@ -477,7 +477,7 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                                                         <g clipPath="url(#a)">
                                                             <path
                                                                 d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
-                                                                fill="#FFC400"
+                                                                fill={index < 4 ? "#FFC400" : "#DDDDDD"}
                                                             ></path>
                                                         </g>
                                                         <defs>
@@ -519,7 +519,7 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                                         </div>
                                         <div className="sc-aaa42ade-2 hCmoWw">
                                             <div className="rating-stars">
-                                                {[...Array(3)].map((_, index) => (
+                                                {[...Array(5)].map((_, index) => (
                                                     <svg
                                                         key={index}
                                                         width="12"
@@ -530,7 +530,7 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                                                         <g clipPath="url(#a)">
                                                             <path
                                                                 d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
-                                                                fill="#FFC400"
+                                                                fill={index < 3 ? "#FFC400" : "#DDDDDD"}
                                                             ></path>
                                                         </g>
                                                         <defs>

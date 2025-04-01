@@ -480,7 +480,11 @@
     .rating-stars {
         display: flex;
         align-items: center;
-        gap: 4px;
+        gap: 1px;
+
+        svg {
+            margin-right: -1px;
+        }
 
         span {
             margin-left: 4px;
