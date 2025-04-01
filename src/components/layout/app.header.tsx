@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { SearchOutlined, HomeOutlined, UserOutlined, EnvironmentOutlined } from '@ant-design/icons';
 import { Badge, Popover, Empty, message, Input, Dropdown, Space, Avatar } from 'antd';
 import { FiShoppingCart } from 'react-icons/fi';
@@ -18,6 +18,31 @@ interface IProps {
 const AppHeader = (props: IProps) => {
     // Add state for search modal visibility
     const [isSearchVisible, setIsSearchVisible] = useState<boolean>(false);
+
+    // Add state for rotating placeholder
+    const [currentPlaceholder, setCurrentPlaceholder] = useState<string>("Freeship đơn từ 45k");
+
+    // Array of placeholder messages to rotate
+    const placeholders = [
+        "Hoàn 200% nếu hàng giả",
+        "Freeship đơn từ 45k",
+        "Giá siêu rẻ",
+        "Giao nhanh 2h",
+        "100% hàng thật"
+    ];
+
+    // Set up the rotation effect
+    useEffect(() => {
+        let currentIndex = 0;
+
+        const intervalId = setInterval(() => {
+            currentIndex = (currentIndex + 1) % placeholders.length;
+            setCurrentPlaceholder(placeholders[currentIndex]);
+        }, 3000); // Change every 3 seconds
+
+        // Clean up the interval when component unmounts
+        return () => clearInterval(intervalId);
+    }, []);
 
     // Function to show search modal
     const showSearchModal = () => {
@@ -94,7 +119,7 @@ const AppHeader = (props: IProps) => {
                                                 <input
                                                     data-view-id="main_search_form_input"
                                                     type="text"
-                                                    placeholder="Freeship đơn từ 45k"
+                                                    placeholder={currentPlaceholder}
                                                     className="lgENLJ"
                                                     defaultValue=""
                                                     onClick={showSearchModal}
