@@ -66,21 +66,6 @@
     }
 }
 
-// Modal container styles
-.filter-modal-container {
-    position: fixed;
-    transform: translate(-50%, -50%);
-    height: calc(-64px + 100vh);
-    width: 566px;
-    overflow: hidden;
-    border-radius: 8px;
-}
-
-// Modal wrapper styles
-.modal-wrapper {
-    position: relative;
-}
-
 // Price wrapper styles
 .price-wrapper {
     margin-bottom: 10px;
@@ -156,4 +141,69 @@
     color: white;
     padding: 10px 20px;
     border-radius: 4px;
+}
+
+// Update filter modal container
+.filter-modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.45); // Backdrop color
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .ant-modal {
+        position: relative;
+        width: 566px;
+        max-height: calc(100vh - 100px); // Constrain modal height
+        overflow: hidden; // Prevent content from overflowing
+        border-radius: 8px;
+        background: white;
+    }
+
+    .ant-modal-content {
+        display: flex;
+        flex-direction: column;
+        height: 100%; // Ensure content fills the modal
+    }
+
+    .ant-modal-body {
+        flex: 1; // Allow the body to grow and take available space
+        overflow-y: auto; // Enable vertical scrolling
+        padding: 16px;
+        max-height: calc(100vh - 200px); // Constrain body height
+        box-sizing: border-box;
+
+        // Custom scrollbar styling
+        &::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+    }
+
+    .ant-modal-footer {
+        position: sticky;
+        bottom: 0;
+        background-color: white;
+        padding: 10px 16px;
+        border-top: 1px solid #f0f0f0;
+        z-index: 10;
+    }
 }
