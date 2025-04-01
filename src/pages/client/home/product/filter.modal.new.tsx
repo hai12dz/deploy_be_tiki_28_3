@@ -277,8 +277,7 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
 
                 <div className="sc-add2a4bc-4 kXxzcv">
                     <div className="modal-content">
-                        <Divider />
-                        <h3>Dịch vụ</h3>
+                        <h4>Dịch vụ</h4>
                         <Row gutter={[16, 8]} className="modal-service-section">
                             <Col span={12}>
                                 <Checkbox
