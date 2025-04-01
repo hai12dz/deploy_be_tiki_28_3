@@ -17,6 +17,8 @@ interface FilterContextType {
     cheapPriceChecked: boolean;
     freeShipChecked: boolean;
     fourStarsChecked: boolean;
+    fiveStarsChecked: boolean;
+    threeStarsChecked: boolean;
     selectedSort: string;
 
     // Update functions
@@ -36,6 +38,8 @@ interface FilterContextType {
     setCheapPriceChecked: (checked: boolean) => void;
     setFreeShipChecked: (checked: boolean) => void;
     setFourStarsChecked: (checked: boolean) => void;
+    setFiveStarsChecked: (checked: boolean) => void;
+    setThreeStarsChecked: (checked: boolean) => void;
     setSelectedSort: (sort: string) => void;
 
     // Helper functions
@@ -69,6 +73,8 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
     const [cheapPriceChecked, setCheapPriceChecked] = useState<boolean>(false);
     const [freeShipChecked, setFreeShipChecked] = useState<boolean>(false);
     const [fourStarsChecked, setFourStarsChecked] = useState<boolean>(false);
+    const [fiveStarsChecked, setFiveStarsChecked] = useState<boolean>(false);
+    const [threeStarsChecked, setThreeStarsChecked] = useState<boolean>(false);
     const [selectedSort, setSelectedSort] = useState<string>('Phổ biến');
 
     // Function to reset all filters
@@ -87,6 +93,8 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
         setCheapPriceChecked(false);
         setFreeShipChecked(false);
         setFourStarsChecked(false);
+        setFiveStarsChecked(false);
+        setThreeStarsChecked(false);
         setSelectedSort('Phổ biến');
     };
 
@@ -150,6 +158,14 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
             params.append('fourStarsChecked', 'true');
         }
 
+        if (fiveStarsChecked) {
+            params.append('fiveStarsChecked', 'true');
+        }
+
+        if (threeStarsChecked) {
+            params.append('threeStarsChecked', 'true');
+        }
+
         // Add selectedSort to query params if needed
         if (selectedSort && selectedSort !== 'Phổ biến') {
             params.append('selectedSort', selectedSort);
@@ -176,6 +192,8 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
         cheapPriceChecked,
         freeShipChecked,
         fourStarsChecked,
+        fiveStarsChecked,
+        threeStarsChecked,
         selectedSort,
         setSelectedBrands,
         setSelectedSuppliers,
@@ -191,6 +209,8 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
         setCheapPriceChecked,
         setFreeShipChecked,
         setFourStarsChecked,
+        setFiveStarsChecked,
+        setThreeStarsChecked,
         setSelectedSort,
         resetFilters,
         buildQueryString

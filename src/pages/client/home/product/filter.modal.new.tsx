@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './filter.modal.new.scss';
-import { filterBookWithFullInfoAPI } from '@/services/api';
+import { getBooksAPI } from '@/services/api'; // Changed from filterBookWithFullInfoAPI
 import { Form, InputNumber, Row, Col, Divider, Button } from 'antd';
 
 interface FilterNewProductModalProps {
@@ -24,10 +24,14 @@ interface FilterNewProductModalProps {
     cheapPriceChecked?: boolean;
     freeShipChecked?: boolean;
     fourStarsChecked?: boolean;
+    fiveStarsChecked?: boolean; // Added prop for 5-star rating
+    threeStarsChecked?: boolean; // Added prop for 3-star rating
     setFastDeliveryChecked?: (checked: boolean) => void;
     setCheapPriceChecked?: (checked: boolean) => void;
     setFreeShipChecked?: (checked: boolean) => void;
     setFourStarsChecked?: (checked: boolean) => void;
+    setFiveStarsChecked?: (checked: boolean) => void; // Added setter for 5-star rating
+    setThreeStarsChecked?: (checked: boolean) => void; // Added setter for 3-star rating
 }
 
 const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
@@ -51,10 +55,14 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
     cheapPriceChecked = false,
     freeShipChecked = false,
     fourStarsChecked = false,
+    fiveStarsChecked = false, // Default to false
+    threeStarsChecked = false, // Default to false
     setFastDeliveryChecked,
     setCheapPriceChecked,
     setFreeShipChecked,
-    setFourStarsChecked
+    setFourStarsChecked,
+    setFiveStarsChecked,
+    setThreeStarsChecked
 }) => {
     const [brand, setBrand] = useState<string>('');
     const [supplier, setSupplier] = useState<string>('');
@@ -71,6 +79,8 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
     const [localCheapPriceChecked, setLocalCheapPriceChecked] = useState<boolean>(cheapPriceChecked);
     const [localFreeShipChecked, setLocalFreeShipChecked] = useState<boolean>(freeShipChecked);
     const [localFourStarsChecked, setLocalFourStarsChecked] = useState<boolean>(fourStarsChecked);
+    const [localFiveStarsChecked, setLocalFiveStarsChecked] = useState<boolean>(fiveStarsChecked);
+    const [localThreeStarsChecked, setLocalThreeStarsChecked] = useState<boolean>(threeStarsChecked);
     const [minPrice, setMinPrice] = useState<string>('');
     const [maxPrice, setMaxPrice] = useState<string>('');
     const [priceError, setPriceError] = useState<string>('');
@@ -102,6 +112,8 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
             setLocalCheapPriceChecked(cheapPriceChecked);
             setLocalFreeShipChecked(freeShipChecked);
             setLocalFourStarsChecked(fourStarsChecked);
+            setLocalFiveStarsChecked(fiveStarsChecked);
+            setLocalThreeStarsChecked(threeStarsChecked);
 
             setSelectedServices(prev => {
                 const newServices = [...prev].filter(s => s !== 'Giao siêu tốc 2H');
@@ -127,10 +139,16 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                 if (fourStarsChecked) {
                     newRatings.push('4 sao');
                 }
+                if (fiveStarsChecked) {
+                    newRatings.push('5 sao');
+                }
+                if (threeStarsChecked) {
+                    newRatings.push('3 sao');
+                }
                 return newRatings;
             });
         }
-    }, [isModalOpen, selectedBrands, selectedSuppliers, listSupplier, fastDeliveryChecked, cheapPriceChecked, freeShipChecked, fourStarsChecked]);
+    }, [isModalOpen, selectedBrands, selectedSuppliers, listSupplier, fastDeliveryChecked, cheapPriceChecked, freeShipChecked, fourStarsChecked, fiveStarsChecked, threeStarsChecked]);
 
     const handleClose = () => {
         form.resetFields();
@@ -138,7 +156,6 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
     };
 
     const handleBackdropClick = (e: React.MouseEvent) => {
-        // Only close if clicking directly on the backdrop, not on the modal content
         if (e.target === e.currentTarget) {
             handleClose();
         }
@@ -188,13 +205,18 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                 if (name === '4 sao') {
                     setLocalFourStarsChecked(!prev.includes(name));
                 }
+                if (name === '5 sao') {
+                    setLocalFiveStarsChecked(!prev.includes(name));
+                }
+                if (name === '3 sao') {
+                    setLocalThreeStarsChecked(!prev.includes(name));
+                }
                 return updatedRatings;
             });
         }
     };
 
     const validatePriceRange = () => {
-        // Only show error when both fields have values
         if (minPrice && maxPrice) {
             if (parseInt(minPrice) > parseInt(maxPrice)) {
                 setPriceError('Giá trị đầu phải nhỏ hơn hoặc bằng giá trị sau');
@@ -202,7 +224,6 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                 setPriceError('');
             }
         } else {
-            // Clear error if one or both inputs are empty
             setPriceError('');
         }
     };
@@ -241,11 +262,9 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
             setMinPriceBlurred(true);
             setMaxPriceBlurred(true);
 
-            // Only validate and show clear icons if both fields have values
             if (minPrice && maxPrice) {
                 validatePriceRange();
             } else {
-                // Clear any existing errors if one or both fields are empty
                 setPriceError('');
             }
         }
@@ -268,6 +287,8 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
             if (setCheapPriceChecked) setCheapPriceChecked(localCheapPriceChecked);
             if (setFreeShipChecked) setFreeShipChecked(localFreeShipChecked);
             if (setFourStarsChecked) setFourStarsChecked(localFourStarsChecked);
+            if (setFiveStarsChecked) setFiveStarsChecked(localFiveStarsChecked);
+            if (setThreeStarsChecked) setThreeStarsChecked(localThreeStarsChecked);
 
             setParentSelectedBrands(tempSelectedBrands);
             setParentSelectedSuppliers(tempSelectedSuppliers);
@@ -296,15 +317,15 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                 query += '&freeShipping=true';
             }
 
-            if (selectedRatings.includes('5 sao')) {
+            if (selectedRatings.includes('5 sao') || localFiveStarsChecked) {
                 query += '&minRating=5';
             } else if (selectedRatings.includes('4 sao') || localFourStarsChecked) {
                 query += '&minRating=4';
-            } else if (selectedRatings.includes('3 sao')) {
+            } else if (selectedRatings.includes('3 sao') || localThreeStarsChecked) {
                 query += '&minRating=3';
             }
 
-            const res = await filterBookWithFullInfoAPI(query);
+            const res = await getBooksAPI(query);
             setTotal(res.data!.meta.totalItems);
             setListBook(res.data?.items || []);
         } catch (error) {
@@ -326,6 +347,8 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
         setLocalCheapPriceChecked(false);
         setLocalFreeShipChecked(false);
         setLocalFourStarsChecked(false);
+        setLocalFiveStarsChecked(false);
+        setLocalThreeStarsChecked(false);
         setBrand('');
         setSupplier('');
         setCategory('');
@@ -346,7 +369,6 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
 
                 <div className="sc-add2a4bc-4 kXxzcv">
                     <div className="modal-content">
-                        {/* Dịch vụ (Service) Section */}
                         <div data-view-id="search_filter_container" className="sc-6a0d1b22-0 bUkXlp">
                             <h4 className="title">Dịch vụ</h4>
                             <div className="sc-6a0d1b22-1 kvcRVh">
@@ -386,7 +408,6 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                         </div>
                         <Divider />
 
-                        {/* Ưu đãi (Promotions) Section */}
                         <div data-view-id="search_filter_container" className="sc-6a0d1b22-0 bUkXlp">
                             <h4 className="title">Ưu đãi</h4>
                             <div className="sc-6a0d1b22-1 kvcRVh">
@@ -455,7 +476,6 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                         </div>
                         <Divider />
 
-                        {/* Đánh giá (Ratings) Section */}
                         <div data-view-id="search_filter_container" className="sc-6a0d1b22-0 bUkXlp">
                             <h4 className="title">Đánh giá</h4>
                             <div className="sc-6a0d1b22-1 kvcRVh">
@@ -464,12 +484,12 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                                         <div className="sc-eca64225-3 Ywrhm" style={{ marginRight: "8px" }}>
                                             <span className="box">
                                                 <img
-                                                    className={`icon-check-on ${selectedRatings.includes('5 sao') ? 'visible' : ''}`}
+                                                    className={`icon-check-on ${selectedRatings.includes('5 sao') || localFiveStarsChecked ? 'visible' : ''}`}
                                                     src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
                                                     alt="active-checkbox"
                                                 />
                                                 <img
-                                                    className={`icon-check-off ${!selectedRatings.includes('5 sao') ? 'visible' : ''}`}
+                                                    className={`icon-check-off ${!(selectedRatings.includes('5 sao') || localFiveStarsChecked) ? 'visible' : ''}`}
                                                     src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
                                                     alt="default-checkbox"
                                                 />
@@ -570,12 +590,12 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                                         <div className="sc-eca64225-3 Ywrhm" style={{ marginRight: "8px" }}>
                                             <span className="box">
                                                 <img
-                                                    className={`icon-check-on ${selectedRatings.includes('3 sao') ? 'visible' : ''}`}
+                                                    className={`icon-check-on ${selectedRatings.includes('3 sao') || localThreeStarsChecked ? 'visible' : ''}`}
                                                     src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
                                                     alt="active-checkbox"
                                                 />
                                                 <img
-                                                    className={`icon-check-off ${!selectedRatings.includes('3 sao') ? 'visible' : ''}`}
+                                                    className={`icon-check-off ${!(selectedRatings.includes('3 sao') || localThreeStarsChecked) ? 'visible' : ''}`}
                                                     src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
                                                     alt="default-checkbox"
                                                 />
@@ -622,7 +642,6 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                         </div>
                         <Divider />
 
-                        {/* Rest of the sections (Price, Categories, Brands, Suppliers) remain unchanged */}
                         <h3>Giá</h3>
                         <div className="price-wrapper">
                             <div className="price-buttons-container">
@@ -652,7 +671,6 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                                                 onFocus={handleInputFocus}
                                             />
                                             <span>₫</span>
-                                            {/* Only show clear icon when there's a price error (min > max) */}
                                             {minPrice && maxPrice && !priceInputFocused && priceError && (
                                                 <img
                                                     src="https://salt.tikicdn.com/ts/upload/1f/f9/28/fae2aa73d63bd27bd330055c37a74e90.png"
@@ -671,7 +689,6 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                                                 onFocus={handleInputFocus}
                                             />
                                             <span>₫</span>
-                                            {/* Only show clear icon when there's a price error (min > max) */}
                                             {minPrice && maxPrice && !priceInputFocused && priceError && (
                                                 <img
                                                     src="https://salt.tikicdn.com/ts/upload/1f/f9/28/fae2aa73d63bd27bd330055c37a74e90.png"
