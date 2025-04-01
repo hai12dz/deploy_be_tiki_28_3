@@ -236,16 +236,18 @@
             margin-bottom: 16px;
 
             .price-button {
-                flex: 1 0 calc(50% - 8px);
-                text-align: center;
+                position: relative;
+                margin-right: 8px;
+                margin-bottom: 8px;
+                display: inline-block;
+                padding: 5.5px 12px;
                 border: 1px solid rgb(221, 221, 227);
-                border-radius: 4px;
-                padding: 8px 12px;
-                font-size: 14px;
-                line-height: 20px;
-                background: transparent;
+                border-radius: 16px;
                 color: rgb(39, 39, 42);
-                white-space: nowrap;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 150%;
+                cursor: pointer;
 
                 &:hover {
                     border-color: rgb(10, 104, 255);
@@ -255,9 +257,12 @@
         }
 
         .price-range-container {
+            margin-top: 12px;
+            padding-bottom: 8px;
+            color: rgb(39, 39, 42);
+            font-weight: 500;
             font-size: 14px;
-            color: rgb(128, 128, 137);
-            margin-bottom: 8px;
+            line-height: 150%;
         }
 
         .price-separator {
