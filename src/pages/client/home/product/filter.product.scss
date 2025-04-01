@@ -285,21 +285,18 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
         margin-left: 0;
         position: relative;
 
-        .vertical-divider {
+        // Update vertical divider to move with container
+        .brand-supplier-divider {
             width: 1.5px;
             height: 33px;
             background-color: $border-light;
             margin-top: 21px;
-            margin-left: -16px;
-            margin-right: -16px;
             align-self: flex-start;
-            position: relative;
+            position: absolute; // Change to absolute positioning
+            left: 380px; // Position it between brand and supplier sections
             transition: transform 0.3s ease, opacity 0.3s ease;
             opacity: 0.7;
-            font-size: 18px;
-            line-height: 30px;
-            text-align: center;
-            color: $border-light;
+            z-index: 1;
         }
     }
 
@@ -310,6 +307,7 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
             visibility: visible;
             opacity: 0.7;
         }
+
 
     }
 

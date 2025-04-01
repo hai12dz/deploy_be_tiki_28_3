@@ -609,7 +609,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                                 </div>
                             </div>
 
-                            <div className="vertical-divider"></div>
+                            <div className="brand-supplier-divider"></div>
 
                             <div className="filter-sections-supplier">
                                 <div className="filter-section">
