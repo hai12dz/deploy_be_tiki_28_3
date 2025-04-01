@@ -74,15 +74,7 @@
     border-bottom: 1px solid rgb(235, 235, 240);
 }
 
-.bUkXlp>h4 {
-    display: block;
-    margin: 0px;
-    padding-bottom: 16px;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 150%;
-    color: rgb(39, 39, 42);
-}
+
 
 .kvcRVh {
     display: flex;
@@ -404,4 +396,94 @@
 
 .filter-form .ant-row {
     margin-bottom: 0;
+}
+
+/* Specific styles for the filter structure */
+.sc-6a0d1b22-0.bUkXlp {
+    margin-bottom: 16px;
+
+    .title {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 150%;
+        color: rgb(39, 39, 42);
+        margin-bottom: 12px;
+    }
+}
+
+.sc-6a0d1b22-1.kvcRVh {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    >div {
+        flex: 0 0 calc(50% - 4px);
+    }
+}
+
+.sc-aaa42ade-0.hxysjC {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px 0;
+}
+
+.sc-eca64225-3.Ywrhm {
+    position: relative;
+    margin-right: 8px;
+
+    .box {
+        display: inline-block;
+        position: relative;
+        width: 24px;
+        height: 24px;
+    }
+
+    img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 24px;
+        height: 24px;
+        display: none;
+    }
+
+    .icon-check-on.visible,
+    .icon-check-off.visible {
+        display: block;
+    }
+
+    &:hover {
+
+        .icon-check-on:not(.visible),
+        .icon-check-off:not(.visible) {
+            display: none;
+        }
+
+        .icon-check-hover {
+            display: block;
+        }
+    }
+}
+
+.sc-aaa42ade-1.vQcnP {
+    height: 16px;
+    margin-right: 8px;
+    object-fit: contain;
+}
+
+.sc-aaa42ade-2.hCmoWw {
+    font-size: 14px;
+    line-height: 20px;
+    color: rgb(39, 39, 42);
+
+    .rating-stars {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        span {
+            margin-left: 4px;
+        }
+    }
 }

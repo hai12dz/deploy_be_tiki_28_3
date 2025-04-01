@@ -277,245 +277,283 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
 
                 <div className="sc-add2a4bc-4 kXxzcv">
                     <div className="modal-content">
-                        <h4>Dịch vụ</h4>
-                        <div className="filter-options-grid">
-                            <div className="custom-checkbox" onClick={() => onChangeCheckBox('service', 'Giao siêu tốc 2H')}>
-                                <span className="checkbox-box">
-                                    <img
-                                        className={`icon-check-on ${selectedServices.includes('Giao siêu tốc 2H') || localFastDeliveryChecked ? 'visible' : ''}`}
-                                        src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
-                                        alt="active-checkbox"
-                                    />
-                                    <img
-                                        className={`icon-check-off ${!(selectedServices.includes('Giao siêu tốc 2H') || localFastDeliveryChecked) ? 'visible' : ''}`}
-                                        src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
-                                        alt="default-checkbox"
-                                    />
-                                    <img
-                                        className="icon-check-hover"
-                                        src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
-                                        alt="hovered-checkbox"
-                                    />
-                                </span>
-                                <div className="checkbox-content">
-                                    <img
-                                        src="https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png"
-                                        alt="Giao siêu tốc 2H"
-                                        className="service-icon"
-                                    />
-                                    <span className="checkbox-text">Giao siêu tốc 2H</span>
-                                </div>
-                            </div>
-                        </div>
-                        <Divider />
-                        <h3>Ưu đãi</h3>
-                        <div className="filter-options-grid">
-                            <div className="custom-checkbox" onClick={() => onChangeCheckBox('promotion', 'Siêu rẻ')}>
-                                <span className="checkbox-box">
-                                    <img
-                                        className={`icon-check-on ${selectedPromotions.includes('Siêu rẻ') || localCheapPriceChecked ? 'visible' : ''}`}
-                                        src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
-                                        alt="active-checkbox"
-                                    />
-                                    <img
-                                        className={`icon-check-off ${!(selectedPromotions.includes('Siêu rẻ') || localCheapPriceChecked) ? 'visible' : ''}`}
-                                        src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
-                                        alt="default-checkbox"
-                                    />
-                                    <img
-                                        className="icon-check-hover"
-                                        src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
-                                        alt="hovered-checkbox"
-                                    />
-                                </span>
-                                <div className="checkbox-content">
-                                    <img
-                                        src="https://salt.tikicdn.com/ts/upload/b5/aa/48/2305c5e08e536cfb840043df12818146.png"
-                                        alt="Siêu rẻ"
-                                        className="promotion-icon"
-                                    />
-                                    <span className="promotion-text">Siêu rẻ</span>
-                                </div>
-                            </div>
-                            <div className="custom-checkbox" onClick={() => onChangeCheckBox('promotion', 'FREESHIP XTRA')}>
-                                <span className="checkbox-box">
-                                    <img
-                                        className={`icon-check-on ${selectedPromotions.includes('FREESHIP XTRA') || localFreeShipChecked ? 'visible' : ''}`}
-                                        src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
-                                        alt="active-checkbox"
-                                    />
-                                    <img
-                                        className={`icon-check-off ${!(selectedPromotions.includes('FREESHIP XTRA') || localFreeShipChecked) ? 'visible' : ''}`}
-                                        src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
-                                        alt="default-checkbox"
-                                    />
-                                    <img
-                                        className="icon-check-hover"
-                                        src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
-                                        alt="hovered-checkbox"
-                                    />
-                                </span>
-                                <div className="checkbox-content">
-                                    <img
-                                        src="https://salt.tikicdn.com/ts/upload/2f/20/77/0f96cfafdf7855d5e7fe076dd4f34ce0.png"
-                                        alt="FREESHIP XTRA"
-                                        className="promotion-icon"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <Divider />
-                        <h3>Đánh giá</h3>
-                        <div className="filter-options-grid">
-                            <div className="custom-checkbox" onClick={() => onChangeCheckBox('rating', '5 sao')}>
-                                <span className="checkbox-box">
-                                    <img
-                                        className={`icon-check-on ${selectedRatings.includes('5 sao') ? 'visible' : ''}`}
-                                        src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
-                                        alt="active-checkbox"
-                                    />
-                                    <img
-                                        className={`icon-check-off ${!selectedRatings.includes('5 sao') ? 'visible' : ''}`}
-                                        src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
-                                        alt="default-checkbox"
-                                    />
-                                    <img
-                                        className="icon-check-hover"
-                                        src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
-                                        alt="hovered-checkbox"
-                                    />
-                                </span>
-                                <div className="checkbox-content">
-                                    <div className="rating-stars">
-                                        {[...Array(5)].map((_, index) => (
-                                            <svg
-                                                key={index}
-                                                width="12"
-                                                height="12"
-                                                fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <g clipPath="url(#a)">
-                                                    <path
-                                                        d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
-                                                        fill="#FFC400"
-                                                    ></path>
-                                                </g>
-                                                <defs>
-                                                    <clipPath id="a">
-                                                        <path
-                                                            fill="#fff"
-                                                            transform="translate(1 1.5)"
-                                                            d="M0 0h10v10H0z"
-                                                        ></path>
-                                                    </clipPath>
-                                                </defs>
-                                            </svg>
-                                        ))}
-                                        từ 5 sao
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="custom-checkbox" onClick={() => onChangeCheckBox('rating', '4 sao')}>
-                                <span className="checkbox-box">
-                                    <img
-                                        className={`icon-check-on ${selectedRatings.includes('4 sao') || localFourStarsChecked ? 'visible' : ''}`}
-                                        src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
-                                        alt="active-checkbox"
-                                    />
-                                    <img
-                                        className={`icon-check-off ${!(selectedRatings.includes('4 sao') || localFourStarsChecked) ? 'visible' : ''}`}
-                                        src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
-                                        alt="default-checkbox"
-                                    />
-                                    <img
-                                        className="icon-check-hover"
-                                        src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
-                                        alt="hovered-checkbox"
-                                    />
-                                </span>
-                                <div className="checkbox-content">
-                                    <div className="rating-stars">
-                                        {[...Array(4)].map((_, index) => (
-                                            <svg
-                                                key={index}
-                                                width="12"
-                                                height="12"
-                                                fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <g clipPath="url(#a)">
-                                                    <path
-                                                        d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
-                                                        fill="#FFC400"
-                                                    ></path>
-                                                </g>
-                                                <defs>
-                                                    <clipPath id="a">
-                                                        <path
-                                                            fill="#fff"
-                                                            transform="translate(1 1.5)"
-                                                            d="M0 0h10v10H0z"
-                                                        ></path>
-                                                    </clipPath>
-                                                </defs>
-                                            </svg>
-                                        ))}
-                                        từ 4 sao
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="custom-checkbox" onClick={() => onChangeCheckBox('rating', '3 sao')}>
-                                <span className="checkbox-box">
-                                    <img
-                                        className={`icon-check-on ${selectedRatings.includes('3 sao') ? 'visible' : ''}`}
-                                        src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
-                                        alt="active-checkbox"
-                                    />
-                                    <img
-                                        className={`icon-check-off ${!selectedRatings.includes('3 sao') ? 'visible' : ''}`}
-                                        src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
-                                        alt="default-checkbox"
-                                    />
-                                    <img
-                                        className="icon-check-hover"
-                                        src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
-                                        alt="hovered-checkbox"
-                                    />
-                                </span>
-                                <div className="checkbox-content">
-                                    <div className="rating-stars">
-                                        {[...Array(3)].map((_, index) => (
-                                            <svg
-                                                key={index}
-                                                width="12"
-                                                height="12"
-                                                fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <g clipPath="url(#a)">
-                                                    <path
-                                                        d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
-                                                        fill="#FFC400"
-                                                    ></path>
-                                                </g>
-                                                <defs>
-                                                    <clipPath id="a">
-                                                        <path
-                                                            fill="#fff"
-                                                            transform="translate(1 1.5)"
-                                                            d="M0 0h10v10H0z"
-                                                        ></path>
-                                                    </clipPath>
-                                                </defs>
-                                            </svg>
-                                        ))}
-                                        từ 3 sao
+                        {/* Dịch vụ (Service) Section */}
+                        <div data-view-id="search_filter_container" className="sc-6a0d1b22-0 bUkXlp">
+                            <h4 className="title">Dịch vụ</h4>
+                            <div className="sc-6a0d1b22-1 kvcRVh">
+                                <div data-view-index="0" data-view-id="search_filter_item" data-view-label="Giao siêu tốc 2H">
+                                    <div className="sc-aaa42ade-0 hxysjC" onClick={() => onChangeCheckBox('service', 'Giao siêu tốc 2H')}>
+                                        <div className="sc-eca64225-3 Ywrhm" style={{ marginRight: "8px" }}>
+                                            <span className="box">
+                                                <img
+                                                    className={`icon-check-on ${selectedServices.includes('Giao siêu tốc 2H') || localFastDeliveryChecked ? 'visible' : ''}`}
+                                                    src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
+                                                    alt="active-checkbox"
+                                                />
+                                                <img
+                                                    className={`icon-check-off ${!(selectedServices.includes('Giao siêu tốc 2H') || localFastDeliveryChecked) ? 'visible' : ''}`}
+                                                    src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
+                                                    alt="default-checkbox"
+                                                />
+                                                <img
+                                                    className="icon-check-hover"
+                                                    src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
+                                                    alt="hovered-checkbox"
+                                                />
+                                            </span>
+                                        </div>
+                                        <img
+                                            src="https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png"
+                                            alt="Giao siêu tốc 2H"
+                                            className="sc-aaa42ade-1 vQcnP"
+                                            style={{ height: "16px" }}
+                                        />
+                                        <div className="sc-aaa42ade-2 hCmoWw">
+                                            <span>Giao siêu tốc 2H</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <Divider />
+
+                        {/* Ưu đãi (Promotions) Section */}
+                        <div data-view-id="search_filter_container" className="sc-6a0d1b22-0 bUkXlp">
+                            <h4 className="title">Ưu đãi</h4>
+                            <div className="sc-6a0d1b22-1 kvcRVh">
+                                <div data-view-index="0" data-view-id="search_filter_item" data-view-label="Siêu rẻ">
+                                    <div className="sc-aaa42ade-0 hxysjC" onClick={() => onChangeCheckBox('promotion', 'Siêu rẻ')}>
+                                        <div className="sc-eca64225-3 Ywrhm" style={{ marginRight: "8px" }}>
+                                            <span className="box">
+                                                <img
+                                                    className={`icon-check-on ${selectedPromotions.includes('Siêu rẻ') || localCheapPriceChecked ? 'visible' : ''}`}
+                                                    src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
+                                                    alt="active-checkbox"
+                                                />
+                                                <img
+                                                    className={`icon-check-off ${!(selectedPromotions.includes('Siêu rẻ') || localCheapPriceChecked) ? 'visible' : ''}`}
+                                                    src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
+                                                    alt="default-checkbox"
+                                                />
+                                                <img
+                                                    className="icon-check-hover"
+                                                    src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
+                                                    alt="hovered-checkbox"
+                                                />
+                                            </span>
+                                        </div>
+                                        <img
+                                            src="https://salt.tikicdn.com/ts/upload/b5/aa/48/2305c5e08e536cfb840043df12818146.png"
+                                            alt="Siêu rẻ"
+                                            className="sc-aaa42ade-1 vQcnP"
+                                            style={{ height: "16px" }}
+                                        />
+                                        <div className="sc-aaa42ade-2 hCmoWw">
+                                            <span>Siêu rẻ</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-view-index="0" data-view-id="search_filter_item" data-view-label="">
+                                    <div className="sc-aaa42ade-0 hxysjC" onClick={() => onChangeCheckBox('promotion', 'FREESHIP XTRA')}>
+                                        <div className="sc-eca64225-3 Ywrhm" style={{ marginRight: "8px" }}>
+                                            <span className="box">
+                                                <img
+                                                    className={`icon-check-on ${selectedPromotions.includes('FREESHIP XTRA') || localFreeShipChecked ? 'visible' : ''}`}
+                                                    src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
+                                                    alt="active-checkbox"
+                                                />
+                                                <img
+                                                    className={`icon-check-off ${!(selectedPromotions.includes('FREESHIP XTRA') || localFreeShipChecked) ? 'visible' : ''}`}
+                                                    src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
+                                                    alt="default-checkbox"
+                                                />
+                                                <img
+                                                    className="icon-check-hover"
+                                                    src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
+                                                    alt="hovered-checkbox"
+                                                />
+                                            </span>
+                                        </div>
+                                        <img
+                                            src="https://salt.tikicdn.com/ts/upload/2f/20/77/0f96cfafdf7855d5e7fe076dd4f34ce0.png"
+                                            alt=""
+                                            className="sc-aaa42ade-1 vQcnP"
+                                            style={{ height: "16px" }}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <Divider />
+
+                        {/* Đánh giá (Ratings) Section */}
+                        <div data-view-id="search_filter_container" className="sc-6a0d1b22-0 bUkXlp">
+                            <h4 className="title">Đánh giá</h4>
+                            <div className="sc-6a0d1b22-1 kvcRVh">
+                                <div data-view-index="0" data-view-id="search_filter_item" data-view-label="5 sao">
+                                    <div className="sc-aaa42ade-0 hxysjC" onClick={() => onChangeCheckBox('rating', '5 sao')}>
+                                        <div className="sc-eca64225-3 Ywrhm" style={{ marginRight: "8px" }}>
+                                            <span className="box">
+                                                <img
+                                                    className={`icon-check-on ${selectedRatings.includes('5 sao') ? 'visible' : ''}`}
+                                                    src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
+                                                    alt="active-checkbox"
+                                                />
+                                                <img
+                                                    className={`icon-check-off ${!selectedRatings.includes('5 sao') ? 'visible' : ''}`}
+                                                    src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
+                                                    alt="default-checkbox"
+                                                />
+                                                <img
+                                                    className="icon-check-hover"
+                                                    src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
+                                                    alt="hovered-checkbox"
+                                                />
+                                            </span>
+                                        </div>
+                                        <div className="sc-aaa42ade-2 hCmoWw">
+                                            <div className="rating-stars">
+                                                {[...Array(5)].map((_, index) => (
+                                                    <svg
+                                                        key={index}
+                                                        width="12"
+                                                        height="12"
+                                                        fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <g clipPath="url(#a)">
+                                                            <path
+                                                                d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
+                                                                fill="#FFC400"
+                                                            ></path>
+                                                        </g>
+                                                        <defs>
+                                                            <clipPath id="a">
+                                                                <path
+                                                                    fill="#fff"
+                                                                    transform="translate(1 1.5)"
+                                                                    d="M0 0h10v10H0z"
+                                                                ></path>
+                                                            </clipPath>
+                                                        </defs>
+                                                    </svg>
+                                                ))}
+                                                <span>từ 5 sao</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-view-index="0" data-view-id="search_filter_item" data-view-label="4 sao">
+                                    <div className="sc-aaa42ade-0 hxysjC" onClick={() => onChangeCheckBox('rating', '4 sao')}>
+                                        <div className="sc-eca64225-3 Ywrhm" style={{ marginRight: "8px" }}>
+                                            <span className="box">
+                                                <img
+                                                    className={`icon-check-on ${selectedRatings.includes('4 sao') || localFourStarsChecked ? 'visible' : ''}`}
+                                                    src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
+                                                    alt="active-checkbox"
+                                                />
+                                                <img
+                                                    className={`icon-check-off ${!(selectedRatings.includes('4 sao') || localFourStarsChecked) ? 'visible' : ''}`}
+                                                    src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
+                                                    alt="default-checkbox"
+                                                />
+                                                <img
+                                                    className="icon-check-hover"
+                                                    src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
+                                                    alt="hovered-checkbox"
+                                                />
+                                            </span>
+                                        </div>
+                                        <div className="sc-aaa42ade-2 hCmoWw">
+                                            <div className="rating-stars">
+                                                {[...Array(4)].map((_, index) => (
+                                                    <svg
+                                                        key={index}
+                                                        width="12"
+                                                        height="12"
+                                                        fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <g clipPath="url(#a)">
+                                                            <path
+                                                                d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
+                                                                fill="#FFC400"
+                                                            ></path>
+                                                        </g>
+                                                        <defs>
+                                                            <clipPath id="a">
+                                                                <path
+                                                                    fill="#fff"
+                                                                    transform="translate(1 1.5)"
+                                                                    d="M0 0h10v10H0z"
+                                                                ></path>
+                                                            </clipPath>
+                                                        </defs>
+                                                    </svg>
+                                                ))}
+                                                <span>từ 4 sao</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-view-index="0" data-view-id="search_filter_item" data-view-label="3 sao">
+                                    <div className="sc-aaa42ade-0 hxysjC" onClick={() => onChangeCheckBox('rating', '3 sao')}>
+                                        <div className="sc-eca64225-3 Ywrhm" style={{ marginRight: "8px" }}>
+                                            <span className="box">
+                                                <img
+                                                    className={`icon-check-on ${selectedRatings.includes('3 sao') ? 'visible' : ''}`}
+                                                    src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
+                                                    alt="active-checkbox"
+                                                />
+                                                <img
+                                                    className={`icon-check-off ${!selectedRatings.includes('3 sao') ? 'visible' : ''}`}
+                                                    src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
+                                                    alt="default-checkbox"
+                                                />
+                                                <img
+                                                    className="icon-check-hover"
+                                                    src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
+                                                    alt="hovered-checkbox"
+                                                />
+                                            </span>
+                                        </div>
+                                        <div className="sc-aaa42ade-2 hCmoWw">
+                                            <div className="rating-stars">
+                                                {[...Array(3)].map((_, index) => (
+                                                    <svg
+                                                        key={index}
+                                                        width="12"
+                                                        height="12"
+                                                        fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <g clipPath="url(#a)">
+                                                            <path
+                                                                d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
+                                                                fill="#FFC400"
+                                                            ></path>
+                                                        </g>
+                                                        <defs>
+                                                            <clipPath id="a">
+                                                                <path
+                                                                    fill="#fff"
+                                                                    transform="translate(1 1.5)"
+                                                                    d="M0 0h10v10H0z"
+                                                                ></path>
+                                                            </clipPath>
+                                                        </defs>
+                                                    </svg>
+                                                ))}
+                                                <span>từ 3 sao</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <Divider />
+
+                        {/* Rest of the sections (Price, Categories, Brands, Suppliers) remain unchanged */}
                         <h3>Giá</h3>
                         <div className="price-wrapper">
                             <div className="price-buttons-container">
