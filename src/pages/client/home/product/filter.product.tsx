@@ -556,8 +556,6 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
         setFourStarsChecked(!fourStarsChecked);
     };
 
-
-
     return (
         <div className="product-filter-container">
             {isLoading && (
@@ -787,22 +785,39 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                                 alt="hovered-checkbox"
                             />
                         </span>
-                        <div
-                            className="option-content"
-                            onClick={handleFourStarsChange}
-                        >
-                            <div className="star-rating">
-                                {[...Array(4)].map((_, index) => (
-                                    <svg key={index} width="14" height="14" viewBox="0 0 24 24" fill="#FFC400">
-                                        <path d="M12 17.8L5.8 21.2L7.3 14.3L2 9.6L9.2 8.7L12 2.5L14.8 8.7L22 9.6L16.7 14.3L18.2 21.2L12 17.8Z" />
+                        <div className="option-content" onClick={handleFourStarsChange}>
+                            <div className="star-rating" style={{ gap: '0px' }}> {/* Reduced spacing between stars */}
+                                {/* Replace with 5 stars where 4 stars are filled and 1 is gray */}
+                                {[...Array(5)].map((_, index) => (
+                                    <svg
+                                        key={index}
+                                        width="12"
+                                        height="12"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        style={{ marginRight: '-1px' }}
+                                    >
+                                        <g clipPath="url(#a)">
+                                            <path
+                                                d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
+                                                fill={index < 4 ? "#FFC400" : "#DDDDE3"}
+                                            />
+                                        </g>
+                                        <defs>
+                                            <clipPath id="a">
+                                                <path
+                                                    fill="#fff"
+                                                    transform="translate(1 1.5)"
+                                                    d="M0 0h10v10H0z"
+                                                />
+                                            </clipPath>
+                                        </defs>
                                     </svg>
                                 ))}
                             </div>
                             <span className="option-text">từ 4 sao</span>
                         </div>
                     </label>
-
-
 
                     <div className="sort">
                         <span className="sort-label">Sắp xếp</span>
