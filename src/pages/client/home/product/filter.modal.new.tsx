@@ -32,6 +32,10 @@ interface FilterNewProductModalProps {
     setFourStarsChecked?: (checked: boolean) => void;
     setFiveStarsChecked?: (checked: boolean) => void; // Added setter for 5-star rating
     setThreeStarsChecked?: (checked: boolean) => void; // Added setter for 3-star rating
+    minPrice?: string;
+    maxPrice?: string;
+    setMinPrice?: (price: string) => void;
+    setMaxPrice?: (price: string) => void;
 }
 
 const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
@@ -62,7 +66,11 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
     setFreeShipChecked,
     setFourStarsChecked,
     setFiveStarsChecked,
-    setThreeStarsChecked
+    setThreeStarsChecked,
+    minPrice = '',
+    maxPrice = '',
+    setMinPrice,
+    setMaxPrice
 }) => {
     const [brand, setBrand] = useState<string>('');
     const [supplier, setSupplier] = useState<string>('');
@@ -81,8 +89,8 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
     const [localFourStarsChecked, setLocalFourStarsChecked] = useState<boolean>(fourStarsChecked);
     const [localFiveStarsChecked, setLocalFiveStarsChecked] = useState<boolean>(fiveStarsChecked);
     const [localThreeStarsChecked, setLocalThreeStarsChecked] = useState<boolean>(threeStarsChecked);
-    const [minPrice, setMinPrice] = useState<string>('');
-    const [maxPrice, setMaxPrice] = useState<string>('');
+    const [localMinPrice, setLocalMinPrice] = useState<string>(minPrice);
+    const [localMaxPrice, setLocalMaxPrice] = useState<string>(maxPrice);
     const [priceError, setPriceError] = useState<string>('');
     const [minPriceBlurred, setMinPriceBlurred] = useState<boolean>(false);
     const [maxPriceBlurred, setMaxPriceBlurred] = useState<boolean>(false);
@@ -114,6 +122,9 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
             setLocalFourStarsChecked(fourStarsChecked);
             setLocalFiveStarsChecked(fiveStarsChecked);
             setLocalThreeStarsChecked(threeStarsChecked);
+
+            setLocalMinPrice(minPrice);
+            setLocalMaxPrice(maxPrice);
 
             setSelectedServices(prev => {
                 const newServices = [...prev].filter(s => s !== 'Giao siêu tốc 2H');
@@ -148,7 +159,7 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                 return newRatings;
             });
         }
-    }, [isModalOpen, selectedBrands, selectedSuppliers, listSupplier, fastDeliveryChecked, cheapPriceChecked, freeShipChecked, fourStarsChecked, fiveStarsChecked, threeStarsChecked]);
+    }, [isModalOpen, selectedBrands, selectedSuppliers, listSupplier, fastDeliveryChecked, cheapPriceChecked, freeShipChecked, fourStarsChecked, fiveStarsChecked, threeStarsChecked, minPrice, maxPrice]);
 
     const handleClose = () => {
         form.resetFields();
@@ -217,8 +228,8 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
     };
 
     const validatePriceRange = () => {
-        if (minPrice && maxPrice) {
-            if (parseInt(minPrice) > parseInt(maxPrice)) {
+        if (localMinPrice && localMaxPrice) {
+            if (parseInt(localMinPrice) > parseInt(localMaxPrice)) {
                 setPriceError('Giá trị đầu phải nhỏ hơn hoặc bằng giá trị sau');
             } else {
                 setPriceError('');
@@ -229,8 +240,8 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
     };
 
     const setPriceRange = (min: number, max: number) => {
-        setMinPrice(min.toString());
-        setMaxPrice(max.toString());
+        setLocalMinPrice(min.toString());
+        setLocalMaxPrice(max.toString());
         setPriceError('');
         form.setFieldsValue({ minPrice: min, maxPrice: max });
     };
@@ -239,11 +250,11 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
         const numericValue = value.replace(/[^0-9]/g, '');
 
         if (type === 'min') {
-            setMinPrice(numericValue);
+            setLocalMinPrice(numericValue);
             if (minPriceBlurred) setMinPriceBlurred(false);
             form.setFieldsValue({ minPrice: numericValue ? parseInt(numericValue) : undefined });
         } else {
-            setMaxPrice(numericValue);
+            setLocalMaxPrice(numericValue);
             if (maxPriceBlurred) setMaxPriceBlurred(false);
             form.setFieldsValue({ maxPrice: numericValue ? parseInt(numericValue) : undefined });
         }
@@ -262,7 +273,7 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
             setMinPriceBlurred(true);
             setMaxPriceBlurred(true);
 
-            if (minPrice && maxPrice) {
+            if (localMinPrice && localMaxPrice) {
                 validatePriceRange();
             } else {
                 setPriceError('');
@@ -271,8 +282,8 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
     };
 
     const clearPriceInputs = () => {
-        setMinPrice('');
-        setMaxPrice('');
+        setLocalMinPrice('');
+        setLocalMaxPrice('');
         setPriceError('');
         setMinPriceBlurred(false);
         setMaxPriceBlurred(false);
@@ -295,16 +306,24 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
             setParentTempSelectedBrands(tempSelectedBrands);
             setParentTempSelectedSuppliers(tempSelectedSuppliers);
 
+            if (setMinPrice && values.minPrice !== undefined) {
+                setMinPrice(values.minPrice.toString());
+            }
+
+            if (setMaxPrice && values.maxPrice !== undefined) {
+                setMaxPrice(values.maxPrice.toString());
+            }
+
             let query = `current=1&pageSize=${pageSize}`;
 
             if (brand) query += `&brand=${brand}`;
             if (category) query += `&nameCategory=${category}`;
             if (supplier) query += `&supplier=${supplier}`;
 
-            const minPrice = values.minPrice;
-            const maxPrice = values.maxPrice;
-            if (minPrice !== undefined) query += `&priceBottom=${minPrice}`;
-            if (maxPrice !== undefined) query += `&priceTop=${maxPrice}`;
+            const minPriceVal = values.minPrice;
+            const maxPriceVal = values.maxPrice;
+            if (minPriceVal !== undefined) query += `&priceBottom=${minPriceVal}`;
+            if (maxPriceVal !== undefined) query += `&priceTop=${maxPriceVal}`;
 
             if (localFastDeliveryChecked) {
                 query += '&fastDelivery=true';
@@ -353,6 +372,8 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
         setBrand('');
         setSupplier('');
         setCategory('');
+        setLocalMinPrice('');
+        setLocalMaxPrice('');
     };
 
     if (!isModalOpen) return null;
@@ -667,12 +688,12 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                                             <input
                                                 pattern="[0-9]*"
                                                 placeholder="Từ"
-                                                value={minPrice}
+                                                value={localMinPrice}
                                                 onChange={(e) => handlePriceChange('min', e.target.value)}
                                                 onFocus={handleInputFocus}
                                             />
                                             <span>₫</span>
-                                            {minPrice && maxPrice && !priceInputFocused && priceError && (
+                                            {localMinPrice && localMaxPrice && !priceInputFocused && priceError && (
                                                 <img
                                                     src="https://salt.tikicdn.com/ts/upload/1f/f9/28/fae2aa73d63bd27bd330055c37a74e90.png"
                                                     onClick={() => handlePriceChange('min', '')}
@@ -685,12 +706,12 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                                             <input
                                                 pattern="[0-9]*"
                                                 placeholder="Đến"
-                                                value={maxPrice}
+                                                value={localMaxPrice}
                                                 onChange={(e) => handlePriceChange('max', e.target.value)}
                                                 onFocus={handleInputFocus}
                                             />
                                             <span>₫</span>
-                                            {minPrice && maxPrice && !priceInputFocused && priceError && (
+                                            {localMinPrice && localMaxPrice && !priceInputFocused && priceError && (
                                                 <img
                                                     src="https://salt.tikicdn.com/ts/upload/1f/f9/28/fae2aa73d63bd27bd330055c37a74e90.png"
                                                     onClick={() => handlePriceChange('max', '')}

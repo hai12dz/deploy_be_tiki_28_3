@@ -46,8 +46,9 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
     const { isLoading, setIsLoading, selectedBrands, setSelectedBrands, selectedSuppliers, setSelectedSuppliers,
         fastDeliveryChecked, setFastDeliveryChecked, cheapPriceChecked, setCheapPriceChecked,
         freeShipChecked, setFreeShipChecked, fourStarsChecked, setFourStarsChecked,
-        fiveStarsChecked, setFiveStarsChecked, threeStarsChecked, setThreeStarsChecked, // Added new state variables
+        fiveStarsChecked, setFiveStarsChecked, threeStarsChecked, setThreeStarsChecked,
         selectedSort, setSelectedSort, pageSize, setPageSize,
+        minPrice, setMinPrice, maxPrice, setMaxPrice // Add these state variables from context
     } = useFilterContext();
 
     useEffect(() => {
@@ -67,11 +68,13 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
         cheapPriceChecked,
         freeShipChecked,
         fourStarsChecked,
-        fiveStarsChecked, // Added 5-star state
-        threeStarsChecked, // Added 3-star state
+        fiveStarsChecked,
+        threeStarsChecked,
         selectedBrands,
         selectedSuppliers,
-        searchTerm
+        searchTerm,
+        minPrice, // Add price to dependencies
+        maxPrice  // Add price to dependencies
     ]);
 
     const fetchBook = async () => {
@@ -129,6 +132,15 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
 
         if (fastDeliveryChecked) {
             query += `&fastDelivery=true`;
+        }
+
+        // Add price range parameters with correct names
+        if (minPrice) {
+            query += `&priceBottom=${minPrice}`;
+        }
+
+        if (maxPrice) {
+            query += `&priceTop=${maxPrice}`;
         }
 
         try {
@@ -871,6 +883,11 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                     setFourStarsChecked={setFourStarsChecked}
                     setFiveStarsChecked={setFiveStarsChecked} // Added 5-star setter
                     setThreeStarsChecked={setThreeStarsChecked} // Added 3-star setter
+                    // Pass price state to modal
+                    minPrice={minPrice}
+                    maxPrice={maxPrice}
+                    setMinPrice={setMinPrice}
+                    setMaxPrice={setMaxPrice}
                 />
             </div>
         </div>

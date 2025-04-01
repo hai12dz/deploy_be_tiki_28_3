@@ -21,6 +21,10 @@ interface FilterContextType {
     threeStarsChecked: boolean;
     selectedSort: string;
 
+    // Add price range state
+    minPrice: string;
+    maxPrice: string;
+
     // Update functions
     isLoading: boolean;
     setIsLoading: (loading: boolean) => void;
@@ -41,6 +45,8 @@ interface FilterContextType {
     setFiveStarsChecked: (checked: boolean) => void;
     setThreeStarsChecked: (checked: boolean) => void;
     setSelectedSort: (sort: string) => void;
+    setMinPrice: (price: string) => void;
+    setMaxPrice: (price: string) => void;
 
     // Helper functions
     resetFilters: () => void;
@@ -76,6 +82,8 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
     const [fiveStarsChecked, setFiveStarsChecked] = useState<boolean>(false);
     const [threeStarsChecked, setThreeStarsChecked] = useState<boolean>(false);
     const [selectedSort, setSelectedSort] = useState<string>('Phổ biến');
+    const [minPrice, setMinPrice] = useState<string>('');
+    const [maxPrice, setMaxPrice] = useState<string>('');
 
     // Function to reset all filters
     const resetFilters = () => {
@@ -96,6 +104,8 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
         setFiveStarsChecked(false);
         setThreeStarsChecked(false);
         setSelectedSort('Phổ biến');
+        setMinPrice('');
+        setMaxPrice('');
     };
 
     // Function to build query string from all filters
@@ -171,6 +181,15 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
             params.append('selectedSort', selectedSort);
         }
 
+        // Add price range parameters with correct names
+        if (minPrice) {
+            params.append('priceBottom', minPrice);
+        }
+
+        if (maxPrice) {
+            params.append('priceTop', maxPrice);
+        }
+
         return params.toString();
     };
 
@@ -195,6 +214,8 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
         fiveStarsChecked,
         threeStarsChecked,
         selectedSort,
+        minPrice,
+        maxPrice,
         setSelectedBrands,
         setSelectedSuppliers,
         setSearchTerm,
@@ -212,6 +233,8 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
         setFiveStarsChecked,
         setThreeStarsChecked,
         setSelectedSort,
+        setMinPrice,
+        setMaxPrice,
         resetFilters,
         buildQueryString
     };
