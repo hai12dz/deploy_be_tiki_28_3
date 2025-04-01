@@ -363,6 +363,17 @@
     }
 }
 
+.filter-options-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    .custom-checkbox {
+        flex: 0 0 calc(50% - 4px);
+        margin-bottom: 8px;
+    }
+}
+
 .ant-checkbox-wrapper {
     align-items: flex-start;
     font-size: 14px;
