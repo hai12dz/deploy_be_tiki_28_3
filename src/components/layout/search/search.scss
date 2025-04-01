@@ -1,13 +1,31 @@
+:root {
+    --header-bottom: 0px;
+}
+
 .search-container {
     position: relative;
     width: 100%;
 }
 
+// Modify overlay styles to start below header
+.search-overlay {
+    position: fixed;
+    top: var(--header-bottom); // Start below the header
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); // Semi-transparent gray
+    z-index: 900; // Higher than content but lower than header and search modal
+    pointer-events: none; // Allow clicks to pass through to elements underneath
+}
+
+// Make sure search modal is above overlay
 .search-modal-visible {
     display: block !important;
     opacity: 1 !important;
     visibility: visible !important;
-    z-index: 9999 !important;
+    z-index: 1000 !important; // Above everything
+    position: relative;
 }
 
 .iNGxKa {
@@ -19,6 +37,7 @@
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.28);
     border-radius: 0 0 3px 3px;
     border-top: 1px solid #e1e1e1;
+    z-index: 999;
 }
 
 .fjnTfW .promo:first-child {
@@ -199,4 +218,9 @@
     flex-direction: column;
     color: rgb(36, 36, 36);
     text-decoration: none;
+}
+
+.hilSzk .item>.item-icon {
+    width: 35px;
+    height: 35px;
 }

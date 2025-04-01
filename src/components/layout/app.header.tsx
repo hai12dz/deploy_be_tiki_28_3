@@ -67,6 +67,7 @@ const AppHeader = (props: IProps) => {
 
     return (
         <>
+            {/* First banner - kept outside overlay */}
             <div style={{ position: "relative", zIndex: 999 }}>
                 <a href="https://tiki.vn/khuyen-mai/ngay-hoi-freeship?from=inline_banner">
                     <div style={{ backgroundColor: "#EFFFF4" }} className="jfMKyG">
@@ -91,7 +92,8 @@ const AppHeader = (props: IProps) => {
                 </a>
             </div>
 
-            <div>
+            {/* Main header - kept outside overlay */}
+            <div style={{ position: "relative", zIndex: 999 }}>
                 <header id="main-header" className="rgsXe">
                     <div className="edZgU">
                         <div className="duXRBJ">
@@ -193,6 +195,8 @@ const AppHeader = (props: IProps) => {
                         </div>
                     </div>
                 </header>
+
+                {/* This div SHOULD be covered by the overlay - remove the high z-index */}
                 <div style={{ backgroundColor: "white" }} className="sc-cc99b0e2-0 fzFpkg">
                     <a href="https://tiki.vn/thong-tin/tiki-doi-tra-de-dang-an-tam-mua-sam" className="sc-cc99b0e2-1 klHtaf">
                         <div style={{ color: "#003EA1" }} className="sc-cc99b0e2-2 iMmKHC">Cam kết</div>
