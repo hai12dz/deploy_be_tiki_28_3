@@ -498,42 +498,36 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
                             ))
                         ) : (
                             <div
-                                style={{
-                                    width: "100%",
-                                    textAlign: "center",
-                                    padding: "50px 0",
-                                    fontSize: "18px",
-                                    color: "#666",
-                                    border: "1px dashed #ddd",
-                                    borderRadius: "8px",
-                                    margin: "20px 0",
-                                }}
                             >
-                                <div style={{ marginBottom: "15px" }}>
-                                    <ReloadOutlined style={{ fontSize: "32px", color: "#999" }} />
-                                </div>
-                                <p>Chúng tôi không có sản phẩm phù hợp</p>
-                                <Button
-                                    type="primary"
-                                    onClick={() => {
-                                        setSearchTerm("");
-                                        setCategory("");
-                                        setBrand([]); // Reset brand filter to empty array
-                                        setSupplier([]); // Reset supplier filter to empty array
-                                        fetchBook();
+                                <div
+                                    style={{
+
+                                        background: "rgb(255, 255, 255)",
+                                        width: "1128px",
+                                        padding: "16px 24px",
+                                        fontSize: "15px",
+                                        marginBottom: "24px",
                                     }}
-                                    icon={<ReloadOutlined />}
+                                    className="no-product-container"
                                 >
-                                    Xem tất cả sản phẩm
-                                </Button>
+                                    <div
+                                        style={{
+                                            backgroundColor: "rgb(255, 255, 251)",
+                                            border: "1px solid rgb(253, 216, 53)",
+                                            color: "rgb(223, 189, 21)",
+                                            padding: "16px 24px",
+                                            display: "flex",
+                                        }}
+                                        className="no-text"
+                                    >
+                                        Rất tiếc, không tìm thấy sản phẩm phù hợp với lựa chọn của bạn
+                                    </div>
+                                </div>
                             </div>
+
                         )}
                     </Row>
 
-                    {/* Debug info to see values */}
-                    <div style={{ padding: '10px', fontSize: '12px', color: '#999' }}>
-                        Debug: Current Items: {filteredBooks?.length || 0}, Total Items: {total || 0}
-                    </div>
 
                     {/* Show View More button only if we have items and hasMoreItems is true */}
                     {filteredBooks?.length > 0 && hasMoreItems && !isFetching && (
