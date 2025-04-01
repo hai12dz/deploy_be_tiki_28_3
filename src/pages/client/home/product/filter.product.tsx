@@ -6,6 +6,7 @@ import { useOutletContext } from 'react-router-dom';
 import { getBooksAPI, getBrandsAPI, getFullCategories, getSuppliersAPI } from '@/services/api';
 import { set } from 'lodash';
 import { useFilterContext } from '@/context/FilterContext';
+import FilterNewProductModal from './filter.modal.new';
 
 // Update props interface to make isLoading and setIsLoading optional
 interface ProductFilterProps {
@@ -809,7 +810,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                 {brandExpanded && renderBrandModal()}
                 {followSupplier && renderSupplierModal()}
 
-                <FilterProduct
+                <FilterNewProductModal
                     isModalOpen={isModalOpen}
                     setIsModalOpen={setIsModalOpen}
                     queryFiler={queryFiler}
@@ -822,7 +823,6 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                     listFullCategory={listFullCategory}
                     selectedBrands={selectedBrands}
                     selectedSuppliers={selectedSuppliers}
-                    // Add callbacks to update state when the modal filter is applied
                     setParentSelectedBrands={setSelectedBrands}
                     setParentSelectedSuppliers={setSelectedSuppliers}
                     setParentTempSelectedBrands={setTempSelectedBrands}

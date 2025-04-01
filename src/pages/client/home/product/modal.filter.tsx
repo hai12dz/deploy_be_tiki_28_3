@@ -221,7 +221,14 @@ const FilterProduct: React.FC<IProps> = ({
     const modalContent = (
         <div className="filter-modal-container">
             <Modal
-                title="Tất cả bộ lọc"
+                title={<div style={{
+                    fontWeight: 600,
+                    fontSize: "18px",
+                    lineHeight: "150%",
+                    color: "rgb(39, 39, 42)",
+                    width: "100%",
+                    textAlign: "center",
+                }}>Tất cả bộ lọc</div>}
                 open={isModalOpen}
                 onOk={async () => {
                     try {
@@ -480,9 +487,9 @@ const FilterProduct: React.FC<IProps> = ({
                             {showFullBrandList ? 'Thu gọn' : 'Xem thêm'}
                         </p>
                     )}
-                    <Divider />
+                    <Divider style={{ marginBottom: '12px' }} />
                     <h3>Nhà cung cấp</h3>
-                    <Row gutter={[16, 8]}>
+                    <Row gutter={[16, 8]} style={{ marginBottom: 0 }}>
                         {(showFullSupplierList ? listSupplier : listSupplier.slice(0, 5)).map((items, index) => (
                             <Col key={index} span={12}>
                                 <Checkbox onChange={() => onChangeCheckBox('supplier', items.name)} checked={selectedSuppliers.includes(items.name)}>
@@ -495,6 +502,7 @@ const FilterProduct: React.FC<IProps> = ({
                         <p
                             onClick={() => setShowFullSupplierList(!showFullSupplierList)}
                             className="show-more-less"
+                            style={{ marginBottom: 0 }}
                         >
                             {showFullSupplierList ? 'Thu gọn' : 'Xem thêm'}
                         </p>

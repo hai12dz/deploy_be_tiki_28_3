@@ -66,7 +66,6 @@
     }
 }
 
-
 // Modal wrapper styles
 .modal-wrapper {
 
@@ -81,6 +80,11 @@
     background: rgb(255, 255, 255);
     border-radius: 8px;
 
+    .ant-modal-header {
+        .ant-modal-title {
+            text-align: center;
+        }
+    }
 }
 
 // Price wrapper styles

@@ -7,8 +7,10 @@
     position: sticky;
     bottom: 0;
     background-color: white;
-    /* Add background to cover content below */
     z-index: 1;
+    margin-top: 0;
+    /* Ensure no top margin */
+    /* Add background to cover content below */
     /* Ensure it stays above other content */
 }
 
