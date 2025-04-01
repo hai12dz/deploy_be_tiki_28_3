@@ -765,7 +765,6 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                                 alt="FREESHIP XTRA"
                                 className="freeship-tag"
                             />
-                            <span className="option-text">FREESHIP XTRA</span>
                         </div>
                     </label>
 
@@ -825,7 +824,6 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                         </div>
                     </label>
 
-                    <div className="vertical-divider"></div>
 
                     <div className="sort">
                         <span className="sort-label">Sắp xếp</span>

@@ -406,13 +406,12 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
     .filter-options-row {
         @include flex(row, null, center);
         flex-wrap: wrap;
-        gap: 24px;
+        gap: 18px;
         position: relative;
         font-size: 14px;
         line-height: 21px;
         margin-top: 15px;
 
-        // Update vertical divider styling with proper spacing
         .vertical-divider {
             position: relative;
             width: 1px;
