@@ -176,3 +176,135 @@
     cursor: pointer;
     text-align: center;
 }
+
+.filter-modal-container {
+    .modal-wrapper {
+        width: 566px !important;
+        position: relative;
+        z-index: 9999;
+
+        .ant-modal-content {
+            padding: 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .ant-modal-title {
+            text-align: center;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 150%;
+            color: rgb(39, 39, 42);
+        }
+    }
+
+    .modal-content {
+        padding: 0 16px;
+
+        h3 {
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 150%;
+            color: rgb(39, 39, 42);
+            margin-bottom: 16px;
+        }
+
+        .service-icon,
+        .promotion-icon {
+            height: 20px;
+            margin-right: 8px;
+        }
+
+        .rating-stars {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            font-size: 14px;
+            color: rgb(39, 39, 42);
+        }
+
+        .price-buttons-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+
+            .price-button {
+                flex: 1 0 calc(50% - 8px);
+                text-align: center;
+                border: 1px solid rgb(221, 221, 227);
+                border-radius: 4px;
+                padding: 8px 12px;
+                font-size: 14px;
+                line-height: 20px;
+                background: transparent;
+                color: rgb(39, 39, 42);
+                white-space: nowrap;
+
+                &:hover {
+                    border-color: rgb(10, 104, 255);
+                    color: rgb(10, 104, 255);
+                }
+            }
+        }
+
+        .price-range-container {
+            font-size: 14px;
+            color: rgb(128, 128, 137);
+            margin-bottom: 8px;
+        }
+
+        .price-separator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            color: rgb(39, 39, 42);
+        }
+
+        .full-width-input {
+            width: 100%;
+        }
+
+        .show-more-less {
+            color: rgb(10, 104, 255);
+            font-size: 14px;
+            line-height: 20px;
+            cursor: pointer;
+            margin-top: 8px;
+            text-align: center;
+        }
+    }
+}
+
+.ant-checkbox-wrapper {
+    align-items: flex-start;
+    font-size: 14px;
+    line-height: 20px;
+    color: rgb(39, 39, 42);
+}
+
+.ant-checkbox {
+    top: 1px;
+}
+
+.ant-divider {
+    margin: 16px 0;
+}
+
+.ant-input-number-group-wrapper {
+    width: 100%;
+}
+
+.ant-input-number-wrapper {
+    width: 100%;
+}
+
+.ant-input-number-affix-wrapper {
+    width: 100%;
+    border-radius: 4px;
+}
+
+.filter-form .ant-row {
+    margin-bottom: 0;
+}
