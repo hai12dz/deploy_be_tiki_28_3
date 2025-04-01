@@ -651,7 +651,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                             className="filter-button">
                             {(selectedBrands.length > 0 || selectedSuppliers.length > 0 ||
                                 fastDeliveryChecked || cheapPriceChecked ||
-                                freeShipChecked || fourStarsChecked) && (
+                                freeShipChecked || fourStarsChecked || fiveStarsChecked || threeStarsChecked) && (
                                     <div className="icon-click"></div>
                                 )}
                             <img
