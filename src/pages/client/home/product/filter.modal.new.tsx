@@ -652,8 +652,8 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                                                 onFocus={handleInputFocus}
                                             />
                                             <span>₫</span>
-                                            {/* Only show clear icon when both inputs have values and not focused */}
-                                            {minPrice && maxPrice && !priceInputFocused && (
+                                            {/* Only show clear icon when there's a price error (min > max) */}
+                                            {minPrice && maxPrice && !priceInputFocused && priceError && (
                                                 <img
                                                     src="https://salt.tikicdn.com/ts/upload/1f/f9/28/fae2aa73d63bd27bd330055c37a74e90.png"
                                                     onClick={() => handlePriceChange('min', '')}
@@ -671,8 +671,8 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                                                 onFocus={handleInputFocus}
                                             />
                                             <span>₫</span>
-                                            {/* Only show clear icon when both inputs have values and not focused */}
-                                            {minPrice && maxPrice && !priceInputFocused && (
+                                            {/* Only show clear icon when there's a price error (min > max) */}
+                                            {minPrice && maxPrice && !priceInputFocused && priceError && (
                                                 <img
                                                     src="https://salt.tikicdn.com/ts/upload/1f/f9/28/fae2aa73d63bd27bd330055c37a74e90.png"
                                                     onClick={() => handlePriceChange('max', '')}
