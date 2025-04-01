@@ -20,6 +20,14 @@ interface FilterNewProductModalProps {
     setParentSelectedSuppliers: (suppliers: string[]) => void;
     setParentTempSelectedBrands: (brands: string[]) => void;
     setParentTempSelectedSuppliers: (suppliers: string[]) => void;
+    fastDeliveryChecked?: boolean;
+    cheapPriceChecked?: boolean;
+    freeShipChecked?: boolean;
+    fourStarsChecked?: boolean;
+    setFastDeliveryChecked?: (checked: boolean) => void;
+    setCheapPriceChecked?: (checked: boolean) => void;
+    setFreeShipChecked?: (checked: boolean) => void;
+    setFourStarsChecked?: (checked: boolean) => void;
 }
 
 const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
@@ -38,7 +46,15 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
     setParentSelectedBrands,
     setParentSelectedSuppliers,
     setParentTempSelectedBrands,
-    setParentTempSelectedSuppliers
+    setParentTempSelectedSuppliers,
+    fastDeliveryChecked = false,
+    cheapPriceChecked = false,
+    freeShipChecked = false,
+    fourStarsChecked = false,
+    setFastDeliveryChecked,
+    setCheapPriceChecked,
+    setFreeShipChecked,
+    setFourStarsChecked
 }) => {
     const [brand, setBrand] = useState<string>('');
     const [supplier, setSupplier] = useState<string>('');
@@ -51,14 +67,13 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
     const [selectedServices, setSelectedServices] = useState<string[]>([]);
     const [selectedPromotions, setSelectedPromotions] = useState<string[]>([]);
     const [selectedRatings, setSelectedRatings] = useState<string[]>([]);
-    const [fastDeliveryChecked, setFastDeliveryChecked] = useState<boolean>(false);
-    const [cheapPriceChecked, setCheapPriceChecked] = useState<boolean>(false);
-    const [freeShipChecked, setFreeShipChecked] = useState<boolean>(false);
-    const [fourStarsChecked, setFourStarsChecked] = useState<boolean>(false);
+    const [localFastDeliveryChecked, setLocalFastDeliveryChecked] = useState<boolean>(fastDeliveryChecked);
+    const [localCheapPriceChecked, setLocalCheapPriceChecked] = useState<boolean>(cheapPriceChecked);
+    const [localFreeShipChecked, setLocalFreeShipChecked] = useState<boolean>(freeShipChecked);
+    const [localFourStarsChecked, setLocalFourStarsChecked] = useState<boolean>(fourStarsChecked);
 
     const [form] = Form.useForm();
 
-    // Initialize temp selections when modal opens
     useEffect(() => {
         if (isModalOpen) {
             setTempSelectedBrands([...selectedBrands]);
@@ -77,37 +92,34 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
             setTempSelectedSuppliers(resolvedSuppliers);
             setSupplier(resolvedSuppliers.join(','));
 
+            setLocalFastDeliveryChecked(fastDeliveryChecked);
+            setLocalCheapPriceChecked(cheapPriceChecked);
+            setLocalFreeShipChecked(freeShipChecked);
+            setLocalFourStarsChecked(fourStarsChecked);
+
             setSelectedServices(prev => {
-                const newServices = [...prev];
-                if (fastDeliveryChecked && !newServices.includes('Giao siêu tốc 2H')) {
+                const newServices = [...prev].filter(s => s !== 'Giao siêu tốc 2H');
+                if (fastDeliveryChecked) {
                     newServices.push('Giao siêu tốc 2H');
-                } else if (!fastDeliveryChecked) {
-                    return newServices.filter(s => s !== 'Giao siêu tốc 2H');
                 }
                 return newServices;
             });
 
             setSelectedPromotions(prev => {
-                let newPromotions = [...prev];
-                if (cheapPriceChecked && !newPromotions.includes('Siêu rẻ')) {
+                let newPromotions = [...prev].filter(p => p !== 'Siêu rẻ' && p !== 'FREESHIP XTRA');
+                if (cheapPriceChecked) {
                     newPromotions.push('Siêu rẻ');
-                } else if (!cheapPriceChecked) {
-                    newPromotions = newPromotions.filter(p => p !== 'Siêu rẻ');
                 }
-                if (freeShipChecked && !newPromotions.includes('FREESHIP XTRA')) {
+                if (freeShipChecked) {
                     newPromotions.push('FREESHIP XTRA');
-                } else if (!freeShipChecked) {
-                    newPromotions = newPromotions.filter(p => p !== 'FREESHIP XTRA');
                 }
                 return newPromotions;
             });
 
             setSelectedRatings(prev => {
-                let newRatings = [...prev];
-                if (fourStarsChecked && !newRatings.includes('4 sao')) {
+                let newRatings = [...prev].filter(r => r !== '4 sao' && r !== '5 sao' && r !== '3 sao');
+                if (fourStarsChecked) {
                     newRatings.push('4 sao');
-                } else if (!fourStarsChecked) {
-                    newRatings = newRatings.filter(r => r !== '4 sao');
                 }
                 return newRatings;
             });
@@ -142,7 +154,7 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
             setSelectedServices((prev) => {
                 const updatedServices = prev.includes(name) ? prev.filter((item) => item !== name) : [...prev, name];
                 if (name === 'Giao siêu tốc 2H') {
-                    setFastDeliveryChecked(!prev.includes(name));
+                    setLocalFastDeliveryChecked(!prev.includes(name));
                 }
                 return updatedServices;
             });
@@ -150,10 +162,10 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
             setSelectedPromotions((prev) => {
                 const updatedPromotions = prev.includes(name) ? prev.filter((item) => item !== name) : [...prev, name];
                 if (name === 'Siêu rẻ') {
-                    setCheapPriceChecked(!prev.includes(name));
+                    setLocalCheapPriceChecked(!prev.includes(name));
                 }
                 if (name === 'FREESHIP XTRA') {
-                    setFreeShipChecked(!prev.includes(name));
+                    setLocalFreeShipChecked(!prev.includes(name));
                 }
                 return updatedPromotions;
             });
@@ -161,7 +173,7 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
             setSelectedRatings((prev) => {
                 const updatedRatings = prev.includes(name) ? prev.filter((item) => item !== name) : [...prev, name];
                 if (name === '4 sao') {
-                    setFourStarsChecked(!prev.includes(name));
+                    setLocalFourStarsChecked(!prev.includes(name));
                 }
                 return updatedRatings;
             });
@@ -176,13 +188,16 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
         try {
             const values = await form.validateFields();
 
-            // Update parent component state
+            if (setFastDeliveryChecked) setFastDeliveryChecked(localFastDeliveryChecked);
+            if (setCheapPriceChecked) setCheapPriceChecked(localCheapPriceChecked);
+            if (setFreeShipChecked) setFreeShipChecked(localFreeShipChecked);
+            if (setFourStarsChecked) setFourStarsChecked(localFourStarsChecked);
+
             setParentSelectedBrands(tempSelectedBrands);
             setParentSelectedSuppliers(tempSelectedSuppliers);
             setParentTempSelectedBrands(tempSelectedBrands);
             setParentTempSelectedSuppliers(tempSelectedSuppliers);
 
-            // Build query string for API
             let query = `current=1&pageSize=${pageSize}`;
 
             if (brand) query += `&brand=${brand}`;
@@ -194,23 +209,20 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
             if (minPrice !== undefined) query += `&priceBottom=${minPrice}`;
             if (maxPrice !== undefined) query += `&priceTop=${maxPrice}`;
 
-            // Add service filters
-            if (fastDeliveryChecked) {
+            if (localFastDeliveryChecked) {
                 query += '&fastDelivery=true';
             }
 
-            // Add promotion filters
-            if (cheapPriceChecked) {
+            if (localCheapPriceChecked) {
                 query += '&cheapPrice=true';
             }
-            if (freeShipChecked) {
+            if (localFreeShipChecked) {
                 query += '&freeShipping=true';
             }
 
-            // Add rating filter
             if (selectedRatings.includes('5 sao')) {
                 query += '&minRating=5';
-            } else if (selectedRatings.includes('4 sao')) {
+            } else if (selectedRatings.includes('4 sao') || localFourStarsChecked) {
                 query += '&minRating=4';
             } else if (selectedRatings.includes('3 sao')) {
                 query += '&minRating=3';
@@ -234,10 +246,10 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
         setSelectedServices([]);
         setSelectedPromotions([]);
         setSelectedRatings([]);
-        setFastDeliveryChecked(false);
-        setCheapPriceChecked(false);
-        setFreeShipChecked(false);
-        setFourStarsChecked(false);
+        setLocalFastDeliveryChecked(false);
+        setLocalCheapPriceChecked(false);
+        setLocalFreeShipChecked(false);
+        setLocalFourStarsChecked(false);
         setBrand('');
         setSupplier('');
         setCategory('');
@@ -247,7 +259,6 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
 
     return (
         <div className="sc-add2a4bc-2 fgRNmz filter-modal-container">
-            {/* Header - Keep unchanged */}
             <div className="sc-add2a4bc-3 boGFxq">
                 <div className="btn-close" onClick={handleClose}>
                     <img src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/close.svg" alt="Close" />
@@ -255,7 +266,6 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                 <div className="title">Tất cả bộ lọc</div>
             </div>
 
-            {/* Content - Replaced with structure from modal.filter.tsx */}
             <div className="sc-add2a4bc-4 kXxzcv">
                 <div className="modal-content">
                     <Divider />
@@ -264,7 +274,7 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                         <Col span={12}>
                             <Checkbox
                                 onChange={() => onChangeCheckBox('service', 'Giao siêu tốc 2H')}
-                                checked={selectedServices.includes('Giao siêu tốc 2H')}
+                                checked={selectedServices.includes('Giao siêu tốc 2H') || localFastDeliveryChecked}
                             >
                                 <img
                                     src="https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png"
@@ -281,7 +291,7 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                         <Col span={12}>
                             <Checkbox
                                 onChange={() => onChangeCheckBox('promotion', 'Siêu rẻ')}
-                                checked={selectedPromotions.includes('Siêu rẻ')}
+                                checked={selectedPromotions.includes('Siêu rẻ') || localCheapPriceChecked}
                             >
                                 <img
                                     src="https://salt.tikicdn.com/ts/upload/b5/aa/48/2305c5e08e536cfb840043df12818146.png"
@@ -295,7 +305,7 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                         <Col span={12}>
                             <Checkbox
                                 onChange={() => onChangeCheckBox('promotion', 'FREESHIP XTRA')}
-                                checked={selectedPromotions.includes('FREESHIP XTRA')}
+                                checked={selectedPromotions.includes('FREESHIP XTRA') || localFreeShipChecked}
                             >
                                 <img
                                     src="https://salt.tikicdn.com/ts/upload/2f/20/77/0f96cfafdf7855d5e7fe076dd4f34ce0.png"
@@ -346,7 +356,7 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                         <Col span={12}>
                             <Checkbox
                                 onChange={() => onChangeCheckBox('rating', '4 sao')}
-                                checked={selectedRatings.includes('4 sao')}
+                                checked={selectedRatings.includes('4 sao') || localFourStarsChecked}
                             >
                                 <div className="rating-stars">
                                     {[...Array(4)].map((_, index) => (
@@ -534,7 +544,6 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                 </div>
             </div>
 
-            {/* Footer - Keep unchanged */}
             <div className="sc-add2a4bc-5 bubSYk">
                 <div className="sc-add2a4bc-6 cBZRwi" onClick={handleResetFilters}>Xoá tất cả</div>
                 <div className="sc-add2a4bc-6 UkSzZ" onClick={handleApplyFilters}>Xem kết quả</div>

@@ -827,6 +827,15 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                     setParentSelectedSuppliers={setSelectedSuppliers}
                     setParentTempSelectedBrands={setTempSelectedBrands}
                     setParentTempSelectedSuppliers={setTempSelectedSuppliers}
+                    // Pass the checkbox states to the modal
+                    fastDeliveryChecked={fastDeliveryChecked}
+                    cheapPriceChecked={cheapPriceChecked}
+                    freeShipChecked={freeShipChecked}
+                    fourStarsChecked={fourStarsChecked}
+                    setFastDeliveryChecked={setFastDeliveryChecked}
+                    setCheapPriceChecked={setCheapPriceChecked}
+                    setFreeShipChecked={setFreeShipChecked}
+                    setFourStarsChecked={setFourStarsChecked}
                 />
             </div>
         </div>
