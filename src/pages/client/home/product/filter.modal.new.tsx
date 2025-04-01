@@ -693,42 +693,6 @@ const FilterNewProductModal: React.FC<FilterNewProductModalProps> = ({
                             </Form>
                         </div>
                         <Divider />
-                        <h3>Thể loại</h3>
-                        <Row gutter={[16, 8]}>
-                            {listFullCategory.slice(0, showFullBrandList ? undefined : 4).map((item, index) => (
-                                <Col key={index} span={12}>
-                                    <div className="custom-checkbox" onClick={() => onChangeCheckBox('category', item.name)}>
-                                        <span className="checkbox-box">
-                                            <img
-                                                className={`icon-check-on ${selectedCategories.includes(item.name) ? 'visible' : ''}`}
-                                                src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
-                                                alt="active-checkbox"
-                                            />
-                                            <img
-                                                className={`icon-check-off ${!selectedCategories.includes(item.name) ? 'visible' : ''}`}
-                                                src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
-                                                alt="default-checkbox"
-                                            />
-                                            <img
-                                                className="icon-check-hover"
-                                                src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
-                                                alt="hovered-checkbox"
-                                            />
-                                        </span>
-                                        <span className="checkbox-text">{item.name}</span>
-                                    </div>
-                                </Col>
-                            ))}
-                        </Row>
-                        {listFullCategory.length > 4 && (
-                            <p
-                                onClick={() => setShowFullBrandList(!showFullBrandList)}
-                                className="show-more-less"
-                            >
-                                {showFullBrandList ? 'Thu gọn' : 'Xem thêm'}
-                            </p>
-                        )}
-                        <Divider />
                         <h3>Thương hiệu</h3>
                         <Row gutter={[16, 8]}>
                             {listBrand.slice(0, showFullBrandList ? undefined : 5).map((item, index) => (
