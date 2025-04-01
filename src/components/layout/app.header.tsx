@@ -8,6 +8,7 @@ import { logoutAPI } from '@/services/api';
 import ManageAccount from '../client/account';
 import { isMobile } from 'react-device-detect';
 import './app.new.header.scss';
+import SearchProducts from './search/search';
 
 interface IProps {
     searchTerm: string;
@@ -15,6 +16,20 @@ interface IProps {
 }
 
 const AppHeader = (props: IProps) => {
+    // Add state for search modal visibility
+    const [isSearchVisible, setIsSearchVisible] = useState<boolean>(false);
+
+    // Function to show search modal
+    const showSearchModal = () => {
+        console.log("Opening search modal");
+        setIsSearchVisible(true);
+    };
+
+    // Function to hide search modal
+    const hideSearchModal = () => {
+        console.log("Closing search modal");
+        setIsSearchVisible(false);
+    };
 
     const commitments = [
         { src: "https://salt.tikicdn.com/ts/upload/96/76/a3/16324a16c76ee4f507d5777608dab831.png", text: "100% hàng thật" },
@@ -24,7 +39,6 @@ const AppHeader = (props: IProps) => {
         { src: "https://salt.tikicdn.com/ts/upload/87/98/77/fc33e3d472fc4ce4bae8c835784b707a.png", text: "Giao nhanh 2h" },
         { src: "https://salt.tikicdn.com/ts/upload/6a/81/06/0675ef5512c275a594d5ec1d58c37861.png", text: "Giá siêu rẻ" }
     ];
-
 
     return (
         <>
@@ -71,7 +85,7 @@ const AppHeader = (props: IProps) => {
                                 <div className="gypTeU">
                                     <div className="hqCsjg">
                                         <div className="cYLtAT">
-                                            <div className="cfhkdd">
+                                            <div className="cfhkdd" style={{ position: 'relative' }}>
                                                 <img
                                                     className="icon-search"
                                                     src="https://salt.tikicdn.com/ts/upload/33/d0/37/6fef2e788f00a16dc7d5a1dfc5d0e97a.png"
@@ -83,6 +97,8 @@ const AppHeader = (props: IProps) => {
                                                     placeholder="Freeship đơn từ 45k"
                                                     className="lgENLJ"
                                                     defaultValue=""
+                                                    onClick={showSearchModal}
+                                                    onFocus={showSearchModal}
                                                 />
                                                 <button
                                                     data-view-id="main_search_form_button"
@@ -90,6 +106,11 @@ const AppHeader = (props: IProps) => {
                                                 >
                                                     Tìm kiếm
                                                 </button>
+
+                                                {/* Render search modal conditionally */}
+                                                {isSearchVisible && (
+                                                    <SearchProducts isVisible={isSearchVisible} onClose={hideSearchModal} />
+                                                )}
                                             </div>
                                         </div>
                                     </div>
@@ -168,16 +189,7 @@ const AppHeader = (props: IProps) => {
                         </div>
                     </a>
                 </div>
-
-
-
-
-
-
-
-
             </div>
-
         </>
     );
 };
