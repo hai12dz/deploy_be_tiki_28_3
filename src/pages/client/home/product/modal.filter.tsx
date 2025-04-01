@@ -125,6 +125,29 @@ const FilterProduct: React.FC<IProps> = ({
         }
     }, [isModalOpen, initialSelectedBrands, initialSelectedSuppliers, listSupplier, fastDeliveryChecked, cheapPriceChecked, freeShipChecked, fourStarsChecked]);
 
+    useEffect(() => {
+        if (isModalOpen) {
+            document.body.classList.add('modal-open');
+        } else {
+            document.body.classList.remove('modal-open');
+        }
+
+        return () => {
+            document.body.classList.remove('modal-open');
+        };
+    }, [isModalOpen]);
+
+    const handleModalScroll = (e: React.UIEvent<HTMLDivElement>) => {
+        const { currentTarget } = e;
+        if (
+            (currentTarget.scrollTop === 0 && e.nativeEvent instanceof WheelEvent && e.nativeEvent.deltaY < 0) ||
+            (currentTarget.scrollHeight - currentTarget.scrollTop === currentTarget.clientHeight &&
+                e.nativeEvent instanceof WheelEvent && e.nativeEvent.deltaY > 0)
+        ) {
+            e.preventDefault();
+        }
+    };
+
     const handleOk = async (values: any) => {
         if (setParentSelectedBrands) {
             setParentSelectedBrands(selectedBrands);
@@ -239,7 +262,10 @@ const FilterProduct: React.FC<IProps> = ({
                     overflow: 'hidden', // Prevent overflow outside modal
                 }}
             >
-                <div className="ant-modal-body">
+                <div
+                    className="ant-modal-body"
+                    onScroll={handleModalScroll} // Add scroll handler
+                >
                     <Divider />
                     <h3>Dịch vụ</h3>
                     <Row gutter={[16, 8]} className="modal-service-section">
