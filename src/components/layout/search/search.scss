@@ -136,6 +136,12 @@ body.search-modal-open {
 .hilSzk .show-more .show-more__icon {
     margin-left: 8px;
     transform: rotate(90deg);
+    transition: transform 0.3s ease;
+}
+
+/* Add class for rotated icon when expanded */
+.hilSzk .show-more .show-more__icon.rotate-180 {
+    transform: rotate(270deg);
 }
 
 .brtKKD {

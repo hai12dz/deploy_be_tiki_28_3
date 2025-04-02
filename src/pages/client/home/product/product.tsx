@@ -266,7 +266,7 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
 
             // Show the notification ONCE outside all the conditional checks
             if (shouldShowNoMoreItemsMessage) {
-                message.info('Không còn sản phẩm để hiển thị');
+                message.info('Đã hiển thị toàn bộ sản phẩm');
             }
         } catch (error) {
             console.error("Error fetching books:", error);

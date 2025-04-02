@@ -38,6 +38,7 @@ const AppHeader = (props: IProps) => {
         const intervalId = setInterval(() => {
             currentIndex = (currentIndex + 1) % placeholders.length;
             setCurrentPlaceholder(placeholders[currentIndex]);
+            // The placeholder changes here won't affect the search modal's expanded state
         }, 3000); // Change every 3 seconds
 
         // Clean up the interval when component unmounts

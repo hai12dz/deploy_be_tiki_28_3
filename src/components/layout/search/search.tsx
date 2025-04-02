@@ -1,5 +1,5 @@
 import './search.scss'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface SearchProductsProps {
     isVisible: boolean;
@@ -9,9 +9,14 @@ interface SearchProductsProps {
 const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose }) => {
     const searchRef = useRef<HTMLDivElement | null>(null);
     const overlayRef = useRef<HTMLDivElement | null>(null);
+    const [isExpanded, setIsExpanded] = useState<boolean>(false);
+    const initialMount = useRef<boolean>(true);
+
+    const toggleExpanded = () => {
+        setIsExpanded(!isExpanded);
+    };
 
     useEffect(() => {
-        // Function to update overlay position based on header
         const updateOverlayPosition = () => {
             if (!overlayRef.current) return;
 
@@ -20,20 +25,16 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose }) =
                 const headerRect = headerWrapper.getBoundingClientRect();
                 const headerBottom = headerRect.bottom;
 
-                // If header is visible (even partially)
                 if (headerBottom > 0) {
-                    // Position overlay just below the visible part of header
                     overlayRef.current.style.top = `${headerBottom}px`;
                     overlayRef.current.style.height = `calc(100vh - ${headerBottom}px)`;
                 } else {
-                    // Header is scrolled out of view, make overlay cover the whole viewport
                     overlayRef.current.style.top = '0';
                     overlayRef.current.style.height = '100vh';
                 }
             }
         };
 
-        // Handle click outside to close the modal
         const handleClickOutside = (event: MouseEvent): void => {
             if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
                 onClose();
@@ -43,7 +44,14 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose }) =
         if (isVisible) {
             document.addEventListener('mousedown', handleClickOutside);
             window.addEventListener('scroll', updateOverlayPosition);
-            updateOverlayPosition(); // Initial position
+            updateOverlayPosition();
+
+            if (initialMount.current) {
+                setIsExpanded(false);
+                initialMount.current = false;
+            }
+        } else {
+            initialMount.current = true;
         }
 
         return () => {
@@ -56,10 +64,8 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose }) =
 
     return (
         <>
-            {/* Gray overlay that adjusts position dynamically */}
             <div className="search-overlay" ref={overlayRef}></div>
 
-            {/* Search Modal */}
             <div className="sc-f1b34bcc-0 iNGxKa search-modal-visible" ref={searchRef}>
                 <div className="sc-1a8f85ba-0 fjnTfW">
                     <div className="item promo">
@@ -90,7 +96,7 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose }) =
                         data-view-index={0}
                         data-view-id="search_suggestion_keyword_item"
                         data-view-content='{"click_data":{"keyword":"thẻ cào viettel"}}'
-                        className="item  "
+                        className="item"
                         href="/search?q=th%E1%BA%BB%20c%C3%A0o%20viettel"
                     >
                         <img
@@ -103,7 +109,7 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose }) =
                         data-view-index={1}
                         data-view-id="search_suggestion_keyword_item"
                         data-view-content='{"click_data":{"keyword":"đại việt sử ký toàn thư"}}'
-                        className="item  "
+                        className="item"
                         href="/search?q=%C4%91%E1%BA%A1i%20vi%E1%BB%87t%20s%E1%BB%AD%20k%C3%BD%20to%C3%A0n%20th%C6%B0"
                     >
                         <img
@@ -116,7 +122,7 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose }) =
                         data-view-index={2}
                         data-view-id="search_suggestion_keyword_item"
                         data-view-content='{"click_data":{"keyword":"iphone"}}'
-                        className="item  "
+                        className="item"
                         href="/search?q=iphone"
                     >
                         <img
@@ -130,7 +136,7 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose }) =
                         data-view-content='{"click_data":{"keyword":"Apple Flagship Store"}}'
                         data-view-index={3}
                         href="https://tiki.vn/khuyen-mai/appleflagshipstore?source_screen=search_suggestion&source_engine=organic"
-                        className="item seller hide "
+                        className={`item seller ${isExpanded ? '' : 'hide'}`}
                     >
                         <img
                             src="https://salt.tikicdn.com/cache/80x80/ts/tka/4c/ec/65/955f13c00db11dbc52907030568c9517.png"
@@ -145,7 +151,7 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose }) =
                         data-view-index={4}
                         data-view-id="search_suggestion_keyword_item"
                         data-view-content='{"click_data":{"keyword":"grabgifts"}}'
-                        className="item hide "
+                        className={`item ${isExpanded ? '' : 'hide'}`}
                         href="/search?q=grabgifts"
                     >
                         <img
@@ -158,7 +164,7 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose }) =
                         data-view-index={5}
                         data-view-id="search_suggestion_keyword_item"
                         data-view-content='{"click_data":{"keyword":"tai nghe bluetooth"}}'
-                        className="item hide "
+                        className={`item ${isExpanded ? '' : 'hide'}`}
                         href="/search?q=tai%20nghe%20bluetooth"
                     >
                         <img
@@ -171,7 +177,7 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose }) =
                         data-view-index={6}
                         data-view-id="search_suggestion_keyword_item"
                         data-view-content='{"click_data":{"keyword":"được học"}}'
-                        className="item hide "
+                        className={`item ${isExpanded ? '' : 'hide'}`}
                         href="/search?q=%C4%91%C6%B0%E1%BB%A3c%20h%E1%BB%8Dc"
                     >
                         <img
@@ -184,7 +190,7 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose }) =
                         data-view-index={7}
                         data-view-id="search_suggestion_keyword_item"
                         data-view-content='{"click_data":{"keyword":"iphone 16 promax"}}'
-                        className="item hide "
+                        className={`item ${isExpanded ? '' : 'hide'}`}
                         href="/search?q=iphone%2016%20promax"
                     >
                         <img
@@ -197,7 +203,7 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose }) =
                         data-view-index={8}
                         data-view-id="search_suggestion_keyword_item"
                         data-view-content='{"click_data":{"keyword":"chat gpt thực chiến"}}'
-                        className="item hide "
+                        className={`item ${isExpanded ? '' : 'hide'}`}
                         href="/search?q=chat%20gpt%20th%E1%BB%B1c%20chi%E1%BA%BFn"
                     >
                         <img
@@ -210,7 +216,7 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose }) =
                         data-view-index={9}
                         data-view-id="search_suggestion_keyword_item"
                         data-view-content='{"click_data":{"keyword":"sách"}}'
-                        className="item hide "
+                        className={`item ${isExpanded ? '' : 'hide'}`}
                         href="/search?q=s%C3%A1ch"
                     >
                         <img
@@ -220,15 +226,15 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose }) =
                         <div className="keyword">sách</div>
                     </a>
                     <div className="show-more">
-                        <div data-view-id="search_history_expand_button">
-                            Xem thêm
+                        <div data-view-id="search_history_expand_button" onClick={toggleExpanded}>
+                            {isExpanded ? 'Thu gọn' : 'Xem thêm'}
                             <svg
                                 width={6}
                                 height={11}
                                 viewBox="0 0 6 11"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="right-icon show-more__icon"
+                                className={`right-icon show-more__icon ${isExpanded ? 'rotate-180' : ''}`}
                             >
                                 <path
                                     fill="rgb(13,92,182)"
