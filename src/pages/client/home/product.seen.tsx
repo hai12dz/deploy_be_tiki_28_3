@@ -68,6 +68,7 @@ const RecentlyViewedProducts = () => {
                                                                 srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png.webp 1x, https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png.webp 2x"
                                                             />
                                                             <img
+                                                                style={{ width: '226px', height: '226px', objectFit: 'contain' }}
                                                                 alt="Giải Thích Ngữ Pháp Tiếng Anh (Với Bài Tập Và Đáp Án) (Tái Bản)"
                                                                 src="https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png"
                                                                 srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png 1x, https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png 2x"
