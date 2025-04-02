@@ -35,14 +35,29 @@ const RecentlyViewedProducts = () => {
 
     const handlePrevSlide = () => {
         if (currentSlide > 0) {
-            setCurrentSlide(currentSlide - 1);
+            // If we're more than 6 items in, go back a full page
+            if (currentSlide >= itemsPerSlide) {
+                setCurrentSlide(currentSlide - itemsPerSlide);
+            } else {
+                // Otherwise just go back one item
+                setCurrentSlide(currentSlide - 1);
+            }
         }
     };
 
     const handleNextSlide = () => {
         const maxSlide = Math.max(0, listBookViewed.length - itemsPerSlide);
         if (currentSlide < maxSlide) {
-            setCurrentSlide(currentSlide + 1);
+            // Check if there are enough items for a full page
+            const remainingItems = listBookViewed.length - (currentSlide + itemsPerSlide);
+
+            if (remainingItems >= itemsPerSlide) {
+                // If we have enough items for a full page, skip a whole page
+                setCurrentSlide(currentSlide + itemsPerSlide);
+            } else {
+                // Otherwise just go forward one item
+                setCurrentSlide(currentSlide + 1);
+            }
         }
     };
 
