@@ -166,7 +166,7 @@ const RecentlyViewedProducts = () => {
                                                         >
                                                             <h3>{book.mainText}</h3>
                                                         </div>
-                                                        <div className="bottom" style={{ flex: "none" }}>
+                                                        <div className="bottom" >
                                                             <div className="sc-662de19e-2 kEvUyF">
                                                                 <div style={{ display: "flex", alignItems: "center" }}>
                                                                     <div className="full-rating">

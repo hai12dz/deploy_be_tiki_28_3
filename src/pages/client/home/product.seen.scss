@@ -23,7 +23,8 @@
     background-color: rgb(255, 255, 255);
     border-radius: 4px;
     overflow: hidden;
-    min-height: 293px;
+    height: auto;
+    display: flex;
 }
 
 .iWkFxH {
@@ -110,6 +111,8 @@ a {
 
 .fMrUyv .slider-container .slick-list {
     margin: 0px -4px;
+    width: 100%;
+    height: auto;
 }
 
 .slick-slider .slick-track,
@@ -123,6 +126,8 @@ a {
     display: block;
     margin: 0px;
     padding: 0px;
+    width: 100%;
+    height: auto;
 }
 
 .iWkFxH .slick-arrow.slick-next {
@@ -140,7 +145,8 @@ a {
     position: relative;
     left: 0px;
     top: 0px;
-    display: block;
+    display: flex;
+    align-items: stretch;
     margin-left: auto;
     margin-right: auto;
 }
@@ -167,6 +173,7 @@ a {
 
 .fMrUyv .slider-container .slick-slide {
     margin: 0px 4px;
+    height: auto;
 }
 
 .slick-initialized .slick-slide {
@@ -179,27 +186,34 @@ a {
 
 .slick-slide {
     float: left;
-    height: 100%;
+    height: auto;
     min-height: 1px;
     display: none;
+}
+
+.slick-slide>div {
+    height: 100%;
+}
+
+.slick-slide .faZNQQ {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .beJRlS {
     position: relative;
     padding-top: 100%;
-    /* Creates a square aspect ratio */
     overflow: hidden;
     display: block;
     background-color: rgb(255, 255, 255);
+    flex-shrink: 0;
 }
 
 .dWgHEM {
     position: absolute;
-    /* Change from relative to absolute */
     top: 0;
-    /* Add top: 0 to position it at the top of parent */
     left: 0;
-    /* Add left: 0 to position it at the left of parent */
     width: 100%;
     height: 100%;
 }
@@ -213,10 +227,29 @@ a {
     object-fit: contain;
 }
 
+.faZNQQ {
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+
+    &:hover {
+        border: 1px solid #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1;
+    }
+}
+
 .faZNQQ .info {
     padding: 0px 0px 8px 0px;
     margin: 0px 12px;
-    min-height: auto; // Changed from 84px to auto to remove unnecessary space
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+    padding-bottom: 22px;
 }
 
 .faZNQQ .price.has-discount {
@@ -260,16 +293,8 @@ a {
     text-overflow: ellipsis;
     overflow: hidden;
     word-break: break-word;
-}
-
-.faZNQQ {
-    transition: all 0.2s ease;
-
-    &:hover {
-        border: 1px solid #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        z-index: 1;
-    }
+    flex: 1;
+    flex-grow: 1;
 }
 
 .faZNQQ .bottom {
@@ -277,6 +302,10 @@ a {
     flex-direction: column;
     justify-content: normal;
     align-self: stretch;
+    position: absolute;
+    bottom: 10px;
+    left: 12px;
+    right: 12px;
 }
 
 .faZNQQ .price.has-discount {
@@ -339,22 +368,20 @@ sup {
 
 .kEvUyF>div {
     display: flex;
-    align-items: center; // Ensure all children are vertically centered
-    height: 16px; // Set a consistent height
+    align-items: center;
+    height: 16px;
 }
 
-// Style for the divider to match the text height
 .kEvUyF>div>div[style*="width: 1px"] {
-    height: 12px; // Increase height to better match the text
-    margin: 0 6px; // Add equal margin on both sides
-    align-self: center; // Center vertically
+    height: 12px;
+    margin: 0 6px;
+    align-self: center;
 }
 
-// Style for the quantity sold text
 [data-view-id="pdp_quantity_sold"] {
     display: flex;
     align-items: center;
-    padding-left: 0 !important; // Remove the inline padding
+    padding-left: 0 !important;
     color: rgb(128, 128, 137);
     line-height: normal;
     font-size: 12px;
