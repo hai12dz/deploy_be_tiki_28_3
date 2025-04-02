@@ -98,13 +98,12 @@ const RecentlyViewedProducts = () => {
                                                             <picture className="webpimg-container">
                                                                 <source
                                                                     type="image/webp"
-                                                                    srcSet={`${book.thumbnail}.webp 1x, ${book.thumbnail}.webp 2x`}
+                                                                    srcSet={book.thumbnail}
                                                                 />
                                                                 <img
                                                                     style={{ width: '226px', height: '226px', objectFit: 'contain' }}
                                                                     alt={book.mainText}
                                                                     src={book.thumbnail}
-                                                                    srcSet={`${book.thumbnail} 1x, ${book.thumbnail} 2x`}
                                                                     className="sc-82b4dcf2-0 ldcZGa"
                                                                 />
                                                             </picture>
