@@ -51,11 +51,20 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
         minPrice, setMinPrice, maxPrice, setMaxPrice // Add these state variables from context
     } = useFilterContext();
 
+    const [searchMode, setSearchMode] = useState<boolean>(false);
+
     useEffect(() => {
         fetchBrand();
         fetchSupplier();
         fetchFullCategories();
     }, []);
+
+    useEffect(() => {
+        // When searchTerm changes from parent (search submission), do a search-only fetch
+        if (searchTerm) {
+            performSearchOnly();
+        }
+    }, [searchTerm]);
 
     useEffect(() => {
         fetchBook();
@@ -72,48 +81,67 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
         threeStarsChecked,
         selectedBrands,
         selectedSuppliers,
-        searchTerm,
-        minPrice, // Add price to dependencies
-        maxPrice  // Add price to dependencies
+        minPrice,
+        maxPrice
     ]);
 
-    const fetchBook = async () => {
-        // If setIsLoading is provided, use it, otherwise use local state
+    const performSearchOnly = async () => {
         if (setIsLoading) {
             setIsLoading(true);
         }
 
-        // Build the query string with all filter parameters
+        try {
+            const query = `current=1&pageSize=${pageSize}&mainText=${encodeURIComponent(searchTerm)}`;
+
+            console.log("Performing search with query:", query);
+
+            const res = await getBooksAPI(query);
+            if (res && res.data) {
+                const books = res.data.items;
+                setListBook(books);
+                setTotal(res.data.meta.totalItems);
+
+                if (onListBookChange) {
+                    onListBookChange(books);
+                }
+            }
+        } catch (error) {
+            console.error("Error searching books:", error);
+        } finally {
+            if (setIsLoading) {
+                setIsLoading(false);
+            }
+        }
+    };
+
+    const fetchBook = async () => {
+        if (setIsLoading) {
+            setIsLoading(true);
+        }
+
         let query = `current=${current}&pageSize=${pageSize}`;
 
-        // Add sort parameter based on selectedSort
         if (selectedSort) {
-            // Chuyển đổi text hiển thị thành mã sort trước khi gửi đi
             const sortCode = getSortCode(selectedSort);
             query += `&sort=${sortCode}`;
         }
 
-        // Add filter parameter if it exists
         if (filter) {
             query += `&${filter}`;
         }
 
-        // Add search term if available
         if (searchTerm) {
             query += `&mainText=${encodeURIComponent(searchTerm)}`;
         }
 
-        // Add selected brands as a filter parameter
         if (selectedBrands && selectedBrands.length > 0) {
             query += `&brands=${selectedBrands.join(',')}`;
         }
 
-        // Add selected suppliers as a filter parameter
         if (selectedSuppliers && selectedSuppliers.length > 0) {
             query += `&suppliers=${selectedSuppliers.join(',')}`;
         }
 
-        // Updated logic for rating filters - use the lowest selected rating
         if (threeStarsChecked) {
             query += `&minRating=3`;
         } else if (fourStarsChecked) {
@@ -134,7 +162,6 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
             query += `&fastDelivery=true`;
         }
 
-        // Add price range parameters with correct names
         if (minPrice) {
             query += `&priceBottom=${minPrice}`;
         }
@@ -150,14 +177,12 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                 setListBook(books);
                 setTotal(res.data.meta.totalItems);
 
-                // Share the books with parent component if callback is provided
                 if (onListBookChange) {
                     onListBookChange(books);
                 }
             }
         } catch (error) {
             console.error("Error fetching books:", error);
-            // Xử lý lỗi ở đây (hiển thị thông báo, v.v.)
         } finally {
             if (setIsLoading) {
                 setIsLoading(false);
@@ -165,7 +190,6 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
         }
     };
 
-    // Hàm chuyển đổi từ text hiển thị sang mã sort
     const getSortCode = (sortText: string) => {
         switch (sortText) {
             case 'Phổ biến':
@@ -179,7 +203,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
             case 'Giá cao đến thấp':
                 return 'price-desc';
             default:
-                return encodeURIComponent(sortText); // Mã hóa giá trị nếu không khớp với các case
+                return encodeURIComponent(sortText);
         }
     };
 
@@ -205,7 +229,6 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
     const brandsFull = getBrandNames().slice(0, 4);
 
     const supplierNames = getSupplierNames();
-    // Adjust truncation to ensure "HỆ THỐNG NHÀ SÁCH AB..." instead of "HỆ THỐNG NHÀ SÁCH A..." or "HỆ THỐNG NHÀ SÁCH ABC"
     const suppliers = supplierNames.slice(0, 3).map(name => {
         if (name === "HỆ THỐNG NHÀ SÁCH ABC") {
             return "HỆ THỐNG NHÀ SÁCH AB...";
@@ -240,7 +263,6 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
 
     const handleBrandSelect = (brand: string) => {
         if (!brandExpanded) {
-            // When selecting a brand, reset page size to 10 in the context
             if (setPageSize) {
                 setPageSize(10);
             }
@@ -291,7 +313,6 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                 ? allSuppliers.find(s => s.startsWith(supplier.slice(0, -3))) || supplier
                 : supplier;
 
-            // When selecting a supplier, reset page size to 10 in the context
             if (setPageSize) {
                 setPageSize(10);
             }
@@ -470,7 +491,6 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
     };
 
     const handleSortSelect = (option: string) => {
-        // When changing sort, reset page size to 10 in the context
         if (setPageSize) {
             setPageSize(10);
         }
@@ -536,7 +556,6 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
     };
 
     const handleFastDeliveryChange = () => {
-        // Reset page size when filter changes
         if (setPageSize) {
             setPageSize(10);
         }
@@ -544,7 +563,6 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
     };
 
     const handleCheapPriceChange = () => {
-        // Reset page size when filter changes
         if (setPageSize) {
             setPageSize(10);
         }
@@ -552,7 +570,6 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
     };
 
     const handleFreeShipChange = () => {
-        // Reset page size when filter changes
         if (setPageSize) {
             setPageSize(10);
         }
@@ -560,7 +577,6 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
     };
 
     const handleFourStarsChange = () => {
-        // Reset page size when filter changes
         if (setPageSize) {
             setPageSize(10);
         }
@@ -803,7 +819,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                             />
                         </span>
                         <div className="option-content" onClick={handleFourStarsChange}>
-                            <div className="star-rating" style={{ gap: '0px' }}> {/* Reduced spacing between stars */}
+                            <div className="star-rating" style={{ gap: '0px' }}>
                                 {[...Array(5)].map((_, index) => (
                                     <svg
                                         key={index}
@@ -870,20 +886,18 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                     setParentSelectedSuppliers={setSelectedSuppliers}
                     setParentTempSelectedBrands={setTempSelectedBrands}
                     setParentTempSelectedSuppliers={setTempSelectedSuppliers}
-                    // Pass all checkbox states to the modal
                     fastDeliveryChecked={fastDeliveryChecked}
                     cheapPriceChecked={cheapPriceChecked}
                     freeShipChecked={freeShipChecked}
                     fourStarsChecked={fourStarsChecked}
-                    fiveStarsChecked={fiveStarsChecked} // Added 5-star state
-                    threeStarsChecked={threeStarsChecked} // Added 3-star state
+                    fiveStarsChecked={fiveStarsChecked}
+                    threeStarsChecked={threeStarsChecked}
                     setFastDeliveryChecked={setFastDeliveryChecked}
                     setCheapPriceChecked={setCheapPriceChecked}
                     setFreeShipChecked={setFreeShipChecked}
                     setFourStarsChecked={setFourStarsChecked}
-                    setFiveStarsChecked={setFiveStarsChecked} // Added 5-star setter
-                    setThreeStarsChecked={setThreeStarsChecked} // Added 3-star setter
-                    // Pass price state to modal
+                    setFiveStarsChecked={setFiveStarsChecked}
+                    setThreeStarsChecked={setThreeStarsChecked}
                     minPrice={minPrice}
                     maxPrice={maxPrice}
                     setMinPrice={setMinPrice}

@@ -16,15 +16,10 @@ interface IProps {
 }
 
 const AppHeader = (props: IProps) => {
-    // Add state for search modal visibility
     const [isSearchVisible, setIsSearchVisible] = useState<boolean>(false);
-    // Add state for search term
     const [searchTerm, setSearchTerm] = useState<string>('');
-
-    // Add state for rotating placeholder
     const [currentPlaceholder, setCurrentPlaceholder] = useState<string>("Freeship đơn từ 45k");
 
-    // Array of placeholder messages to rotate
     const placeholders = [
         "Hoàn 200% nếu hàng giả",
         "Freeship đơn từ 45k",
@@ -33,36 +28,43 @@ const AppHeader = (props: IProps) => {
         "100% hàng thật"
     ];
 
-    // Handle input change for search
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         console.log("Header input change:", value);
         setSearchTerm(value);
     };
 
-    // Set up the rotation effect
     useEffect(() => {
         let currentIndex = 0;
 
         const intervalId = setInterval(() => {
             currentIndex = (currentIndex + 1) % placeholders.length;
             setCurrentPlaceholder(placeholders[currentIndex]);
-        }, 3000); // Change every 3 seconds
+        }, 3000);
 
-        // Clean up the interval when component unmounts
         return () => clearInterval(intervalId);
     }, []);
 
-    // Function to show search modal
     const showSearchModal = () => {
         console.log("Opening search modal");
         setIsSearchVisible(true);
     };
 
-    // Function to hide search modal
     const hideSearchModal = () => {
         console.log("Closing search modal");
         setIsSearchVisible(false);
+    };
+
+    const handleSearchSubmit = () => {
+        console.log("Search submitted with term:", searchTerm);
+        props.setSearchTerm(searchTerm);
+        hideSearchModal();
+    };
+
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            handleSearchSubmit();
+        }
     };
 
     const commitments = [
@@ -76,9 +78,7 @@ const AppHeader = (props: IProps) => {
 
     return (
         <>
-            {/* Add header-wrapper class for proper positioning */}
             <div className="header-wrapper">
-                {/* First banner */}
                 <div className="top-banner">
                     <a href="https://tiki.vn/khuyen-mai/ngay-hoi-freeship?from=inline_banner">
                         <div style={{ backgroundColor: "#EFFFF4" }} className="jfMKyG">
@@ -103,7 +103,6 @@ const AppHeader = (props: IProps) => {
                     </a>
                 </div>
 
-                {/* Main header */}
                 <header id="main-header" className="rgsXe">
                     <div className="edZgU">
                         <div className="duXRBJ">
@@ -137,20 +136,22 @@ const AppHeader = (props: IProps) => {
                                                     onChange={handleSearchChange}
                                                     onClick={showSearchModal}
                                                     onFocus={showSearchModal}
+                                                    onKeyPress={handleKeyPress}
                                                 />
                                                 <button
                                                     data-view-id="main_search_form_button"
                                                     className="agnbj"
+                                                    onClick={handleSearchSubmit}
                                                 >
                                                     Tìm kiếm
                                                 </button>
 
-                                                {/* Render search modal conditionally and pass searchTerm */}
                                                 {isSearchVisible && (
                                                     <SearchProducts
                                                         isVisible={isSearchVisible}
                                                         onClose={hideSearchModal}
                                                         searchTerm={searchTerm}
+                                                        onSearch={handleSearchSubmit}
                                                     />
                                                 )}
                                             </div>
@@ -211,7 +212,6 @@ const AppHeader = (props: IProps) => {
                     </div>
                 </header>
 
-                {/* Commitment bar - should stay with header */}
                 <div className="sc-cc99b0e2-0 fzFpkg">
                     <a href="https://tiki.vn/thong-tin/tiki-doi-tra-de-dang-an-tam-mua-sam" className="sc-cc99b0e2-1 klHtaf">
                         <div style={{ color: "#003EA1" }} className="sc-cc99b0e2-2 iMmKHC">Cam kết</div>
@@ -235,7 +235,6 @@ const AppHeader = (props: IProps) => {
                 </div>
             </div>
 
-            {/* Add a hidden spacer div when modal is active */}
             <div id="header-spacer" style={{ display: 'none' }}></div>
         </>
     );

@@ -6,9 +6,15 @@ interface SearchProductsProps {
     isVisible: boolean;
     onClose: () => void;
     searchTerm: string;
+    onSearch?: () => void; // Add onSearch callback
 }
 
-const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose, searchTerm }) => {
+const SearchProducts: React.FC<SearchProductsProps> = ({
+    isVisible,
+    onClose,
+    searchTerm,
+    onSearch
+}) => {
     const searchRef = useRef<HTMLDivElement | null>(null);
     const overlayRef = useRef<HTMLDivElement | null>(null);
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
@@ -178,6 +184,33 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose, sea
         }
     }, [isVisible]); // Only trigger when visibility changes
 
+    // Add a function to handle search submission
+    const handleSearchSubmit = () => {
+        if (onSearch) {
+            onSearch(); // Call the parent's search handler
+        }
+        onClose(); // Close the search modal after search
+    };
+
+    // Add Enter key handler for suggestions
+    const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Enter' && isVisible) {
+            handleSearchSubmit();
+        } else if (e.key === 'Escape' && isVisible) {
+            onClose();
+        }
+    };
+
+    // Listen for keyboard events when the modal is open
+    useEffect(() => {
+        if (isVisible) {
+            window.addEventListener('keydown', handleKeyDown);
+        }
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [isVisible, onSearch]);
+
     if (!isVisible) return null;
 
     return (
@@ -222,6 +255,14 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose, sea
                                 data-view-content={`{"click_data":{"keyword":"${suggestion.keyword}"}}`}
                                 className={`item ${index > 3 && !isExpanded ? 'hide' : ''}`}
                                 href={`/search?q=${encodeURIComponent(suggestion.keyword)}`}
+                                onClick={(e) => {
+                                    // Optionally handle click on suggestion
+                                    e.preventDefault();
+                                    if (onSearch) {
+                                        onSearch();
+                                    }
+                                    onClose();
+                                }}
                             >
                                 <img
                                     src="https://salt.tikicdn.com/ts/upload/e8/aa/26/42a11360f906c4e769a0ff144d04bfe1.png"
@@ -233,6 +274,13 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose, sea
                     ) : searchTerm ? (
                         <div className="empty-suggestions-message">
                             <span>Không tìm thấy kết quả cho "{searchTerm}"</span>
+                            {/* Add search button for empty results */}
+                            <button
+                                className="search-now-button"
+                                onClick={handleSearchSubmit}
+                            >
+                                Tìm kiếm ngay
+                            </button>
                         </div>
                     ) : (
                         <>
@@ -288,6 +336,18 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose, sea
                         </div>
                     )}
                 </div>
+
+                {/* Add a search button at the bottom */}
+                {searchTerm && (
+                    <div className="search-action-buttons">
+                        <button
+                            className="search-submit-button"
+                            onClick={handleSearchSubmit}
+                        >
+                            Tìm kiếm
+                        </button>
+                    </div>
+                )}
 
                 {!immediateTyping && (
                     <div className="sc-77bd3e1f-0 ubmOs">
