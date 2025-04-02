@@ -211,7 +211,7 @@ a {
 .faZNQQ .info {
     padding: 8px 0px;
     margin: 0px 12px;
-    min-height: 94px;
+    min-height: 84px;
 }
 
 .faZNQQ .price.has-discount {
@@ -240,9 +240,9 @@ a {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
-    max-height: 40px;
-    min-height: 32px;
-    margin: 0px;
+    max-height: 32px;
+    min-height: 0;
+    margin: 0 0 4px;
     width: 100%;
     color: rgb(36, 36, 36);
     font-size: 12px;
@@ -258,11 +258,11 @@ a {
 }
 
 .faZNQQ .bottom {
-    flex: 1 1 0%;
     display: flex;
     flex-direction: column;
     justify-content: normal;
     align-self: stretch;
+    margin-top: 0;
 }
 
 .faZNQQ .price.has-discount {
@@ -310,5 +310,5 @@ sup {
     -webkit-box-align: center;
     align-items: center;
     align-self: stretch;
-    margin-top: 3px;
+    margin-top: 1px;
 }
