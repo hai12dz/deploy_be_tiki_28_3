@@ -44,6 +44,10 @@
 .iWkFxH .slick-arrow.slick-disabled {
     cursor: default;
     opacity: 0.3;
+
+    &:hover {
+        opacity: 0.3;
+    }
 }
 
 .iWkFxH .slick-arrow.slick-prev {
@@ -57,6 +61,42 @@
     margin-top: -16px;
     opacity: 0.3;
     z-index: 1;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+        opacity: 1;
+    }
+
+    path {
+        stroke: currentColor;
+    }
+}
+
+.iWkFxH .slick-arrow:not(.slick-disabled):hover {
+    opacity: 1;
+
+    svg path {
+        stroke: rgba(0, 0, 0, 0.8);
+    }
+}
+
+.iWkFxH .slick-arrow .icon {
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    padding-right: 2px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 16px;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background-color: rgb(245, 245, 245);
+    }
 }
 
 a {
@@ -93,20 +133,6 @@ a {
     transform: rotate(180deg);
 }
 
-.iWkFxH .slick-arrow {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    margin-top: -16px;
-    opacity: 0.3;
-    z-index: 1;
-}
-
-.iWkFxH .slick-arrow.slick-disabled {
-    cursor: default;
-    opacity: 0.3;
-}
-
 .slick-track {
     width: 1638px;
     opacity: 1;
@@ -121,27 +147,6 @@ a {
 
 .iWkFxH .slick-track {
     display: flex;
-}
-
-.iWkFxH .slick-arrow .icon {
-    display: flex;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
-    width: 32px;
-    height: 32px;
-    padding-right: 2px;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(204, 204, 204);
-    border-radius: 16px;
-}
-
-.icon {
-    display: inline-block;
-    vertical-align: middle;
-    background-repeat: no-repeat;
-    background-position: 0px 0px;
 }
 
 .tikicon.icon-arrow-back {
@@ -255,6 +260,16 @@ a {
     text-overflow: ellipsis;
     overflow: hidden;
     word-break: break-word;
+}
+
+.faZNQQ {
+    transition: all 0.2s ease;
+
+    &:hover {
+        border: 1px solid #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1;
+    }
 }
 
 .faZNQQ .bottom {
