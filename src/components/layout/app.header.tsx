@@ -18,6 +18,8 @@ interface IProps {
 const AppHeader = (props: IProps) => {
     // Add state for search modal visibility
     const [isSearchVisible, setIsSearchVisible] = useState<boolean>(false);
+    // Add state for search term
+    const [searchTerm, setSearchTerm] = useState<string>('');
 
     // Add state for rotating placeholder
     const [currentPlaceholder, setCurrentPlaceholder] = useState<string>("Freeship đơn từ 45k");
@@ -31,6 +33,12 @@ const AppHeader = (props: IProps) => {
         "100% hàng thật"
     ];
 
+    // Handle input change for search
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setSearchTerm(value);
+    };
+
     // Set up the rotation effect
     useEffect(() => {
         let currentIndex = 0;
@@ -38,7 +46,6 @@ const AppHeader = (props: IProps) => {
         const intervalId = setInterval(() => {
             currentIndex = (currentIndex + 1) % placeholders.length;
             setCurrentPlaceholder(placeholders[currentIndex]);
-            // The placeholder changes here won't affect the search modal's expanded state
         }, 3000); // Change every 3 seconds
 
         // Clean up the interval when component unmounts
@@ -125,7 +132,8 @@ const AppHeader = (props: IProps) => {
                                                     type="text"
                                                     placeholder={currentPlaceholder}
                                                     className="lgENLJ"
-                                                    defaultValue=""
+                                                    value={searchTerm}
+                                                    onChange={handleSearchChange}
                                                     onClick={showSearchModal}
                                                     onFocus={showSearchModal}
                                                 />
@@ -136,9 +144,13 @@ const AppHeader = (props: IProps) => {
                                                     Tìm kiếm
                                                 </button>
 
-                                                {/* Render search modal conditionally */}
+                                                {/* Render search modal conditionally and pass searchTerm */}
                                                 {isSearchVisible && (
-                                                    <SearchProducts isVisible={isSearchVisible} onClose={hideSearchModal} />
+                                                    <SearchProducts
+                                                        isVisible={isSearchVisible}
+                                                        onClose={hideSearchModal}
+                                                        searchTerm={searchTerm}
+                                                    />
                                                 )}
                                             </div>
                                         </div>

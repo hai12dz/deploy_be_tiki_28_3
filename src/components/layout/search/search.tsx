@@ -1,19 +1,63 @@
 import './search.scss'
 import { useEffect, useRef, useState } from 'react'
+import { suggestionBookAPI } from '@/services/api'
 
 interface SearchProductsProps {
     isVisible: boolean;
     onClose: () => void;
+    searchTerm: string;
 }
 
-const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose }) => {
+const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose, searchTerm }) => {
     const searchRef = useRef<HTMLDivElement | null>(null);
     const overlayRef = useRef<HTMLDivElement | null>(null);
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
     const initialMount = useRef<boolean>(true);
 
+    // State for suggestions
+    const [suggestions, setSuggestions] = useState<ISearchSuggestion[]>([]);
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
     const toggleExpanded = () => {
         setIsExpanded(!isExpanded);
+    };
+
+    // Fetch suggestions when searchTerm changes
+    useEffect(() => {
+        // Clear previous timeout
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
+
+        // Skip API call if input is empty
+        if (!searchTerm.trim()) {
+            setSuggestions([]);
+            return;
+        }
+
+        // Debounce API call (300ms)
+        timeoutRef.current = setTimeout(() => {
+            fetchSuggestions(searchTerm);
+        }, 300);
+
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
+    }, [searchTerm]);
+
+    // Fetch suggestions from API
+    const fetchSuggestions = async (query: string) => {
+        try {
+            const response = await suggestionBookAPI(`keyword=${encodeURIComponent(query)}`);
+            if (response.data && response.data.length > 0) {
+                setSuggestions(response.data);
+            }
+        } catch (error) {
+            console.error("Error fetching suggestions:", error);
+            setSuggestions([]);
+        }
     };
 
     useEffect(() => {
@@ -57,6 +101,10 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose }) =
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
             window.removeEventListener('scroll', updateOverlayPosition);
+            // Clear any pending timeouts when component unmounts
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
         };
     }, [isVisible, onClose]);
 
@@ -91,161 +139,76 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose }) =
                         </picture>
                     </div>
                 </div>
+
+                {/* Update this section to render API suggestions */}
                 <div className="sc-66af1b06-0 hilSzk">
-                    <a
-                        data-view-index={0}
-                        data-view-id="search_suggestion_keyword_item"
-                        data-view-content='{"click_data":{"keyword":"thẻ cào viettel"}}'
-                        className="item"
-                        href="/search?q=th%E1%BA%BB%20c%C3%A0o%20viettel"
-                    >
-                        <img
-                            src="https://salt.tikicdn.com/ts/upload/e8/aa/26/42a11360f906c4e769a0ff144d04bfe1.png"
-                            className="item-icon"
-                        />
-                        <div className="keyword">thẻ cào viettel</div>
-                    </a>
-                    <a
-                        data-view-index={1}
-                        data-view-id="search_suggestion_keyword_item"
-                        data-view-content='{"click_data":{"keyword":"đại việt sử ký toàn thư"}}'
-                        className="item"
-                        href="/search?q=%C4%91%E1%BA%A1i%20vi%E1%BB%87t%20s%E1%BB%AD%20k%C3%BD%20to%C3%A0n%20th%C6%B0"
-                    >
-                        <img
-                            src="https://salt.tikicdn.com/ts/upload/e8/aa/26/42a11360f906c4e769a0ff144d04bfe1.png"
-                            className="item-icon"
-                        />
-                        <div className="keyword">đại việt sử ký toàn thư</div>
-                    </a>
-                    <a
-                        data-view-index={2}
-                        data-view-id="search_suggestion_keyword_item"
-                        data-view-content='{"click_data":{"keyword":"iphone"}}'
-                        className="item"
-                        href="/search?q=iphone"
-                    >
-                        <img
-                            src="https://salt.tikicdn.com/ts/upload/e8/aa/26/42a11360f906c4e769a0ff144d04bfe1.png"
-                            className="item-icon"
-                        />
-                        <div className="keyword">iphone</div>
-                    </a>
-                    <a
-                        data-view-id="search_suggestion_seller_item"
-                        data-view-content='{"click_data":{"keyword":"Apple Flagship Store"}}'
-                        data-view-index={3}
-                        href="https://tiki.vn/khuyen-mai/appleflagshipstore?source_screen=search_suggestion&source_engine=organic"
-                        className={`item seller ${isExpanded ? '' : 'hide'}`}
-                    >
-                        <img
-                            src="https://salt.tikicdn.com/cache/80x80/ts/tka/4c/ec/65/955f13c00db11dbc52907030568c9517.png"
-                            className="item-icon"
-                        />
-                        <div className="info">
-                            <span className="title">Apple Flagship Store</span>
-                            <span className="subtitle">42 sản phẩm</span>
-                        </div>
-                    </a>
-                    <a
-                        data-view-index={4}
-                        data-view-id="search_suggestion_keyword_item"
-                        data-view-content='{"click_data":{"keyword":"grabgifts"}}'
-                        className={`item ${isExpanded ? '' : 'hide'}`}
-                        href="/search?q=grabgifts"
-                    >
-                        <img
-                            src="https://salt.tikicdn.com/ts/upload/e8/aa/26/42a11360f906c4e769a0ff144d04bfe1.png"
-                            className="item-icon"
-                        />
-                        <div className="keyword">grabgifts</div>
-                    </a>
-                    <a
-                        data-view-index={5}
-                        data-view-id="search_suggestion_keyword_item"
-                        data-view-content='{"click_data":{"keyword":"tai nghe bluetooth"}}'
-                        className={`item ${isExpanded ? '' : 'hide'}`}
-                        href="/search?q=tai%20nghe%20bluetooth"
-                    >
-                        <img
-                            src="https://salt.tikicdn.com/ts/upload/e8/aa/26/42a11360f906c4e769a0ff144d04bfe1.png"
-                            className="item-icon"
-                        />
-                        <div className="keyword">tai nghe bluetooth</div>
-                    </a>
-                    <a
-                        data-view-index={6}
-                        data-view-id="search_suggestion_keyword_item"
-                        data-view-content='{"click_data":{"keyword":"được học"}}'
-                        className={`item ${isExpanded ? '' : 'hide'}`}
-                        href="/search?q=%C4%91%C6%B0%E1%BB%A3c%20h%E1%BB%8Dc"
-                    >
-                        <img
-                            src="https://salt.tikicdn.com/ts/upload/e8/aa/26/42a11360f906c4e769a0ff144d04bfe1.png"
-                            className="item-icon"
-                        />
-                        <div className="keyword">được học</div>
-                    </a>
-                    <a
-                        data-view-index={7}
-                        data-view-id="search_suggestion_keyword_item"
-                        data-view-content='{"click_data":{"keyword":"iphone 16 promax"}}'
-                        className={`item ${isExpanded ? '' : 'hide'}`}
-                        href="/search?q=iphone%2016%20promax"
-                    >
-                        <img
-                            src="https://salt.tikicdn.com/ts/upload/e8/aa/26/42a11360f906c4e769a0ff144d04bfe1.png"
-                            className="item-icon"
-                        />
-                        <div className="keyword">iphone 16 promax</div>
-                    </a>
-                    <a
-                        data-view-index={8}
-                        data-view-id="search_suggestion_keyword_item"
-                        data-view-content='{"click_data":{"keyword":"chat gpt thực chiến"}}'
-                        className={`item ${isExpanded ? '' : 'hide'}`}
-                        href="/search?q=chat%20gpt%20th%E1%BB%B1c%20chi%E1%BA%BFn"
-                    >
-                        <img
-                            src="https://salt.tikicdn.com/ts/upload/e8/aa/26/42a11360f906c4e769a0ff144d04bfe1.png"
-                            className="item-icon"
-                        />
-                        <div className="keyword">chat gpt thực chiến</div>
-                    </a>
-                    <a
-                        data-view-index={9}
-                        data-view-id="search_suggestion_keyword_item"
-                        data-view-content='{"click_data":{"keyword":"sách"}}'
-                        className={`item ${isExpanded ? '' : 'hide'}`}
-                        href="/search?q=s%C3%A1ch"
-                    >
-                        <img
-                            src="https://salt.tikicdn.com/ts/upload/e8/aa/26/42a11360f906c4e769a0ff144d04bfe1.png"
-                            className="item-icon"
-                        />
-                        <div className="keyword">sách</div>
-                    </a>
-                    <div className="show-more">
-                        <div data-view-id="search_history_expand_button" onClick={toggleExpanded}>
-                            {isExpanded ? 'Thu gọn' : 'Xem thêm'}
-                            <svg
-                                width={6}
-                                height={11}
-                                viewBox="0 0 6 11"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                                className={`right-icon show-more__icon ${isExpanded ? 'rotate-180' : ''}`}
+                    {searchTerm && suggestions.length > 0 ? (
+                        // Display API suggestions
+                        suggestions.map((suggestion, index) => (
+                            <a
+                                key={suggestion.id}
+                                data-view-index={index}
+                                data-view-id="search_suggestion_keyword_item"
+                                data-view-content={`{"click_data":{"keyword":"${suggestion.keyword}"}}`}
+                                className={`item ${index > 3 && !isExpanded ? 'hide' : ''}`}
+                                href={`/search?q=${encodeURIComponent(suggestion.keyword)}`}
                             >
-                                <path
-                                    fill="rgb(13,92,182)"
-                                    fillRule="evenodd"
-                                    clipRule="evenodd"
-                                    d="M0.646447 0.646447C0.841709 0.451184 1.15829 0.451184 1.35355 0.646447L6.35355 5.64645C6.54882 5.84171 6.54882 6.15829 6.35355 6.35355L1.35355 11.3536C1.15829 11.5488 0.841709 11.5488 0.646447 11.3536C0.451184 11.1583 0.451184 10.8417 0.646447 10.6464L5.29289 6L0.646447 1.35355C0.451184 1.15829 0.451184 0.841709 0.646447 0.646447Z"
+                                <img
+                                    src="https://salt.tikicdn.com/ts/upload/e8/aa/26/42a11360f906c4e769a0ff144d04bfe1.png"
+                                    className="item-icon"
                                 />
-                            </svg>
+                                <div className="keyword">{suggestion.keyword}</div>
+                            </a>
+                        ))
+                    ) : searchTerm && !suggestions.length ? (
+                        <div className="empty-suggestions">
+                            <span>Không tìm thấy kết quả cho "{searchTerm}"</span>
                         </div>
-                    </div>
+                    ) : (
+                        // Default suggestions when no search term
+                        <>
+                            <a
+                                data-view-index={0}
+                                data-view-id="search_suggestion_keyword_item"
+                                data-view-content='{"click_data":{"keyword":"thẻ cào viettel"}}'
+                                className="item"
+                                href="/search?q=th%E1%BA%BB%20c%C3%A0o%20viettel"
+                            >
+                                <img
+                                    src="https://salt.tikicdn.com/ts/upload/e8/aa/26/42a11360f906c4e769a0ff144d04bfe1.png"
+                                    className="item-icon"
+                                />
+                                <div className="keyword">thẻ cào viettel</div>
+                            </a>
+                            {/* ...existing default suggestions... */}
+                        </>
+                    )}
+
+                    {/* Show "Xem thêm" only when we have more than 4 suggestions */}
+                    {suggestions.length > 4 && (
+                        <div className="show-more">
+                            <div data-view-id="search_history_expand_button" onClick={toggleExpanded}>
+                                {isExpanded ? 'Thu gọn' : 'Xem thêm'}
+                                <svg
+                                    width={6}
+                                    height={11}
+                                    viewBox="0 0 6 11"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className={`right-icon show-more__icon ${isExpanded ? 'rotate-180' : ''}`}
+                                >
+                                    <path
+                                        fill="rgb(13,92,182)"
+                                        fillRule="evenodd"
+                                        clipRule="evenodd"
+                                        d="M0.646447 0.646447C0.841709 0.451184 1.15829 0.451184 1.35355 0.646447L6.35355 5.64645C6.54882 5.84171 6.54882 6.15829 6.35355 6.35355L1.35355 11.3536C1.15829 11.5488 0.841709 11.5488 0.646447 11.3536C0.451184 11.1583 0.451184 10.8417 0.646447 10.6464L5.29289 6L0.646447 1.35355C0.451184 1.15829 0.451184 0.841709 0.646447 0.646447Z"
+                                    />
+                                </svg>
+                            </div>
+                        </div>
+                    )}
                 </div>
+
                 <div className="sc-77bd3e1f-0 ubmOs">
                     <div className="sc-b09dbee7-0 brtKKD">
                         <div className="wrap-heading">

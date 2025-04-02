@@ -42,11 +42,6 @@ export const createUserAPI = (fullName: string, email: string,
         { fullName, email, password, phone })
 }
 
-
-
-
-
-
 export const getBooksAPI = (query: string) => {
     const urlBackend = `/products/books?${query}`;
     return axios.get<IBackendRes<IModelPaginate<IBookTable>>>(urlBackend,
@@ -79,8 +74,6 @@ export const uploadFileAPI = (fileImg: any, folder: string) => {
     });
 }
 
-
-
 export const getBookByIdAPI = (id: string) => {
     const urlBackend = `/products/books/${id}`;
     return axios.get<IBackendRes<IBookTable>>(urlBackend,
@@ -91,7 +84,6 @@ export const getBookByIdAPI = (id: string) => {
         }
     )
 }
-
 
 export const getHistoryAPI = () => {
     const urlBackend = `/api/v1/history`;
@@ -127,55 +119,35 @@ export const getDashboardAPI = () => {
     }>>(urlBackend)
 }
 
-
-
 export const getNameCategoryAPI = (query: string) => {
     const urlBackend = `/categories/info?${query}`;
     return axios.get<IBackendRes<string[]>>(urlBackend)
 }
 
-
-
 export const getBrandsAPI = () => {
     const urlBackend = `/brand/name`;
     return axios.get<IBackendRes<IBrands[]>>(urlBackend)
-
-
 }
 
 export const getSuppliersAPI = () => {
     const urlBackend = `/suppliers/name-supplier`;
     return axios.get<IBackendRes<ISupplier[]>>(urlBackend)
-
-
 }
-
-
 
 export const filterBookAPI = (query: string) => {
     const urlBackend = `/suppliers/filterBook/${query}`;
     return axios.get<IBackendRes<IModelPaginate<IBookTable>>>(urlBackend)
-
 }
-
-
 
 export const getFullCategories = () => {
     const urlBackend = `/categories/full`
     return axios.get<IBackendRes<ICategory[]>>(urlBackend)
-
-
 }
-
-
-
 
 export const filterBookWithFullInfoAPI = (query: string) => {
     const urlBackend = `/products/books/filter?${query}`;
     return axios.get<IBackendRes<IModelPaginate<IBookTable>>>(urlBackend)
-
 }
-
 
 export const fetchViewedProductsAPI = (viewedProducts: any) => {
     const urlBackend = `/products/viewed`;
@@ -183,9 +155,10 @@ export const fetchViewedProductsAPI = (viewedProducts: any) => {
         {
             productIds: viewedProducts,
         }
-
     )
-
 }
 
-
+export const suggestionBookAPI = (query: string) => {
+    const urlBackend = `/search/suggestion?${query}`;
+    return axios.get<IBackendRes<ISearchSuggestion[]>>(urlBackend)
+}
