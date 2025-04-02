@@ -159,6 +159,25 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose, sea
         };
     }, [isVisible, onClose, immediateTyping]);
 
+    // Add a new useEffect to handle modal reopening with existing search term
+    useEffect(() => {
+        // Only run when modal becomes visible
+        if (isVisible && searchTerm.trim()) {
+            console.log("Modal reopened with existing search term:", searchTerm);
+
+            // Immediately fetch suggestions when reopening with existing search
+            fetchSuggestions(searchTerm);
+
+            // Also ensure proper typing state is set
+            setImmediateTyping(true);
+            setIsTyping(true);
+
+            if (overlayRef.current) {
+                overlayRef.current.classList.add('typing-overlay');
+            }
+        }
+    }, [isVisible]); // Only trigger when visibility changes
+
     if (!isVisible) return null;
 
     return (
