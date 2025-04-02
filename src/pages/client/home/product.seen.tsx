@@ -5,6 +5,8 @@ import './product.seen.scss';
 const RecentlyViewedProducts = () => {
     const [listBookViewed, setListBookViewed] = useState<IBookTable[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [currentSlide, setCurrentSlide] = useState<number>(0);
+    const itemsPerSlide = 6;
 
     useEffect(() => {
         fetchViewedProducts();
@@ -27,10 +29,30 @@ const RecentlyViewedProducts = () => {
         setIsLoading(false);
     };
 
-    // Don't render if no viewed products
     if (!isLoading && listBookViewed.length === 0) {
         return null;
     }
+
+    const handlePrevSlide = () => {
+        if (currentSlide > 0) {
+            setCurrentSlide(currentSlide - 1);
+        }
+    };
+
+    const handleNextSlide = () => {
+        const maxSlide = Math.max(0, listBookViewed.length - itemsPerSlide);
+        if (currentSlide < maxSlide) {
+            setCurrentSlide(currentSlide + 1);
+        }
+    };
+
+    const visibleBooks = listBookViewed.slice(
+        currentSlide,
+        currentSlide + itemsPerSlide
+    );
+
+    const isPrevDisabled = currentSlide === 0;
+    const isNextDisabled = currentSlide >= listBookViewed.length - itemsPerSlide;
 
     return (
         <div
@@ -43,8 +65,9 @@ const RecentlyViewedProducts = () => {
                     <div className="slick-slider slick-initialized" dir="ltr">
                         <a
                             data-role="none"
-                            className="slick-arrow slick-prev slick-disabled"
+                            className={`slick-arrow slick-prev ${isPrevDisabled ? 'slick-disabled' : ''}`}
                             style={{ display: "block" }}
+                            onClick={isPrevDisabled ? undefined : handlePrevSlide}
                         >
                             <span className="icon">
                                 <svg
@@ -70,16 +93,17 @@ const RecentlyViewedProducts = () => {
                                 style={{
                                     width: listBookViewed.length * 234,
                                     opacity: 1,
-                                    transform: "translate3d(0px, 0px, 0px)"
+                                    transform: `translate3d(-${currentSlide * 234}px, 0px, 0px)`,
+                                    transition: "transform 300ms ease"
                                 }}
                             >
                                 {listBookViewed.map((book, index) => (
                                     <div
                                         key={book.id}
                                         data-index={index}
-                                        className={`slick-slide ${index === 0 ? 'slick-active slick-current' : 'slick-active'}`}
+                                        className={`slick-slide ${index >= currentSlide && index < currentSlide + itemsPerSlide ? 'slick-active' : ''} ${index === currentSlide ? 'slick-current' : ''}`}
                                         tabIndex={-1}
-                                        aria-hidden="false"
+                                        aria-hidden={!(index >= currentSlide && index < currentSlide + itemsPerSlide)}
                                         style={{ outline: "none", width: 234 }}
                                     >
                                         <div>
@@ -187,8 +211,9 @@ const RecentlyViewedProducts = () => {
                         </div>
                         <a
                             data-role="none"
-                            className="slick-arrow slick-next"
+                            className={`slick-arrow slick-next ${isNextDisabled ? 'slick-disabled' : ''}`}
                             style={{ display: "block" }}
+                            onClick={isNextDisabled ? undefined : handleNextSlide}
                         >
                             <span className="icon">
                                 <svg
