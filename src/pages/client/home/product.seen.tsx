@@ -1,6 +1,5 @@
 import './product.seen.scss';
 
-
 const RecentlyViewedProducts = () => {
     return (
         <div
@@ -17,7 +16,21 @@ const RecentlyViewedProducts = () => {
                             style={{ display: "block" }}
                         >
                             <span className="icon">
-                                <i className="tikicon icon-arrow-back" />
+                                <svg
+                                    width="8"
+                                    height="14"
+                                    viewBox="0 0 8 14"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M7 1L1 7L7 13"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                </svg>
                             </span>
                         </a>
                         <div className="slick-list">
@@ -52,12 +65,12 @@ const RecentlyViewedProducts = () => {
                                                         <picture className="webpimg-container">
                                                             <source
                                                                 type="image/webp"
-                                                                srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/e1/04/31/7763d9035552760f627c34acfec0e12f.jpg.webp 1x, https://salt.tikicdn.com/cache/280x280/ts/product/e1/04/31/7763d9035552760f627c34acfec0e12f.jpg.webp 2x"
+                                                                srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png.webp 1x, https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png.webp 2x"
                                                             />
                                                             <img
                                                                 alt="Giải Thích Ngữ Pháp Tiếng Anh (Với Bài Tập Và Đáp Án) (Tái Bản)"
-                                                                src="https://salt.tikicdn.com/cache/280x280/ts/product/e1/04/31/7763d9035552760f627c34acfec0e12f.jpg"
-                                                                srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/e1/04/31/7763d9035552760f627c34acfec0e12f.jpg 1x, https://salt.tikicdn.com/cache/280x280/ts/product/e1/04/31/7763d9035552760f627c34acfec0e12f.jpg 2x"
+                                                                src="https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png"
+                                                                srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png 1x, https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png 2x"
                                                                 className="sc-82b4dcf2-0 ldcZGa"
                                                             />
                                                         </picture>
@@ -105,7 +118,6 @@ const RecentlyViewedProducts = () => {
                                                                             fill="currentColor"
                                                                             strokeWidth={0}
                                                                             viewBox="0 0 24 24"
-
                                                                             color="#fdd836"
                                                                             height={14}
                                                                             width={14}
@@ -116,17 +128,6 @@ const RecentlyViewedProducts = () => {
                                                                         </svg>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div
-                                                                style={{
-                                                                    display: "flex",
-                                                                    alignItems: "center",
-                                                                    color: "rgb(128, 128, 137)",
-                                                                    lineHeight: "normal",
-                                                                    fontSize: 12,
-                                                                    paddingLeft: 4
-                                                                }}
-                                                            >
                                                                 <div
                                                                     style={{
                                                                         width: 1,
@@ -171,12 +172,12 @@ const RecentlyViewedProducts = () => {
                                                         <picture className="webpimg-container">
                                                             <source
                                                                 type="image/webp"
-                                                                srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/b8/d6/2e/3bdedbb1668f7a9e5059d95746762cad.jpg.webp 1x, https://salt.tikicdn.com/cache/280x280/ts/product/b8/d6/2e/3bdedbb1668f7a9e5059d95746762cad.jpg.webp 2x"
+                                                                srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png.webp 1x, https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png.webp 2x"
                                                             />
                                                             <img
                                                                 alt="Trong Cái Không Có Gì Không ? (Thiền Sư Thích Nhất Hạnh Trả Lời Cho Trẻ Em Những Thắc Mắc Về Ý Nghĩa Cuộc Sống, Về Cái Chết, Về Gia Đình, Bạn Bè Và Nhiều Câu Hỏi Khác)"
-                                                                src="https://salt.tikicdn.com/cache/280x280/ts/product/b8/d6/2e/3bdedbb1668f7a9e5059d95746762cad.jpg"
-                                                                srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/b8/d6/2e/3bdedbb1668f7a9e5059d95746762cad.jpg 1x, https://salt.tikicdn.com/cache/280x280/ts/product/b8/d6/2e/3bdedbb1668f7a9e5059d95746762cad.jpg 2x"
+                                                                src="https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png"
+                                                                srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png 1x, https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png 2x"
                                                                 className="sc-82b4dcf2-0 ldcZGa"
                                                             />
                                                         </picture>
@@ -226,7 +227,6 @@ const RecentlyViewedProducts = () => {
                                                                             fill="currentColor"
                                                                             strokeWidth={0}
                                                                             viewBox="0 0 24 24"
-
                                                                             color="#fdd836"
                                                                             height={14}
                                                                             width={14}
@@ -292,12 +292,12 @@ const RecentlyViewedProducts = () => {
                                                         <picture className="webpimg-container">
                                                             <source
                                                                 type="image/webp"
-                                                                srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/17/4a/65/b4765d60127ee4cccf8fd551633fafd4.png.webp 1x, https://salt.tikicdn.com/cache/280x280/ts/product/17/4a/65/b4765d60127ee4cccf8fd551633fafd4.png.webp 2x"
+                                                                srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png.webp 1x, https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png.webp 2x"
                                                             />
                                                             <img
                                                                 alt="Chat GPT Thực Chiến"
-                                                                src="https://salt.tikicdn.com/cache/280x280/ts/product/17/4a/65/b4765d60127ee4cccf8fd551633fafd4.png"
-                                                                srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/17/4a/65/b4765d60127ee4cccf8fd551633fafd4.png 1x, https://salt.tikicdn.com/cache/280x280/ts/product/17/4a/65/b4765d60127ee4cccf8fd551633fafd4.png 2x"
+                                                                src="https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png"
+                                                                srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png 1x, https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png 2x"
                                                                 className="sc-82b4dcf2-0 ldcZGa"
                                                             />
                                                         </picture>
@@ -342,7 +342,6 @@ const RecentlyViewedProducts = () => {
                                                                             fill="currentColor"
                                                                             strokeWidth={0}
                                                                             viewBox="0 0 24 24"
-
                                                                             color="#fdd836"
                                                                             height={14}
                                                                             width={14}
@@ -408,12 +407,12 @@ const RecentlyViewedProducts = () => {
                                                         <picture className="webpimg-container">
                                                             <source
                                                                 type="image/webp"
-                                                                srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/34/3d/cd/471c29846d5bc2995f122cbbfa2c0ae8.png.webp 1x, https://salt.tikicdn.com/cache/280x280/ts/product/34/3d/cd/471c29846d5bc2995f122cbbfa2c0ae8.png.webp 2x"
+                                                                srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png.webp 1x, https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png.webp 2x"
                                                             />
                                                             <img
                                                                 alt="Lặng - Tuệ An ( Lặng Rồi Sẽ Yên - Yên Rồi Sẽ An )"
-                                                                src="https://salt.tikicdn.com/cache/280x280/ts/product/34/3d/cd/471c29846d5bc2995f122cbbfa2c0ae8.png"
-                                                                srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/34/3d/cd/471c29846d5bc2995f122cbbfa2c0ae8.png 1x, https://salt.tikicdn.com/cache/280x280/ts/product/34/3d/cd/471c29846d5bc2995f122cbbfa2c0ae8.png 2x"
+                                                                src="https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png"
+                                                                srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png 1x, https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png 2x"
                                                                 className="sc-82b4dcf2-0 ldcZGa"
                                                             />
                                                         </picture>
@@ -459,7 +458,6 @@ const RecentlyViewedProducts = () => {
                                                                             fill="currentColor"
                                                                             strokeWidth={0}
                                                                             viewBox="0 0 24 24"
-
                                                                             color="#fdd836"
                                                                             height={14}
                                                                             width={14}
@@ -511,12 +509,12 @@ const RecentlyViewedProducts = () => {
                                                         <picture className="webpimg-container">
                                                             <source
                                                                 type="image/webp"
-                                                                srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/00/9a/66/34d3abd4b5f39c62d1bf49f1f4c030bd.jpg.webp 1x, https://salt.tikicdn.com/cache/280x280/ts/product/00/9a/66/34d3abd4b5f39c62d1bf49f1f4c030bd.jpg.webp 2x"
+                                                                srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png.webp 1x, https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png.webp 2x"
                                                             />
                                                             <img
                                                                 alt="Nói Chuyện Là Bản Năng, Giữ Miệng Là Tu Dưỡng, Im Lặng Là Trí Tuệ"
-                                                                src="https://salt.tikicdn.com/cache/280x280/ts/product/00/9a/66/34d3abd4b5f39c62d1bf49f1f4c030bd.jpg"
-                                                                srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/00/9a/66/34d3abd4b5f39c62d1bf49f1f4c030bd.jpg 1x, https://salt.tikicdn.com/cache/280x280/ts/product/00/9a/66/34d3abd4b5f39c62d1bf49f1f4c030bd.jpg 2x"
+                                                                src="https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png"
+                                                                srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png 1x, https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png 2x"
                                                                 className="sc-82b4dcf2-0 ldcZGa"
                                                             />
                                                         </picture>
@@ -564,7 +562,6 @@ const RecentlyViewedProducts = () => {
                                                                             fill="currentColor"
                                                                             strokeWidth={0}
                                                                             viewBox="0 0 24 24"
-
                                                                             color="#fdd836"
                                                                             height={14}
                                                                             width={14}
@@ -630,12 +627,12 @@ const RecentlyViewedProducts = () => {
                                                         <picture className="webpimg-container">
                                                             <source
                                                                 type="image/webp"
-                                                                srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/89/d1/e1/f21f1bd8d74bc5ae41484a935b67cbba.png.webp 1x, https://salt.tikicdn.com/cache/280x280/ts/product/89/d1/e1/f21f1bd8d74bc5ae41484a935b67cbba.png.webp 2x"
+                                                                srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png.webp 1x, https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png.webp 2x"
                                                             />
                                                             <img
                                                                 alt="Phiếu Luyện Viết Cùng Gấu Kiki 2. Luyện Viết Bảng Chữ Cái"
-                                                                src="https://salt.tikicdn.com/cache/280x280/ts/product/89/d1/e1/f21f1bd8d74bc5ae41484a935b67cbba.png"
-                                                                srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/89/d1/e1/f21f1bd8d74bc5ae41484a935b67cbba.png 1x, https://salt.tikicdn.com/cache/280x280/ts/product/89/d1/e1/f21f1bd8d74bc5ae41484a935b67cbba.png 2x"
+                                                                src="https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png"
+                                                                srcSet="https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png 1x, https://salt.tikicdn.com/cache/280x280/ts/product/09/3b/73/873b5e1f6e55c774b90062ad94e07940.png 2x"
                                                                 className="sc-82b4dcf2-0 ldcZGa"
                                                             />
                                                         </picture>
@@ -683,7 +680,6 @@ const RecentlyViewedProducts = () => {
                                                                             fill="currentColor"
                                                                             strokeWidth={0}
                                                                             viewBox="0 0 24 24"
-
                                                                             color="#fdd836"
                                                                             height={14}
                                                                             width={14}
@@ -799,7 +795,6 @@ const RecentlyViewedProducts = () => {
                                                                             fill="currentColor"
                                                                             strokeWidth={0}
                                                                             viewBox="0 0 24 24"
-
                                                                             color="#fdd836"
                                                                             height={14}
                                                                             width={14}
@@ -850,14 +845,27 @@ const RecentlyViewedProducts = () => {
                             style={{ display: "block" }}
                         >
                             <span className="icon">
-                                <i className="tikicon icon-arrow-back" />
+                                <svg
+                                    width="8"
+                                    height="14"
+                                    viewBox="0 0 8 14"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M7 1L1 7L7 13"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                </svg>
                             </span>
                         </a>
                     </div>
                 </div>
             </div>
         </div>
-
     );
 };
 

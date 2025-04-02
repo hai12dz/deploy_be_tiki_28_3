@@ -4,7 +4,6 @@
     border-radius: 4px;
 }
 
-
 .hPpiPH {
     color: rgb(51, 51, 51);
     font-size: 20px;
@@ -91,7 +90,6 @@ a {
 }
 
 .iWkFxH .slick-next {
-
     transform: rotate(180deg);
 }
 
@@ -109,9 +107,7 @@ a {
     opacity: 0.3;
 }
 
-
 .slick-track {
-
     width: 1638px;
     opacity: 1;
     transform: translate3d(0px, 0px, 0px);
@@ -149,7 +145,6 @@ a {
 }
 
 .tikicon.icon-arrow-back {
-    background-image: url(../img/sprite.png?v=100000000);
     background-position: -392px -189px;
     width: 8px;
     height: 14px;
@@ -163,9 +158,7 @@ a {
 .slick-slide .slick-active .slick-current {
     outline: none;
     width: 234px;
-
 }
-
 
 .fMrUyv .slider-container .slick-slide {
     margin: 0px 4px;
@@ -184,6 +177,26 @@ a {
     height: 100%;
     min-height: 1px;
     display: none;
+}
+
+.beJRlS {
+    position: relative;
+    padding-top: 100%;
+    /* Creates a square aspect ratio */
+    overflow: hidden;
+    display: block;
+    background-color: rgb(255, 255, 255);
+}
+
+.dWgHEM {
+    position: absolute;
+    /* Change from relative to absolute */
+    top: 0;
+    /* Add top: 0 to position it at the top of parent */
+    left: 0;
+    /* Add left: 0 to position it at the left of parent */
+    width: 100%;
+    height: 100%;
 }
 
 .dWgHEM img {
