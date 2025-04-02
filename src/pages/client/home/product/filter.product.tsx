@@ -7,7 +7,6 @@ import { set } from 'lodash';
 import { useFilterContext } from '@/context/FilterContext';
 import FilterNewProductModal from './filter.modal.new';
 
-// Update props interface to make isLoading and setIsLoading optional
 interface ProductFilterProps {
     onListBookChange?: (books: IBookTable[]) => void;
     isLoading?: boolean;
@@ -48,10 +47,12 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
         freeShipChecked, setFreeShipChecked, fourStarsChecked, setFourStarsChecked,
         fiveStarsChecked, setFiveStarsChecked, threeStarsChecked, setThreeStarsChecked,
         selectedSort, setSelectedSort, pageSize, setPageSize,
-        minPrice, setMinPrice, maxPrice, setMaxPrice // Add these state variables from context
+        minPrice, setMinPrice, maxPrice, setMaxPrice
     } = useFilterContext();
 
     const [searchMode, setSearchMode] = useState<boolean>(false);
+    const [initialSearchDone, setInitialSearchDone] = useState<boolean>(false);
+    const initialSearchTermRef = useRef<string>('');
 
     useEffect(() => {
         fetchBrand();
@@ -60,9 +61,10 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
     }, []);
 
     useEffect(() => {
-        // When searchTerm changes from parent (search submission), do a search-only fetch
         if (searchTerm) {
+            initialSearchTermRef.current = searchTerm;
             performSearchOnly();
+            setInitialSearchDone(true);
         }
     }, [searchTerm]);
 
@@ -92,8 +94,6 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
 
         try {
             const query = `current=1&pageSize=${pageSize}&mainText=${encodeURIComponent(searchTerm)}`;
-
-            console.log("Performing search with query:", query);
 
             const res = await getBooksAPI(query);
             if (res && res.data) {
@@ -130,7 +130,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
             query += `&${filter}`;
         }
 
-        if (searchTerm) {
+        if (searchTerm && !initialSearchDone) {
             query += `&mainText=${encodeURIComponent(searchTerm)}`;
         }
 
@@ -267,6 +267,8 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                 setPageSize(10);
             }
 
+            setInitialSearchDone(true);
+
             setSelectedBrands(prev =>
                 prev.includes(brand)
                     ? prev.filter(b => b !== brand)
@@ -316,6 +318,8 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
             if (setPageSize) {
                 setPageSize(10);
             }
+
+            setInitialSearchDone(true);
 
             setSelectedSuppliers(prev =>
                 prev.includes(actualSupplier)
@@ -559,6 +563,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
         if (setPageSize) {
             setPageSize(10);
         }
+        setInitialSearchDone(true);
         setFastDeliveryChecked(!fastDeliveryChecked);
     };
 
@@ -566,6 +571,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
         if (setPageSize) {
             setPageSize(10);
         }
+        setInitialSearchDone(true);
         setCheapPriceChecked(!cheapPriceChecked);
     };
 
@@ -573,6 +579,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
         if (setPageSize) {
             setPageSize(10);
         }
+        setInitialSearchDone(true);
         setFreeShipChecked(!freeShipChecked);
     };
 
@@ -580,6 +587,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
         if (setPageSize) {
             setPageSize(10);
         }
+        setInitialSearchDone(true);
         setFourStarsChecked(!fourStarsChecked);
     };
 
@@ -908,7 +916,6 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
     );
 };
 
-// Update default props
 ProductFilter.defaultProps = {
     onListBookChange: undefined,
     isLoading: false,

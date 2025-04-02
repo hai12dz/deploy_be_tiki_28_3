@@ -249,9 +249,7 @@ const SearchProducts: React.FC<SearchProductsProps> = ({
                             </a>
                         ))
                     ) : searchTerm ? (
-                        <div className="empty-suggestions-message">
-                            <span>Không tìm thấy kết quả cho "{searchTerm}"</span>
-                        </div>
+                        <div></div>
                     ) : (
                         <>
                             <a

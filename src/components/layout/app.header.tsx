@@ -58,6 +58,7 @@ const AppHeader = (props: IProps) => {
     const handleSearchSubmit = () => {
         console.log("Search submitted with term:", searchTerm);
         props.setSearchTerm(searchTerm);
+        setSearchTerm('');
         hideSearchModal();
     };
 
