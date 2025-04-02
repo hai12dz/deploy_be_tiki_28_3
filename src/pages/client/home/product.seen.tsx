@@ -94,7 +94,7 @@ const RecentlyViewedProducts = () => {
                                                     </div>
                                                     <div className="bottom" style={{ flex: "none" }}>
                                                         <div className="sc-662de19e-2 kEvUyF">
-                                                            <div style={{ display: "flex" }}>
+                                                            <div style={{ display: "flex", alignItems: "center" }}>
                                                                 <div className="full-rating">
                                                                     <div
                                                                         className="total"
@@ -104,7 +104,12 @@ const RecentlyViewedProducts = () => {
                                                                         }}
                                                                     >
                                                                         <span
-
+                                                                            style={{
+                                                                                fontWeight: 400,
+                                                                                fontSize: 12,
+                                                                                lineHeight: 16,
+                                                                                color: "rgb(128, 128, 137)"
+                                                                            }}
                                                                         >
                                                                             5
                                                                         </span>
@@ -117,7 +122,7 @@ const RecentlyViewedProducts = () => {
                                                                             height={14}
                                                                             width={14}
                                                                             xmlns="http://www.w3.org/2000/svg"
-                                                                            style={{ color: "rgb(253, 216, 54)" }}
+                                                                            style={{ color: "rgb(253, 216, 54)", marginLeft: 2 }}
                                                                         >
                                                                             <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
                                                                         </svg>
@@ -126,13 +131,13 @@ const RecentlyViewedProducts = () => {
                                                                 <div
                                                                     style={{
                                                                         width: 1,
-                                                                        height: 9,
-                                                                        backgroundColor: "rgb(199, 199, 199)"
+                                                                        height: 12,
+                                                                        backgroundColor: "rgb(199, 199, 199)",
+                                                                        margin: "0 6px"
                                                                     }}
                                                                 />
                                                                 <div
                                                                     data-view-id="pdp_quantity_sold"
-                                                                    style={{ paddingLeft: 6 }}
                                                                 >
                                                                     Đã bán 1000+
                                                                 </div>
