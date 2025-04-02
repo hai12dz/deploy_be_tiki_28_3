@@ -8,8 +8,31 @@ interface SearchProductsProps {
 
 const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose }) => {
     const searchRef = useRef<HTMLDivElement | null>(null);
+    const overlayRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
+        // Function to update overlay position based on header
+        const updateOverlayPosition = () => {
+            if (!overlayRef.current) return;
+
+            const headerWrapper = document.querySelector('.header-wrapper');
+            if (headerWrapper) {
+                const headerRect = headerWrapper.getBoundingClientRect();
+                const headerBottom = headerRect.bottom;
+
+                // If header is visible (even partially)
+                if (headerBottom > 0) {
+                    // Position overlay just below the visible part of header
+                    overlayRef.current.style.top = `${headerBottom}px`;
+                    overlayRef.current.style.height = `calc(100vh - ${headerBottom}px)`;
+                } else {
+                    // Header is scrolled out of view, make overlay cover the whole viewport
+                    overlayRef.current.style.top = '0';
+                    overlayRef.current.style.height = '100vh';
+                }
+            }
+        };
+
         // Handle click outside to close the modal
         const handleClickOutside = (event: MouseEvent): void => {
             if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
@@ -19,17 +42,13 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose }) =
 
         if (isVisible) {
             document.addEventListener('mousedown', handleClickOutside);
-
-            // Get the header container element (parent of the header)
-            const headerContainer = document.querySelector('header#main-header')!.closest('.rgsXe');
-            if (headerContainer) {
-                const headerBottom = headerContainer.getBoundingClientRect().bottom;
-                document.documentElement.style.setProperty('--header-bottom', `${headerBottom}px`);
-            }
+            window.addEventListener('scroll', updateOverlayPosition);
+            updateOverlayPosition(); // Initial position
         }
 
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
+            window.removeEventListener('scroll', updateOverlayPosition);
         };
     }, [isVisible, onClose]);
 
@@ -37,8 +56,8 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose }) =
 
     return (
         <>
-            {/* Overlay that starts below the header */}
-            <div className="search-overlay"></div>
+            {/* Gray overlay that adjusts position dynamically */}
+            <div className="search-overlay" ref={overlayRef}></div>
 
             {/* Search Modal */}
             <div className="sc-f1b34bcc-0 iNGxKa search-modal-visible" ref={searchRef}>

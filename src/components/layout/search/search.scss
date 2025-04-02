@@ -1,5 +1,13 @@
 :root {
     --header-bottom: 0px;
+    --content-start: 0px;
+    /* Position where content below header/commitment bar starts */
+    --header-height: 0px;
+}
+
+// Body styles when search modal is open - maintain normal scrolling
+body.search-modal-open {
+    overflow-y: auto; // Allow scrolling
 }
 
 .search-container {
@@ -7,26 +15,28 @@
     width: 100%;
 }
 
-// Modify overlay styles to start below header and allow scrolling
+// Dynamic overlay that stays fixed but adjusts position
 .search-overlay {
     position: fixed;
-    top: var(--header-bottom); // Start below the header
     left: 0;
     right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); // Semi-transparent gray
-    z-index: 900; // Higher than content but lower than header and search modal
-    pointer-events: auto; // Allow scrolling and interactions
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 200;
+    pointer-events: none; // Allow clicks to pass through to elements underneath
 }
 
-// Ensure the search modal is properly positioned and doesn't scroll with the page
+// Search modal styling
 .search-modal-visible {
     display: block !important;
     opacity: 1 !important;
     visibility: visible !important;
-    z-index: 1000 !important; // Above everything
-    position: absolute; // Position relative to its container
-    pointer-events: auto; // Ensure interactions with the modal work
+    z-index: 1000 !important;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.28);
 }
 
 .iNGxKa {

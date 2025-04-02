@@ -67,33 +67,34 @@ const AppHeader = (props: IProps) => {
 
     return (
         <>
-            {/* First banner - kept outside overlay */}
-            <div style={{ position: "relative", zIndex: 999 }}>
-                <a href="https://tiki.vn/khuyen-mai/ngay-hoi-freeship?from=inline_banner">
-                    <div style={{ backgroundColor: "#EFFFF4" }} className="jfMKyG">
-                        <div style={{ color: "#00AB56" }} className="cGVtRR">
-                            Freeship đơn từ 45k, giảm nhiều hơn cùng
+            {/* Add header-wrapper class for proper positioning */}
+            <div className="header-wrapper">
+                {/* First banner */}
+                <div className="top-banner">
+                    <a href="https://tiki.vn/khuyen-mai/ngay-hoi-freeship?from=inline_banner">
+                        <div style={{ backgroundColor: "#EFFFF4" }} className="jfMKyG">
+                            <div style={{ color: "#00AB56" }} className="cGVtRR">
+                                Freeship đơn từ 45k, giảm nhiều hơn cùng
+                            </div>
+                            <picture className="webpimg-container">
+                                <source
+                                    type="image/webp"
+                                    srcSet="https://salt.tikicdn.com/ts/upload/a7/18/8c/910f3a83b017b7ced73e80c7ed4154b0.png"
+                                />
+                                <img
+                                    srcSet="https://salt.tikicdn.com/ts/upload/a7/18/8c/910f3a83b017b7ced73e80c7ed4154b0.png"
+                                    className="fvWcVx title-img"
+                                    alt="icon"
+                                    width="79"
+                                    height="16"
+                                    style={{ width: "79px", height: "16px", opacity: 1 }}
+                                />
+                            </picture>
                         </div>
-                        <picture className="webpimg-container">
-                            <source
-                                type="image/webp"
-                                srcSet="https://salt.tikicdn.com/ts/upload/a7/18/8c/910f3a83b017b7ced73e80c7ed4154b0.png"
-                            />
-                            <img
-                                srcSet="https://salt.tikicdn.com/ts/upload/a7/18/8c/910f3a83b017b7ced73e80c7ed4154b0.png"
-                                className="fvWcVx title-img"
-                                alt="icon"
-                                width="79"
-                                height="16"
-                                style={{ width: "79px", height: "16px", opacity: 1 }}
-                            />
-                        </picture>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
 
-            {/* Main header - kept outside overlay */}
-            <div style={{ position: "relative", zIndex: 999 }}>
+                {/* Main header */}
                 <header id="main-header" className="rgsXe">
                     <div className="edZgU">
                         <div className="duXRBJ">
@@ -196,8 +197,8 @@ const AppHeader = (props: IProps) => {
                     </div>
                 </header>
 
-                {/* This div SHOULD be covered by the overlay - remove the high z-index */}
-                <div style={{ backgroundColor: "white" }} className="sc-cc99b0e2-0 fzFpkg">
+                {/* Commitment bar - should stay with header */}
+                <div className="sc-cc99b0e2-0 fzFpkg">
                     <a href="https://tiki.vn/thong-tin/tiki-doi-tra-de-dang-an-tam-mua-sam" className="sc-cc99b0e2-1 klHtaf">
                         <div style={{ color: "#003EA1" }} className="sc-cc99b0e2-2 iMmKHC">Cam kết</div>
                         <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
@@ -219,6 +220,9 @@ const AppHeader = (props: IProps) => {
                     </a>
                 </div>
             </div>
+
+            {/* Add a hidden spacer div when modal is active */}
+            <div id="header-spacer" style={{ display: 'none' }}></div>
         </>
     );
 };
