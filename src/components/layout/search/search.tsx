@@ -6,7 +6,7 @@ interface SearchProductsProps {
     isVisible: boolean;
     onClose: () => void;
     searchTerm: string;
-    onSearch?: () => void; // Add onSearch callback
+    onSearch?: () => void; // Keep the onSearch callback
 }
 
 const SearchProducts: React.FC<SearchProductsProps> = ({
@@ -27,20 +27,17 @@ const SearchProducts: React.FC<SearchProductsProps> = ({
     // State for suggestions
     const [suggestions, setSuggestions] = useState<ISearchSuggestion[]>([]);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-    const prevSearchTermRef = useRef<string>('');
 
     const toggleExpanded = () => {
         setIsExpanded(!isExpanded);
     };
 
-    // Update typing state immediately when prop changes - remove the delay
+    // Update typing state immediately when prop changes
     useEffect(() => {
         if (searchTerm.length > 0) {
-            // Set both states immediately for typing detection
             setImmediateTyping(true);
             setIsTyping(true);
 
-            // Force immediate application of typing overlay
             if (overlayRef.current) {
                 overlayRef.current.classList.add('typing-overlay');
             }
@@ -72,7 +69,7 @@ const SearchProducts: React.FC<SearchProductsProps> = ({
         timeoutRef.current = setTimeout(() => {
             console.log("Calling API with term:", searchTerm);
             fetchSuggestions(searchTerm);
-        }, 50); // Reduced from 300ms to 200ms for faster response
+        }, 50);
 
         return () => {
             if (timeoutRef.current) {
@@ -80,6 +77,26 @@ const SearchProducts: React.FC<SearchProductsProps> = ({
             }
         };
     }, [searchTerm]);
+
+    // Handle Enter key for search
+    const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Enter' && isVisible && onSearch) {
+            onSearch();
+            onClose();
+        } else if (e.key === 'Escape' && isVisible) {
+            onClose();
+        }
+    };
+
+    // Listen for keyboard events
+    useEffect(() => {
+        if (isVisible) {
+            window.addEventListener('keydown', handleKeyDown);
+        }
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [isVisible, onSearch]);
 
     // Fetch suggestions from API
     const fetchSuggestions = async (query: string) => {
@@ -104,14 +121,7 @@ const SearchProducts: React.FC<SearchProductsProps> = ({
         }
     };
 
-    // Directly add force update for overlay when mounting
-    useEffect(() => {
-        // Immediately update overlay when component mounts
-        if (isVisible && searchTerm.length > 0 && overlayRef.current) {
-            overlayRef.current.classList.add('typing-overlay');
-        }
-    }, [isVisible]);
-
+    // Handle overlay position
     useEffect(() => {
         const updateOverlayPosition = () => {
             if (!overlayRef.current) return;
@@ -165,16 +175,11 @@ const SearchProducts: React.FC<SearchProductsProps> = ({
         };
     }, [isVisible, onClose, immediateTyping]);
 
-    // Add a new useEffect to handle modal reopening with existing search term
+    // Handle reopening modal with existing search term
     useEffect(() => {
-        // Only run when modal becomes visible
         if (isVisible && searchTerm.trim()) {
             console.log("Modal reopened with existing search term:", searchTerm);
-
-            // Immediately fetch suggestions when reopening with existing search
             fetchSuggestions(searchTerm);
-
-            // Also ensure proper typing state is set
             setImmediateTyping(true);
             setIsTyping(true);
 
@@ -182,34 +187,7 @@ const SearchProducts: React.FC<SearchProductsProps> = ({
                 overlayRef.current.classList.add('typing-overlay');
             }
         }
-    }, [isVisible]); // Only trigger when visibility changes
-
-    // Add a function to handle search submission
-    const handleSearchSubmit = () => {
-        if (onSearch) {
-            onSearch(); // Call the parent's search handler
-        }
-        onClose(); // Close the search modal after search
-    };
-
-    // Add Enter key handler for suggestions
-    const handleKeyDown = (e: KeyboardEvent) => {
-        if (e.key === 'Enter' && isVisible) {
-            handleSearchSubmit();
-        } else if (e.key === 'Escape' && isVisible) {
-            onClose();
-        }
-    };
-
-    // Listen for keyboard events when the modal is open
-    useEffect(() => {
-        if (isVisible) {
-            window.addEventListener('keydown', handleKeyDown);
-        }
-        return () => {
-            window.removeEventListener('keydown', handleKeyDown);
-        };
-    }, [isVisible, onSearch]);
+    }, [isVisible]);
 
     if (!isVisible) return null;
 
@@ -256,7 +234,6 @@ const SearchProducts: React.FC<SearchProductsProps> = ({
                                 className={`item ${index > 3 && !isExpanded ? 'hide' : ''}`}
                                 href={`/search?q=${encodeURIComponent(suggestion.keyword)}`}
                                 onClick={(e) => {
-                                    // Optionally handle click on suggestion
                                     e.preventDefault();
                                     if (onSearch) {
                                         onSearch();
@@ -274,13 +251,6 @@ const SearchProducts: React.FC<SearchProductsProps> = ({
                     ) : searchTerm ? (
                         <div className="empty-suggestions-message">
                             <span>Không tìm thấy kết quả cho "{searchTerm}"</span>
-                            {/* Add search button for empty results */}
-                            <button
-                                className="search-now-button"
-                                onClick={handleSearchSubmit}
-                            >
-                                Tìm kiếm ngay
-                            </button>
                         </div>
                     ) : (
                         <>
@@ -336,18 +306,6 @@ const SearchProducts: React.FC<SearchProductsProps> = ({
                         </div>
                     )}
                 </div>
-
-                {/* Add a search button at the bottom */}
-                {searchTerm && (
-                    <div className="search-action-buttons">
-                        <button
-                            className="search-submit-button"
-                            onClick={handleSearchSubmit}
-                        >
-                            Tìm kiếm
-                        </button>
-                    </div>
-                )}
 
                 {!immediateTyping && (
                     <div className="sc-77bd3e1f-0 ubmOs">
