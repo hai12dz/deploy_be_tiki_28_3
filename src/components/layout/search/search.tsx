@@ -13,7 +13,10 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose, sea
     const overlayRef = useRef<HTMLDivElement | null>(null);
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
     const initialMount = useRef<boolean>(true);
+
+    // State for typing detection
     const [isTyping, setIsTyping] = useState<boolean>(false);
+    const [immediateTyping, setImmediateTyping] = useState<boolean>(false);
 
     // State for suggestions
     const [suggestions, setSuggestions] = useState<ISearchSuggestion[]>([]);
@@ -24,31 +27,46 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose, sea
         setIsExpanded(!isExpanded);
     };
 
-    // Determine if user is typing based on searchTerm changes
+    // Update typing state immediately when prop changes - remove the delay
     useEffect(() => {
-        if (searchTerm !== prevSearchTermRef.current) {
-            setIsTyping(searchTerm.length > 0);
-            prevSearchTermRef.current = searchTerm;
+        if (searchTerm.length > 0) {
+            // Set both states immediately for typing detection
+            setImmediateTyping(true);
+            setIsTyping(true);
+
+            // Force immediate application of typing overlay
+            if (overlayRef.current) {
+                overlayRef.current.classList.add('typing-overlay');
+            }
+        } else {
+            setImmediateTyping(false);
+            setIsTyping(false);
+
+            if (overlayRef.current) {
+                overlayRef.current.classList.remove('typing-overlay');
+            }
         }
     }, [searchTerm]);
 
     // Fetch suggestions when searchTerm changes
     useEffect(() => {
-        // Clear previous timeout
         if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
         }
 
-        // Skip API call if input is empty
         if (!searchTerm.trim()) {
             setSuggestions([]);
             return;
         }
 
-        // Debounce API call (300ms)
+        // Add logging to confirm searchTerm changes are detected
+        console.log("Search term changed to:", searchTerm);
+
+        // Reduce debounce time to make API call more responsive
         timeoutRef.current = setTimeout(() => {
+            console.log("Calling API with term:", searchTerm);
             fetchSuggestions(searchTerm);
-        }, 300);
+        }, 50); // Reduced from 300ms to 200ms for faster response
 
         return () => {
             if (timeoutRef.current) {
@@ -60,10 +78,18 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose, sea
     // Fetch suggestions from API
     const fetchSuggestions = async (query: string) => {
         try {
-            const response = await suggestionBookAPI(`keyword=${encodeURIComponent(query)}`);
-            if (response.data && response.data.length > 0) {
+            console.log("Fetching suggestions for:", query);
+            const apiUrl = `keyword=${encodeURIComponent(query)}`;
+            console.log("API URL:", apiUrl);
+
+            const response = await suggestionBookAPI(apiUrl);
+            console.log("API response:", response);
+
+            if (response && response.data) {
+                console.log("Setting suggestions:", response.data);
                 setSuggestions(response.data);
             } else {
+                console.log("No suggestions found");
                 setSuggestions([]);
             }
         } catch (error) {
@@ -71,6 +97,14 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose, sea
             setSuggestions([]);
         }
     };
+
+    // Directly add force update for overlay when mounting
+    useEffect(() => {
+        // Immediately update overlay when component mounts
+        if (isVisible && searchTerm.length > 0 && overlayRef.current) {
+            overlayRef.current.classList.add('typing-overlay');
+        }
+    }, [isVisible]);
 
     useEffect(() => {
         const updateOverlayPosition = () => {
@@ -84,6 +118,12 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose, sea
                 if (headerBottom > 0) {
                     overlayRef.current.style.top = `${headerBottom}px`;
                     overlayRef.current.style.height = `calc(100vh - ${headerBottom}px)`;
+
+                    if (immediateTyping) {
+                        overlayRef.current.classList.add('typing-overlay');
+                    } else {
+                        overlayRef.current.classList.remove('typing-overlay');
+                    }
                 } else {
                     overlayRef.current.style.top = '0';
                     overlayRef.current.style.height = '100vh';
@@ -113,23 +153,20 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose, sea
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
             window.removeEventListener('scroll', updateOverlayPosition);
-            // Clear any pending timeouts when component unmounts
             if (timeoutRef.current) {
                 clearTimeout(timeoutRef.current);
             }
         };
-    }, [isVisible, onClose]);
+    }, [isVisible, onClose, immediateTyping]);
 
-    // Hide the modal if there's a search term with no results
-    if (!isVisible || (isTyping && searchTerm && suggestions.length === 0)) return null;
+    if (!isVisible) return null;
 
     return (
         <>
-            <div className="search-overlay" ref={overlayRef}></div>
+            <div className={`search-overlay ${immediateTyping ? 'typing-overlay' : ''}`} ref={overlayRef}></div>
 
-            <div className="sc-f1b34bcc-0 iNGxKa search-modal-visible" ref={searchRef}>
-                {/* Only show the promo section if not typing */}
-                {!isTyping && (
+            <div className={`sc-f1b34bcc-0 iNGxKa search-modal-visible ${immediateTyping ? 'typing-active' : ''}`} ref={searchRef}>
+                {!immediateTyping && (
                     <div className="sc-1a8f85ba-0 fjnTfW">
                         <div className="item promo">
                             <a
@@ -156,10 +193,8 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose, sea
                     </div>
                 )}
 
-                {/* Always show the suggestions section */}
                 <div className="sc-66af1b06-0 hilSzk">
                     {searchTerm && suggestions.length > 0 ? (
-                        // Display API suggestions
                         suggestions.map((suggestion, index) => (
                             <a
                                 key={suggestion.id}
@@ -176,8 +211,11 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose, sea
                                 <div className="keyword">{suggestion.keyword}</div>
                             </a>
                         ))
+                    ) : searchTerm ? (
+                        <div className="empty-suggestions-message">
+                            <span>Không tìm thấy kết quả cho "{searchTerm}"</span>
+                        </div>
                     ) : (
-                        // Default suggestions when no search term
                         <>
                             <a
                                 data-view-index={0}
@@ -205,12 +243,10 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose, sea
                                 />
                                 <div className="keyword">đại việt sử ký toàn thư</div>
                             </a>
-                            {/* ... more default suggestions ... */}
                         </>
                     )}
 
-                    {/* Show expand/collapse button when appropriate */}
-                    {((suggestions.length > 4 && searchTerm) || (!searchTerm && !isTyping)) && (
+                    {suggestions.length > 4 && (
                         <div className="show-more">
                             <div data-view-id="search_history_expand_button" onClick={toggleExpanded}>
                                 {isExpanded ? 'Thu gọn' : 'Xem thêm'}
@@ -234,8 +270,7 @@ const SearchProducts: React.FC<SearchProductsProps> = ({ isVisible, onClose, sea
                     )}
                 </div>
 
-                {/* Only show trending searches and categories if not typing */}
-                {!isTyping && (
+                {!immediateTyping && (
                     <div className="sc-77bd3e1f-0 ubmOs">
                         <div className="sc-b09dbee7-0 brtKKD">
                             <div className="wrap-heading">

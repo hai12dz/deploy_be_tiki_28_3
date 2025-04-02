@@ -36,6 +36,7 @@ const AppHeader = (props: IProps) => {
     // Handle input change for search
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
+        console.log("Header input change:", value);
         setSearchTerm(value);
     };
 

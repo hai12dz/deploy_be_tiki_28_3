@@ -3,6 +3,7 @@
     --content-start: 0px;
     /* Position where content below header/commitment bar starts */
     --header-height: 0px;
+    --transition-speed: 0.1s; // Even faster transition
 }
 
 // Body styles when search modal is open - maintain normal scrolling
@@ -23,6 +24,15 @@ body.search-modal-open {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 200;
     pointer-events: none; // Allow clicks to pass through to elements underneath
+    transition: opacity 0.05s ease; // Adjust transition for instant appearance
+    will-change: opacity; // Hint for browser to optimize
+}
+
+// Special styling for typing overlay - Make this important and with no transition
+.typing-overlay {
+    background-color: rgba(0, 0, 0, 0.5) !important; // Force immediate color
+    opacity: 1 !important;
+    transition: none !important;
 }
 
 // Search modal styling
@@ -37,6 +47,8 @@ body.search-modal-open {
     width: 100%;
     background-color: #fff;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.28);
+    transition: all var(--transition-speed) ease-out; // Add faster transition
+    will-change: transform, opacity; // Hint for browser to optimize
 }
 
 .iNGxKa {
@@ -275,6 +287,33 @@ body.search-modal-open {
     -webkit-box-orient: vertical;
 }
 
+// Add transition for content sections that appear/disappear
+.sc-1a8f85ba-0,
+.sc-77bd3e1f-0 {
+    transition: opacity var(--transition-speed) ease-out, height var(--transition-speed) ease-out, padding var(--transition-speed) ease-out;
+    will-change: opacity, height, padding; // Hint for browser to optimize
+}
+
+// Add style for typing state - only show suggestions
+.typing-active {
+    transition: none !important;
+
+    .sc-1a8f85ba-0,
+    .sc-77bd3e1f-0 {
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+        pointer-events: none;
+        transition: none !important;
+    }
+
+    .sc-66af1b06-0 {
+        border-radius: 0 0 3px 3px;
+    }
+}
+
 .loading-container {
     display: flex;
     align-items: center;
@@ -291,4 +330,15 @@ body.search-modal-open {
     padding: 16px;
     color: #808089;
     font-style: italic;
+}
+
+// Add styles for the empty suggestions message
+.empty-suggestions-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    color: #808089;
+    font-style: italic;
+    min-height: 50px; // Ensure enough space for message
 }
