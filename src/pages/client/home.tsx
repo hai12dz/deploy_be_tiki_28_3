@@ -6,6 +6,7 @@ import {
     Row, Col, Form, Checkbox, Divider, InputNumber,
     Button, Rate, Tabs, Pagination, Spin
 } from 'antd';
+import 'styles/general.scss';
 import type { FormProps } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
