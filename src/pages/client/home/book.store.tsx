@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getFullCategories } from "@/services/api";
 import MyCarousel from "./slide/carousel";
 import ProductFilter from "./product/filter.product";
+import FilterProductNew from "./product/product.test";
 
 // Add a proper interface for the component props
 interface TikiBookstoreProps {
@@ -49,11 +50,13 @@ const TikiBookstore: React.FC<TikiBookstoreProps> = ({ onListBookChange, isLoadi
             <div className="sc-9f1e84db-0 hzwFlv">
                 <div className="sc-9f1e84db-2 cASiea">Tất cả sản phẩm</div>
                 <div>
-                    {/* Only keep the ProductFilter here and pass the callback function */}
+
                     <ProductFilter
                         isLoading={isLoading}
                         setIsLoading={setIsLoading}
                         onListBookChange={onListBookChange} />
+
+                    {/* <FilterProductNew />/* <FilterProductNew /> */}
                 </div>
             </div>
         </div>
