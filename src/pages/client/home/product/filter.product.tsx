@@ -658,7 +658,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                                                 ))}
                                             </div>
                                         </div>
-                                        <div className="expand-button-wrapper">
+                                        <div className="expand-button-container">
                                             <button ref={expandButtonRef} className="expand-button" onClick={handleBrandToggle}>
                                                 <div>
                                                     <img
