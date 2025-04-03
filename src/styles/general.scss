@@ -1933,6 +1933,8 @@ data-styled.g232[id="sc-f5219d7f-1"] {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
+    margin-top: 24px;
+    /* Added margin-top to move component down */
 }
 
 /*!sc*/
@@ -3381,3 +3383,15 @@ data-styled.g1944[id="sc-9f1e84db-5"] {
 }
 
 /*!sc*/
+
+
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+    unicode-bidi: isolate;
+}
