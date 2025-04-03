@@ -37,7 +37,7 @@ const TikiBestsellers = () => {
                         <li key={index}>
                             <a href={`https://tiki.vn/product/${book.id}`}>
                                 <span className="best-sale-name">{book.mainText}</span>
-                                <span className="best-sale-price">{book.price.toLocaleString()}<sup>₫</sup></span>
+                                <span className="best-sale-price">{book.price.toLocaleString('vi-VN')}<sup>₫</sup></span>
                             </a>
                         </li>
                     ))}
