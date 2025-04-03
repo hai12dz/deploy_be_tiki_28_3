@@ -28,6 +28,7 @@ import BookShopComponent from './home/danhmuc';
 import RelatedSearch from './home/related.search';
 import TikiBestsellers from './home/best.seller';
 import Product from './home/product/product';
+import FooterWeb from './home/footer';
 
 
 type FieldType = {
@@ -346,8 +347,8 @@ const HomePage = () => {
                     <TikiBestsellers />
 
 
-
                 </div>
+                <FooterWeb />
 
 
 
