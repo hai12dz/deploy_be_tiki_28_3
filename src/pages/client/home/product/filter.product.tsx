@@ -54,9 +54,6 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
     const [initialSearchDone, setInitialSearchDone] = useState<boolean>(false);
     const initialSearchTermRef = useRef<string>('');
 
-    const [brandsFilterApplied, setBrandsFilterApplied] = useState(false);
-    const [suppliersFilterApplied, setSuppliersFilterApplied] = useState(false);
-
     useEffect(() => {
         fetchBrand();
         fetchSupplier();
@@ -228,39 +225,33 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
     const getBrandNames = () => listBrand.map(brand => brand.name);
     const getSupplierNames = () => listSupplier.map(supplier => supplier.name);
 
+    // Always ensure we display exactly 4 brands
     const getDisplayBrands = () => {
         const allBrandNames = getBrandNames();
-
-        if (brandsFilterApplied && selectedBrands.length > 0) {
-            if (selectedBrands.length >= 4) {
-                return selectedBrands.slice(0, 4);
-            } else {
-                const result = [...selectedBrands];
-                const defaultBrands = allBrandNames.filter(brand => !selectedBrands.includes(brand));
-                const remaining = 4 - result.length;
-                result.push(...defaultBrands.slice(0, remaining));
-                return result;
-            }
+        if (selectedBrands.length >= 4) {
+            return selectedBrands.slice(0, 4);
         } else {
-            return allBrandNames.slice(0, 4);
+            // Add default brands to fill up to 4 items
+            const result = [...selectedBrands];
+            const defaultBrands = allBrandNames.filter(brand => !selectedBrands.includes(brand));
+            const remaining = 4 - result.length;
+            result.push(...defaultBrands.slice(0, remaining));
+            return result;
         }
     };
 
+    // Always ensure we display exactly 4 suppliers
     const getDisplaySuppliers = () => {
         const allSupplierNames = getSupplierNames();
-
-        if (suppliersFilterApplied && selectedSuppliers.length > 0) {
-            if (selectedSuppliers.length >= 4) {
-                return selectedSuppliers.slice(0, 4);
-            } else {
-                const result = [...selectedSuppliers];
-                const defaultSuppliers = allSupplierNames.filter(supplier => !selectedSuppliers.includes(supplier));
-                const remaining = 4 - result.length;
-                result.push(...defaultSuppliers.slice(0, remaining));
-                return result;
-            }
+        if (selectedSuppliers.length >= 4) {
+            return selectedSuppliers.slice(0, 4);
         } else {
-            return allSupplierNames.slice(0, 4);
+            // Add default suppliers to fill up to 4 items
+            const result = [...selectedSuppliers];
+            const defaultSuppliers = allSupplierNames.filter(supplier => !selectedSuppliers.includes(supplier));
+            const remaining = 4 - result.length;
+            result.push(...defaultSuppliers.slice(0, remaining));
+            return result;
         }
     };
 
@@ -276,7 +267,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
         return name.length > 25 ? name.substring(0, 25) + '...' : name;
     };
 
-    const suppliers = getDisplaySuppliers().slice(0, 4).map(formatSupplierName);
+    const suppliers = getDisplaySuppliers().slice(0, 3).map(formatSupplierName);
     const suppliersFull = getDisplaySuppliers().slice(0, 4).map(formatSupplierName);
 
     const allBrands = getBrandNames();
@@ -443,7 +434,6 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                         </button>
                         <button className="apply-button" onClick={() => {
                             setSelectedBrands(tempSelectedBrands);
-                            setBrandsFilterApplied(true);
                             handleBrandToggle();
                         }}>
                             Xem kết quả
@@ -495,7 +485,6 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                         </button>
                         <button className="apply-button" onClick={() => {
                             setSelectedSuppliers(tempSelectedSuppliers);
-                            setSuppliersFilterApplied(true);
                             handleSupplierToggle();
                         }}>
                             Xem kết quả
