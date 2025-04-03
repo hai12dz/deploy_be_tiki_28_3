@@ -290,10 +290,10 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
             width: 1.5px;
             height: 33px;
             background-color: $border-light;
-            margin-top: 21px;
+            margin-top: -30px;
             align-self: flex-start;
             position: absolute; // Change to absolute positioning
-            left: 380px; // Position it between brand and supplier sections
+            left: 385px; // Position it between brand and supplier sections
             transition: transform 0.3s ease, opacity 0.3s ease;
             opacity: 0.7;
             z-index: 1;

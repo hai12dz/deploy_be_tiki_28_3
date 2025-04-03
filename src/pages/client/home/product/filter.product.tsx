@@ -658,20 +658,21 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                                                 ))}
                                             </div>
                                         </div>
-                                        <button ref={expandButtonRef} className="expand-button" onClick={handleBrandToggle}>
-                                            <div>
-                                                <img
-                                                    src="https://frontend.tikicdn.com/_desktop-next/static/img/catalog/arrow.svg"
-                                                    alt="arrow"
-                                                    className="arrow-icon-brand"
-                                                />
-                                            </div>
-                                        </button>
+                                        <div className="expand-button-wrapper">
+                                            <button ref={expandButtonRef} className="expand-button" onClick={handleBrandToggle}>
+                                                <div>
+                                                    <img
+                                                        src="https://frontend.tikicdn.com/_desktop-next/static/img/catalog/arrow.svg"
+                                                        alt="arrow"
+                                                        className="arrow-icon-brand"
+                                                    />
+                                                </div>
+                                            </button>
+                                            <div className="brand-supplier-divider"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div className="brand-supplier-divider"></div>
 
                             <div className="filter-sections-supplier">
                                 <div className="filter-section">
