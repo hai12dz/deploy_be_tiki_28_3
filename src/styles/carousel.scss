@@ -3,21 +3,30 @@
 
 }
 
+
+
 .ant-carousel {
     .slick-dots {
-        bottom: -17px !important; // Dịch xuống dưới
+        bottom: -17px !important;
 
         li {
-            width: 16px; // Kích thước mặc định
-            height: 3px;
-            background: #d9d9d9; // Màu xám nhạt cho dots chưa chọn
+            width: 16px;
+            height: 2px;
+            background: #d9d9d9;
             border-radius: 2px;
-            transition: all 0.3s ease-in-out; // Hiệu ứng mượt
+            transition: all 0.3s ease-in-out;
+            margin: 0 2px !important; // Khoảng cách giữa các dots
+
+            &:last-child {
+                margin-right: 0 !important;
+            }
 
             &.slick-active {
+                width: 25px !important; // Chiều rộng của dot đang active
+                background: #366aee !important; // Chuyển màu sang xanh
+
                 button {
-                    width: 27px;
-                    background: #1890ff !important;
+                    background: transparent !important; // Quan trọng: làm cho button trong suốt
                 }
             }
         }
@@ -42,9 +51,6 @@
     // Làm đầu mũi tên bớt sắc
     border-left: 3px solid #f1f1f1;
 
-    &:hover {
-        border-right-color: darkgray; // Đổi màu khi hover
-    }
 }
 
 
