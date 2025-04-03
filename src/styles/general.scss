@@ -1139,8 +1139,8 @@ data-styled.g184[id="sc-4e2e5de4-1"] {
 /*!sc*/
 .dxEhmH .tiki-logo>span {
     font-size: 14px;
-    color: #003ea1;
-    margin-top: 8px;
+    color: rgb(0, 62, 161);
+    margin-top: 5px;
     font-weight: 600;
     text-align: center;
 }
@@ -2707,6 +2707,16 @@ data-styled.g524[id="sc-6be5dba8-0"] {
 .jZIHwB {
     width: 204px;
     height: 204px;
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-item {
+    width: 186px;
+    height: 186px;
     -webkit-flex-shrink: 0;
     -ms-flex-negative: 0;
     flex-shrink: 0;

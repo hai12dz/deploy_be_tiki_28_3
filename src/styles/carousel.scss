@@ -1,9 +1,14 @@
+.carousel-container {
+    margin-bottom: 17px;
+
+}
+
 .ant-carousel {
     .slick-dots {
-        bottom: -10px !important; // Dịch xuống dưới
+        bottom: -17px !important; // Dịch xuống dưới
 
         li {
-            width: 20px; // Kích thước mặc định
+            width: 16px; // Kích thước mặc định
             height: 3px;
             background: #d9d9d9; // Màu xám nhạt cho dots chưa chọn
             border-radius: 2px;
@@ -11,7 +16,7 @@
 
             &.slick-active {
                 button {
-                    width: 29px;
+                    width: 27px;
                     background: #1890ff !important;
                 }
             }

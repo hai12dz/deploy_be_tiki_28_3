@@ -44,10 +44,10 @@ const CarouselComponent = () => {
             {/* Carousel thứ nhất */}
             <div>
                 <div className="sc-aeef9a0f-0 sc-6be5dba8-0 kCvpXv giHiyf">
-                    <div className="sc-6be5dba8-1 jZIHwB">
+                    <div className="carousel-item ">
                         <div className="sc-aeef9a0f-1 bxiHoX"></div>
                         <img
-                            style={{ width: "121px", height: "121px" }}
+                            style={{ width: "123px", height: "123px" }}
                             src="https://salt.tikicdn.com/ts/tka/1c/a1/00/32b0e70d3c6db98a03f300e89480bc72.png"
                             alt="1980 Books Tại Tiki Trading" className="sc-6be5dba8-2 euPenc" />
                     </div>
@@ -66,7 +66,7 @@ const CarouselComponent = () => {
                                     alt="rating-star" className="sc-eaa6b2b1-1 dJHQGE" />
                             </div>
                         </div>
-                        <div style={{ marginTop: "auto" }}>
+                        <div style={{ marginTop: "18px", marginLeft: "-10px" }}>
                             <div style={{ display: "flex", alignItems: "center" }}>
                                 <button onClick={scrollLeft1} className='scroll-button-left'></button>
                                 <div
@@ -146,10 +146,10 @@ const CarouselComponent = () => {
             {/* Carousel thứ hai */}
             <div>
                 <div className="sc-aeef9a0f-0 sc-6be5dba8-0 kCvpXv giHiyf">
-                    <div className="sc-6be5dba8-1 jZIHwB">
+                    <div className="carousel-item ">
                         <div className="sc-aeef9a0f-1 bxiHoX"></div>
                         <img
-                            style={{ width: "121px", height: "121px" }}
+                            style={{ width: "123px", height: "123px" }}
                             src="https://salt.tikicdn.com/ts/tka/1c/a1/00/32b0e70d3c6db98a03f300e89480bc72.png"
                             alt="1980 Books Tại Tiki Trading" className="sc-6be5dba8-2 euPenc" />
                     </div>
@@ -168,7 +168,7 @@ const CarouselComponent = () => {
                                     alt="rating-star" className="sc-eaa6b2b1-1 dJHQGE" />
                             </div>
                         </div>
-                        <div style={{ marginTop: "auto" }}>
+                        <div style={{ marginTop: "18px", marginLeft: "-10px" }}>
                             <div style={{ display: "flex", alignItems: "center" }}>
                                 <button onClick={scrollLeft2} className='scroll-button-left'></button>
                                 <div
