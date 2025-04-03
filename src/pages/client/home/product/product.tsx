@@ -39,27 +39,7 @@ const Product: React.FC<ProductProps> = ({ listBook: propListBook }) => {
     const [current, setCurrent] = useState<number>(1);
 
     const [filter, setFilter] = useState<string>("");
-    const [sortQuery, setSortQuery] = useState<string>("sort=-sold");
-    const [showMobileFilter, setShowMobileFilter] = useState<boolean>(false);
-    const [nameCategory, setNameCategory] = useState<{ [key: string]: string[] }>({});
-    const [listBrand, setListBrand] = useState<IBrands[]>([]);
-    const [listSupplier, setListSupplier] = useState<ISupplier[]>([]);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [queryFiler, setQueryFilter] = useState<string>("");
-    const [category, setCategory] = useState<string>("");
-    const [listFullCategory, setListFullCategory] = useState<ICategory[]>([]);
 
-    // Change these from string to arrays
-    const [brand, setBrand] = useState<string[]>([]);
-    const [supplier, setSupplier] = useState<string[]>([]);
-
-    // Add state for filters
-    const [freeShipping, setFreeShipping] = useState(false);
-    const [cheapPrice, setCheapPrice] = useState(false);
-    const [fastDelivery, setFastDelivery] = useState(false);
-    const [minRating, setMinRating] = useState(0);
-
-    const [previousItemCount, setPreviousItemCount] = useState<number>(0);
     const [hasMoreItems, setHasMoreItems] = useState<boolean>(true);
 
     // Track if a fetch is in progress to prevent duplicate calls
