@@ -181,7 +181,7 @@ const BookDetail = (props: IProps) => {
                 />
                 <div style={{ borderRadius: 5, position: 'relative' }}>
                     <Row gutter={[20, 20]}>
-                        <Col md={17} sm={24}>
+                        <Col md={18} sm={24}>
 
                             <Row gutter={[30, 0]}> {/* Thêm Row để chứa 2 cột con */}
                                 <Col md={11} sm={24}
@@ -228,7 +228,7 @@ const BookDetail = (props: IProps) => {
                             </Row>
 
                         </Col>
-                        <Col md={7} sm={24}>
+                        <Col md={6} sm={24}>
                             <Col md={0} sm={24} xs={24}>
                                 <ImageGallery
                                     ref={refGallery}
