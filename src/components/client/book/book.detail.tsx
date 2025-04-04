@@ -162,7 +162,7 @@ const BookDetail = (props: IProps) => {
 
     return (
         <div>
-            <div className='view-detail-book' style={{ maxWidth: 1440, padding: '20px 40px', margin: '0 auto', minHeight: "calc(100vh - 150px)" }}>
+            <div className='view-detail-book' style={{ maxWidth: 1440, padding: '10px 15px 40px 35px', margin: '0 auto', minHeight: "calc(100vh - 150px)" }}>
                 <Breadcrumb
                     separator=">"
                     items={[
@@ -170,8 +170,13 @@ const BookDetail = (props: IProps) => {
                             title: <Link to={"/"}>Trang Chủ</Link>,
                         },
                         {
-                            title: 'Xem chi tiết sách',
+                            title: <Link to={"/"}>Nhà Sách Tiki</Link>,
+
                         },
+                        {
+                            title: <Link to={"/"}>{currentBook?.mainText}</Link>,
+                        },
+
                     ]}
                 />
                 <div style={{ borderRadius: 5, position: 'relative' }}>
