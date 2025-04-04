@@ -39,6 +39,7 @@ const BookPage = () => {
                 //     currentBook={currentBook}
                 // />
                 <BookNew
+                    currentBook={currentBook}
                 />
             }
         </div>

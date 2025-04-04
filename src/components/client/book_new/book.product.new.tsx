@@ -1,20 +1,110 @@
-import './book.new.scss'
+import { useCurrentApp } from '@/components/context/app.context';
+import { App } from 'antd';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import './book.new.scss';
 
-const BookNew = () => {
+interface IProps {
+    currentBook: IBookTable | null;
+}
+
+const BookNew = (props: IProps) => {
+    const { currentBook } = props;
+    const [currentQuantity, setCurrentQuantity] = useState<number>(1);
+    const { setCarts, user } = useCurrentApp();
+    const { message } = App.useApp();
+    const navigate = useNavigate();
+
+    const handleChangeQuantity = (type: 'increase' | 'decrease') => {
+        if (type === 'decrease') {
+            if (currentQuantity - 1 <= 0) return;
+            setCurrentQuantity(currentQuantity - 1);
+        }
+        if (type === 'increase' && currentBook) {
+            if (currentQuantity === +currentBook.quantity) return; // max
+            setCurrentQuantity(currentQuantity + 1);
+        }
+    };
+
+    const handleChangeInput = (value: string) => {
+        if (!isNaN(+value)) {
+            if (+value > 0 && currentBook && +value < +currentBook.quantity) {
+                setCurrentQuantity(+value);
+            }
+        }
+    };
+
+    const handleAddToCart = (isBuyNow = false) => {
+        if (!user) {
+            message.error("Bạn cần đăng nhập để thực hiện tính năng này.")
+            return;
+        }
+        //update localStorage
+        const cartStorage = localStorage.getItem("carts");
+        if (cartStorage && currentBook) {
+            //update
+            const carts = JSON.parse(cartStorage) as ICart[];
+
+            //check exist
+            let isExistIndex = carts.findIndex(c => c._id === currentBook?.id);
+            if (isExistIndex > -1) {
+                carts[isExistIndex].quantity =
+                    carts[isExistIndex].quantity + currentQuantity;
+            } else {
+                carts.push({
+                    quantity: currentQuantity,
+                    _id: currentBook.id,
+                    detail: currentBook
+                })
+            }
+
+            localStorage.setItem("carts", JSON.stringify(carts));
+
+            //sync React Context
+            setCarts(carts);
+        } else {
+            //create
+            const data = [{
+                _id: currentBook?.id!,
+                quantity: currentQuantity,
+                detail: currentBook!
+            }]
+            localStorage.setItem("carts", JSON.stringify(data))
+
+            //sync React Context
+            setCarts(data);
+        }
+
+        if (isBuyNow) {
+            navigate("/order")
+        } else
+            message.success("Thêm sản phẩm vào giỏ hàng thành công.")
+    };
+
+    const calculateDiscountedPrice = () => {
+        if (!currentBook) return 0;
+        const originalPrice = Number(currentBook.price || 0);
+        const discountPercent = Number(currentBook.promotion || 0);
+        return originalPrice - (originalPrice * discountPercent / 100);
+    };
+
+    if (!currentBook) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <main>
             <div className="sc-9b2f7535-0 edZgU">
                 <div data-view-id="breadcrumb_container" className="sc-de46788d-0 eKroXI">
                     <div className="breadcrumb">
-                        <a
+                        <Link
                             className="breadcrumb-item"
                             data-view-id="breadcrumb_item"
                             data-view-index={0}
-                            href="/"
+                            to="/"
                         >
                             <span>Trang chủ</span>
-                        </a>
+                        </Link>
                         <span className="icon icon-next">
                             <svg
                                 width={6}
@@ -31,14 +121,14 @@ const BookNew = () => {
                                 ></path>
                             </svg>
                         </span>
-                        <a
+                        <Link
                             className="breadcrumb-item"
                             data-view-id="breadcrumb_item"
                             data-view-index={1}
-                            href="/nha-sach-tiki/c8322"
+                            to="/nha-sach-tiki/c8322"
                         >
                             <span>Nhà Sách Tiki</span>
-                        </a>
+                        </Link>
                         <span className="icon icon-next">
                             <svg
                                 width={6}
@@ -55,14 +145,14 @@ const BookNew = () => {
                                 ></path>
                             </svg>
                         </span>
-                        <a
+                        <Link
                             className="breadcrumb-item"
                             data-view-id="breadcrumb_item"
                             data-view-index={2}
-                            href="/sach-truyen-tieng-viet/c316"
+                            to="/sach-truyen-tieng-viet/c316"
                         >
                             <span>Sách tiếng Việt</span>
-                        </a>
+                        </Link>
                         <span className="icon icon-next">
                             <svg
                                 width={6}
@@ -79,14 +169,14 @@ const BookNew = () => {
                                 ></path>
                             </svg>
                         </span>
-                        <a
+                        <Link
                             className="breadcrumb-item"
                             data-view-id="breadcrumb_item"
                             data-view-index={3}
-                            href="/sach-kinh-te/c846"
+                            to="/sach-kinh-te/c846"
                         >
                             <span>Sách kinh tế</span>
-                        </a>
+                        </Link>
                         <span className="icon icon-next">
                             <svg
                                 width={6}
@@ -103,14 +193,14 @@ const BookNew = () => {
                                 ></path>
                             </svg>
                         </span>
-                        <a
+                        <Link
                             className="breadcrumb-item"
                             data-view-id="breadcrumb_item"
                             data-view-index={4}
-                            href="/sach-ky-nang-lam-viec/c385"
+                            to="/sach-ky-nang-lam-viec/c385"
                         >
                             <span>Sách kỹ năng làm việc</span>
-                        </a>
+                        </Link>
                         <span className="icon icon-next">
                             <svg
                                 width={6}
@@ -133,7 +223,7 @@ const BookNew = () => {
                             data-view-id="breadcrumb_item"
                             data-view-index={5}
                         >
-                            <span title="Chat GPT Thực Chiến">Chat GPT Thực Chiến</span>
+                            <span title={currentBook.mainText}>{currentBook.mainText}</span>
                         </a>
                     </div>
                 </div>
@@ -164,10 +254,10 @@ const BookNew = () => {
                                                     <picture className="webpimg-container">
                                                         <source
                                                             type="image/webp"
-                                                            srcSet="https://salt.tikicdn.com/cache/750x750/ts/product/17/4a/65/b4765d60127ee4cccf8fd551633fafd4.png.webp 1x, https://salt.tikicdn.com/cache/750x750/ts/product/17/4a/65/b4765d60127ee4cccf8fd551633fafd4.png.webp 2x"
+                                                            srcSet={currentBook.thumbnail}
                                                         />
                                                         <img
-                                                            srcSet="https://salt.tikicdn.com/cache/750x750/ts/product/17/4a/65/b4765d60127ee4cccf8fd551633fafd4.png 1x, https://salt.tikicdn.com/cache/750x750/ts/product/17/4a/65/b4765d60127ee4cccf8fd551633fafd4.png 2x"
+                                                            srcSet={currentBook.thumbnail}
                                                             style={{
                                                                 width: 368,
                                                                 height: 368,
@@ -176,7 +266,7 @@ const BookNew = () => {
                                                             }}
                                                             width={368}
                                                             height={368}
-                                                            alt="Chat GPT Thực Chiến"
+                                                            alt={currentBook.mainText}
                                                             loading="eager"
                                                             className="sc-7bce5df0-0 fvWcVx"
                                                         />
@@ -212,39 +302,42 @@ const BookNew = () => {
                                                             <picture className="webpimg-container">
                                                                 <source
                                                                     type="image/webp"
-                                                                    srcSet="https://salt.tikicdn.com/cache/100x100/ts/product/17/4a/65/b4765d60127ee4cccf8fd551633fafd4.png.webp 1x, https://salt.tikicdn.com/cache/100x100/ts/product/17/4a/65/b4765d60127ee4cccf8fd551633fafd4.png.webp 2x"
+                                                                    srcSet={currentBook.thumbnail}
                                                                 />
                                                                 <img
                                                                     width={47}
                                                                     height={47}
                                                                     style={{ width: 47 }}
                                                                     alt="product-img-0"
-                                                                    src="https://salt.tikicdn.com/cache/200x280/ts/product/17/4a/65/b4765d60127ee4cccf8fd551633fafd4.png"
-                                                                    srcSet="https://salt.tikicdn.com/cache/100x100/ts/product/17/4a/65/b4765d60127ee4cccf8fd551633fafd4.png 1x, https://salt.tikicdn.com/cache/100x100/ts/product/17/4a/65/b4765d60127ee4cccf8fd551633fafd4.png 2x"
+                                                                    src={currentBook.thumbnail}
+                                                                    srcSet={currentBook.thumbnail}
                                                                     className="sc-82b4dcf2-0 ldcZGa"
                                                                 />
                                                             </picture>
                                                         </a>
-                                                        <a
-                                                            data-view-id="pdp_main_view_photo"
-                                                            className="sc-6dd31123-1 Skdxr"
-                                                        >
-                                                            <picture className="webpimg-container">
-                                                                <source
-                                                                    type="image/webp"
-                                                                    srcSet="https://salt.tikicdn.com/cache/100x100/ts/product/a1/61/c8/0ffd6d2fd86a19ea9b5f2048fc2d0e5d.png.webp 1x, https://salt.tikicdn.com/cache/100x100/ts/product/a1/61/c8/0ffd6d2fd86a19ea9b5f2048fc2d0e5d.png.webp 2x"
-                                                                />
-                                                                <img
-                                                                    width={47}
-                                                                    height={47}
-                                                                    style={{ width: 47 }}
-                                                                    alt="product-img-1"
-                                                                    src="https://salt.tikicdn.com/cache/200x280/ts/product/a1/61/c8/0ffd6d2fd86a19ea9b5f2048fc2d0e5d.png"
-                                                                    srcSet="https://salt.tikicdn.com/cache/100x100/ts/product/a1/61/c8/0ffd6d2fd86a19ea9b5f2048fc2d0e5d.png 1x, https://salt.tikicdn.com/cache/100x100/ts/product/a1/61/c8/0ffd6d2fd86a19ea9b5f2048fc2d0e5d.png 2x"
-                                                                    className="sc-82b4dcf2-0 ldcZGa"
-                                                                />
-                                                            </picture>
-                                                        </a>
+                                                        {currentBook.slider && currentBook.slider.map((item, index) => (
+                                                            <a
+                                                                key={index}
+                                                                data-view-id="pdp_main_view_photo"
+                                                                className="sc-6dd31123-1 Skdxr"
+                                                            >
+                                                                <picture className="webpimg-container">
+                                                                    <source
+                                                                        type="image/webp"
+                                                                        srcSet={`${import.meta.env.VITE_BACKEND_URL}/images/book/${item}`}
+                                                                    />
+                                                                    <img
+                                                                        width={47}
+                                                                        height={47}
+                                                                        style={{ width: 47 }}
+                                                                        alt={`product-img-${index + 1}`}
+                                                                        src={`${import.meta.env.VITE_BACKEND_URL}/images/book/${item}`}
+                                                                        srcSet={`${import.meta.env.VITE_BACKEND_URL}/images/book/${item}`}
+                                                                        className="sc-82b4dcf2-0 ldcZGa"
+                                                                    />
+                                                                </picture>
+                                                            </a>
+                                                        ))}
                                                     </span>
                                                 </div>
                                                 <span className="icon icon-next disabled">
@@ -314,29 +407,15 @@ const BookNew = () => {
                                                                     <a
                                                                         data-view-id="pdp_details_view_author"
                                                                         data-view-index={0}
-                                                                        href="/author/dich-duong.html"
+                                                                        href="#"
                                                                     >
-                                                                        Dịch Dương<span>, </span>
-                                                                    </a>
-                                                                    <a
-                                                                        data-view-id="pdp_details_view_author"
-                                                                        data-view-index={1}
-                                                                        href="/author/phan-trach-ban.html"
-                                                                    >
-                                                                        Phan Trách Bân<span>, </span>
-                                                                    </a>
-                                                                    <a
-                                                                        data-view-id="pdp_details_view_author"
-                                                                        data-view-index={2}
-                                                                        href="/author/ly-the-minh.html"
-                                                                    >
-                                                                        Lý Thế Minh
+                                                                        {currentBook.author}
                                                                     </a>
                                                                 </h6>
                                                             </span>
                                                         </div>
                                                         <h1 className="sc-c0f8c612-0 dEurho">
-                                                            Chat GPT Thực Chiến
+                                                            {currentBook.mainText}
                                                         </h1>
                                                         <div className="sc-1a46a934-0 fHEkTS">
                                                             <div style={{ display: "flex" }}>
@@ -349,7 +428,7 @@ const BookNew = () => {
                                                                             fontWeight: 500
                                                                         }}
                                                                     >
-                                                                        4.7
+                                                                        {'4.7'}
                                                                     </div>
                                                                     <div style={{ display: "flex" }}>
                                                                         <div style={{ position: "relative" }}>
@@ -507,7 +586,7 @@ const BookNew = () => {
                                                                         className="number"
                                                                         data-view-id="pdp_main_view_review"
                                                                     >
-                                                                        (101)
+                                                                        ({currentBook.sold || '101'})
                                                                     </a>
                                                                     <div className="sc-1a46a934-2 eIEoTE" />
                                                                 </div>
@@ -515,7 +594,7 @@ const BookNew = () => {
                                                                     data-view-id="pdp_quantity_sold"
                                                                     className="sc-1a46a934-3 geGARt"
                                                                 >
-                                                                    Đã bán 2k
+                                                                    Đã bán {currentBook.sold || '2k'}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -533,11 +612,13 @@ const BookNew = () => {
                                                                     className="product-price__current-price"
                                                                     style={{ color: "#27272A" }}
                                                                 >
-                                                                    169.000<sup>₫</sup>
+                                                                    {new Intl.NumberFormat('vi-VN').format(calculateDiscountedPrice())}<sup>₫</sup>
                                                                 </div>
-                                                                <div className="product-price__discount-rate">
-                                                                    -28%
-                                                                </div>
+                                                                {currentBook.promotion > 0 && (
+                                                                    <div className="product-price__discount-rate">
+                                                                        -{currentBook.promotion}%
+                                                                    </div>
+                                                                )}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -846,225 +927,6 @@ const BookNew = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div style={{ height: 448 }} className="sc-34e0efdc-0 dSZwVn">
-                                            <div className="sc-cff2fee0-1 dwGkAm">
-                                                <div className="sc-e6fb8ae7-2 hkOJsf">
-                                                    Sản phẩm tương tự
-                                                </div>
-                                                <div
-                                                    style={{
-                                                        display: "grid",
-                                                        gridTemplateColumns: "repeat(4,1fr)",
-                                                        gridTemplateRows: "repeat(2,1fr)"
-                                                    }}
-                                                >
-                                                    <div
-                                                        style={{
-                                                            flex: 1,
-                                                            display: "flex",
-                                                            flexDirection: "column",
-                                                            padding: 12
-                                                        }}
-                                                    >
-                                                        <div
-                                                            style={{ width: "100%", paddingTop: "100%" }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                        <div
-                                                            style={{
-                                                                width: "92%",
-                                                                height: 16,
-                                                                marginBottom: 4,
-                                                                marginTop: 4
-                                                            }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                        <div
-                                                            style={{ width: "60%", height: 16, marginBottom: 4 }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                        <div
-                                                            style={{ width: "90%", height: 16, marginBottom: 4 }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                        <div
-                                                            style={{ width: "100%", height: 16 }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        style={{
-                                                            flex: 1,
-                                                            display: "flex",
-                                                            flexDirection: "column",
-                                                            padding: 12
-                                                        }}
-                                                    >
-                                                        <div
-                                                            style={{ width: "100%", paddingTop: "100%" }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                        <div
-                                                            style={{
-                                                                width: "92%",
-                                                                height: 16,
-                                                                marginBottom: 4,
-                                                                marginTop: 4
-                                                            }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                        <div
-                                                            style={{ width: "60%", height: 16, marginBottom: 4 }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                        <div
-                                                            style={{ width: "90%", height: 16, marginBottom: 4 }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                        <div
-                                                            style={{ width: "100%", height: 16 }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        style={{
-                                                            flex: 1,
-                                                            display: "flex",
-                                                            flexDirection: "column",
-                                                            padding: 12
-                                                        }}
-                                                    >
-                                                        <div
-                                                            style={{ width: "100%", paddingTop: "100%" }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                        <div
-                                                            style={{
-                                                                width: "92%",
-                                                                height: 16,
-                                                                marginBottom: 4,
-                                                                marginTop: 4
-                                                            }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                        <div
-                                                            style={{ width: "60%", height: 16, marginBottom: 4 }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                        <div
-                                                            style={{ width: "90%", height: 16, marginBottom: 4 }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                        <div
-                                                            style={{ width: "100%", height: 16 }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        style={{
-                                                            flex: 1,
-                                                            display: "flex",
-                                                            flexDirection: "column",
-                                                            padding: 12
-                                                        }}
-                                                    >
-                                                        <div
-                                                            style={{ width: "100%", paddingTop: "100%" }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                        <div
-                                                            style={{
-                                                                width: "92%",
-                                                                height: 16,
-                                                                marginBottom: 4,
-                                                                marginTop: 4
-                                                            }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                        <div
-                                                            style={{ width: "60%", height: 16, marginBottom: 4 }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                        <div
-                                                            style={{ width: "90%", height: 16, marginBottom: 4 }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                        <div
-                                                            style={{ width: "100%", height: 16 }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        style={{
-                                                            flex: 1,
-                                                            display: "flex",
-                                                            flexDirection: "column",
-                                                            padding: 12
-                                                        }}
-                                                    >
-                                                        <div
-                                                            style={{ width: "100%", paddingTop: "100%" }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                        <div
-                                                            style={{
-                                                                width: "92%",
-                                                                height: 16,
-                                                                marginBottom: 4,
-                                                                marginTop: 4
-                                                            }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                        <div
-                                                            style={{ width: "60%", height: 16, marginBottom: 4 }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                        <div
-                                                            style={{ width: "90%", height: 16, marginBottom: 4 }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                        <div
-                                                            style={{ width: "100%", height: 16 }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        style={{
-                                                            flex: 1,
-                                                            display: "flex",
-                                                            flexDirection: "column",
-                                                            padding: 12
-                                                        }}
-                                                    >
-                                                        <div
-                                                            style={{ width: "100%", paddingTop: "100%" }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                        <div
-                                                            style={{
-                                                                width: "92%",
-                                                                height: 16,
-                                                                marginBottom: 4,
-                                                                marginTop: 4
-                                                            }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                        <div
-                                                            style={{ width: "60%", height: 16, marginBottom: 4 }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                        <div
-                                                            style={{ width: "90%", height: 16, marginBottom: 4 }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                        <div
-                                                            style={{ width: "100%", height: 16 }}
-                                                            className="sc-cff2fee0-0 ftfpIc"
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div style={{ height: 200 }} className="sc-34e0efdc-0 dSZwVn" />
                                         <div style={{ height: 194 }} className="sc-34e0efdc-0 dSZwVn" />
                                         <div style={{ height: 200 }} className="sc-34e0efdc-0 dSZwVn" />
@@ -1113,7 +975,7 @@ const BookNew = () => {
                                             <div
                                                 style={{ display: "flex", flexDirection: "column", gap: 0 }}
                                             >
-                                                <span className="seller-name" />
+                                                <span className="seller-name">{currentBook.supplier?.name}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -1127,7 +989,10 @@ const BookNew = () => {
                                             <div className="sc-43079b3d-0 ejSfqq">
                                                 <p className="label">Số Lượng</p>
                                                 <div className="group-input">
-                                                    <button className="disable">
+                                                    <button
+                                                        className={currentQuantity <= 1 ? "disable" : ""}
+                                                        onClick={() => handleChangeQuantity('decrease')}
+                                                    >
                                                         <img
                                                             src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/icons-remove.svg"
                                                             alt="remove-icon"
@@ -1135,8 +1000,16 @@ const BookNew = () => {
                                                             height={20}
                                                         />
                                                     </button>
-                                                    <input type="text" className="input" defaultValue={1} />
-                                                    <button>
+                                                    <input
+                                                        type="text"
+                                                        className="input"
+                                                        value={currentQuantity}
+                                                        onChange={(e) => handleChangeInput(e.target.value)}
+                                                    />
+                                                    <button
+                                                        className={currentQuantity >= Number(currentBook.quantity) ? "disable" : ""}
+                                                        onClick={() => handleChangeQuantity('increase')}
+                                                    >
                                                         <img
                                                             src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/icons-add.svg"
                                                             alt="add-icon"
@@ -1154,18 +1027,22 @@ const BookNew = () => {
                                                 className="sc-31ecf63b-1 fgrIVW"
                                             >
                                                 <div>
-                                                    122.000<sup>₫</sup>
+                                                    {new Intl.NumberFormat('vi-VN').format(calculateDiscountedPrice() * currentQuantity)}<sup>₫</sup>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="group-button">
-                                            <button className="sc-9e5b140a-0 hDQYRF">
+                                            <button
+                                                className="sc-9e5b140a-0 hDQYRF"
+                                                onClick={() => handleAddToCart(true)}
+                                            >
                                                 <span>Mua ngay</span>
                                             </button>
                                             <button
                                                 type="button"
                                                 data-view-id="pdp_add_to_cart_button"
                                                 className="sc-9e5b140a-1 dtpKzE"
+                                                onClick={() => handleAddToCart(false)}
                                             >
                                                 Thêm vào giỏ
                                             </button>
@@ -1177,10 +1054,10 @@ const BookNew = () => {
                                 </div>
                                 <a
                                     style={{ textAlign: "center" }}
-                                    href="/so-sanh-gia/chat-gpt-thuc-chien-p275702538?spid=275702540"
+                                    href="#"
                                 >
                                     <span className="sc-f93de155-0 fvuIJS">
-                                        So sánh 6 nhà bán khác (Giá từ 121.680 ₫)
+                                        So sánh giá từ các nhà bán khác
                                     </span>
                                 </a>
                             </div>
@@ -1189,7 +1066,6 @@ const BookNew = () => {
                 </div>
             </div>
         </main>
-
     );
 }
 
