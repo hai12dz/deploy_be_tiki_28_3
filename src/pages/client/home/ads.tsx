@@ -1,6 +1,44 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 const TikiAdsComponent = () => {
+    // Create refs for product carousels
+    const productListRef1 = useRef<HTMLDivElement>(null);
+    const productListRef2 = useRef<HTMLDivElement>(null);
+
+    // Scroll functions for first carousel
+    const scrollLeft1 = (event: React.MouseEvent) => {
+        event.preventDefault();
+        event.stopPropagation();
+        if (productListRef1.current) {
+            productListRef1.current.scrollBy({ left: -100, behavior: "smooth" });
+        }
+    };
+
+    const scrollRight1 = (event: React.MouseEvent) => {
+        event.preventDefault();
+        event.stopPropagation();
+        if (productListRef1.current) {
+            productListRef1.current.scrollBy({ left: 100, behavior: "smooth" });
+        }
+    };
+
+    // Scroll functions for second carousel
+    const scrollLeft2 = (event: React.MouseEvent) => {
+        event.preventDefault();
+        event.stopPropagation();
+        if (productListRef2.current) {
+            productListRef2.current.scrollBy({ left: -100, behavior: "smooth" });
+        }
+    };
+
+    const scrollRight2 = (event: React.MouseEvent) => {
+        event.preventDefault();
+        event.stopPropagation();
+        if (productListRef2.current) {
+            productListRef2.current.scrollBy({ left: 100, behavior: "smooth" });
+        }
+    };
+
     return (
         <div className="sc-b118de6a-0 cfnons">
             <div>
@@ -12,6 +50,7 @@ const TikiAdsComponent = () => {
                             src="https://salt.tikicdn.com/ts/tka/1c/a1/00/32b0e70d3c6db98a03f300e89480bc72.png"
                             alt="1980 Books Tại Tiki Trading" className="sc-6be5dba8-2 euPenc" />
                     </div>
+
                     <div className="sc-6be5dba8-3 lgpwhb">
                         <div style={{ fontSize: "20px", lineHeight: "30px", marginBottom: "4px" }}
                             className="sc-aeef9a0f-2 kyfJKn">Bộ Sưu Tập Sách Mới Giảm Đến 30%</div>
@@ -28,8 +67,18 @@ const TikiAdsComponent = () => {
                             </div>
                         </div>
                         <div style={{ marginTop: "auto" }}>
-                            <div style={{ display: "flex", justifyContent: "space-between" }}>
-                                <div style={{ width: "208px" }} className="sc-aeef9a0f-7 fRchjC">
+                            <div style={{ display: "flex", alignItems: "center" }}>
+                                <button onClick={scrollLeft1} className='scroll-button-left'></button>
+                                <div
+                                    ref={productListRef1}
+                                    style={{
+                                        display: "flex",
+                                        overflow: "auto",
+                                        scrollBehavior: "smooth",
+                                        width: "208px"
+                                    }}
+                                    className="sc-aeef9a0f-7 fRchjC"
+                                >
                                     <div className="sc-49d535ac-0 bLwwYd" style={{ width: "64px", height: "64px" }}>
                                         <picture className="webpimg-container">
                                             <source type="image/webp"
@@ -75,6 +124,7 @@ const TikiAdsComponent = () => {
                                         <div className="sc-49d535ac-2 iiebSR">-35%</div>
                                     </div>
                                 </div>
+                                <button onClick={scrollRight1} className="scroll-button-right"></button>
                                 <div className="sc-6be5dba8-4 gyfMKP"></div>
                                 <div className="sc-6be5dba8-5 hllVlM">
                                     <div className="sc-aeef9a0f-5 cHccfl">Xem thêm</div>
@@ -109,8 +159,18 @@ const TikiAdsComponent = () => {
                             </div>
                         </div>
                         <div style={{ marginTop: "auto" }}>
-                            <div style={{ display: "flex", justifyContent: "space-between" }}>
-                                <div style={{ width: "208px" }} className="sc-aeef9a0f-7 fRchjC">
+                            <div style={{ display: "flex", alignItems: "center" }}>
+                                <button onClick={scrollLeft2} className='scroll-button-left'></button>
+                                <div
+                                    ref={productListRef2}
+                                    style={{
+                                        display: "flex",
+                                        overflow: "auto",
+                                        scrollBehavior: "smooth",
+                                        width: "208px"
+                                    }}
+                                    className="sc-aeef9a0f-7 fRchjC"
+                                >
                                     <div className="sc-49d535ac-0 bLwwYd" style={{ width: "64px", height: "64px" }}>
                                         <picture className="webpimg-container">
                                             <source type="image/webp"
@@ -156,6 +216,7 @@ const TikiAdsComponent = () => {
                                         <div className="sc-49d535ac-2 iiebSR">-35%</div>
                                     </div>
                                 </div>
+                                <button onClick={scrollRight2} className="scroll-button-right"></button>
                                 <div className="sc-6be5dba8-4 gyfMKP"></div>
                                 <div className="sc-6be5dba8-5 hllVlM">
                                     <div style={{ marginBottom: "4px" }} className="sc-aeef9a0f-6 bTppcg">Giảm 5%</div>

@@ -75,8 +75,9 @@
     top: 34px;
     left: 10px;
 
+
     // Làm đầu mũi tên bớt sắc
-    border-left: 3px solid #f1f1f1;
+    border-left: 0px solid #f1f1f1;
 
     &:hover {
         border-right-color: darkgray; // Đổi màu khi hover
