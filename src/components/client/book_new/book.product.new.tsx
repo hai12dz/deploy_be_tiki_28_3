@@ -81,6 +81,11 @@ const BookNew = (props: IProps) => {
             message.success("Thêm sản phẩm vào giỏ hàng thành công.")
     };
 
+    const formatPrice = (price: number) => {
+        // Format price as integer with thousands separator but no decimal places
+        return Math.floor(price).toLocaleString('vi-VN').split(',')[0];
+    };
+
     const calculateDiscountedPrice = () => {
         if (!currentBook) return 0;
         const originalPrice = Number(currentBook.price || 0);
@@ -612,7 +617,7 @@ const BookNew = (props: IProps) => {
                                                                     className="product-price__current-price"
                                                                     style={{ color: "#27272A" }}
                                                                 >
-                                                                    {new Intl.NumberFormat('vi-VN').format(calculateDiscountedPrice())}<sup>₫</sup>
+                                                                    {formatPrice(calculateDiscountedPrice())}<sup>₫</sup>
                                                                 </div>
                                                                 {currentBook.promotion > 0 && (
                                                                     <div className="product-price__discount-rate">
@@ -1027,7 +1032,7 @@ const BookNew = (props: IProps) => {
                                                 className="sc-31ecf63b-1 fgrIVW"
                                             >
                                                 <div>
-                                                    {new Intl.NumberFormat('vi-VN').format(calculateDiscountedPrice() * currentQuantity)}<sup>₫</sup>
+                                                    {formatPrice(calculateDiscountedPrice() * currentQuantity)}<sup>₫</sup>
                                                 </div>
                                             </div>
                                         </div>
