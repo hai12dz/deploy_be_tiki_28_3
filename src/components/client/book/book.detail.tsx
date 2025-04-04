@@ -161,8 +161,8 @@ const BookDetail = (props: IProps) => {
     }
 
     return (
-        <div style={{ background: '#efefef', }}>
-            <div className='view-detail-book' style={{ maxWidth: 1440, padding: '20px 0', margin: '0 auto', minHeight: "calc(100vh - 150px)" }}>
+        <div>
+            <div className='view-detail-book' style={{ maxWidth: 1440, padding: '20px 40px', margin: '0 auto', minHeight: "calc(100vh - 150px)" }}>
                 <Breadcrumb
                     separator=">"
                     items={[
