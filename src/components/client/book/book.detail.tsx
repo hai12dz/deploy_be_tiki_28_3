@@ -65,8 +65,8 @@ const BookDetail = (props: IProps) => {
             if (currentBook.thumbnail) {
                 images.push(
                     {
-                        original: `${import.meta.env.VITE_BACKEND_URL}/images/book/${currentBook.thumbnail}`,
-                        thumbnail: `${import.meta.env.VITE_BACKEND_URL}/images/book/${currentBook.thumbnail}`,
+                        original: `${currentBook.thumbnail}`,
+                        thumbnail: `${currentBook.thumbnail}`,
                         originalClass: "original-image",
                         thumbnailClass: "thumbnail-image"
                     },
@@ -212,7 +212,6 @@ const BookDetail = (props: IProps) => {
                                 <Col md={24} sm={24} style={{ borderRadius: '10px', background: '#fff', display: 'flex', flexDirection: 'column', position: 'sticky' }}>
                                     <Row gutter={[20, 20]}>
                                         <Col md={16} sm={0} xs={0}>
-
 
                                             <CustomerReview />
                                         </Col>
