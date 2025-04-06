@@ -74,10 +74,11 @@ const RecentlyViewedProducts = () => {
             <div className="slider-container" style={{ position: "relative" }}>
                 <div className="sc-6bdcb3d5-0 iWkFxH">
                     <div className="slick-slider slick-initialized" dir="ltr" style={{
-                        display: 'flex',
+                        position: 'relative',
                         minHeight: '300px',
-                        justifyContent: 'flex-start',
                         width: '100%',
+                        padding: '0',
+                        boxSizing: 'border-box'
                     }}>
                         {listBookViewed.length > 0 ? (
                             <>
@@ -112,14 +113,26 @@ const RecentlyViewedProducts = () => {
                                         </svg>
                                     </span>
                                 </a>
-                                <div className="slick-list">
+                                <div className="slick-list" style={{
+                                    position: 'absolute',
+                                    width: '100%',
+                                    left: 0,
+                                    margin: 0,
+                                    padding: 0,
+                                    overflow: 'hidden',
+                                    boxSizing: 'border-box' // Ensure padding/margin doesn't affect width
+                                }}>
                                     <div
                                         className="slick-track"
                                         style={{
+                                            display: 'flex',
+                                            justifyContent: 'flex-start', // Align items to the left
+                                            alignItems: 'flex-start',
                                             width: listBookViewed.length * 234,
-                                            opacity: 1,
                                             transform: `translate3d(-${currentSlide * 234}px, 0px, 0px)`,
-                                            transition: "transform 300ms ease"
+                                            transition: "transform 300ms ease",
+                                            margin: 0, // Remove any default margin
+                                            padding: 0 // Remove any default padding
                                         }}
                                     >
                                         {listBookViewed.map((book, index) => (
@@ -129,7 +142,13 @@ const RecentlyViewedProducts = () => {
                                                 className={`slick-slide ${index >= currentSlide && index < currentSlide + itemsPerSlide ? 'slick-active' : ''} ${index === currentSlide ? 'slick-current' : ''}`}
                                                 tabIndex={-1}
                                                 aria-hidden={!(index >= currentSlide && index < currentSlide + itemsPerSlide)}
-                                                style={{ outline: "none", width: 234 }}
+                                                style={{
+                                                    outline: "none",
+                                                    width: 234,
+                                                    flexShrink: 0,
+                                                    margin: 0, // Ensure no margin between items
+                                                    padding: 0 // Ensure no padding between items
+                                                }}
                                             >
                                                 <div>
                                                     <div
@@ -150,7 +169,12 @@ const RecentlyViewedProducts = () => {
                                                                             srcSet={book.thumbnail}
                                                                         />
                                                                         <img
-                                                                            style={{ width: '226px', height: '226px', objectFit: 'contain' }}
+                                                                            style={{
+                                                                                width: '226px',
+                                                                                height: '226px',
+                                                                                objectFit: 'contain',
+                                                                                display: 'block'
+                                                                            }}
                                                                             alt={book.mainText}
                                                                             src={book.thumbnail}
                                                                             className="sc-82b4dcf2-0 ldcZGa"
