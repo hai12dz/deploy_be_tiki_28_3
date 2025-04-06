@@ -6,6 +6,7 @@ const RecentlyViewedProducts = () => {
     const [listBookViewed, setListBookViewed] = useState<IBookTable[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [currentSlide, setCurrentSlide] = useState<number>(0);
+    const [isHovered, setIsHovered] = useState<boolean>(false); // Track hover state
     const itemsPerSlide = 6;
 
     useEffect(() => {
@@ -56,6 +57,14 @@ const RecentlyViewedProducts = () => {
         }
     };
 
+    const handleMouseEnter = () => {
+        setIsHovered(true); // Set hover state to true
+    };
+
+    const handleMouseLeave = () => {
+        setIsHovered(false); // Set hover state to false
+    };
+
     const visibleBooks = listBookViewed.slice(
         currentSlide,
         currentSlide + itemsPerSlide
@@ -71,7 +80,12 @@ const RecentlyViewedProducts = () => {
             style={{ position: "relative" }}
         >
             <h2 className="sc-9ee36b14-0 hPpiPH">Sản phẩm đã xem</h2>
-            <div className="slider-container" style={{ position: "relative" }}>
+            <div
+                className="slider-container"
+                style={{ position: "relative" }}
+                onMouseEnter={handleMouseEnter} // Add hover event
+                onMouseLeave={handleMouseLeave} // Add hover event
+            >
                 <div className="sc-6bdcb3d5-0 iWkFxH">
                     <div className="slick-slider slick-initialized" dir="ltr" style={{
                         position: 'relative',
@@ -84,14 +98,15 @@ const RecentlyViewedProducts = () => {
                             <>
                                 <a
                                     data-role="none"
-                                    className={`slick-arrow slick-prev ${isPrevDisabled ? 'slick-disabled' : ''}`}
+                                    className={`slick-arrow slick-prev ${isPrevDisabled ? 'slick-disabled' : ''} ${isHovered && !isPrevDisabled ? 'hover-enabled' : ''}`}
                                     style={{
                                         display: "block",
                                         position: "absolute",
                                         left: "0",
                                         top: "50%",
                                         transform: "translateY(-50%)",
-                                        zIndex: "1"
+                                        zIndex: "1",
+                                        color: isHovered && !isPrevDisabled ? 'black' : 'gray' // Change color on hover
                                     }}
                                     onClick={isPrevDisabled ? undefined : handlePrevSlide}
                                 >
@@ -113,15 +128,7 @@ const RecentlyViewedProducts = () => {
                                         </svg>
                                     </span>
                                 </a>
-                                <div className="slick-list" style={{
-                                    position: 'absolute',
-                                    width: '100%',
-                                    left: 0,
-                                    margin: 0,
-                                    padding: 0,
-                                    overflow: 'hidden',
-                                    boxSizing: 'border-box' // Ensure padding/margin doesn't affect width
-                                }}>
+                                <div className="slick-list" >
                                     <div
                                         className="slick-track"
                                         style={{
@@ -257,14 +264,15 @@ const RecentlyViewedProducts = () => {
                                 </div>
                                 <a
                                     data-role="none"
-                                    className={`slick-arrow slick--next ${isNextDisabled ? 'slick-disabled' : ''}`}
+                                    className={`slick-arrow slick--next ${isNextDisabled ? 'slick-disabled' : ''} ${isHovered && !isNextDisabled ? 'hover-enabled' : ''}`}
                                     style={{
                                         display: "block",
                                         position: "absolute",
                                         right: "0",
                                         top: "50%",
                                         transform: "translateY(-50%)",
-                                        zIndex: "1"
+                                        zIndex: "1",
+                                        color: isHovered && !isNextDisabled ? 'black' : 'gray' // Change color on hover
                                     }}
                                     onClick={isNextDisabled ? undefined : handleNextSlide}
                                 >
@@ -293,7 +301,7 @@ const RecentlyViewedProducts = () => {
                                 color: 'rgb(51, 51, 51)',
                                 textAlign: 'center',
                                 margin: '0 auto',
-                                padding: '40px 0px 0px 600px'
+                                padding: '140px 0px 0px 0px'
                             }}>
                                 Không có sản phẩm nào
                             </div>
