@@ -1,5 +1,27 @@
 import React, { useRef } from 'react';
 
+// Add scrollbar styles from slide.tsx
+const scrollbarStyles = `
+  .custom-scrollbar::-webkit-scrollbar {
+    width: auto !important; /* Force default width */
+    height: auto !important; /* Force default height */
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #888888; /* Darker gray color */
+    border-radius: 10px;
+  }
+  .custom-scrollbar:hover::-webkit-scrollbar-thumb {
+    background-color: #ababab;
+  }
+  .custom-scrollbar {
+    scrollbar-width: auto; /* Use default size for Firefox */
+    scrollbar-color: #888888 transparent; /* Match the darker color for Firefox */
+  }
+  .custom-scrollbar:hover {
+    scrollbar-color: #ababab transparent;
+  }
+`;
+
 const TikiAdsComponent = () => {
     // Create refs for product carousels
     const productListRef1 = useRef<HTMLDivElement>(null);
@@ -41,6 +63,9 @@ const TikiAdsComponent = () => {
 
     return (
         <div className="sc-b118de6a-0 cfnons">
+            {/* Add style tag with scrollbar styles */}
+            <style>{scrollbarStyles}</style>
+
             <div>
                 <a href="https://tiki.vn/sach-truyen-tieng-viet/c316?itm_campaign=CTP_YPD_TKA_BSA_UNK_ALL_UNK_UNK_UNK_UNK_X.273103_Y.1855423_Z.3857321_CN.%255BStore-Ads%255D-1980s&amp;itm_medium=CPC&amp;itm_source=tiki-ads&amp;publisher_vn=33244&amp;seller=1&amp;sort=newest"
                     target="_blank" className="sc-aeef9a0f-0 sc-6be5dba8-0 kCvpXv giHiyf">
@@ -68,7 +93,6 @@ const TikiAdsComponent = () => {
                         </div>
                         <div style={{ marginTop: "auto" }}>
                             <div style={{ display: "flex", alignItems: "center" }}>
-                                <button onClick={scrollLeft1} className='scroll-button-left'></button>
                                 <div
                                     ref={productListRef1}
                                     style={{
@@ -77,7 +101,7 @@ const TikiAdsComponent = () => {
                                         scrollBehavior: "smooth",
                                         width: "208px"
                                     }}
-                                    className="sc-aeef9a0f-7 fRchjC"
+                                    className="sc-aeef9a0f-7 fRchjC custom-scrollbar"
                                 >
                                     <div className="sc-49d535ac-0 bLwwYd" style={{ width: "64px", height: "64px" }}>
                                         <picture className="webpimg-container">
@@ -124,7 +148,6 @@ const TikiAdsComponent = () => {
                                         <div className="sc-49d535ac-2 iiebSR">-35%</div>
                                     </div>
                                 </div>
-                                <button onClick={scrollRight1} className="scroll-button-right"></button>
                                 <div className="sc-6be5dba8-4 gyfMKP"></div>
                                 <div className="sc-6be5dba8-5 hllVlM">
                                     <div className="sc-aeef9a0f-5 cHccfl">Xem thêm</div>
@@ -160,7 +183,6 @@ const TikiAdsComponent = () => {
                         </div>
                         <div style={{ marginTop: "auto" }}>
                             <div style={{ display: "flex", alignItems: "center" }}>
-                                <button onClick={scrollLeft2} className='scroll-button-left'></button>
                                 <div
                                     ref={productListRef2}
                                     style={{
@@ -169,7 +191,7 @@ const TikiAdsComponent = () => {
                                         scrollBehavior: "smooth",
                                         width: "208px"
                                     }}
-                                    className="sc-aeef9a0f-7 fRchjC"
+                                    className="sc-aeef9a0f-7 fRchjC custom-scrollbar"
                                 >
                                     <div className="sc-49d535ac-0 bLwwYd" style={{ width: "64px", height: "64px" }}>
                                         <picture className="webpimg-container">
@@ -216,7 +238,6 @@ const TikiAdsComponent = () => {
                                         <div className="sc-49d535ac-2 iiebSR">-35%</div>
                                     </div>
                                 </div>
-                                <button onClick={scrollRight2} className="scroll-button-right"></button>
                                 <div className="sc-6be5dba8-4 gyfMKP"></div>
                                 <div className="sc-6be5dba8-5 hllVlM">
                                     <div style={{ marginBottom: "4px" }} className="sc-aeef9a0f-6 bTppcg">Giảm 5%</div>
