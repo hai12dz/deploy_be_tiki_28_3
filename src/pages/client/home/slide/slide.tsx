@@ -1,13 +1,13 @@
 import React, { useRef } from 'react';
 
-// Update scrollbar styles to explicitly set default width and height
+// Update scrollbar styles to use a darker gray for better visibility
 const scrollbarStyles = `
   .custom-scrollbar::-webkit-scrollbar {
     width: auto !important; /* Force default width */
     height: auto !important; /* Force default height */
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: #d3d3d3;
+    background-color: #888888; /* Darker gray color */
     border-radius: 10px;
   }
   .custom-scrollbar:hover::-webkit-scrollbar-thumb {
@@ -15,7 +15,7 @@ const scrollbarStyles = `
   }
   .custom-scrollbar {
     scrollbar-width: auto; /* Use default size for Firefox */
-    scrollbar-color: #d3d3d3 transparent;
+    scrollbar-color: #888888 transparent; /* Match the darker color for Firefox */
   }
   .custom-scrollbar:hover {
     scrollbar-color: #ababab transparent;
