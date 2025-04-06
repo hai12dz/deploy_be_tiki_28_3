@@ -68,22 +68,30 @@ const RecentlyViewedProducts = () => {
         <div
             data-view-id="product_list_recently_view_container"
             className="sc-9c7f2812-0 fMrUyv"
+            style={{ position: "relative" }}
         >
             <h2 className="sc-9ee36b14-0 hPpiPH">Sản phẩm đã xem</h2>
-            <div className="slider-container">
+            <div className="slider-container" style={{ position: "relative" }}>
                 <div className="sc-6bdcb3d5-0 iWkFxH">
                     <div className="slick-slider slick-initialized" dir="ltr" style={{
                         display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        minHeight: '300px'
+                        minHeight: '300px',
+                        justifyContent: 'flex-start',
+                        width: '100%',
                     }}>
                         {listBookViewed.length > 0 ? (
                             <>
                                 <a
                                     data-role="none"
                                     className={`slick-arrow slick-prev ${isPrevDisabled ? 'slick-disabled' : ''}`}
-                                    style={{ display: "block" }}
+                                    style={{
+                                        display: "block",
+                                        position: "absolute",
+                                        left: "0",
+                                        top: "50%",
+                                        transform: "translateY(-50%)",
+                                        zIndex: "1"
+                                    }}
                                     onClick={isPrevDisabled ? undefined : handlePrevSlide}
                                 >
                                     <span className="icon">
@@ -156,19 +164,16 @@ const RecentlyViewedProducts = () => {
                                                                         {new Intl.NumberFormat("vi-VN", {
                                                                             style: "decimal",
                                                                             maximumFractionDigits: 0
-                                                                        }).format(book.price)} <sup> ₫</sup>
+                                                                        }).format(book.price)} <sup>₫</sup>
                                                                     </span>
                                                                     {book.promotion > 0 && (
                                                                         <span className="percent">-{book.promotion}%</span>
                                                                     )}
                                                                 </p>
-                                                                <div
-                                                                    className="title"
-                                                                    style={{ maxHeight: 32 }}
-                                                                >
+                                                                <div className="title" style={{ maxHeight: 32 }}>
                                                                     <h3>{book.mainText}</h3>
                                                                 </div>
-                                                                <div className="bottom" >
+                                                                <div className="bottom">
                                                                     <div className="sc-662de19e-2 kEvUyF">
                                                                         <div style={{ display: "flex", alignItems: "center" }}>
                                                                             <div className="full-rating">
@@ -228,8 +233,15 @@ const RecentlyViewedProducts = () => {
                                 </div>
                                 <a
                                     data-role="none"
-                                    className={`slick-arrow slick-next ${isNextDisabled ? 'slick-disabled' : ''}`}
-                                    style={{ display: "block" }}
+                                    className={`slick-arrow slick--next ${isNextDisabled ? 'slick-disabled' : ''}`}
+                                    style={{
+                                        display: "block",
+                                        position: "absolute",
+                                        right: "0",
+                                        top: "50%",
+                                        transform: "translateY(-50%)",
+                                        zIndex: "1"
+                                    }}
                                     onClick={isNextDisabled ? undefined : handleNextSlide}
                                 >
                                     <span className="icon">
@@ -241,7 +253,7 @@ const RecentlyViewedProducts = () => {
                                             xmlns="http://www.w3.org/2000/svg"
                                         >
                                             <path
-                                                d="M7 1L1 7L7 13"
+                                                d="M1 1L7 7L1 13"
                                                 stroke="currentColor"
                                                 strokeWidth="2"
                                                 strokeLinecap="round"
