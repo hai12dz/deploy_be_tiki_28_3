@@ -1,10 +1,52 @@
-import './carousel.product.scss'
+import './carousel.product.scss';
+import React, { useState } from 'react';
 
 const CarouselProduct = () => {
+    // State to track current slide index and hover state
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const [isHovering, setIsHovering] = useState(false);
+
+    // Width of each slide
+    const slideWidth = 360;
+
+    // Total number of slides
+    const totalSlides = 7; // Adjust based on actual number of slides
+
+    // Handle prev click
+    const handlePrevClick = () => {
+        if (currentSlide > 0) {
+            setCurrentSlide(currentSlide - 1);
+        }
+    };
+
+    // Handle next click
+    const handleNextClick = () => {
+        if (currentSlide < totalSlides - 1) {
+            setCurrentSlide(currentSlide + 1);
+        }
+    };
+
+    // Determine if prev/next buttons should be disabled
+    const isPrevDisabled = currentSlide === 0;
+    const isNextDisabled = currentSlide === totalSlides - 1;
+
+    // Handle pagination dot click
+    const handlePaginationClick = (index: any) => {
+        setCurrentSlide(index);
+    };
+
     return (
         <div>
-            <div className="sc-a007ec24-0 hVLBTd">
-                <span className="icon icon-prev">
+            <div
+                className="sc-a007ec24-0 hVLBTd"
+                onMouseEnter={() => setIsHovering(true)}
+                onMouseLeave={() => setIsHovering(false)}
+            >
+                <span
+                    className={`icon icon-prev ${isPrevDisabled ? 'disabled' : ''}`}
+                    onClick={handlePrevClick}
+                    style={{ opacity: isHovering || isPrevDisabled ? 1 : 0 }}
+                >
                     <svg
                         width={20}
                         height={20}
@@ -25,7 +67,7 @@ const CarouselProduct = () => {
                         className="slider"
                         style={{
                             gap: 0,
-                            transform: "translateX(-360px)",
+                            transform: `translateX(-${currentSlide * slideWidth}px)`,
                             transition: "0.5s ease-in-out"
                         }}
                     >
@@ -216,49 +258,27 @@ const CarouselProduct = () => {
                             marginTop: 8
                         }}
                     >
-                        <div
-                            style={{
-                                width: 24,
-                                height: 2,
-                                background: "rgb(10, 104, 255)",
-                                borderRadius: 4
-                            }}
-                        />
-                        <div
-                            style={{
-                                width: 16,
-                                height: 2,
-                                background: "rgba(0, 0, 0, 0.05)",
-                                borderRadius: 4
-                            }}
-                        />
-                        <div
-                            style={{
-                                width: 16,
-                                height: 2,
-                                background: "rgba(0, 0, 0, 0.05)",
-                                borderRadius: 4
-                            }}
-                        />
-                        <div
-                            style={{
-                                width: 16,
-                                height: 2,
-                                background: "rgba(0, 0, 0, 0.05)",
-                                borderRadius: 4
-                            }}
-                        />
-                        <div
-                            style={{
-                                width: 16,
-                                height: 2,
-                                background: "rgba(0, 0, 0, 0.05)",
-                                borderRadius: 4
-                            }}
-                        />
+                        {Array.from({ length: totalSlides }).map((_, index) => (
+                            <div
+                                key={index}
+                                onClick={() => handlePaginationClick(index)}
+                                style={{
+                                    width: currentSlide === index ? 24 : 16,
+                                    height: 2,
+                                    background: currentSlide === index ? "rgb(10, 104, 255)" : "rgba(0, 0, 0, 0.05)",
+                                    borderRadius: 4,
+                                    cursor: "pointer",
+                                    transition: "all 0.3s ease"
+                                }}
+                            />
+                        ))}
                     </div>
                 </div>
-                <span className="icon icon-next">
+                <span
+                    className={`icon icon-next ${isNextDisabled ? 'disabled' : ''}`}
+                    onClick={handleNextClick}
+                    style={{ opacity: isHovering || isNextDisabled ? 1 : 0 }}
+                >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width={20}
@@ -276,7 +296,6 @@ const CarouselProduct = () => {
                 </span>
             </div>
         </div>
-
     );
 }
 

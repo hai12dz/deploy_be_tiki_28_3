@@ -3,62 +3,51 @@
     position: relative;
 }
 
+.hVLBTd .icon {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
+    z-index: 2;
+    background-color: #fff;
+    padding: 6px;
+    transition: opacity 0.3s ease;
+}
+
+.hVLBTd .icon.disabled {
+    opacity: 0.4 !important;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.hVLBTd .icon:not(.disabled):hover {
+    background-color: #f2f6ff;
+}
+
+.hVLBTd .icon:not(.disabled):active {
+    background-color: #e6eeff;
+}
+
 .hVLBTd .icon-prev {
     left: 8px;
-}
-
-.hVLBTd .icon {
-    position: absolute;
-    top: calc(50% - 5px);
-    transform: translateY(-50%);
-    display: none;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 8px;
-    border-radius: 16px;
-    cursor: pointer;
-    z-index: 2;
-    background-color: rgb(255, 255, 255);
-    padding: 6px;
-}
-
-.icon {
-    display: inline-block;
-    vertical-align: middle;
-    background-repeat: no-repeat;
-    background-position: 0px 0px;
-}
-
-.hVLBTd .content {
-    overflow: hidden;
 }
 
 .hVLBTd .icon-next {
     right: 8px;
 }
 
-.hVLBTd .icon {
-    position: absolute;
-    top: calc(50% - 5px);
-    transform: translateY(-50%);
-    display: none;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 8px;
-    border-radius: 16px;
-    cursor: pointer;
-    z-index: 2;
-    background-color: rgb(255, 255, 255);
-    padding: 6px;
+.hVLBTd .content {
+    overflow: hidden;
 }
 
 .hVLBTd .content .slider {
     display: inline-flex;
-    transition: 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
     min-width: 100%;
 }
 
