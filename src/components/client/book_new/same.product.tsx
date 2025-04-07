@@ -1,6 +1,34 @@
 import './book.new.scss'
+import React, { useState } from 'react';
 
 const SameProduct = () => {
+    // State to track current slide index
+    const [currentSlide, setCurrentSlide] = useState(0);
+
+    // Width of each slide group (matches the width in the existing style)
+    const slideWidth = 560;
+
+    // Total number of slides (based on dutDwQ divs in the content)
+    const totalSlides = 5; // Adjust based on actual number of slide containers
+
+    // Handle prev click
+    const handlePrevClick = () => {
+        if (currentSlide > 0) {
+            setCurrentSlide(currentSlide - 1);
+        }
+    };
+
+    // Handle next click
+    const handleNextClick = () => {
+        if (currentSlide < totalSlides - 1) {
+            setCurrentSlide(currentSlide + 1);
+        }
+    };
+
+    // Determine if prev/next buttons should be disabled
+    const isPrevDisabled = currentSlide === 0;
+    const isNextDisabled = currentSlide === totalSlides - 1;
+
     return (
         <>
             <div className="sc-34e0efdc-0 dSZwVn">
@@ -14,7 +42,10 @@ const SameProduct = () => {
                     }}
                 >
                     <div className="sc-a007ec24-0 hVGhMI">
-                        <span className="icon icon-prev">
+                        <span
+                            className={`icon icon-prev ${isPrevDisabled ? 'disabled' : ''}`}
+                            onClick={handlePrevClick}
+                        >
                             <svg
                                 width={20}
                                 height={20}
@@ -35,7 +66,7 @@ const SameProduct = () => {
                                 className="slider"
                                 style={{
                                     gap: 8,
-                                    transform: "translateX(-560px)",
+                                    transform: `translateX(-${currentSlide * slideWidth}px)`,
                                     transition: "0.5s ease-in-out"
                                 }}
                             >
@@ -9531,7 +9562,10 @@ const SameProduct = () => {
                                 />
                             </div>
                         </div>
-                        <span className="icon icon-next">
+                        <span
+                            className={`icon icon-next ${isNextDisabled ? 'disabled' : ''}`}
+                            onClick={handleNextClick}
+                        >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width={20}

@@ -1773,11 +1773,22 @@ data-styled.g415[id="sc-cc99b0e2-2"] {
     z-index: 2;
     background-color: #fff;
     padding: 6px;
+    transition: opacity 0.3s ease;
 }
 
-/*!sc*/
 .fzREUO .icon.disabled {
     display: none;
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.fzREUO .icon:not(.disabled):hover {
+    background-color: #f2f6ff;
+}
+
+.fzREUO .icon:not(.disabled):active {
+    background-color: #e6eeff;
 }
 
 /*!sc*/
@@ -3101,6 +3112,21 @@ data-styled.g545[id="sc-43079b3d-0"] {
     z-index: 2;
     background-color: rgb(255, 255, 255);
     padding: 6px;
+    transition: opacity 0.3s ease;
+}
+
+.hVGhMI .icon.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.hVGhMI .icon:not(.disabled):hover {
+    background-color: #f2f6ff;
+}
+
+.hVGhMI .icon:not(.disabled):active {
+    background-color: #e6eeff;
 }
 
 .kTzRAo .product-item {
