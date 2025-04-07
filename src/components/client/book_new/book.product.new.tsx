@@ -8,6 +8,7 @@ import TopDeal from './top-deal';
 import InfoBook from './info.book';
 import SeeMore from './see.more';
 import Evaluation from './evaluation';
+import CarouselProduct from './carousel.product';
 
 interface IProps {
     currentBook: IBookTable | null;
@@ -862,7 +863,12 @@ const BookNew = (props: IProps) => {
                                     <span className="sc-f93de155-0 fvuIJS">
                                         So sánh giá từ các nhà bán khác
                                     </span>
+
+
+
                                 </a>
+                                <CarouselProduct />
+
                             </div>
                         </div>
                     </div>
