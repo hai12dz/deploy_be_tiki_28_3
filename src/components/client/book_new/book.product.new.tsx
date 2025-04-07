@@ -7,6 +7,7 @@ import SameProduct from './same.product';
 import TopDeal from './top-deal';
 import InfoBook from './info.book';
 import SeeMore from './see.more';
+import Evaluation from './evaluation';
 
 interface IProps {
     currentBook: IBookTable | null;
@@ -735,15 +736,12 @@ const BookNew = (props: IProps) => {
                                         <TopDeal />
                                         <InfoBook />
                                         <SeeMore />
+
                                     </div>
                                 </div>
                             </div>
-                            <div id="product-comparison-widget-id">
-                                <div style={{ height: 550 }} className="lazyload-placeholder" />
-                            </div>
-                            <div id="customer-review-widget-id">
-                                <div style={{ height: 550 }} className="lazyload-placeholder" />
-                            </div>
+
+                            <Evaluation />
                         </div>
                         <div className="sc-98168149-0 ftPStD">
                             <div
