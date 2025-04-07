@@ -1,37 +1,62 @@
 import './carousel.product.scss';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const CarouselProduct = () => {
+const CarouselProduct = (): JSX.Element => {
     // State to track current slide index and hover state
-    const [currentSlide, setCurrentSlide] = useState(0);
-    const [isHovering, setIsHovering] = useState(false);
+    const [currentSlide, setCurrentSlide] = useState<number>(0);
+    const [isHovering, setIsHovering] = useState<boolean>(false);
 
     // Width of each slide
-    const slideWidth = 360;
+    const slideWidth: number = 360;
 
     // Total number of slides
-    const totalSlides = 7; // Adjust based on actual number of slides
+    const totalSlides: number = 7; // Adjust based on actual number of slides
+
+    // Auto-slide interval in milliseconds (5 seconds)
+    const autoSlideInterval: number = 3000;
 
     // Handle prev click
-    const handlePrevClick = () => {
+    const handlePrevClick = (): void => {
         if (currentSlide > 0) {
             setCurrentSlide(currentSlide - 1);
         }
     };
 
     // Handle next click
-    const handleNextClick = () => {
+    const handleNextClick = (): void => {
         if (currentSlide < totalSlides - 1) {
             setCurrentSlide(currentSlide + 1);
+        } else {
+            // Loop back to the first slide when reaching the end
+            setCurrentSlide(0);
         }
     };
 
+    // Set up auto-sliding
+    useEffect(() => {
+        let interval: NodeJS.Timeout | undefined;
+
+        // Only auto-slide when not hovering
+        if (!isHovering) {
+            interval = setInterval(() => {
+                handleNextClick();
+            }, autoSlideInterval);
+        }
+
+        // Clean up the interval when component unmounts or when dependencies change
+        return () => {
+            if (interval) {
+                clearInterval(interval);
+            }
+        };
+    }, [currentSlide, isHovering]);
+
     // Determine if prev/next buttons should be disabled
-    const isPrevDisabled = currentSlide === 0;
-    const isNextDisabled = currentSlide === totalSlides - 1;
+    const isPrevDisabled: boolean = currentSlide === 0;
+    const isNextDisabled: boolean = currentSlide === totalSlides - 1;
 
     // Handle pagination dot click
-    const handlePaginationClick = (index: any) => {
+    const handlePaginationClick = (index: number): void => {
         setCurrentSlide(index);
     };
 
