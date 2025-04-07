@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './book.new.scss';
 import SameProduct from './same.product';
+import TopDeal from './top-deal';
 
 interface IProps {
     currentBook: IBookTable | null;
@@ -729,7 +730,7 @@ const BookNew = (props: IProps) => {
                                             </div>
                                         </div>
                                         <SameProduct />
-                                        <div style={{ height: 200 }} className="sc-34e0efdc-0 dSZwVn" />
+                                        <TopDeal />
                                         <div style={{ height: 194 }} className="sc-34e0efdc-0 dSZwVn" />
                                         <div style={{ height: 200 }} className="sc-34e0efdc-0 dSZwVn" />
                                     </div>
