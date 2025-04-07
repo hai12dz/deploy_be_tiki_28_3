@@ -2869,7 +2869,6 @@ data-styled.g545[id="sc-43079b3d-0"] {
     color: rgb(128, 128, 137);
 }
 
-
 .dSZwVn {
     display: flex;
     flex-direction: column;
@@ -2885,7 +2884,6 @@ data-styled.g545[id="sc-43079b3d-0"] {
     line-height: 150%;
     color: rgb(39, 39, 42);
 }
-
 
 .kAFhAU {
     display: flex;
@@ -2917,7 +2915,6 @@ data-styled.g545[id="sc-43079b3d-0"] {
     gap: 8px;
 }
 
-
 .nTUKM .shipping-info__item:last-child {
     margin: 0px;
     padding-bottom: 0px;
@@ -2938,7 +2935,6 @@ data-styled.g545[id="sc-43079b3d-0"] {
     padding-bottom: 8px;
     border-bottom: 1px solid rgb(235, 235, 240);
 }
-
 
 .nTUKM .shipping-info__item__header {
     display: flex;
@@ -2974,7 +2970,6 @@ data-styled.g545[id="sc-43079b3d-0"] {
     line-height: 20px;
 }
 
-
 .CXJre {
     display: flex;
     -webkit-box-align: center;
@@ -3004,7 +2999,6 @@ data-styled.g545[id="sc-43079b3d-0"] {
     white-space: break-spaces;
 }
 
-
 .cxMdsy {
     cursor: pointer;
 }
@@ -3014,6 +3008,7 @@ data-styled.g545[id="sc-43079b3d-0"] {
     width: 100%;
     height: 100%;
     display: block;
+    opacity: 1 !important;
 }
 
 .VYYrY {
@@ -3034,7 +3029,6 @@ data-styled.g545[id="sc-43079b3d-0"] {
     margin-right: 4px;
 }
 
-
 .iLtPWi {
     width: 100%;
     display: flex;
@@ -3049,7 +3043,6 @@ data-styled.g545[id="sc-43079b3d-0"] {
     gap: 8px;
     flex-wrap: wrap;
 }
-
 
 .fAcMPt {
     display: flex;
@@ -3107,27 +3100,48 @@ data-styled.g545[id="sc-43079b3d-0"] {
 }
 
 .esCPZO {
+    height: 100%;
     display: flex;
-    color: rgb(36, 36, 36);
-    text-decoration: none;
     flex-direction: column;
-    border: 1px solid rgb(235, 235, 240);
-    border-radius: 8px;
-    background: rgb(255, 255, 255);
-    overflow: hidden;
-    position: relative;
 }
 
 .ePleYc {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    -webkit-box-pack: justify;
     justify-content: space-between;
-    padding: 8px;
-    gap: 4px;
-    flex: 1 1 0%;
 }
 
+.sc-accfdecb-0.oeQAA.thumbnail {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    overflow: hidden;
+}
+
+.image-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.webpimg-container {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.ePleYc {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
 .hiPBCe {
     height: 20px;
@@ -3174,8 +3188,6 @@ data-styled.g545[id="sc-43079b3d-0"] {
     display: flex;
     height: 18px;
 }
-
-
 
 .eTeHeN {
     display: flex;
