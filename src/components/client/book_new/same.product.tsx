@@ -25,6 +25,11 @@ const SameProduct = () => {
         }
     };
 
+    // Handle pagination dot click
+    const handlePaginationClick = (index: any) => {
+        setCurrentSlide(index);
+    };
+
     // Determine if prev/next buttons should be disabled
     const isPrevDisabled = currentSlide === 0;
     const isNextDisabled = currentSlide === totalSlides - 1;
@@ -9520,46 +9525,20 @@ const SameProduct = () => {
                                     marginTop: 8
                                 }}
                             >
-                                <div
-                                    style={{
-                                        width: 16,
-                                        height: 2,
-                                        background: "rgba(0, 0, 0, 0.05)",
-                                        borderRadius: 4
-                                    }}
-                                />
-                                <div
-                                    style={{
-                                        width: 24,
-                                        height: 2,
-                                        background: "rgb(10, 104, 255)",
-                                        borderRadius: 4
-                                    }}
-                                />
-                                <div
-                                    style={{
-                                        width: 16,
-                                        height: 2,
-                                        background: "rgba(0, 0, 0, 0.05)",
-                                        borderRadius: 4
-                                    }}
-                                />
-                                <div
-                                    style={{
-                                        width: 16,
-                                        height: 2,
-                                        background: "rgba(0, 0, 0, 0.05)",
-                                        borderRadius: 4
-                                    }}
-                                />
-                                <div
-                                    style={{
-                                        width: 16,
-                                        height: 2,
-                                        background: "rgba(0, 0, 0, 0.05)",
-                                        borderRadius: 4
-                                    }}
-                                />
+                                {Array.from({ length: totalSlides }).map((_, index) => (
+                                    <div
+                                        key={index}
+                                        onClick={() => handlePaginationClick(index)}
+                                        style={{
+                                            width: currentSlide === index ? 24 : 16,
+                                            height: 2,
+                                            background: currentSlide === index ? "rgb(10, 104, 255)" : "rgba(0, 0, 0, 0.05)",
+                                            borderRadius: 4,
+                                            cursor: "pointer",
+                                            transition: "all 0.3s ease"
+                                        }}
+                                    />
+                                ))}
                             </div>
                         </div>
                         <span
