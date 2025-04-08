@@ -176,6 +176,17 @@ p {
     cursor: pointer;
 }
 
+.css-bg1rzq-control.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    background-color: rgb(242, 242, 242);
+}
+
+.css-bg1rzq-control.disabled:hover {
+    border-color: rgb(204, 204, 204);
+    box-shadow: none;
+}
+
 .css-1hwfws3 {
     -webkit-box-align: center;
     align-items: center;
@@ -253,6 +264,7 @@ p {
 .css-14ojxsb-control.disabled {
     cursor: not-allowed;
     opacity: 0.6;
+    background-color: rgb(242, 242, 242);
 }
 
 .css-14ojxsb-control.disabled:hover {

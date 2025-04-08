@@ -121,15 +121,14 @@ const ChangeAddress = ({ onClose, onSelectAddress }: ChangeAddressProps) => {
         if (selectedOption === 0) {
             // Use the default address
             onSelectAddress?.("Phường Hàng Trống, Quận Hoàn Kiếm, Hà Nội");
+            onClose();
         } else if (selectedOption === 1 && ward && district && province) {
-            // Use the custom selected address
+            // Use the custom selected address, only if all selections are complete
             const fullAddress = `${ward}, ${district}, ${province}`;
             onSelectAddress?.(fullAddress);
-        } else {
-            // If no address is fully selected, fallback to default
-            onSelectAddress?.("Phường Hàng Trống, Quận Hoàn Kiếm, Hà Nội");
+            onClose();
         }
-        onClose();
+        // If selections are incomplete, do nothing - stay on the modal
     };
 
     return (
@@ -417,7 +416,6 @@ const ChangeAddress = ({ onClose, onSelectAddress }: ChangeAddressProps) => {
                                 data-view-id="header_location_picker_save"
                                 className="sc-583a1fc3-6 gbyUFB"
                                 onClick={handleConfirmAddress}
-                                disabled={selectedOption === 1 && (!ward || !district || !province)}
                             >
                                 GIAO ĐẾN ĐỊA CHỈ NÀY
                             </button>
