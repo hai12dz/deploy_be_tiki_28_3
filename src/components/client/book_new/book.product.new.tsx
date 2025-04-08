@@ -10,6 +10,7 @@ import SeeMore from './see.more';
 import Evaluation from './evaluation';
 import CarouselProduct from './carousel.product';
 import RecentlyViewedProducts from '@/pages/client/home/product.seen';
+import ProductSeenRecently from './product.seen.recently';
 
 interface IProps {
     currentBook: IBookTable | null;
@@ -873,7 +874,7 @@ const BookNew = (props: IProps) => {
                             </div>
                         </div>
                     </div>
-                    <RecentlyViewedProducts />
+                    <ProductSeenRecently />
                 </div>
             </div>
         </main>
