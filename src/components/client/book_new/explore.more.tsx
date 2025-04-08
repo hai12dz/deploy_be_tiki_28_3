@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './explore.more.scss'
 const ExploreMore = () => {
     const [headerOpacity, setHeaderOpacity] = useState(1);
-    const componentRef = useRef(null);
+    const componentRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const handleScroll = () => {
