@@ -3,6 +3,7 @@ import './change.address.scss';
 
 interface ChangeAddressProps {
     onClose: () => void;
+    onSelectAddress?: (address: string) => void;
 }
 
 // Fake location data structure
@@ -37,13 +38,14 @@ const locationData: LocationData = {
 
 type DropdownType = 'province' | 'district' | 'ward' | null;
 
-const ChangeAddress = ({ onClose }: ChangeAddressProps) => {
+const ChangeAddress = ({ onClose, onSelectAddress }: ChangeAddressProps) => {
     const [selectedOption, setSelectedOption] = useState<number>(0);
     const [province, setProvince] = useState<string | null>(null);
     const [district, setDistrict] = useState<string | null>(null);
     const [ward, setWard] = useState<string | null>(null);
     const [openDropdown, setOpenDropdown] = useState<DropdownType>(null);
 
+    const modalRef = useRef<HTMLDivElement>(null);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     const provinces = Object.keys(locationData);
@@ -63,6 +65,22 @@ const ChangeAddress = ({ onClose }: ChangeAddressProps) => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
+
+    // Close modal when clicking outside
+    useEffect(() => {
+        const handleClickOutsideModal = (event: MouseEvent) => {
+            if (modalRef.current &&
+                !modalRef.current.contains(event.target as Node) &&
+                (event.target as Element).className.includes('ReactModal__Overlay')) {
+                onClose();
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutsideModal);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutsideModal);
+        };
+    }, [onClose]);
 
     const handleRadioSelect = (option: number) => {
         setSelectedOption(option);
@@ -98,6 +116,22 @@ const ChangeAddress = ({ onClose }: ChangeAddressProps) => {
         setOpenDropdown(openDropdown === type ? null : type);
     };
 
+    // Function to handle address confirmation
+    const handleConfirmAddress = () => {
+        if (selectedOption === 0) {
+            // Use the default address
+            onSelectAddress?.("Phường Hàng Trống, Quận Hoàn Kiếm, Hà Nội");
+        } else if (selectedOption === 1 && ward && district && province) {
+            // Use the custom selected address
+            const fullAddress = `${ward}, ${district}, ${province}`;
+            onSelectAddress?.(fullAddress);
+        } else {
+            // If no address is fully selected, fallback to default
+            onSelectAddress?.("Phường Hàng Trống, Quận Hoàn Kiếm, Hà Nội");
+        }
+        onClose();
+    };
+
     return (
         <div className="ReactModalPortal">
             <div
@@ -127,6 +161,7 @@ const ChangeAddress = ({ onClose }: ChangeAddressProps) => {
                         width: 600,
                         margin: "0px auto"
                     }}
+                    ref={modalRef}
                 >
                     <div className="sc-583a1fc3-0 ljjQmk">
                         <a className="sc-583a1fc3-1 jeHpbA" onClick={onClose}>
@@ -237,7 +272,9 @@ const ChangeAddress = ({ onClose }: ChangeAddressProps) => {
                                         <div className="css-1tskbye-container">
                                             <div
                                                 className={`css-bg1rzq-control ${!province ? 'disabled' : ''}`}
-                                                onClick={() => toggleDropdown('district')}
+                                                onClick={() => {
+                                                    if (province) toggleDropdown('district');
+                                                }}
                                             >
                                                 <div className="css-1hwfws3">
                                                     <div className="css-dvua67-singleValue">
@@ -286,7 +323,7 @@ const ChangeAddress = ({ onClose }: ChangeAddressProps) => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            {openDropdown === 'district' && (
+                                            {openDropdown === 'district' && province && (
                                                 <div className="dropdown-menu">
                                                     {districts.map(dist => (
                                                         <div
@@ -306,7 +343,9 @@ const ChangeAddress = ({ onClose }: ChangeAddressProps) => {
                                         <div className="css-1tskbye-container">
                                             <div
                                                 className={`css-bg1rzq-control ${!district ? 'disabled' : ''}`}
-                                                onClick={() => toggleDropdown('ward')}
+                                                onClick={() => {
+                                                    if (district) toggleDropdown('ward');
+                                                }}
                                             >
                                                 <div className="css-1hwfws3">
                                                     <div className="css-dvua67-singleValue">
@@ -355,7 +394,7 @@ const ChangeAddress = ({ onClose }: ChangeAddressProps) => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            {openDropdown === 'ward' && (
+                                            {openDropdown === 'ward' && district && (
                                                 <div className="dropdown-menu">
                                                     {wards.map(w => (
                                                         <div
@@ -377,7 +416,8 @@ const ChangeAddress = ({ onClose }: ChangeAddressProps) => {
                             <button
                                 data-view-id="header_location_picker_save"
                                 className="sc-583a1fc3-6 gbyUFB"
-                                onClick={onClose}
+                                onClick={handleConfirmAddress}
+                                disabled={selectedOption === 1 && (!ward || !district || !province)}
                             >
                                 GIAO ĐẾN ĐỊA CHỈ NÀY
                             </button>
