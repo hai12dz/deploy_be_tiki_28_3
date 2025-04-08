@@ -11,6 +11,7 @@ import Evaluation from './evaluation';
 import CarouselProduct from './carousel.product';
 import RecentlyViewedProducts from '@/pages/client/home/product.seen';
 import ProductSeenRecently from './product.seen.recently';
+import RelatedBrand from './brand.relate';
 
 interface IProps {
     currentBook: IBookTable | null;
@@ -875,6 +876,7 @@ const BookNew = (props: IProps) => {
                         </div>
                     </div>
                     <ProductSeenRecently />
+                    <RelatedBrand />
                 </div>
             </div>
         </main>
