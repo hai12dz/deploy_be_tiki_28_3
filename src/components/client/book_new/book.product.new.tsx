@@ -892,9 +892,7 @@ const BookNew = (props: IProps) => {
             <FooterWeb />
             {showAddressModal && (
                 <>
-                    <div style={{ position: 'fixed', top: '10px', left: '10px', background: 'red', color: 'white', zIndex: 9999, padding: '5px' }}>
-                        Modal is open!
-                    </div>
+
                     <ChangeAddress onClose={() => setShowAddressModal(false)} />
                 </>
             )}
