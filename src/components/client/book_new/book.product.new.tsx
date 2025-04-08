@@ -1,5 +1,6 @@
 import { useCurrentApp } from '@/components/context/app.context';
-import { App } from 'antd';
+import { App, Col, Popover, Row, Space } from 'antd';
+import { InfoCircleOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './book.new.scss';
@@ -29,6 +30,7 @@ const BookNew = (props: IProps) => {
     const navigate = useNavigate();
     const [showAddressModal, setShowAddressModal] = useState<boolean>(false);
     const [deliveryAddress, setDeliveryAddress] = useState<string>("Giao đến Q. Hoàn Kiếm, P. Hàng Trống, Hà Nội");
+    const [popoverVisible, setPopoverVisible] = useState<boolean>(false);
 
     const handleChangeQuantity = (type: 'increase' | 'decrease') => {
         if (type === 'decrease') {
@@ -111,6 +113,31 @@ const BookNew = (props: IProps) => {
     const handleAddressSelect = (address: string) => {
         setDeliveryAddress(`Giao đến ${address}`);
     };
+
+    const originalPrice = currentBook ? Number(currentBook.price || 0) : 0;
+    const discountedPrice = calculateDiscountedPrice();
+
+    const priceInfoContent = (
+        <div className="price-info-popup" style={{ width: '320px' }}>
+            <Row gutter={[0, 8]}>
+                <Col span={24}>
+                    <Space direction="vertical" style={{ width: '100%' }}>
+                        <Row justify="space-between">
+                            <Col>Giá gốc</Col>
+                            <Col>{originalPrice.toLocaleString()}đ</Col>
+                        </Row>
+                        <Row justify="space-between">
+                            <Col>Giá bán</Col>
+                            <Col>{discountedPrice.toLocaleString()}đ</Col>
+                        </Row>
+                        <Row>
+                            <Col className="discount-info">Giá đã giảm trực tiếp từ nhà bán</Col>
+                        </Row>
+                    </Space>
+                </Col>
+            </Row>
+        </div>
+    );
 
     if (!currentBook) {
         return <div>Loading...</div>;
@@ -647,8 +674,21 @@ const BookNew = (props: IProps) => {
                                                                     )}
                                                                     <div className="product-price__original-price"><del>{currentBook.price}</del><sup>₫</sup></div>
 
-                                                                    <div aria-describedby="popup-1"><picture className="webpimg-container"><source type="image/webp" srcSet="https://salt.tikicdn.com/ts/upload/7b/3e/15/a6e1a274630e27840824d4aab203aaea.png" /><img srcSet="https://salt.tikicdn.com/ts/upload/7b/3e/15/a6e1a274630e27840824d4aab203aaea.png" className="sc-900210d0-0 hFEtiz info-icon" width={14} height={14} alt="hover-icon" style={{ cursor: 'pointer', width: '14px', height: '14px', opacity: 1 }} /></picture></div>
-
+                                                                    <Popover
+                                                                        content={priceInfoContent}
+                                                                        title="Chi tiết giá"
+                                                                        trigger="click"
+                                                                        placement="bottomRight"
+                                                                        open={popoverVisible}
+                                                                        onOpenChange={setPopoverVisible}
+                                                                    >
+                                                                        <div style={{ cursor: 'pointer' }}>
+                                                                            <InfoCircleOutlined
+                                                                                className="text-gray-400 cursor-pointer"
+                                                                                style={{ fontSize: '14px' }}
+                                                                            />
+                                                                        </div>
+                                                                    </Popover>
                                                                 </div>
                                                             </div>
                                                         </div>
