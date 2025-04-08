@@ -1,0 +1,82 @@
+.ljjQmk {
+    position: relative;
+    margin: 60px 0px;
+    padding: 15px;
+    background-color: rgb(248, 248, 248);
+    border-radius: 4px;
+}
+
+.jeHpbA {
+    cursor: pointer;
+    position: absolute;
+    top: -11px;
+    right: -12px;
+    border-radius: 50%;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgb(150, 150, 150) -1px 1px 1px;
+}
+
+.fdmRhD {
+    margin-bottom: 1px;
+    padding: 15px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 4px 4px 0px 0px;
+}
+
+.hQVbFq {
+    padding: 24px 30px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 0px 0px 4px 4px;
+}
+
+.FgPq {
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding: 15px 15px 0px;
+}
+
+.tikicon.icon-circle-close {
+    background-image: url(../img/sprite.png?v=100000000);
+    background-position: -304px -29px;
+    width: 24px;
+    height: 24px;
+}
+
+.tikicon {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.fdmRhD .title {
+    margin: 0px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.hQVbFq .description {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.54);
+    line-height: 1.43;
+}
+
+p {
+    margin: 0px 0px 10px;
+}
+
+.jYahB {
+    cursor: pointer;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 10px 0px;
+    font-size: 14px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.jYahB .text {
+    margin-left: 10px;
+}

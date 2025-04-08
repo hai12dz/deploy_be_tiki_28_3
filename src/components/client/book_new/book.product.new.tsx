@@ -15,6 +15,7 @@ import RelatedBrand from './brand.relate';
 import ExploreMore from './explore.more';
 import SlideDetail from './slide.detail';
 import FooterWeb from '@/pages/client/home/footer';
+import ChangeAddress from './change.address';
 
 interface IProps {
     currentBook: IBookTable | null;
@@ -26,6 +27,7 @@ const BookNew = (props: IProps) => {
     const { setCarts, user } = useCurrentApp();
     const { message } = App.useApp();
     const navigate = useNavigate();
+    const [showAddressModal, setShowAddressModal] = useState<boolean>(false);
 
     const handleChangeQuantity = (type: 'increase' | 'decrease') => {
         if (type === 'decrease') {
@@ -652,7 +654,7 @@ const BookNew = (props: IProps) => {
 
                                             {/* <div style={{ height: 118, background: "white" }} /> */}
 
-                                            <div className="sc-34e0efdc-0 dSZwVn"><div className="sc-34e0efdc-1 ddClVB">Thông tin vận chuyển</div><div className="sc-34e0efdc-2 kAFhAU"><div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', gap: '4px', fontSize: '14px', fontWeight: 400, lineHeight: '150%', flex: '1 1 0%', minHeight: '21px' }}><div className="sc-abbfadd6-0 bXxUQh">Giao đến Q. Hoàn Kiếm, P. Hàng Trống, Hà Nội</div><span style={{ color: 'rgb(10, 104, 255)' }}>Đổi</span></div></div><div className="sc-34e0efdc-2 kAFhAU"><div className="sc-6f43b531-0 nTUKM shipping-info"><div className="shipping-info__item"><div className="shipping-info__item__header"><div className="shipping-info__item__header__logo" style={{ width: '32px' }}><img src="https://salt.tikicdn.com/ts/upload/6b/59/d9/783a8f53f8c251dbe5f644df40c21c15.png" alt="" height={16} width={32} /></div><div className="shipping-info__item__header__highlight">Giao đúng sáng mai</div></div><div className="shipping-info__item__fee"><div className="shipping-info__item__fee_name"><span style={{ color: '#27272A' }}>8h - 12h, 05/04: <span style={{ color: '#00AB56' }}>Miễn phí</span><span style={{ color: '#808089' }}>&nbsp;<del>16.500<sup><small>₫</small></sup></del></span></span></div></div></div></div></div><div className="sc-34e0efdc-2 kAFhAU" style={{ borderBottom: 'none', padding: '4px 0px' }}><div className="sc-d0c6782c-0 CXJre"><div className="sc-d0c6782c-1 fliQTf  "><div style={{ flexWrap: 'wrap' }}><picture className="webpimg-container"><source type="image/webp" srcSet="https://salt.tikicdn.com/ts/upload/67/bc/b6/7aed838df704ad50927e343895885e73.png" /><img srcSet="https://salt.tikicdn.com/ts/upload/67/bc/b6/7aed838df704ad50927e343895885e73.png" width={18} height={18} alt="freeship-icon" className="sc-900210d0-0 hFEtiz badge" style={{ width: '18px', height: '18px', opacity: 1 }} /></picture><div className="sc-d0c6782c-2 gEwNBn">Freeship 10k đơn từ 45k, Freeship 25k đơn từ 100k</div><div aria-describedby="popup-2" className="sc-f6599889-0 cxMdsy"><picture className="webpimg-container"><source type="image/webp" srcSet="https://salt.tikicdn.com/ts/ta/c1/c0/8f/1c42c78c42d4355130fa4a4ef9036892.png" /><img srcSet="https://salt.tikicdn.com/ts/ta/c1/c0/8f/1c42c78c42d4355130fa4a4ef9036892.png" width={16} height={16} alt="info-icon" className="sc-900210d0-0 hFEtiz" style={{ width: '16px', height: '16px', opacity: 1 }} /></picture></div></div></div></div></div></div>
+                                            <div className="sc-34e0efdc-0 dSZwVn"><div className="sc-34e0efdc-1 ddClVB">Thông tin vận chuyển</div><div className="sc-34e0efdc-2 kAFhAU"><div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', gap: '4px', fontSize: '14px', fontWeight: 400, lineHeight: '150%', flex: '1 1 0%', minHeight: '21px' }}><div className="sc-abbfadd6-0 bXxUQh">Giao đến Q. Hoàn Kiếm, P. Hàng Trống, Hà Nội</div><span style={{ color: 'rgb(10, 104, 255)', padding: '5px', border: '1px solid transparent' }} onClick={() => { console.log('Clicked Đổi button!'); setShowAddressModal(true); }}>Đổi</span></div></div><div className="sc-34e0efdc-2 kAFhAU"><div className="sc-6f43b531-0 nTUKM shipping-info"><div className="shipping-info__item"><div className="shipping-info__item__header"><div className="shipping-info__item__header__logo" style={{ width: '32px' }}><img src="https://salt.tikicdn.com/ts/upload/6b/59/d9/783a8f53f8c251dbe5f644df40c21c15.png" alt="" height={16} width={32} /></div><div className="shipping-info__item__header__highlight">Giao đúng sáng mai</div></div><div className="shipping-info__item__fee"><div className="shipping-info__item__fee_name"><span style={{ color: '#27272A' }}>8h - 12h, 05/04: <span style={{ color: '#00AB56' }}>Miễn phí</span><span style={{ color: '#808089' }}>&nbsp;<del>16.500<sup><small>₫</small></sup></del></span></span></div></div></div></div></div><div className="sc-34e0efdc-2 kAFhAU" style={{ borderBottom: 'none', padding: '4px 0px' }}><div className="sc-d0c6782c-0 CXJre"><div className="sc-d0c6782c-1 fliQTf  "><div style={{ flexWrap: 'wrap' }}><picture className="webpimg-container"><source type="image/webp" srcSet="https://salt.tikicdn.com/ts/upload/67/bc/b6/7aed838df704ad50927e343895885e73.png" /><img srcSet="https://salt.tikicdn.com/ts/upload/67/bc/b6/7aed838df704ad50927e343895885e73.png" width={18} height={18} alt="freeship-icon" className="sc-900210d0-0 hFEtiz badge" style={{ width: '18px', height: '18px', opacity: 1 }} /></picture><div className="sc-d0c6782c-2 gEwNBn">Freeship 10k đơn từ 45k, Freeship 25k đơn từ 100k</div><div aria-describedby="popup-2" className="sc-f6599889-0 cxMdsy"><picture className="webpimg-container"><source type="image/webp" srcSet="https://salt.tikicdn.com/ts/ta/c1/c0/8f/1c42c78c42d4355130fa4a4ef9036892.png" /><img srcSet="https://salt.tikicdn.com/ts/ta/c1/c0/8f/1c42c78c42d4355130fa4a4ef9036892.png" width={16} height={16} alt="info-icon" className="sc-900210d0-0 hFEtiz" style={{ width: '16px', height: '16px', opacity: 1 }} /></picture></div></div></div></div></div></div>
 
 
                                             <div className="sc-34e0efdc-0 dSZwVn"><div className="sc-34e0efdc-1 ddClVB">Ưu đãi khác</div><div className="sc-34e0efdc-2 kAFhAU"><div data-view-id="pdp_main_discount_coupon" id="ma-giam-gia" className="sc-34e0efdc-3 jcYGog"><span>1 Mã Giảm Giá</span><div style={{ display: 'flex', flexWrap: 'wrap' }}><div className="sc-14beda0e-0 VYYrY">Giảm 5%</div></div></div><img src="https://salt.tikicdn.com/ts/upload/16/42/c1/23a144e53aadf0357f6cd2c98b525902.png" width={24} height={24} alt="right-icon" style={{ margin: 'auto 0px auto auto', cursor: 'pointer' }} /></div></div>
@@ -888,7 +890,14 @@ const BookNew = (props: IProps) => {
                 </div>
             </main>
             <FooterWeb />
-
+            {showAddressModal && (
+                <>
+                    <div style={{ position: 'fixed', top: '10px', left: '10px', background: 'red', color: 'white', zIndex: 9999, padding: '5px' }}>
+                        Modal is open!
+                    </div>
+                    <ChangeAddress onClose={() => setShowAddressModal(false)} />
+                </>
+            )}
         </>
 
     );
