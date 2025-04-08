@@ -14,22 +14,32 @@ const ExploreMore = () => {
             const componentBottom = componentRect.bottom;
             const componentHeight = componentRect.height;
 
-            // Enhanced fade in effect - smoother start when component enters viewport
+            // Only apply effect when component is visible in viewport
             if (componentTop < window.innerHeight && componentTop > -componentHeight) {
                 // Component is visible in the viewport
 
-                // Fade in when scrolling up and component enters the viewport
+                // Fade in when component enters viewport from top
                 if (componentTop > 0) {
                     // Calculate fade in based on how much of the component has entered the viewport
                     const fadeInProgress = 1 - Math.min(1, componentTop / Math.min(400, componentHeight * 0.3));
                     setHeaderOpacity(fadeInProgress);
                 }
-                // Fade out when approaching the end of the component
-                else if (componentBottom < window.innerHeight + 200) {
-                    // Calculate how close we are to the end of the component
-                    const distanceToEnd = componentBottom - window.innerHeight;
-                    const fadeOutProgress = Math.max(0, distanceToEnd / 200);
-                    setHeaderOpacity(fadeOutProgress);
+                // Only fade out when approaching the VERY END of the component (last 15%)
+                else if (componentBottom < window.innerHeight) {
+                    // Calculate how far we are from the end - only start fading in the last 15% of the component
+                    const endThreshold = Math.max(150, componentHeight * 0.15);
+
+                    // Distance from current position to component end
+                    const distanceToEnd = componentBottom;
+
+                    if (distanceToEnd < endThreshold) {
+                        // Apply fade out only in the last portion of the component
+                        const fadeOutProgress = distanceToEnd / endThreshold;
+                        setHeaderOpacity(fadeOutProgress);
+                    } else {
+                        // Keep fully visible through most of the component
+                        setHeaderOpacity(1);
+                    }
                 }
                 // Fully visible when in the middle of viewing the component
                 else {
