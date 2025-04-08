@@ -1,15 +1,68 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './change.address.scss';
 
 interface ChangeAddressProps {
     onClose: () => void;
 }
 
+// Fake location data structure
+interface LocationData {
+    [province: string]: {
+        [district: string]: string[];
+    };
+}
+
+const locationData: LocationData = {
+    "Hà Nội": {
+        "Quận Hoàn Kiếm": ["Phường Hàng Trống", "Phường Hàng Bạc", "Phường Hàng Bồ", "Phường Hàng Gai"],
+        "Quận Ba Đình": ["Phường Liễu Giai", "Phường Ngọc Khánh", "Phường Quán Thánh", "Phường Trúc Bạch"],
+        "Quận Cầu Giấy": ["Phường Dịch Vọng", "Phường Mai Dịch", "Phường Yên Hòa", "Phường Trung Hòa"]
+    },
+    "Đà Nẵng": {
+        "Quận Hải Châu": ["Phường Hải Châu 1", "Phường Hải Châu 2", "Phường Nam Dương", "Phường Phước Ninh"],
+        "Quận Thanh Khê": ["Phường An Khê", "Phường Hòa Khê", "Phường Tam Thuận", "Phường Thanh Khê Tây"],
+        "Huyện Hòa Vang": ["Xã Hòa Châu", "Xã Hòa Tiến", "Xã Hòa Phước", "Xã Hòa Khương"]
+    },
+    "Hồ Chí Minh": {
+        "Quận 1": ["Phường Bến Nghé", "Phường Bến Thành", "Phường Cầu Ông Lãnh", "Phường Tân Định"],
+        "Quận 7": ["Phường Tân Phong", "Phường Tân Quy", "Phường Phú Mỹ", "Phường Bình Thuận"],
+        "Quận Bình Thạnh": ["Phường 1", "Phường 2", "Phường 3", "Phường 5"]
+    },
+    "Hải Phòng": {
+        "Quận Hồng Bàng": ["Phường Minh Khai", "Phường Hoàng Văn Thụ", "Phường Quán Toan"],
+        "Quận Ngô Quyền": ["Phường Lạc Viên", "Phường Gia Viên", "Phường Đông Khê"],
+        "Huyện Cát Hải": ["Thị trấn Cát Bà", "Xã Việt Hải", "Xã Xuân Đám"]
+    }
+};
+
+type DropdownType = 'province' | 'district' | 'ward' | null;
+
 const ChangeAddress = ({ onClose }: ChangeAddressProps) => {
     const [selectedOption, setSelectedOption] = useState<number>(0);
     const [province, setProvince] = useState<string | null>(null);
     const [district, setDistrict] = useState<string | null>(null);
     const [ward, setWard] = useState<string | null>(null);
+    const [openDropdown, setOpenDropdown] = useState<DropdownType>(null);
+
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    const provinces = Object.keys(locationData);
+    const districts = province ? Object.keys(locationData[province]) : [];
+    const wards = province && district ? locationData[province][district] : [];
+
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setOpenDropdown(null);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     const handleRadioSelect = (option: number) => {
         setSelectedOption(option);
@@ -20,9 +73,30 @@ const ChangeAddress = ({ onClose }: ChangeAddressProps) => {
         }
     };
 
-    const provinces = ["Hà Nội", "Đà Nẵng", "Hồ Chí Minh"];
-    const districts = province === "Đà Nẵng" ? ["Huyện Hòa Vang", "Quận Hải Châu"] : [];
-    const wards = district === "Huyện Hòa Vang" ? ["Xã Hòa Châu", "Xã Hòa Tiến"] : [];
+    const handleProvinceChange = (value: string) => {
+        setProvince(value);
+        setDistrict(null);
+        setWard(null);
+        setOpenDropdown(null);
+    };
+
+    const handleDistrictChange = (value: string) => {
+        setDistrict(value);
+        setWard(null);
+        setOpenDropdown(null);
+    };
+
+    const handleWardChange = (value: string) => {
+        setWard(value);
+        setOpenDropdown(null);
+    };
+
+    const toggleDropdown = (type: DropdownType) => {
+        if (!province && type === 'district') return;
+        if (!district && type === 'ward') return;
+
+        setOpenDropdown(openDropdown === type ? null : type);
+    };
 
     return (
         <div className="ReactModalPortal">
@@ -88,13 +162,18 @@ const ChangeAddress = ({ onClose }: ChangeAddressProps) => {
                             </div>
 
                             {selectedOption === 1 && (
-                                <div className="sc-583a1fc3-7 ertnQD">
+                                <div className="sc-583a1fc3-7 ertnQD" ref={dropdownRef}>
                                     <div className="row">
                                         <p className="location-type">Tỉnh/Thành phố</p>
                                         <div className="css-1tskbye-container">
-                                            <div className="css-bg1rzq-control">
+                                            <div
+                                                className="css-bg1rzq-control"
+                                                onClick={() => toggleDropdown('province')}
+                                            >
                                                 <div className="css-1hwfws3">
-                                                    <div className="css-dvua67-singleValue">Đà Nẵng</div>
+                                                    <div className="css-dvua67-singleValue">
+                                                        {province || "Vui lòng chọn tỉnh/thành phố"}
+                                                    </div>
                                                     <div className="css-1g6gooi">
                                                         <div className="" style={{ display: "inline-block" }}>
                                                             <input
@@ -119,23 +198,6 @@ const ChangeAddress = ({ onClose }: ChangeAddressProps) => {
                                                                     color: "inherit"
                                                                 }}
                                                             />
-                                                            <div
-                                                                style={{
-                                                                    position: "absolute",
-                                                                    top: 0,
-                                                                    left: 0,
-                                                                    visibility: "hidden",
-                                                                    height: 0,
-                                                                    overflow: "scroll",
-                                                                    whiteSpace: "pre",
-                                                                    fontSize: 13,
-                                                                    fontFamily: "Inter, Helvetica, Arial, sans-serif",
-                                                                    fontWeight: 400,
-                                                                    fontStyle: "normal",
-                                                                    letterSpacing: "normal",
-                                                                    textTransform: "none"
-                                                                }}
-                                                            />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -155,22 +217,39 @@ const ChangeAddress = ({ onClose }: ChangeAddressProps) => {
                                                     </div>
                                                 </div>
                                             </div>
+                                            {openDropdown === 'province' && (
+                                                <div className="dropdown-menu">
+                                                    {provinces.map(prov => (
+                                                        <div
+                                                            key={prov}
+                                                            className="dropdown-item"
+                                                            onClick={() => handleProvinceChange(prov)}
+                                                        >
+                                                            {prov}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
                                         </div>
-
                                     </div>
                                     <div className="row">
                                         <p className="location-type">Quận/Huyện</p>
                                         <div className="css-1tskbye-container">
-                                            <div className="css-bg1rzq-control">
+                                            <div
+                                                className={`css-bg1rzq-control ${!province ? 'disabled' : ''}`}
+                                                onClick={() => toggleDropdown('district')}
+                                            >
                                                 <div className="css-1hwfws3">
-                                                    <div className="css-dvua67-singleValue">Đà Nẵng</div>
+                                                    <div className="css-dvua67-singleValue">
+                                                        {district || "Vui lòng chọn quận/huyện"}
+                                                    </div>
                                                     <div className="css-1g6gooi">
                                                         <div className="" style={{ display: "inline-block" }}>
                                                             <input
                                                                 autoCapitalize="none"
                                                                 autoComplete="off"
                                                                 autoCorrect="off"
-                                                                id="react-select-17-input"
+                                                                id="react-select-18-input"
                                                                 spellCheck="false"
                                                                 tabIndex={0}
                                                                 type="text"
@@ -186,23 +265,6 @@ const ChangeAddress = ({ onClose }: ChangeAddressProps) => {
                                                                     outline: 0,
                                                                     padding: 0,
                                                                     color: "inherit"
-                                                                }}
-                                                            />
-                                                            <div
-                                                                style={{
-                                                                    position: "absolute",
-                                                                    top: 0,
-                                                                    left: 0,
-                                                                    visibility: "hidden",
-                                                                    height: 0,
-                                                                    overflow: "scroll",
-                                                                    whiteSpace: "pre",
-                                                                    fontSize: 13,
-                                                                    fontFamily: "Inter, Helvetica, Arial, sans-serif",
-                                                                    fontWeight: 400,
-                                                                    fontStyle: "normal",
-                                                                    letterSpacing: "normal",
-                                                                    textTransform: "none"
                                                                 }}
                                                             />
                                                         </div>
@@ -224,22 +286,39 @@ const ChangeAddress = ({ onClose }: ChangeAddressProps) => {
                                                     </div>
                                                 </div>
                                             </div>
+                                            {openDropdown === 'district' && (
+                                                <div className="dropdown-menu">
+                                                    {districts.map(dist => (
+                                                        <div
+                                                            key={dist}
+                                                            className="dropdown-item"
+                                                            onClick={() => handleDistrictChange(dist)}
+                                                        >
+                                                            {dist}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
                                         </div>
-
                                     </div>
                                     <div className="row">
                                         <p className="location-type">Phường/Xã</p>
                                         <div className="css-1tskbye-container">
-                                            <div className="css-bg1rzq-control">
+                                            <div
+                                                className={`css-bg1rzq-control ${!district ? 'disabled' : ''}`}
+                                                onClick={() => toggleDropdown('ward')}
+                                            >
                                                 <div className="css-1hwfws3">
-                                                    <div className="css-dvua67-singleValue">Đà Nẵng</div>
+                                                    <div className="css-dvua67-singleValue">
+                                                        {ward || "Vui lòng chọn phường/xã"}
+                                                    </div>
                                                     <div className="css-1g6gooi">
                                                         <div className="" style={{ display: "inline-block" }}>
                                                             <input
                                                                 autoCapitalize="none"
                                                                 autoComplete="off"
                                                                 autoCorrect="off"
-                                                                id="react-select-17-input"
+                                                                id="react-select-19-input"
                                                                 spellCheck="false"
                                                                 tabIndex={0}
                                                                 type="text"
@@ -255,23 +334,6 @@ const ChangeAddress = ({ onClose }: ChangeAddressProps) => {
                                                                     outline: 0,
                                                                     padding: 0,
                                                                     color: "inherit"
-                                                                }}
-                                                            />
-                                                            <div
-                                                                style={{
-                                                                    position: "absolute",
-                                                                    top: 0,
-                                                                    left: 0,
-                                                                    visibility: "hidden",
-                                                                    height: 0,
-                                                                    overflow: "scroll",
-                                                                    whiteSpace: "pre",
-                                                                    fontSize: 13,
-                                                                    fontFamily: "Inter, Helvetica, Arial, sans-serif",
-                                                                    fontWeight: 400,
-                                                                    fontStyle: "normal",
-                                                                    letterSpacing: "normal",
-                                                                    textTransform: "none"
                                                                 }}
                                                             />
                                                         </div>
@@ -293,8 +355,20 @@ const ChangeAddress = ({ onClose }: ChangeAddressProps) => {
                                                     </div>
                                                 </div>
                                             </div>
+                                            {openDropdown === 'ward' && (
+                                                <div className="dropdown-menu">
+                                                    {wards.map(w => (
+                                                        <div
+                                                            key={w}
+                                                            className="dropdown-item"
+                                                            onClick={() => handleWardChange(w)}
+                                                        >
+                                                            {w}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
                                         </div>
-
                                     </div>
                                 </div>
                             )}
