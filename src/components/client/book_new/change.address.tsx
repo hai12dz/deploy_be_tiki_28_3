@@ -222,7 +222,7 @@ const ChangeAddress = ({ onClose }: ChangeAddressProps) => {
                                                     {provinces.map(prov => (
                                                         <div
                                                             key={prov}
-                                                            className="dropdown-item"
+                                                            className={`dropdown-item ${province === prov ? 'selected' : ''}`}
                                                             onClick={() => handleProvinceChange(prov)}
                                                         >
                                                             {prov}
@@ -291,7 +291,7 @@ const ChangeAddress = ({ onClose }: ChangeAddressProps) => {
                                                     {districts.map(dist => (
                                                         <div
                                                             key={dist}
-                                                            className="dropdown-item"
+                                                            className={`dropdown-item ${district === dist ? 'selected' : ''}`}
                                                             onClick={() => handleDistrictChange(dist)}
                                                         >
                                                             {dist}
@@ -360,7 +360,7 @@ const ChangeAddress = ({ onClose }: ChangeAddressProps) => {
                                                     {wards.map(w => (
                                                         <div
                                                             key={w}
-                                                            className="dropdown-item"
+                                                            className={`dropdown-item ${ward === w ? 'selected' : ''}`}
                                                             onClick={() => handleWardChange(w)}
                                                         >
                                                             {w}

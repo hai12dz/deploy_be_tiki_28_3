@@ -277,6 +277,7 @@ p {
     width: 100%;
     max-height: 200px;
     overflow-y: auto;
+    overflow-x: hidden;
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -288,8 +289,23 @@ p {
 .dropdown-item {
     padding: 8px 12px;
     cursor: pointer;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .dropdown-item:hover {
-    background-color: #f5f5f5;
+    background-color: #e8f0fe;
+    /* Light blue-gray background on hover */
+}
+
+.dropdown-item.selected {
+    background-color: #4285f4;
+    /* Blue background for selected item */
+    color: white;
+}
+
+.dropdown-item.selected:hover {
+    background-color: #3b78e7;
+    /* Slightly darker blue when hovering over selected item */
 }
