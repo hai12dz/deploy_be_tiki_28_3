@@ -158,6 +158,16 @@ p {
     transition: 100ms;
     box-sizing: border-box;
     outline: 0px !important;
+    transition: all 0.2s ease;
+}
+
+.css-bg1rzq-control:hover {
+    border-color: #999;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.css-bg1rzq-control:hover .css-1g6gooi input {
+    cursor: pointer;
 }
 
 .css-1hwfws3 {
@@ -221,6 +231,10 @@ p {
     box-sizing: border-box;
 }
 
+.css-16pqwjk-indicatorContainer:hover {
+    color: #999;
+}
+
 .css-19bqh2r {
     display: inline-block;
     fill: currentcolor;
@@ -233,6 +247,11 @@ p {
 .css-14ojxsb-control.disabled {
     cursor: not-allowed;
     opacity: 0.6;
+}
+
+.css-14ojxsb-control.disabled:hover {
+    border-color: rgb(204, 204, 204);
+    box-shadow: none;
 }
 
 .dropdown {
