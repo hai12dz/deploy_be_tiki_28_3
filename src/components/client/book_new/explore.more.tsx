@@ -136,16 +136,7 @@ const ExploreMore = () => {
                                     />
                                 </picture>
                             </a>
-                            <a
-                                href="https://tiki.vn/khuyen-mai/cong-nghe-gia-hoi?itm_campaign=PDP_YPD_TKA_BNA_UNK_ALL_UNK_UNK_UNK_UNK_X.213283_Y.1795603_Z.3934244_CN.Default-banners-for-all-display-placements&itm_medium=CPM&itm_source=tiki-ads&waypoint_id=giamtoi50"
-                                className="sc-b4d1ea6b-1 kKRFTg"
-                            >
-                                Xem thêm
-                                <img
-                                    src="https://salt.tikicdn.com/ts/upload/d8/38/d3/4bef23fec35f9fbfa1757d30184ddb9c.png"
-                                    alt="more"
-                                />
-                            </a>
+
                         </div>
                     </div>
                     <div
@@ -4477,16 +4468,7 @@ const ExploreMore = () => {
                                     />
                                 </picture>
                             </a>
-                            <a
-                                href="https://tiki.vn/khuyen-mai/dien-tu-dien-gia-dung-dien-lanh?itm_campaign=PDP_YPD_TKA_BNA_UNK_ALL_UNK_UNK_UNK_UNK_X.213283_Y.1795603_Z.3934241_CN.Default-banners-for-all-display-placements&itm_medium=CPM&itm_source=tiki-ads"
-                                className="sc-b4d1ea6b-1 kKRFTg"
-                            >
-                                Xem thêm
-                                <img
-                                    src="https://salt.tikicdn.com/ts/upload/d8/38/d3/4bef23fec35f9fbfa1757d30184ddb9c.png"
-                                    alt="more"
-                                />
-                            </a>
+
                         </div>
                     </div>
                     <div
