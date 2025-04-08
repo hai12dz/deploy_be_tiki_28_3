@@ -2,15 +2,15 @@ import exp from "constants";
 import './explore.more.scss'
 const ExploreMore = () => {
     return (
-        <div className="sc-25579e0e-0 kzWQME" style={{ paddingTop: 163 }}>
+        <div className="sc-25579e0e-0 kzWQME" style={{ paddingTop: 0, position: "relative" }}>
             <div
                 className="header"
                 style={{
-                    position: "fixed",
+                    position: "sticky",
                     top: 0,
                     zIndex: 997,
-                    width: 1392,
-                    transition: "1s",
+                    width: "100%",
+                    backgroundColor: "#F5F5FA",
                     paddingTop: 16,
                     opacity: 1
                 }}
