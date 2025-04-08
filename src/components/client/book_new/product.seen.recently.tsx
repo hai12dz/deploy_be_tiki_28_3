@@ -16,6 +16,8 @@ const BookRecentDetails = (): JSX.Element => {
 
     // Handle prev click
     const handlePrevClick = (): void => {
+        // Add a console.log to debug
+        console.log('Previous clicked, current slide:', currentSlide);
         if (currentSlide > 0) {
             setCurrentSlide(currentSlide - 1);
         }
@@ -23,17 +25,14 @@ const BookRecentDetails = (): JSX.Element => {
 
     // Handle next click
     const handleNextClick = (): void => {
+        // Add a console.log to debug
+        console.log('Next clicked, current slide:', currentSlide);
         if (currentSlide < totalSlides - 1) {
             setCurrentSlide(currentSlide + 1);
         } else {
             // Loop back to the first slide when reaching the end
             setCurrentSlide(0);
         }
-    };
-
-    // Handle pagination dot click
-    const handlePaginationClick = (index: number): void => {
-        setCurrentSlide(index);
     };
 
     // Set up auto-sliding
@@ -43,7 +42,11 @@ const BookRecentDetails = (): JSX.Element => {
         // Only auto-slide when not hovering
         if (!isHovering) {
             interval = setInterval(() => {
-                handleNextClick();
+                if (currentSlide < totalSlides - 1) {
+                    setCurrentSlide(prev => prev + 1);
+                } else {
+                    setCurrentSlide(0);
+                }
             }, autoSlideInterval);
         }
 
@@ -53,11 +56,16 @@ const BookRecentDetails = (): JSX.Element => {
                 clearInterval(interval);
             }
         };
-    }, [currentSlide, isHovering]);
+    }, [currentSlide, isHovering, totalSlides, autoSlideInterval]);
 
     // Determine if prev/next buttons should be disabled
     const isPrevDisabled: boolean = currentSlide === 0;
     const isNextDisabled: boolean = currentSlide === totalSlides - 1;
+
+    // Handle pagination dot click
+    const handlePaginationClick = (index: number): void => {
+        setCurrentSlide(index);
+    };
 
     return (
         <div className="sc-34e0efdc-0 dSZwVn">
