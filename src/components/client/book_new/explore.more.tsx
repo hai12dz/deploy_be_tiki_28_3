@@ -1,8 +1,56 @@
-import exp from "constants";
+import React, { useState, useEffect, useRef } from 'react';
 import './explore.more.scss'
 const ExploreMore = () => {
+    const [headerOpacity, setHeaderOpacity] = useState(1);
+    const componentRef = useRef(null);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (!componentRef.current) return;
+
+            const componentEl = componentRef.current;
+            const componentRect = componentEl.getBoundingClientRect();
+            const componentTop = componentRect.top;
+            const componentBottom = componentRect.bottom;
+            const componentHeight = componentRect.height;
+
+            // Enhanced fade in effect - smoother start when component enters viewport
+            if (componentTop < window.innerHeight && componentTop > -componentHeight) {
+                // Component is visible in the viewport
+
+                // Fade in when scrolling up and component enters the viewport
+                if (componentTop > 0) {
+                    // Calculate fade in based on how much of the component has entered the viewport
+                    const fadeInProgress = 1 - Math.min(1, componentTop / Math.min(400, componentHeight * 0.3));
+                    setHeaderOpacity(fadeInProgress);
+                }
+                // Fade out when approaching the end of the component
+                else if (componentBottom < window.innerHeight + 200) {
+                    // Calculate how close we are to the end of the component
+                    const distanceToEnd = componentBottom - window.innerHeight;
+                    const fadeOutProgress = Math.max(0, distanceToEnd / 200);
+                    setHeaderOpacity(fadeOutProgress);
+                }
+                // Fully visible when in the middle of viewing the component
+                else {
+                    setHeaderOpacity(1);
+                }
+            } else {
+                // Component is completely out of view
+                setHeaderOpacity(0);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        handleScroll(); // Initialize on mount
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     return (
-        <div className="sc-25579e0e-0 kzWQME" style={{ paddingTop: 0, position: "relative" }}>
+        <div className="sc-25579e0e-0 kzWQME" style={{ paddingTop: 0, position: "relative" }} ref={componentRef}>
             <div
                 className="header"
                 style={{
@@ -12,7 +60,8 @@ const ExploreMore = () => {
                     width: "100%",
                     backgroundColor: "#F5F5FA",
                     paddingTop: 16,
-                    opacity: 1
+                    opacity: headerOpacity,
+                    transition: "opacity 0.5s ease" // Increased transition time for smoother effect
                 }}
             >
                 <h2 className="sc-25579e0e-1 EwjD" style={{ height: 48 }}>
