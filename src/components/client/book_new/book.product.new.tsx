@@ -1,6 +1,5 @@
 import { useCurrentApp } from '@/components/context/app.context';
 import { App, Col, Popover, Row, Space } from 'antd';
-import { InfoCircleOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './book.new.scss';
@@ -676,16 +675,33 @@ const BookNew = (props: IProps) => {
 
                                                                     <Popover
                                                                         content={priceInfoContent}
-                                                                        title="Chi tiết giá"
+                                                                        title={
+                                                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                                                                <span>Chi tiết giá</span>
+                                                                                <img
+                                                                                    srcSet="https://salt.tikicdn.com/ts/upload/bb/a8/96/96edf0241aac5851f4913ef242a5abb4.png"
+                                                                                    width="16"
+                                                                                    height="16"
+                                                                                    alt="close-icon"
+                                                                                    className="sc-900210d0-0 hFEtiz"
+                                                                                    style={{ width: '16px', height: '16px', opacity: 1, cursor: 'pointer' }}
+                                                                                    onClick={() => setPopoverVisible(false)}
+                                                                                />
+                                                                            </div>
+                                                                        }
                                                                         trigger="click"
-                                                                        placement="bottomRight"
+                                                                        placement="rightTop"
                                                                         open={popoverVisible}
                                                                         onOpenChange={setPopoverVisible}
                                                                     >
                                                                         <div style={{ cursor: 'pointer' }}>
-                                                                            <InfoCircleOutlined
-                                                                                className="text-gray-400 cursor-pointer"
-                                                                                style={{ fontSize: '14px' }}
+                                                                            <img
+                                                                                srcSet="https://salt.tikicdn.com/ts/ta/c1/c0/8f/1c42c78c42d4355130fa4a4ef9036892.png"
+                                                                                width="16"
+                                                                                height="16"
+                                                                                alt="info-icon"
+                                                                                className="sc-900210d0-0 hFEtiz"
+                                                                                style={{ width: '16px', height: '16px', opacity: 1 }}
                                                                             />
                                                                         </div>
                                                                     </Popover>
