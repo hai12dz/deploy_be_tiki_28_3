@@ -24,6 +24,7 @@ const SameProduct = () => {
                     // Calculate how many pages we'll have with 8 items per page
                     const totalItems = res.data.meta.totalItems;
                     const calculatedPages = Math.ceil(totalItems / 8);
+                    console.log(`Total items: ${totalItems}, Total pages: ${calculatedPages}`);
                     setTotalPages(calculatedPages);
                 }
             } catch (error) {
@@ -39,6 +40,7 @@ const SameProduct = () => {
     // Handle prev click
     const handlePrevClick = () => {
         if (currentSlide > 0) {
+            console.log("Moving to previous slide:", currentSlide - 1);
             setCurrentSlide(currentSlide - 1);
         }
     };
@@ -46,6 +48,7 @@ const SameProduct = () => {
     // Handle next click
     const handleNextClick = () => {
         if (currentSlide < totalPages - 1) {
+            console.log("Moving to next slide:", currentSlide + 1);
             setCurrentSlide(currentSlide + 1);
         }
     };
@@ -100,8 +103,19 @@ const SameProduct = () => {
                                     transition: "0.5s ease-in-out"
                                 }}
                             >
-                                {/* Pass the currentSlide value as a prop to SameProductApp */}
-                                <SameProductApp currentPage={currentSlide + 1} />
+                                {/* For each possible page, render a component but only the visible one will be in view */}
+                                {Array.from({ length: totalPages }).map((_, index) => (
+                                    <div
+                                        key={index}
+                                        style={{
+                                            width: slideWidth,
+                                            minWidth: slideWidth,
+                                            display: 'block'
+                                        }}
+                                    >
+                                        <SameProductApp currentPage={index + 1} />
+                                    </div>
+                                ))}
                             </span>
                             <div
                                 className="pagination"

@@ -8,51 +8,52 @@ interface SameProductAppProps {
 const SameProductApp = ({ currentPage = 1 }: SameProductAppProps) => {
     const [allBooks, setAllBooks] = useState<IBookTable[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    const pageSize = 8; // Number of books per page to display
+    const pageSize = 8;
 
     // Fetch all books once on component mount
     useEffect(() => {
+        const fetchAllBooks = async () => {
+            try {
+                setLoading(true);
+                // Fetch a larger set of books in one API call
+                const query = `current=1&pageSize=40`;
+                console.log("Fetching all books with query:", query);
+
+                const res = await getBooksAPI(query);
+                console.log("API Response:", res);
+
+                if (res && res.statusCode === 200 && res.data) {
+                    if (Array.isArray(res.data.items) && res.data.items.length > 0) {
+                        console.log(`Successfully loaded ${res.data.items.length} books`);
+                        setAllBooks(res.data.items);
+                    } else {
+                        console.warn("No books found in the response");
+                        setAllBooks([]);
+                    }
+                } else {
+                    console.error("Invalid response format:", res);
+                    setAllBooks([]);
+                }
+            } catch (error) {
+                console.error("Failed to fetch books:", error);
+                setAllBooks([]);
+            } finally {
+                setLoading(false);
+            }
+        };
+
         fetchAllBooks();
     }, []); // Empty dependency array ensures this runs only once
 
-    const fetchAllBooks = async () => {
-        try {
-            setLoading(true);
-            // Fetch a larger set of books in one API call (e.g., 40 books)
-            const query = `current=1&pageSize=40`;
-            console.log("Fetching all books with query:", query);
-
-            const res = await getBooksAPI(query);
-
-            if (res && res.statusCode === 200 && res.data) {
-                if (Array.isArray(res.data.items) && res.data.items.length > 0) {
-                    console.log(`Loaded ${res.data.items.length} total books`);
-                    setAllBooks(res.data.items);
-                } else {
-                    console.warn("No books found in the response");
-                    setAllBooks([]);
-                }
-            } else {
-                console.error("Invalid response format:", res);
-                setAllBooks([]);
-            }
-        } catch (error) {
-            console.error("Failed to fetch books:", error);
-            setAllBooks([]);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    // Get current page books from the full dataset
-    const getCurrentPageBooks = () => {
+    // Calculate what books to display based on current page
+    const displayBooks = React.useMemo(() => {
         const startIndex = (currentPage - 1) * pageSize;
-        const endIndex = startIndex + pageSize;
+        const endIndex = Math.min(startIndex + pageSize, allBooks.length);
+        console.log(`Displaying books from index ${startIndex} to ${endIndex} for page ${currentPage}`);
         return allBooks.slice(startIndex, endIndex);
-    };
+    }, [allBooks, currentPage, pageSize]);
 
-    // Get books for the current page
-    const booksToDisplay = getCurrentPageBooks();
+    console.log("Current page:", currentPage, "Books to display:", displayBooks.length);
 
     return (
         <div className="sc-714f5c73-0 dutDwQ" style={{ display: "-webkit-box", width: 552 }}>
@@ -67,8 +68,8 @@ const SameProductApp = ({ currentPage = 1 }: SameProductAppProps) => {
             >
                 {loading ? (
                     <div>Loading...</div>
-                ) : (
-                    booksToDisplay.map((book) => (
+                ) : displayBooks.length > 0 ? (
+                    displayBooks.map((book) => (
                         <div key={book.id} className="sc-e6fb8ae7-1 kTzRAo">
                             <div style={{ height: "100%", width: "100%" }}>
                                 <div style={{ height: "100%", width: "100%" }}>
@@ -245,10 +246,12 @@ const SameProductApp = ({ currentPage = 1 }: SameProductAppProps) => {
                             </div>
                         </div>
                     ))
+                ) : (
+                    <div>No books available for this page.</div>
                 )}
             </div>
         </div>
     );
-}
+};
 
 export default SameProductApp;
