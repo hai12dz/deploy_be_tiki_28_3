@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Popover } from 'antd';
-
+import './ShippingInfo.scss'
 interface ShippingInfoProps {
     deliveryAddress: string;
     onChangeAddress: () => void;
@@ -13,31 +13,41 @@ const ShippingInfo: React.FC<ShippingInfoProps> = ({
     const [shippingPopoverVisible, setShippingPopoverVisible] = useState<boolean>(false);
 
     const shippingInfoContent = (
-        <div className="popup-content" style={{ width: '350px' }}>
-            <p className="popup-title">Khuyến mãi vận chuyển</p>
-
-            <div className="popup-category">Sản phẩm thông thường</div>
-            <ul>
-                <li>Giảm 100% tối đa 10k cho đơn 45k</li>
-                <li>Giảm 100% tối đa 25k cho đơn 100k</li>
-            </ul>
-
-            <div className="popup-category" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                Sản phẩm có nhãn
-                <img
-                    src="https://salt.tikicdn.com/ts/upload/f7/85/80/51da5722c3cfa1d6d93644188d07c51a.png"
-                    alt="FREESHIP XTRA"
-                    className="freeship-img"
-                />
+        <div className="sc-f6599889-3 eEVyHi">
+            <div>
+                <div className="title">Sản phẩm thông thường</div>
+                <ul>
+                    <li className="text">Giảm 100% tối đa 10k cho đơn 45k</li>
+                    <li className="text">Giảm 100% tối đa 25k cho đơn 100k</li>
+                </ul>
             </div>
-            <ul>
-                <li>Giảm 100% tối đa 15k cho đơn 45k</li>
-                <li>Giảm 100% tối đa 70k cho đơn 100k</li>
-                <li>Giảm 100% tối đa 100k cho đơn 500k</li>
-            </ul>
-
-            <button className="popup-button">Đã hiểu</button>
+            <div>
+                <div className="title">
+                    Sản phẩm có nhãn
+                    <picture className="webpimg-container">
+                        <source
+                            type="image/webp"
+                            srcSet="https://salt.tikicdn.com/ts/upload/f7/85/80/51da5722c3cfa1d6d93644188d07c51a.png"
+                        />
+                        <img
+                            srcSet="https://salt.tikicdn.com/ts/upload/f7/85/80/51da5722c3cfa1d6d93644188d07c51a.png"
+                            width={79}
+                            height={16}
+                            alt="freeship-icon"
+                            className="sc-900210d0-0 hFEtiz badge"
+                            style={{ width: 79, height: 16, opacity: 1 }}
+                        />
+                    </picture>
+                </div>
+                <ul>
+                    <li className="text">Giảm 100% tối đa 15k cho đơn 45k</li>
+                    <li className="text">Giảm 100% tối đa 70k cho đơn 100k</li>
+                    <li className="text">Giảm 100% tối đa 100k cho đơn 500k</li>
+                </ul>
+            </div>
+            <div className="sc-f6599889-4 cgFBJP">Đã hiểu</div>
         </div>
+
     );
 
     return (
@@ -109,7 +119,7 @@ const ShippingInfo: React.FC<ShippingInfoProps> = ({
                                                 />
                                             </div>
                                         }
-                                        trigger="click"
+                                        trigger="hover"
                                         placement="rightTop"
                                         open={shippingPopoverVisible}
                                         onOpenChange={setShippingPopoverVisible}
