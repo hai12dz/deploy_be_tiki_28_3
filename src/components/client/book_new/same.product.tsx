@@ -6,31 +6,34 @@ import { getBooksAPI } from '@/services/api';
 const SameProduct = () => {
     // State to track current slide index
     const [currentSlide, setCurrentSlide] = useState(0);
-    const [totalPages, setTotalPages] = useState(1);
+    const [totalPages, setTotalPages] = useState(5); // Default value, will be updated
     const [loading, setLoading] = useState(false);
 
     // Width of each slide group (matches the width in the existing style)
     const slideWidth = 560;
 
-    // Fetch total pages on initial load
+    // Fetch total count to calculate total pages
     useEffect(() => {
-        const fetchTotalPages = async () => {
+        const fetchTotalCount = async () => {
             try {
                 setLoading(true);
-                const query = 'current=1&pageSize=8';
+                const query = 'current=1&pageSize=1';
                 const res = await getBooksAPI(query);
 
                 if (res && res.statusCode === 200 && res.data && res.data.meta) {
-                    setTotalPages(res.data.meta.totalPages || 1);
+                    // Calculate how many pages we'll have with 8 items per page
+                    const totalItems = res.data.meta.totalItems;
+                    const calculatedPages = Math.ceil(totalItems / 8);
+                    setTotalPages(calculatedPages);
                 }
             } catch (error) {
-                console.error("Failed to fetch total pages:", error);
+                console.error("Failed to fetch total count:", error);
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchTotalPages();
+        fetchTotalCount();
     }, []);
 
     // Handle prev click
@@ -97,8 +100,8 @@ const SameProduct = () => {
                                     transition: "0.5s ease-in-out"
                                 }}
                             >
-
-                                <SameProductApp />
+                                {/* Pass the currentSlide value as a prop to SameProductApp */}
+                                <SameProductApp currentPage={currentSlide + 1} />
                             </span>
                             <div
                                 className="pagination"

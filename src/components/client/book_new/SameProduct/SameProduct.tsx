@@ -1,57 +1,58 @@
 import React, { useEffect, useState } from 'react';
 import { getBooksAPI } from '@/services/api';
 
-const SameProductApp = () => {
-    const [books, setBooks] = useState<IBookTable[]>([]);
+interface SameProductAppProps {
+    currentPage: number;
+}
+
+const SameProductApp = ({ currentPage = 1 }: SameProductAppProps) => {
+    const [allBooks, setAllBooks] = useState<IBookTable[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    const [pagination, setPagination] = useState({
-        current: 1,
-        pageSize: 8,
-        totalPages: 1
-    });
+    const pageSize = 8; // Number of books per page to display
 
+    // Fetch all books once on component mount
     useEffect(() => {
-        fetchBooks();
-    }, [pagination.current]);
+        fetchAllBooks();
+    }, []); // Empty dependency array ensures this runs only once
 
-    const fetchBooks = async () => {
+    const fetchAllBooks = async () => {
         try {
             setLoading(true);
-            const query = `current=${pagination.current}&pageSize=${pagination.pageSize}`;
-            console.log("Fetching books with query:", query);
+            // Fetch a larger set of books in one API call (e.g., 40 books)
+            const query = `current=1&pageSize=40`;
+            console.log("Fetching all books with query:", query);
 
             const res = await getBooksAPI(query);
-            console.log("API Response for page", pagination.current, ":", res);
 
-            // With your customized axios, res is already the backend response
             if (res && res.statusCode === 200 && res.data) {
-                // Check if items array exists and has items
                 if (Array.isArray(res.data.items) && res.data.items.length > 0) {
-                    console.log("Books fetched successfully:", res.data.items.length, "items");
-                    setBooks(res.data.items);
-                    setPagination(prev => ({
-                        ...prev,
-                        totalPages: res.data!.meta.totalPages || 1
-                    }));
+                    console.log(`Loaded ${res.data.items.length} total books`);
+                    setAllBooks(res.data.items);
                 } else {
-                    console.warn("No books found in the response:", res.data);
-                    setBooks([]);
+                    console.warn("No books found in the response");
+                    setAllBooks([]);
                 }
             } else {
                 console.error("Invalid response format:", res);
-                // If there's an error message, display it
-                if (res && res.error) {
-                    console.error("API Error:", res.error);
-                }
-                setBooks([]);
+                setAllBooks([]);
             }
         } catch (error) {
             console.error("Failed to fetch books:", error);
-            setBooks([]);
+            setAllBooks([]);
         } finally {
             setLoading(false);
         }
     };
+
+    // Get current page books from the full dataset
+    const getCurrentPageBooks = () => {
+        const startIndex = (currentPage - 1) * pageSize;
+        const endIndex = startIndex + pageSize;
+        return allBooks.slice(startIndex, endIndex);
+    };
+
+    // Get books for the current page
+    const booksToDisplay = getCurrentPageBooks();
 
     return (
         <div className="sc-714f5c73-0 dutDwQ" style={{ display: "-webkit-box", width: 552 }}>
@@ -67,7 +68,7 @@ const SameProductApp = () => {
                 {loading ? (
                     <div>Loading...</div>
                 ) : (
-                    books.map((book) => (
+                    booksToDisplay.map((book) => (
                         <div key={book.id} className="sc-e6fb8ae7-1 kTzRAo">
                             <div style={{ height: "100%", width: "100%" }}>
                                 <div style={{ height: "100%", width: "100%" }}>
