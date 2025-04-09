@@ -1,16 +1,37 @@
 import './book.new.scss'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SameProductApp from './SameProduct/SameProduct';
+import { getBooksAPI } from '@/services/api';
 
 const SameProduct = () => {
     // State to track current slide index
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [totalPages, setTotalPages] = useState(1);
+    const [loading, setLoading] = useState(false);
 
     // Width of each slide group (matches the width in the existing style)
     const slideWidth = 560;
 
-    // Total number of slides (based on dutDwQ divs in the content)
-    const totalSlides = 5; // Adjust based on actual number of slide containers
+    // Fetch total pages on initial load
+    useEffect(() => {
+        const fetchTotalPages = async () => {
+            try {
+                setLoading(true);
+                const query = 'current=1&pageSize=8';
+                const res = await getBooksAPI(query);
+
+                if (res && res.statusCode === 200 && res.data && res.data.meta) {
+                    setTotalPages(res.data.meta.totalPages || 1);
+                }
+            } catch (error) {
+                console.error("Failed to fetch total pages:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchTotalPages();
+    }, []);
 
     // Handle prev click
     const handlePrevClick = () => {
@@ -21,19 +42,19 @@ const SameProduct = () => {
 
     // Handle next click
     const handleNextClick = () => {
-        if (currentSlide < totalSlides - 1) {
+        if (currentSlide < totalPages - 1) {
             setCurrentSlide(currentSlide + 1);
         }
     };
 
     // Handle pagination dot click
-    const handlePaginationClick = (index: any) => {
+    const handlePaginationClick = (index: number) => {
         setCurrentSlide(index);
     };
 
     // Determine if prev/next buttons should be disabled
     const isPrevDisabled = currentSlide === 0;
-    const isNextDisabled = currentSlide === totalSlides - 1;
+    const isNextDisabled = currentSlide === totalPages - 1;
 
     return (
         <>
@@ -90,7 +111,7 @@ const SameProduct = () => {
                                     marginTop: 8
                                 }}
                             >
-                                {Array.from({ length: totalSlides }).map((_, index) => (
+                                {Array.from({ length: totalPages }).map((_, index) => (
                                     <div
                                         key={index}
                                         onClick={() => handlePaginationClick(index)}

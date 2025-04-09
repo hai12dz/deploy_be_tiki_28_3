@@ -18,18 +18,31 @@ const SameProductApp = () => {
         try {
             setLoading(true);
             const query = `current=${pagination.current}&pageSize=${pagination.pageSize}`;
+            console.log("Fetching books with query:", query);
+
             const res = await getBooksAPI(query);
+            console.log("API Response for page", pagination.current, ":", res);
 
             // With your customized axios, res is already the backend response
-            // not wrapped in response.data
             if (res && res.statusCode === 200 && res.data) {
-                setBooks(res.data.items || []);
-                setPagination(prev => ({
-                    ...prev,
-                    totalPages: res.data!.meta.totalPages
-                }));
+                // Check if items array exists and has items
+                if (Array.isArray(res.data.items) && res.data.items.length > 0) {
+                    console.log("Books fetched successfully:", res.data.items.length, "items");
+                    setBooks(res.data.items);
+                    setPagination(prev => ({
+                        ...prev,
+                        totalPages: res.data!.meta.totalPages || 1
+                    }));
+                } else {
+                    console.warn("No books found in the response:", res.data);
+                    setBooks([]);
+                }
             } else {
-                console.error("Received invalid data format:", res);
+                console.error("Invalid response format:", res);
+                // If there's an error message, display it
+                if (res && res.error) {
+                    console.error("API Error:", res.error);
+                }
                 setBooks([]);
             }
         } catch (error) {
@@ -37,24 +50,6 @@ const SameProductApp = () => {
             setBooks([]);
         } finally {
             setLoading(false);
-        }
-    };
-
-    const handlePrevPage = () => {
-        if (pagination.current > 1) {
-            setPagination(prev => ({
-                ...prev,
-                current: prev.current - 1
-            }));
-        }
-    };
-
-    const handleNextPage = () => {
-        if (pagination.current < pagination.totalPages) {
-            setPagination(prev => ({
-                ...prev,
-                current: prev.current + 1
-            }));
         }
     };
 
@@ -250,45 +245,6 @@ const SameProductApp = () => {
                         </div>
                     ))
                 )}
-            </div>
-
-            {/* Pagination controls */}
-            <div style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginTop: 20
-            }}>
-                <button
-                    onClick={handlePrevPage}
-                    disabled={pagination.current <= 1}
-                    style={{
-                        padding: "8px 16px",
-                        borderRadius: "4px",
-                        backgroundColor: pagination.current <= 1 ? "#ccc" : "#007bff",
-                        color: "white",
-                        border: "none",
-                        cursor: pagination.current <= 1 ? "not-allowed" : "pointer"
-                    }}
-                >
-                    Previous
-                </button>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                    Page {pagination.current} of {pagination.totalPages}
-                </div>
-                <button
-                    onClick={handleNextPage}
-                    disabled={pagination.current >= pagination.totalPages}
-                    style={{
-                        padding: "8px 16px",
-                        borderRadius: "4px",
-                        backgroundColor: pagination.current >= pagination.totalPages ? "#ccc" : "#007bff",
-                        color: "white",
-                        border: "none",
-                        cursor: pagination.current >= pagination.totalPages ? "not-allowed" : "pointer"
-                    }}
-                >
-                    Next
-                </button>
             </div>
         </div>
     );
