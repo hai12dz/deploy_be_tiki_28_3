@@ -82,6 +82,7 @@ declare global {
         createdAt: Date;
         updatedAt: Date;
         supplier: ISupplierDto
+        rating_svg: number
     }
     interface ISupplierDto {
         id: number;

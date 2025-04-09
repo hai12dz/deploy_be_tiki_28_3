@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { getBooksAPI } from '@/services/api';
-
-
 
 const SameProductApp = () => {
     const [books, setBooks] = useState<IBookTable[]>([]);
@@ -23,17 +20,21 @@ const SameProductApp = () => {
             const query = `current=${pagination.current}&pageSize=${pagination.pageSize}`;
             const res = await getBooksAPI(query);
 
-            // Based on your axios customization, res is already the data portion
-            // of the response, not the full axios response
-            if (res && res.data) {
+            // With your customized axios, res is already the backend response
+            // not wrapped in response.data
+            if (res && res.statusCode === 200 && res.data) {
                 setBooks(res.data.items || []);
                 setPagination(prev => ({
                     ...prev,
                     totalPages: res.data!.meta.totalPages
                 }));
+            } else {
+                console.error("Received invalid data format:", res);
+                setBooks([]);
             }
         } catch (error) {
             console.error("Failed to fetch books:", error);
+            setBooks([]);
         } finally {
             setLoading(false);
         }
@@ -162,7 +163,70 @@ const SameProductApp = () => {
                                                                         display: "inline-block"
                                                                     }}
                                                                 >
-                                                                    {/* Star ratings would go here */}
+                                                                    <div
+                                                                        style={{
+                                                                            zIndex: 2,
+                                                                            position: "absolute",
+                                                                            left: 0,
+                                                                            top: 0,
+                                                                            bottom: 0,
+                                                                            width: `${book.rating_svg * 20}%`,
+                                                                            overflow: "hidden"
+                                                                        }}
+                                                                    >
+                                                                        {[1, 2, 3, 4, 5].map((star) => (
+                                                                            <svg
+                                                                                key={star}
+                                                                                width={12}
+                                                                                height={12}
+                                                                                fill="none"
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                style={{ width: 12, height: 12 }}
+                                                                            >
+                                                                                <g clipPath="url(#a)">
+                                                                                    <path
+                                                                                        d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
+                                                                                        fill="#FFC400"
+                                                                                    />
+                                                                                </g>
+                                                                                <defs>
+                                                                                    <clipPath id="a">
+                                                                                        <path
+                                                                                            fill="#fff"
+                                                                                            transform="translate(1 1.5)"
+                                                                                            d="M0 0h10v10H0z"
+                                                                                        />
+                                                                                    </clipPath>
+                                                                                </defs>
+                                                                            </svg>
+                                                                        ))}
+                                                                    </div>
+                                                                    {/* Background Stars (Empty) */}
+                                                                    {[1, 2, 3, 4, 5].map((star) => (
+                                                                        <svg
+                                                                            key={star}
+                                                                            width={12}
+                                                                            height={12}
+                                                                            fill="none"
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                        >
+                                                                            <g clipPath="url(#a)">
+                                                                                <path
+                                                                                    d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
+                                                                                    fill="#DDDDE3"
+                                                                                />
+                                                                            </g>
+                                                                            <defs>
+                                                                                <clipPath id="a">
+                                                                                    <path
+                                                                                        fill="#fff"
+                                                                                        transform="translate(1 1.5)"
+                                                                                        d="M0 0h10v10H0z"
+                                                                                    />
+                                                                                </clipPath>
+                                                                            </defs>
+                                                                        </svg>
+                                                                    ))}
                                                                 </div>
                                                             </div>
                                                         </div>
