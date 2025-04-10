@@ -59,12 +59,8 @@ const HomePage = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [filter, setFilter] = useState<string>("");
     const [sortQuery, setSortQuery] = useState<string>("sort=-sold");
-    const [showMobileFilter, setShowMobileFilter] = useState<boolean>(false);
-    const [nameCategory, setNameCategory] = useState<{ [key: string]: string[] }>({});
     const [listBrand, setListBrand] = useState<IBrands[]>([])
     const [listSupplier, setListSupplier] = useState<ISupplier[]>([])
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [queryFiler, setQueryFilter] = useState<string>("")
     const [category, setCategory] = useState<string>("")
     const [listFullCategory, setListFullCategory] = useState<ICategory[]>([])
     const [form] = Form.useForm();
@@ -82,11 +78,6 @@ const HomePage = () => {
     // Trộn ngẫu nhiên danh sách và lấy số lượng sản phẩm ngẫu nhiên
     const randomBooks = _.shuffle(listBook).slice(0, randomCount);
 
-
-    // Format price with Vietnamese currency
-    const formatPrice = (price: any) => {
-        return price.toLocaleString('vi-VN') + 'đ';
-    };
 
     useEffect(() => {
         const initCategory = async () => {
@@ -156,86 +147,9 @@ const HomePage = () => {
     }
 
 
-    const handleOnchangePage = (pagination: { current: number, pageSize: number }) => {
-        if (pagination && pagination.current !== current) {
-            setCurrent(pagination.current)
-        }
-        if (pagination && pagination.pageSize !== pageSize) {
-            setPageSize(pagination.pageSize)
-            setCurrent(1);
-        }
-
-    }
-
-
-    const handleChangeFilter = (changedValues: any, values: any) => {
-        //only fire if category changes
-        if (changedValues.category) {
-            const cate = values.category;
-            if (cate && cate.length > 0) {
-                const f = cate.join(',');
-                setFilter(`category=${f}`)
-            } else {
-                //reset data -> fetch all
-                setFilter('');
-            }
-        }
-
-    }
-
-    const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
-        if (values?.range?.from >= 0 && values?.range?.to >= 0) {
-            let f = `price>=${values?.range?.from}&price<=${values?.range?.to}`;
-            if (values?.category?.length) {
-                const cate = values?.category?.join(',');
-                f += `&category=${cate}`
-            }
-            setFilter(f);
-        }
-
-    }
-
-    const onChange = (key: string) => {
-        // console.log(key);
-    };
-
-    const items = [
-        {
-            key: "sort=-sold",
-            label: `Phổ biến`,
-            children: <></>,
-        },
-        {
-            key: 'sort=-updatedAt',
-            label: `Hàng Mới`,
-            children: <></>,
-        },
-        {
-            key: 'sort=price',
-            label: `Giá Thấp Đến Cao`,
-            children: <></>,
-        },
-        {
-            key: 'sort=-price',
-            label: `Giá Cao Đến Thấp`,
-            children: <></>,
-        },
-    ];
 
 
 
-
-    // Hàm lấy danh mục con của từng category riêng biệt
-    const showCategories = async (categoryName: string) => {
-
-        const query = `name=${categoryName}`;
-        const res = await getNameCategoryAPI(query);
-
-        setNameCategory(prevState => ({
-            ...prevState,
-            [categoryName]: res.data ?? []
-        }));
-    };
 
     const filterProduct = async () => {
         let query = `current=1&pageSize=${pageSize}`;
@@ -305,15 +219,10 @@ const HomePage = () => {
                 <h1 className="tiki-hidden-title">
                     Nhà Sách Tiki giá cực tốt, freeship, giao nhanh 2h | tiki.vn
                 </h1>
-
-
                 <div className="sc-6d96a9af-0 sc-dfad4f1d-1 eTnNSC hYoCsj">
-
                     <Breadcrumb />
                     <div className="sc-dfad4f1d-0 dHZHvj">
-
                         <CategoryExplorer />
-
                         <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
                             <TikiBookstore
                                 isLoading={isLoading}
@@ -327,44 +236,14 @@ const HomePage = () => {
                                     listBook={sharedListBook} />
                             </div>
                         </div>
-
-
                     </div>
-
                     <RecentlyViewedProducts />
                     <TikiAdsComponent />
                     <BookShopComponent />
                     <RelatedSearch />
                     <TikiBestsellers />
-
-
                 </div>
                 <FooterWeb />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </main>
 
         </>
