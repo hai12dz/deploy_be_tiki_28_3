@@ -40,13 +40,13 @@ const Evaluation = () => {
                                     <div className="review-rating__heading">Tổng quan</div>
                                     <div className="review-rating__inner">
                                         <div className="review-rating__summary">
-                                            <div className="review-rating__point">4.7</div>
+                                            <div className="review-rating__point">4.9</div>
                                             <div className="review-rating__stars">
                                                 <div
                                                     className="sc-a236768f-0 fFhahK"
                                                     style={{ whiteSpace: "nowrap" }}
                                                 >
-                                                    <span>
+                                                    <span className="span-judge">
                                                         <img
                                                             alt="star-icon"
                                                             src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
@@ -54,7 +54,7 @@ const Evaluation = () => {
                                                             height={24}
                                                         />
                                                     </span>
-                                                    <span>
+                                                    <span className="span-judge">
                                                         <img
                                                             alt="star-icon"
                                                             src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
@@ -62,7 +62,7 @@ const Evaluation = () => {
                                                             height={24}
                                                         />
                                                     </span>
-                                                    <span>
+                                                    <span className="span-judge">
                                                         <img
                                                             alt="star-icon"
                                                             src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
@@ -70,7 +70,7 @@ const Evaluation = () => {
                                                             height={24}
                                                         />
                                                     </span>
-                                                    <span>
+                                                    <span className="span-judge">
                                                         <img
                                                             alt="star-icon"
                                                             src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
@@ -78,7 +78,7 @@ const Evaluation = () => {
                                                             height={24}
                                                         />
                                                     </span>
-                                                    <span>
+                                                    <span className="span-judge">
                                                         <img
                                                             alt="star-icon"
                                                             src="https://salt.tikicdn.com/ts/upload/7b/fe/fc/3da9d35ef717692a4b3b345f44e55caf.png"
@@ -86,7 +86,7 @@ const Evaluation = () => {
                                                             height={24}
                                                         />
                                                     </span>
-                                                    <div style={{ width: "94%" }}>
+                                                    <div style={{ width: "98%" }}>
                                                         <span>
                                                             <img
                                                                 alt="star-icon"
@@ -131,7 +131,7 @@ const Evaluation = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="review-rating__total">(114 đánh giá)</div>
+                                        <div className="review-rating__total">(96 đánh giá)</div>
                                         <div className="review-rating__detail">
                                             <div className="review-rating__level">
                                                 <div
@@ -222,9 +222,9 @@ const Evaluation = () => {
                                                     </div>
                                                 </div>
                                                 <div className="sc-4b1322bd-2 qmgSA">
-                                                    <div style={{ width: "84%" }} />
+                                                    <div style={{ width: "94%" }} />
                                                 </div>
-                                                <div className="review-rating__number">95</div>
+                                                <div className="review-rating__number">90</div>
                                             </div>
                                             <div className="review-rating__level">
                                                 <div
@@ -315,9 +315,9 @@ const Evaluation = () => {
                                                     </div>
                                                 </div>
                                                 <div className="sc-4b1322bd-2 qmgSA">
-                                                    <div style={{ width: "12%" }} />
+                                                    <div style={{ width: "5%" }} />
                                                 </div>
-                                                <div className="review-rating__number">13</div>
+                                                <div className="review-rating__number">5</div>
                                             </div>
                                             <div className="review-rating__level">
                                                 <div
@@ -408,9 +408,9 @@ const Evaluation = () => {
                                                     </div>
                                                 </div>
                                                 <div className="sc-4b1322bd-2 qmgSA">
-                                                    <div style={{ width: "2%" }} />
+                                                    <div style={{ width: "1%" }} />
                                                 </div>
-                                                <div className="review-rating__number">3</div>
+                                                <div className="review-rating__number">1</div>
                                             </div>
                                             <div className="review-rating__level">
                                                 <div
@@ -501,9 +501,9 @@ const Evaluation = () => {
                                                     </div>
                                                 </div>
                                                 <div className="sc-4b1322bd-2 qmgSA">
-                                                    <div style={{ width: "1%" }} />
+                                                    <div style={{ width: "0%" }} />
                                                 </div>
-                                                <div className="review-rating__number">1</div>
+                                                <div className="review-rating__number">0</div>
                                             </div>
                                             <div className="review-rating__level">
                                                 <div
@@ -594,9 +594,9 @@ const Evaluation = () => {
                                                     </div>
                                                 </div>
                                                 <div className="sc-4b1322bd-2 qmgSA">
-                                                    <div style={{ width: "1%" }} />
+                                                    <div style={{ width: "0%" }} />
                                                 </div>
-                                                <div className="review-rating__number">2</div>
+                                                <div className="review-rating__number">0</div>
                                             </div>
                                         </div>
                                     </div>
@@ -617,9 +617,7 @@ const Evaluation = () => {
                                     <div className="section-item">
                                         <div className="title">
                                             <span className="text-bold">Về sản phẩm:</span>{" "}
-                                            <span className="text-lighter">
-                                                (15 tích cực, 6 tiêu cực)
-                                            </span>
+                                            <span className="text-lighter">(34 tích cực, 0 tiêu cực)</span>
                                         </div>
                                         <div className="flex text">
                                             <img
@@ -628,7 +626,10 @@ const Evaluation = () => {
                                                 width={16}
                                                 height={16}
                                             />
-                                            <div>Nội dung bổ ích, dễ hiểu, thực tế.</div>
+                                            <div>
+                                                Đa số người mua khen ngợi về cách tác giả lồng ghép câu chuyện và
+                                                liên kết tình tiết một cách khéo léo và bất ngờ.
+                                            </div>
                                         </div>
                                         <div className="flex text">
                                             <img
@@ -637,7 +638,9 @@ const Evaluation = () => {
                                                 width={16}
                                                 height={16}
                                             />
-                                            <div>Sách in đẹp, giấy tốt, trình bày rõ ràng.</div>
+                                            <div>
+                                                Sách được đánh giá là hay, cuốn hút và có nội dung nhẹ nhàng.
+                                            </div>
                                         </div>
                                         <div className="flex text">
                                             <img
@@ -646,22 +649,22 @@ const Evaluation = () => {
                                                 width={16}
                                                 height={16}
                                             />
-                                            <div>Giá tốt, đúng chất thực chiến.</div>
+                                            <div>Một số người mua thích hình thức sách, đặc biệt là bìa.</div>
                                         </div>
                                         <div className="flex text">
                                             <img
                                                 alt="icon"
-                                                src="https://salt.tikicdn.com/ts/ta/28/aa/3f/b21c8fac9240dd055b363255cc1fc72e.png"
+                                                src="https://salt.tikicdn.com/ts/ta/6e/32/bd/0e629541310a1a8132b6ef8666827ba9.png"
                                                 width={16}
                                                 height={16}
                                             />
-                                            <div>Nội dung cơ bản, lỗi thời, có thể tìm trên mạng.</div>
+                                            <div>Có nhận xét rằng sách đẹp và mới.</div>
                                         </div>
                                     </div>
                                     <div className="section-item">
                                         <div className="title">
                                             <span className="text-bold">Về dịch vụ:</span>{" "}
-                                            <span className="text-lighter">(8 tích cực, 1 tiêu cực)</span>
+                                            <span className="text-lighter">(10 tích cực, 0 tiêu cực)</span>
                                         </div>
                                         <div className="flex text">
                                             <img
@@ -670,7 +673,9 @@ const Evaluation = () => {
                                                 width={16}
                                                 height={16}
                                             />
-                                            <div>Giao hàng nhanh, đóng gói cẩn thận.</div>
+                                            <div>
+                                                Đa số khách hàng hài lòng với giao hàng nhanh và đóng gói cẩn thận.
+                                            </div>
                                         </div>
                                         <div className="flex text">
                                             <img
@@ -679,50 +684,32 @@ const Evaluation = () => {
                                                 width={16}
                                                 height={16}
                                             />
-                                            <div>Nhân viên chuyên nghiệp, thái độ tốt.</div>
-                                        </div>
-                                        <div className="flex text">
-                                            <img
-                                                alt="icon"
-                                                src="https://salt.tikicdn.com/ts/ta/6e/32/bd/0e629541310a1a8132b6ef8666827ba9.png"
-                                                width={16}
-                                                height={16}
-                                            />
-                                            <div>Hỗ trợ khách hàng tốt sau bán hàng.</div>
-                                        </div>
-                                        <div className="flex text">
-                                            <img
-                                                alt="icon"
-                                                src="https://salt.tikicdn.com/ts/ta/28/aa/3f/b21c8fac9240dd055b363255cc1fc72e.png"
-                                                width={16}
-                                                height={16}
-                                            />
-                                            <div>Đơn hàng không đóng hộp giấy, sách bị rách.</div>
+                                            <div>
+                                                Một số người mua đánh giá cao về sự thân thiện và nhanh nhẹn của
+                                                nhân viên giao hàng.
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="flex flex-between">
                                         <div className=" flex flex-between wrapper-icon">
                                             <img
                                                 alt="icon"
-                                                src={topIconSrc}
+                                                src="https://salt.tikicdn.com/ts/ta/6a/2c/6e/125f814f740ad14defbb98b7b49dfa49.png"
                                                 width={32}
                                                 height={32}
-                                                onClick={handleTopIconClick}
-                                                style={{ cursor: 'pointer' }}
                                             />
                                             <img
                                                 alt="icon"
-                                                src={bottomIconSrc}
+                                                src="https://salt.tikicdn.com/ts/ta/95/ae/66/2957a823955457b65f6f9150e41b5cb0.png"
                                                 width={32}
                                                 height={32}
-                                                onClick={handleBottomIconClick}
-                                                style={{ cursor: 'pointer' }}
                                             />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div className="customer-reviews__top">
                             <div
                                 style={{
