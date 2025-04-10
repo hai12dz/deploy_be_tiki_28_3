@@ -292,7 +292,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ currentBook }) => {
                             <div className="product-price">
                                 <div
                                     className="product-price__current-price"
-                                    style={{ color: "#27272A" }}
+                                    style={{ color: 'rgb(255, 66, 78)' }}
                                 >
                                     {formatPrice(calculateDiscountedPrice())}<sup>₫</sup>
                                 </div>

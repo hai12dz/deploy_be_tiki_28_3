@@ -115,12 +115,13 @@ const BookNew = (props: IProps) => {
         return originalPrice - (originalPrice * discountPercent / 100);
     };
 
+    const originalPrice = currentBook ? Number(currentBook.price || 0) : 0;
+    const discountedPrice = calculateDiscountedPrice();
+    const calculatedTotalPrice = discountedPrice * currentQuantity;
+
     const handleAddressSelect = (address: string) => {
         setDeliveryAddress(`Giao đến ${address}`);
     };
-
-    const originalPrice = currentBook ? Number(currentBook.price || 0) : 0;
-    const discountedPrice = calculateDiscountedPrice();
 
     const priceInfoContent = (
         <div className="price-info-popup" style={{ width: '320px' }}>
@@ -192,7 +193,7 @@ const BookNew = (props: IProps) => {
                                 onChangeInput={handleChangeInput}
                                 onAddToCart={handleAddToCart}
                                 formatPrice={formatPrice}
-                                calculatedPrice={calculateDiscountedPrice()}
+                                calculatedPrice={calculatedTotalPrice}
                             />
 
                         </div>
