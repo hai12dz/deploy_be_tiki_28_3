@@ -9,7 +9,7 @@ const RelatedBrand = () => {
     const slideWidth = 674;
 
     // Total number of slides
-    const totalSlides = 4;
+    const totalSlides = 2;
 
     // Auto-slide interval in milliseconds (5 seconds)
     const autoSlideInterval = 5000;
