@@ -299,19 +299,10 @@ const HomePage = () => {
                     alt="tiki"
                     width="99999"
                     height="99999"
-                    style={{
-                        pointerEvents: "none",
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        width: "99vw",
-                        height: "99vh",
-                        maxWidth: "99vw",
-                        maxHeight: "99vh",
-                    }}
+                    className="tiki-background-image"
                 />
 
-                <h1 style={{ display: "none" }}>
+                <h1 className="tiki-hidden-title">
                     Nhà Sách Tiki giá cực tốt, freeship, giao nhanh 2h | tiki.vn
                 </h1>
 

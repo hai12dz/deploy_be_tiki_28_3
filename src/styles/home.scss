@@ -53,3 +53,19 @@
 //     border: 1px solid #E0E0E0;
 //     /* Add a border for clarity */
 // }
+
+/* Custom classes to avoid conflicts */
+.tiki-background-image {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 99vw;
+    height: 99vh;
+    max-width: 99vw;
+    max-height: 99vh;
+}
+
+.tiki-hidden-title {
+    display: none;
+}
