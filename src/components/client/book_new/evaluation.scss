@@ -643,8 +643,11 @@
     background-color: rgb(24, 158, 255);
 }
 
-.cDJOxJ .review-rating__stars span:first-child {
-    margin: 0px 2px 0px 0px;
-}
 
-.span-judge {}
+.span-judge {
+    margin-right: 3px;
+    display: inline-flex;
+    /* Ensures proper alignment */
+    align-items: center;
+    /* Centers content vertically */
+}
