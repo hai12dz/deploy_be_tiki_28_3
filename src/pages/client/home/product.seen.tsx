@@ -131,7 +131,7 @@ const RecentlyViewedProducts = () => {
                                                     <div
                                                         title={book.mainText}
                                                         rel=""
-                                                        className="sc-662de19e-0 faZNQQ"
+                                                        className="sc-662de19e-0 faZNQQ ps-product-container"
                                                     >
                                                         <a
                                                             href={`/book/${book.id}`}
