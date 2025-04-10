@@ -386,3 +386,109 @@ sup {
     line-height: normal;
     font-size: 12px;
 }
+
+// New unique classes for product seen component
+.ps-container {
+    position: relative;
+}
+
+.ps-slider-container {
+    position: relative;
+}
+
+.ps-slider-init {
+    position: relative;
+    min-height: 300px;
+    width: 100%;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.ps-nav-button {
+    display: block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.ps-nav-left {
+    left: 0;
+}
+
+.ps-nav-right {
+    right: 0;
+}
+
+.ps-text-gray {
+    color: gray;
+}
+
+.ps-text-black {
+    color: black;
+}
+
+.ps-track {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    transition: transform 300ms ease;
+    margin: 0;
+    padding: 0;
+}
+
+.ps-slide-item {
+    outline: none;
+    width: 234px;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.ps-item-link {
+    width: 100%;
+    height: 100%;
+}
+
+.ps-product-img {
+    width: 226px;
+    height: 226px;
+    object-fit: contain;
+    display: block;
+}
+
+.ps-title-container {
+    max-height: 32px;
+}
+
+.ps-flex-center {
+    display: flex;
+    align-items: center;
+}
+
+.ps-rating-text {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: rgb(128, 128, 137);
+}
+
+.ps-star-icon {
+    color: rgb(253, 216, 54);
+    margin-left: 2px;
+}
+
+.ps-divider {
+    width: 1px;
+    height: 12px;
+    background-color: rgb(199, 199, 199);
+    margin: 0 6px;
+}
+
+.ps-empty-state {
+    font-size: 14px;
+    color: rgb(51, 51, 51);
+    text-align: center;
+    margin: 0 auto;
+    padding: 140px 0px 0px 0px;
+}
