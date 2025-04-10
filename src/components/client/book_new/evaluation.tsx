@@ -40,7 +40,7 @@ const Evaluation = () => {
                                     <div className="review-rating__heading">Tổng quan</div>
                                     <div className="review-rating__inner">
                                         <div className="review-rating__summary">
-                                            <div className="review-rating__point">4.5</div>
+                                            <div className="review-rating__point">4.9</div>
                                             <div className="review-rating__stars">
                                                 {Array(5)
                                                     .fill(null)
@@ -48,11 +48,7 @@ const Evaluation = () => {
                                                         <span key={index} className="span-judge">
                                                             <img
                                                                 alt="star-icon"
-                                                                src={
-                                                                    index < 4
-                                                                        ? "https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                                        : "https://salt.tikicdn.com/ts/upload/7b/fe/fc/3da9d35ef717692a4b3b345f44e55caf.png"
-                                                                }
+                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
                                                                 width={24}
                                                                 height={24}
                                                             />
@@ -195,7 +191,7 @@ const Evaluation = () => {
                                                     <span>
                                                         <img
                                                             alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/50/f9/af/0d540e678d0d639d4eba86c1cdd38556.png"
+                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
                                                             width={14}
                                                             height={14}
                                                         />
@@ -280,7 +276,7 @@ const Evaluation = () => {
                                                     <span>
                                                         <img
                                                             alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/50/f9/af/0d540e678d0d639d4eba86c1cdd38556.png"
+                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
                                                             width={14}
                                                             height={14}
                                                         />
@@ -288,7 +284,7 @@ const Evaluation = () => {
                                                     <span>
                                                         <img
                                                             alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/50/f9/af/0d540e678d0d639d4eba86c1cdd38556.png"
+                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
                                                             width={14}
                                                             height={14}
                                                         />
@@ -357,7 +353,7 @@ const Evaluation = () => {
                                                     <span>
                                                         <img
                                                             alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/50/f9/af/0d540e678d0d639d4eba86c1cdd38556.png"
+                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
                                                             width={14}
                                                             height={14}
                                                         />
@@ -365,7 +361,7 @@ const Evaluation = () => {
                                                     <span>
                                                         <img
                                                             alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/50/f9/af/0d540e678d0d639d4eba86c1cdd38556.png"
+                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
                                                             width={14}
                                                             height={14}
                                                         />
@@ -373,7 +369,7 @@ const Evaluation = () => {
                                                     <span>
                                                         <img
                                                             alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/50/f9/af/0d540e678d0d639d4eba86c1cdd38556.png"
+                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
                                                             width={14}
                                                             height={14}
                                                         />
@@ -381,7 +377,7 @@ const Evaluation = () => {
                                                     <span>
                                                         <img
                                                             alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/50/f9/af/0d540e678d0d639d4eba86c1cdd38556.png"
+                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
                                                             width={14}
                                                             height={14}
                                                         />
@@ -450,7 +446,7 @@ const Evaluation = () => {
                                                     <span>
                                                         <img
                                                             alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/50/f9/af/0d540e678d0d639d4eba86c1cdd38556.png"
+                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
                                                             width={14}
                                                             height={14}
                                                         />
@@ -458,7 +454,7 @@ const Evaluation = () => {
                                                     <span>
                                                         <img
                                                             alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/50/f9/af/0d540e678d0d639d4eba86c1cdd38556.png"
+                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
                                                             width={14}
                                                             height={14}
                                                         />
@@ -466,7 +462,7 @@ const Evaluation = () => {
                                                     <span>
                                                         <img
                                                             alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/50/f9/af/0d540e678d0d639d4eba86c1cdd38556.png"
+                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
                                                             width={14}
                                                             height={14}
                                                         />
@@ -474,7 +470,7 @@ const Evaluation = () => {
                                                     <span>
                                                         <img
                                                             alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/50/f9/af/0d540e678d0d639d4eba86c1cdd38556.png"
+                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
                                                             width={14}
                                                             height={14}
                                                         />
