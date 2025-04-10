@@ -1,6 +1,25 @@
 import './evaluation.scss'
+import { useState } from 'react';
 
 const Evaluation = () => {
+    // Initial image URLs as constants for reference
+    const initialTopIconSrc = "https://salt.tikicdn.com/ts/ta/6a/2c/6e/125f814f740ad14defbb98b7b49dfa49.png";
+    const activeTopIconSrc = "https://salt.tikicdn.com/ts/ta/0e/f6/e0/12bcf4aedaa439a9a680059afd56c68d.png";
+    const initialBottomIconSrc = "https://salt.tikicdn.com/ts/ta/95/ae/66/2957a823955457b65f6f9150e41b5cb0.png";
+    const activeBottomIconSrc = "https://salt.tikicdn.com/ts/ta/fd/63/9b/cbd8432f2fde557145ba2bc6f0428430.png";
+
+    // State to track which icon versions we're showing
+    const [topIconSrc, setTopIconSrc] = useState(initialTopIconSrc);
+    const [bottomIconSrc, setBottomIconSrc] = useState(initialBottomIconSrc);
+
+    // Event handlers for icon clicks - now toggling between states
+    const handleTopIconClick = () => {
+        setTopIconSrc(topIconSrc === initialTopIconSrc ? activeTopIconSrc : initialTopIconSrc);
+    };
+
+    const handleBottomIconClick = () => {
+        setBottomIconSrc(bottomIconSrc === initialBottomIconSrc ? activeBottomIconSrc : initialBottomIconSrc);
+    };
 
     return (
         <div id="customer-review-widget-id">
@@ -685,15 +704,19 @@ const Evaluation = () => {
                                         <div className=" flex flex-between wrapper-icon">
                                             <img
                                                 alt="icon"
-                                                src="https://salt.tikicdn.com/ts/ta/6a/2c/6e/125f814f740ad14defbb98b7b49dfa49.png"
+                                                src={topIconSrc}
                                                 width={32}
                                                 height={32}
+                                                onClick={handleTopIconClick}
+                                                style={{ cursor: 'pointer' }}
                                             />
                                             <img
                                                 alt="icon"
-                                                src="https://salt.tikicdn.com/ts/ta/95/ae/66/2957a823955457b65f6f9150e41b5cb0.png"
+                                                src={bottomIconSrc}
                                                 width={32}
                                                 height={32}
+                                                onClick={handleBottomIconClick}
+                                                style={{ cursor: 'pointer' }}
                                             />
                                         </div>
                                     </div>
