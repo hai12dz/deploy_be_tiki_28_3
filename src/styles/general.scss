@@ -3447,6 +3447,19 @@ data-styled.g1946[id="sc-9f1e84db-5"] {
 
 /*!sc*/
 
+/* All Products container dimensions */
+.all-products {
+    width: 1128px;
+    height: 188px;
+}
+
+/* Product title offset */
+.product-title-offset {
+    /* Adjust spacing below if needed */
+    position: relative;
+    top: 5px;
+    /* Move down by 5px */
+}
 
 ul {
     display: block;
