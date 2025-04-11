@@ -3082,6 +3082,8 @@ data-styled.g1929[id="sc-36d678cb-0"] {
     flex-direction: column;
     border-bottom: 1px solid #ebebf0;
     cursor: pointer;
+    width: 240px;
+    height: 48.8px;
 }
 
 /*!sc*/
@@ -3110,6 +3112,11 @@ data-styled.g1930[id="sc-36d678cb-1"] {
     -webkit-justify-content: space-between;
     -ms-flex-pack: justify;
     justify-content: space-between;
+}
+
+.bLoXGk a {
+
+    margin-top: -3px;
 }
 
 /*!sc*/
@@ -3145,7 +3152,7 @@ data-styled.g1932[id="sc-36d678cb-3"] {
     -webkit-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     transform: rotate(180deg);
-    padding: 6px;
+    padding: 7px 6px 6px 6px;
     border-radius: 4px;
     display: none;
     display: block;
