@@ -240,26 +240,248 @@ const TikiBookstore: React.FC<TikiBookstoreProps> = ({ onListBookChange, isLoadi
                                 >
                                     <div className="sc-aaa42ade-0 hxysjC filter-child2">
                                         <div
-                                            className="sc-eca64225-3 Ywrhm"
-                                            style={{ marginRight: "8px" }}
+                                            className="sc-3064fef6-0 gXyJLZ"
+                                            style={{ marginRight: "8px", transform: "translateY(-1px)" }}
                                         >
-                                            <span className="box">
-                                                <img
-                                                    className="icon-check-on"
-                                                    src="https://salt.tikicdn.com/ts/upload/3a/f3/e4/b9e681d6b71abcc05f6c00399361bb81.png"
-                                                    alt="active-checkbox"
-                                                />
-                                                <img
-                                                    className="icon-check-off"
-                                                    src="https://salt.tikicdn.com/ts/upload/03/a5/2f/df8fb591920f048e53c88e18c84dd7d4.png"
-                                                    alt="default-checkbox"
-                                                />
-                                                <img
-                                                    className="icon-check-hover"
-                                                    src="https://salt.tikicdn.com/ts/upload/d2/16/38/c83c70851f66b169788bda4732b496a1.png"
-                                                    alt="hovered-checkbox"
-                                                />
-                                            </span>
+                                            <div
+                                                style={{
+                                                    zIndex: 2,
+                                                    position: "absolute",
+                                                    left: "0px",
+                                                    top: "0px", // Ensure there's no vertical offset
+                                                    bottom: "0px",
+                                                    width: "80%",
+                                                    overflow: "hidden",
+                                                    display: "flex", // Added to ensure proper alignment
+                                                    alignItems: "center" // Added to vertically center the stars
+                                                }}
+                                            >
+                                                <svg
+                                                    width={12}
+                                                    height={12}
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    style={{ width: "12px", height: "12px" }}
+                                                >
+                                                    <g clipPath="url(#a)">
+                                                        <path
+                                                            d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
+                                                            fill="#FFC400"
+                                                        />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="a">
+                                                            <path
+                                                                fill="#fff"
+                                                                transform="translate(1 1.5)"
+                                                                d="M0 0h10v10H0z"
+                                                            />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                                <svg
+                                                    width={12}
+                                                    height={12}
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    style={{ width: "12px", height: "12px" }}
+                                                >
+                                                    <g clipPath="url(#a)">
+                                                        <path
+                                                            d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
+                                                            fill="#FFC400"
+                                                        />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="a">
+                                                            <path
+                                                                fill="#fff"
+                                                                transform="translate(1 1.5)"
+                                                                d="M0 0h10v10H0z"
+                                                            />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                                <svg
+                                                    width={12}
+                                                    height={12}
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    style={{ width: "12px", height: "12px" }}
+                                                >
+                                                    <g clipPath="url(#a)">
+                                                        <path
+                                                            d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
+                                                            fill="#FFC400"
+                                                        />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="a">
+                                                            <path
+                                                                fill="#fff"
+                                                                transform="translate(1 1.5)"
+                                                                d="M0 0h10v10H0z"
+                                                            />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                                <svg
+                                                    width={12}
+                                                    height={12}
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    style={{ width: "12px", height: "12px" }}
+                                                >
+                                                    <g clipPath="url(#a)">
+                                                        <path
+                                                            d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
+                                                            fill="#FFC400"
+                                                        />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="a">
+                                                            <path
+                                                                fill="#fff"
+                                                                transform="translate(1 1.5)"
+                                                                d="M0 0h10v10H0z"
+                                                            />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                                <svg
+                                                    width={12}
+                                                    height={12}
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    style={{ width: "12px", height: "12px" }}
+                                                >
+                                                    <g clipPath="url(#a)">
+                                                        <path
+                                                            d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
+                                                            fill="#FFC400"
+                                                        />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="a">
+                                                            <path
+                                                                fill="#fff"
+                                                                transform="translate(1 1.5)"
+                                                                d="M0 0h10v10H0z"
+                                                            />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                            </div>
+                                            <svg
+                                                width={12}
+                                                height={12}
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <g clipPath="url(#a)">
+                                                    <path
+                                                        d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
+                                                        fill="#DDDDE3"
+                                                    />
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="a">
+                                                        <path
+                                                            fill="#fff"
+                                                            transform="translate(1 1.5)"
+                                                            d="M0 0h10v10H0z"
+                                                        />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                            <svg
+                                                width={12}
+                                                height={12}
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <g clipPath="url(#a)">
+                                                    <path
+                                                        d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
+                                                        fill="#DDDDE3"
+                                                    />
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="a">
+                                                        <path
+                                                            fill="#fff"
+                                                            transform="translate(1 1.5)"
+                                                            d="M0 0h10v10H0z"
+                                                        />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                            <svg
+                                                width={12}
+                                                height={12}
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <g clipPath="url(#a)">
+                                                    <path
+                                                        d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
+                                                        fill="#DDDDE3"
+                                                    />
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="a">
+                                                        <path
+                                                            fill="#fff"
+                                                            transform="translate(1 1.5)"
+                                                            d="M0 0h10v10H0z"
+                                                        />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                            <svg
+                                                width={12}
+                                                height={12}
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <g clipPath="url(#a)">
+                                                    <path
+                                                        d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
+                                                        fill="#DDDDE3"
+                                                    />
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="a">
+                                                        <path
+                                                            fill="#fff"
+                                                            transform="translate(1 1.5)"
+                                                            d="M0 0h10v10H0z"
+                                                        />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                            <svg
+                                                width={12}
+                                                height={12}
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <g clipPath="url(#a)">
+                                                    <path
+                                                        d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
+                                                        fill="#DDDDE3"
+                                                    />
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="a">
+                                                        <path
+                                                            fill="#fff"
+                                                            transform="translate(1 1.5)"
+                                                            d="M0 0h10v10H0z"
+                                                        />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
                                         </div>
                                         <img
                                             src="https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png"
@@ -390,10 +612,12 @@ const TikiBookstore: React.FC<TikiBookstoreProps> = ({ onListBookChange, isLoadi
                                                     zIndex: 2,
                                                     position: "absolute",
                                                     left: "0px",
-                                                    top: "0px",
+                                                    top: "0px", // Ensure there's no vertical offset
                                                     bottom: "0px",
                                                     width: "80%",
                                                     overflow: "hidden",
+                                                    display: "flex", // Added to ensure proper alignment
+                                                    alignItems: "center" // Added to vertically center the stars
                                                 }}
                                             >
                                                 <svg
