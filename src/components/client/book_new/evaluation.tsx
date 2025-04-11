@@ -535,7 +535,7 @@ const Evaluation = () => {
                                             height={24}
                                         />
                                         <div>
-                                            <span>Trợ lý AI</span> tổng hợp
+                                            <span className="ai-assistant-underline">Trợ lý AI</span> tổng hợp
                                         </div>
                                         <div style={{ marginLeft: 4 }}>từ các đánh giá mới nhất</div>
                                     </div>
