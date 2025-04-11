@@ -3090,10 +3090,10 @@ data-styled.g1929[id="sc-36d678cb-0"] {
     transition: height 0.3s ease;
 }
 
-/* Add a class for expanded state */
 .jZopbL.expanded {
     height: auto;
     /* Allow height to grow when expanded */
+    overflow: visible;
 }
 
 .jZopbL:last-child {
@@ -3219,6 +3219,27 @@ data-styled.g1933[id="sc-36d678cb-4"] {
 }
 
 /*!sc*/
+.arrow-collapsed,
+.arrow-expanded {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+}
+
+.arrow-collapsed {
+    transform: rotate(180deg);
+}
+
+.arrow-expanded {
+    transform: rotate(0deg);
+}
+
+/*!sc*/
+data-styled.g1934[id="sc-36d678cb-5"] {
+    content: "arrow-collapsed,arrow-expanded,"
+}
+
+/*!sc*/
 .cHTThk {
     overflow: hidden;
     -webkit-transition: max-height 0.3s ease;
@@ -3228,8 +3249,20 @@ data-styled.g1933[id="sc-36d678cb-4"] {
 }
 
 /*!sc*/
-data-styled.g1934[id="sc-36d678cb-5"] {
+data-styled.g1935[id="sc-36d678cb-6"] {
     content: "cHTThk,"
+}
+
+/*!sc*/
+.dropdown-content {
+    position: relative;
+    top: -3px;
+    margin-bottom: -5px;
+}
+
+/*!sc*/
+data-styled.g1936[id="sc-36d678cb-7"] {
+    content: "dropdown-content,"
 }
 
 /*!sc*/
@@ -3256,7 +3289,7 @@ data-styled.g1934[id="sc-36d678cb-5"] {
 }
 
 /*!sc*/
-data-styled.g1935[id="sc-36d678cb-6"] {
+data-styled.g1937[id="sc-36d678cb-8"] {
     content: "jZEauZ,"
 }
 
@@ -3269,7 +3302,7 @@ data-styled.g1935[id="sc-36d678cb-6"] {
 }
 
 /*!sc*/
-data-styled.g1936[id="sc-d1be8d65-0"] {
+data-styled.g1938[id="sc-d1be8d65-0"] {
     content: "bFGLIR,"
 }
 
@@ -3284,7 +3317,7 @@ data-styled.g1936[id="sc-d1be8d65-0"] {
 }
 
 /*!sc*/
-data-styled.g1937[id="sc-d1be8d65-1"] {
+data-styled.g1939[id="sc-d1be8d65-1"] {
     content: "NBIRX,"
 }
 
@@ -3299,7 +3332,7 @@ data-styled.g1937[id="sc-d1be8d65-1"] {
 }
 
 /*!sc*/
-data-styled.g1938[id="sc-784a51b1-0"] {
+data-styled.g1940[id="sc-784a51b1-0"] {
     content: "LtAYH,"
 }
 
@@ -3321,7 +3354,7 @@ data-styled.g1938[id="sc-784a51b1-0"] {
 }
 
 /*!sc*/
-data-styled.g1939[id="sc-9f1e84db-0"] {
+data-styled.g1941[id="sc-9f1e84db-0"] {
     content: "hzwFlv,"
 }
 
@@ -3334,7 +3367,7 @@ data-styled.g1939[id="sc-9f1e84db-0"] {
 }
 
 /*!sc*/
-data-styled.g1940[id="sc-9f1e84db-1"] {
+data-styled.g1942[id="sc-9f1e84db-1"] {
     content: "iNVZwz,"
 }
 
@@ -3348,7 +3381,7 @@ data-styled.g1940[id="sc-9f1e84db-1"] {
 }
 
 /*!sc*/
-data-styled.g1941[id="sc-9f1e84db-2"] {
+data-styled.g1943[id="sc-9f1e84db-2"] {
     content: "cASiea,"
 }
 
@@ -3373,7 +3406,7 @@ data-styled.g1941[id="sc-9f1e84db-2"] {
 }
 
 /*!sc*/
-data-styled.g1942[id="sc-9f1e84db-3"] {
+data-styled.g1944[id="sc-9f1e84db-3"] {
     content: "jhfSVS,"
 }
 
@@ -3393,7 +3426,7 @@ data-styled.g1942[id="sc-9f1e84db-3"] {
 }
 
 /*!sc*/
-data-styled.g1943[id="sc-9f1e84db-4"] {
+data-styled.g1945[id="sc-9f1e84db-4"] {
     content: "bxgzHY,"
 }
 
@@ -3408,7 +3441,7 @@ data-styled.g1943[id="sc-9f1e84db-4"] {
 }
 
 /*!sc*/
-data-styled.g1944[id="sc-9f1e84db-5"] {
+data-styled.g1946[id="sc-9f1e84db-5"] {
     content: "cZlEPY,"
 }
 
