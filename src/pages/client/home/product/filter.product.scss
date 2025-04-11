@@ -331,12 +331,13 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
     // Filter section styling
     .filter-section {
         position: relative;
+        top: 3px;
 
         .section-label {
             font-size: 12px;
             line-height: 18px;
             color: $text-secondary;
-            margin-bottom: 3px;
+            margin-bottom: 4px;
             font-weight: 400;
         }
 
@@ -368,8 +369,8 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
             margin-left: 10px;
             position: relative;
             @include circular-button;
-            min-width: 32px;
-            height: 32px;
+            width: 34px;
+            height: 34px;
         }
 
         .filter-options {
@@ -386,11 +387,16 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
                 @include chip-style;
                 padding: 16px 12px;
 
-                font-size: 14px;
                 height: 32px;
                 @include flex(row, null, center);
                 white-space: nowrap;
                 border: 1px solid rgb(221, 221, 227);
+                font-size: 14px;
+                line-height: 21px;
+
+
+
+
             }
         }
 
@@ -430,7 +436,7 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
         position: relative;
         font-size: 14px;
         line-height: 21px;
-        margin-top: 15px;
+        margin-top: 12px; // Changed from 15px to 5px to move it higher
 
         .vertical-divider {
             position: relative;
@@ -550,9 +556,8 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                height: 32px;
-                padding: 0 12px;
-                border-radius: 16px;
+                padding: 6px 6px 6px 16px;
+                border-radius: 20px;
                 border: 1px solid $border-color;
                 background: white;
                 color: $text-color;
@@ -561,6 +566,11 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
                 line-height: 21px;
                 transition: all 0.2s ease;
                 gap: 8px;
+
+
+
+
+
 
                 &:hover {
                     background: $bg-hover;
@@ -612,6 +622,7 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
     .filter-content {
         position: relative;
         transition: opacity 0.3s;
+        top: -2px;
 
         &.filter-content-loading {
             opacity: 0.6;

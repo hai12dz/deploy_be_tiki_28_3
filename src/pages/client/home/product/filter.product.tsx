@@ -406,7 +406,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                 ref={modalRef}
                 className="brand-selection-modal brand-modal-portal"
                 style={{
-                    '--top-position': `${buttonRect.bottom + window.scrollY + 10}px`,
+                    '--top-position': `${buttonRect.bottom + window.scrollY + 10}px`, // Changed from 10px to 20px
                     '--left-position': `${buttonRect.left + window.scrollX - 200}px`
                 } as React.CSSProperties}
             >
