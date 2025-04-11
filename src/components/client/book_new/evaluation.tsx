@@ -51,6 +51,7 @@ const Evaluation = () => {
                                                                 src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
                                                                 width={24}
                                                                 height={24}
+                                                                style={{ minWidth: '24px', minHeight: '24px', display: 'block' }}
                                                             />
                                                         </span>
                                                     ))}
