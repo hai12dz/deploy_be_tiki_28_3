@@ -11,7 +11,7 @@
 
         li {
             width: 16px;
-            height: 2px;
+            height: 3px;
             background: #d9d9d9;
             border-radius: 2px;
             transition: all 0.3s ease-in-out;
@@ -43,7 +43,7 @@
             }
 
             &.slick-active {
-                width: 25px !important;
+                width: 24px !important;
                 background: #366aee !important;
 
                 /* Đảm bảo dot active vẫn giữ nguyên trạng thái khi hover */
