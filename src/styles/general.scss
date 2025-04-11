@@ -3084,9 +3084,18 @@ data-styled.g1929[id="sc-36d678cb-0"] {
     cursor: pointer;
     width: 240px;
     height: 48.8px;
+    /* Fixed height for collapsed state */
+    overflow: hidden;
+    /* Hide overflow content when collapsed */
+    transition: height 0.3s ease;
 }
 
-/*!sc*/
+/* Add a class for expanded state */
+.jZopbL.expanded {
+    height: auto;
+    /* Allow height to grow when expanded */
+}
+
 .jZopbL:last-child {
     border-bottom-color: transparent;
 }

@@ -47,7 +47,7 @@ const CategoryExplorer = () => {
                 <div className="sc-d1be8d65-1 NBIRX">Khám phá theo danh mục</div>
                 <div className="sc-36d678cb-0 eSTCTE">
                     {listCategory.map((item, index) => (
-                        <div key={index} className="sc-36d678cb-1 jZopbL">
+                        <div key={index} className={`sc-36d678cb-1 jZopbL ${expandedCategories[item.label] ? 'expanded' : ''}`}>
                             <div className="sc-36d678cb-2 bLoXGk">
                                 <a href={`/category/${item.value}`}>
                                     <div className="sc-36d678cb-3 fZuZht">{item.label}</div>
