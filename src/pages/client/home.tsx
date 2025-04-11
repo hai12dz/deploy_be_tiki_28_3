@@ -229,7 +229,7 @@ const HomePage = () => {
                                 setIsLoading={setIsLoading}
                                 onListBookChange={setSharedListBook} />
 
-                            <div className="product-wrapper">
+                            <div style={{ marginTop: '6px' }} className="product-wrapper">
                                 <Product
                                     isLoading={isLoading}
                                     setIsLoading={setIsLoading}
