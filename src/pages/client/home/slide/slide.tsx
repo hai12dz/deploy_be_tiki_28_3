@@ -2,20 +2,29 @@ import React, { useRef } from 'react';
 
 // Update scrollbar styles to use a darker gray for better visibility
 const scrollbarStyles = `
+  .custom-scrollbar {
+    position: relative;
+    scrollbar-width: auto;
+    scrollbar-color: #888888 transparent;
+    margin-bottom: -12px; /* Pull everything up */
+    padding-bottom: 0;
+  }
   .custom-scrollbar::-webkit-scrollbar {
-    width: auto !important; /* Force default width */
-    height: auto !important; /* Force default height */
+    width: auto !important;
+    height: 6px !important; /* Make scrollbar thinner */
+    position: absolute;
+    bottom: 0;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+    margin-bottom: 0; /* Remove margin to position it higher */
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: #888888; /* Darker gray color */
+    background-color: #888888;
     border-radius: 10px;
   }
   .custom-scrollbar:hover::-webkit-scrollbar-thumb {
     background-color: #ababab;
-  }
-  .custom-scrollbar {
-    scrollbar-width: auto; /* Use default size for Firefox */
-    scrollbar-color: #888888 transparent; /* Match the darker color for Firefox */
   }
   .custom-scrollbar:hover {
     scrollbar-color: #ababab transparent;
