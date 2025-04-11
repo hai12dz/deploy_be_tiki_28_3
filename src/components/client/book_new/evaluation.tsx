@@ -59,92 +59,30 @@ const Evaluation = () => {
                                         </div>
                                         <div className="review-rating__total">(96 đánh giá)</div>
                                         <div className="review-rating__detail">
+                                            {/* 5 stars row - All yellow stars */}
                                             <div className="review-rating__level">
-                                                <div
-                                                    className="sc-a236768f-0 fFhahK"
-                                                    style={{ whiteSpace: "nowrap" }}
-                                                >
-                                                    <span>
-                                                        <img
-                                                            alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                            width={14}
-                                                            height={14}
-                                                        />
-                                                    </span>
-                                                    <span>
-                                                        <img
-                                                            alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                            width={14}
-                                                            height={14}
-                                                        />
-                                                    </span>
-                                                    <span>
-                                                        <img
-                                                            alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                            width={14}
-                                                            height={14}
-                                                        />
-                                                    </span>
-                                                    <span>
-                                                        <img
-                                                            alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                            width={14}
-                                                            height={14}
-                                                        />
-                                                    </span>
-                                                    <span>
-                                                        <img
-                                                            alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                            width={14}
-                                                            height={14}
-                                                        />
-                                                    </span>
+                                                <div className="sc-a236768f-0 fFhahK" style={{ whiteSpace: "nowrap" }}>
+                                                    {[...Array(5)].map((_, index) => (
+                                                        <span key={index}>
+                                                            <img
+                                                                alt="star-icon"
+                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
+                                                                width={14}
+                                                                height={14}
+                                                            />
+                                                        </span>
+                                                    ))}
                                                     <div style={{ width: "100%" }}>
-                                                        <span>
-                                                            <img
-                                                                alt="star-icon"
-                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                                width={14}
-                                                                height={14}
-                                                            />
-                                                        </span>
-                                                        <span>
-                                                            <img
-                                                                alt="star-icon"
-                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                                width={14}
-                                                                height={14}
-                                                            />
-                                                        </span>
-                                                        <span>
-                                                            <img
-                                                                alt="star-icon"
-                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                                width={14}
-                                                                height={14}
-                                                            />
-                                                        </span>
-                                                        <span>
-                                                            <img
-                                                                alt="star-icon"
-                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                                width={14}
-                                                                height={14}
-                                                            />
-                                                        </span>
-                                                        <span>
-                                                            <img
-                                                                alt="star-icon"
-                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                                width={14}
-                                                                height={14}
-                                                            />
-                                                        </span>
+                                                        {[...Array(5)].map((_, index) => (
+                                                            <span key={index}>
+                                                                <img
+                                                                    alt="star-icon"
+                                                                    src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
+                                                                    width={14}
+                                                                    height={14}
+                                                                />
+                                                            </span>
+                                                        ))}
                                                     </div>
                                                 </div>
                                                 <div className="sc-4b1322bd-2 qmgSA">
@@ -152,88 +90,43 @@ const Evaluation = () => {
                                                 </div>
                                                 <div className="review-rating__number">90</div>
                                             </div>
+
+                                            {/* 4 stars row - 4 yellow, 1 black */}
                                             <div className="review-rating__level">
-                                                <div
-                                                    className="sc-a236768f-0 fFhahK"
-                                                    style={{ whiteSpace: "nowrap" }}
-                                                >
+                                                <div className="sc-a236768f-0 fFhahK" style={{ whiteSpace: "nowrap" }}>
+                                                    {[...Array(4)].map((_, index) => (
+                                                        <span key={index}>
+                                                            <img
+                                                                alt="star-icon"
+                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
+                                                                width={14}
+                                                                height={14}
+                                                            />
+                                                        </span>
+                                                    ))}
                                                     <span>
                                                         <img
                                                             alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                            width={14}
-                                                            height={14}
-                                                        />
-                                                    </span>
-                                                    <span>
-                                                        <img
-                                                            alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                            width={14}
-                                                            height={14}
-                                                        />
-                                                    </span>
-                                                    <span>
-                                                        <img
-                                                            alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                            width={14}
-                                                            height={14}
-                                                        />
-                                                    </span>
-                                                    <span>
-                                                        <img
-                                                            alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                            width={14}
-                                                            height={14}
-                                                        />
-                                                    </span>
-                                                    <span>
-                                                        <img
-                                                            alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
+                                                            src="https://salt.tikicdn.com/ts/upload/50/f9/af/0d540e678d0d639d4eba86c1cdd38556.png"
                                                             width={14}
                                                             height={14}
                                                         />
                                                     </span>
                                                     <div style={{ width: "80%" }}>
+                                                        {[...Array(4)].map((_, index) => (
+                                                            <span key={index}>
+                                                                <img
+                                                                    alt="star-icon"
+                                                                    src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
+                                                                    width={14}
+                                                                    height={14}
+                                                                />
+                                                            </span>
+                                                        ))}
                                                         <span>
                                                             <img
                                                                 alt="star-icon"
-                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                                width={14}
-                                                                height={14}
-                                                            />
-                                                        </span>
-                                                        <span>
-                                                            <img
-                                                                alt="star-icon"
-                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                                width={14}
-                                                                height={14}
-                                                            />
-                                                        </span>
-                                                        <span>
-                                                            <img
-                                                                alt="star-icon"
-                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                                width={14}
-                                                                height={14}
-                                                            />
-                                                        </span>
-                                                        <span>
-                                                            <img
-                                                                alt="star-icon"
-                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                                width={14}
-                                                                height={14}
-                                                            />
-                                                        </span>
-                                                        <span>
-                                                            <img
-                                                                alt="star-icon"
-                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
+                                                                src="https://salt.tikicdn.com/ts/upload/50/f9/af/0d540e678d0d639d4eba86c1cdd38556.png"
                                                                 width={14}
                                                                 height={14}
                                                             />
@@ -245,92 +138,51 @@ const Evaluation = () => {
                                                 </div>
                                                 <div className="review-rating__number">5</div>
                                             </div>
+
+                                            {/* 3 stars row - 3 yellow, 2 black */}
                                             <div className="review-rating__level">
-                                                <div
-                                                    className="sc-a236768f-0 fFhahK"
-                                                    style={{ whiteSpace: "nowrap" }}
-                                                >
-                                                    <span>
-                                                        <img
-                                                            alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                            width={14}
-                                                            height={14}
-                                                        />
-                                                    </span>
-                                                    <span>
-                                                        <img
-                                                            alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                            width={14}
-                                                            height={14}
-                                                        />
-                                                    </span>
-                                                    <span>
-                                                        <img
-                                                            alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                            width={14}
-                                                            height={14}
-                                                        />
-                                                    </span>
-                                                    <span>
-                                                        <img
-                                                            alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                            width={14}
-                                                            height={14}
-                                                        />
-                                                    </span>
-                                                    <span>
-                                                        <img
-                                                            alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                            width={14}
-                                                            height={14}
-                                                        />
-                                                    </span>
+                                                <div className="sc-a236768f-0 fFhahK" style={{ whiteSpace: "nowrap" }}>
+                                                    {[...Array(3)].map((_, index) => (
+                                                        <span key={index}>
+                                                            <img
+                                                                alt="star-icon"
+                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
+                                                                width={14}
+                                                                height={14}
+                                                            />
+                                                        </span>
+                                                    ))}
+                                                    {[...Array(2)].map((_, index) => (
+                                                        <span key={index}>
+                                                            <img
+                                                                alt="star-icon"
+                                                                src="https://salt.tikicdn.com/ts/upload/50/f9/af/0d540e678d0d639d4eba86c1cdd38556.png"
+                                                                width={14}
+                                                                height={14}
+                                                            />
+                                                        </span>
+                                                    ))}
                                                     <div style={{ width: "60%" }}>
-                                                        <span>
-                                                            <img
-                                                                alt="star-icon"
-                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                                width={14}
-                                                                height={14}
-                                                            />
-                                                        </span>
-                                                        <span>
-                                                            <img
-                                                                alt="star-icon"
-                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                                width={14}
-                                                                height={14}
-                                                            />
-                                                        </span>
-                                                        <span>
-                                                            <img
-                                                                alt="star-icon"
-                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                                width={14}
-                                                                height={14}
-                                                            />
-                                                        </span>
-                                                        <span>
-                                                            <img
-                                                                alt="star-icon"
-                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                                width={14}
-                                                                height={14}
-                                                            />
-                                                        </span>
-                                                        <span>
-                                                            <img
-                                                                alt="star-icon"
-                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                                width={14}
-                                                                height={14}
-                                                            />
-                                                        </span>
+                                                        {[...Array(3)].map((_, index) => (
+                                                            <span key={index}>
+                                                                <img
+                                                                    alt="star-icon"
+                                                                    src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
+                                                                    width={14}
+                                                                    height={14}
+                                                                />
+                                                            </span>
+                                                        ))}
+                                                        {[...Array(2)].map((_, index) => (
+                                                            <span key={index}>
+                                                                <img
+                                                                    alt="star-icon"
+                                                                    src="https://salt.tikicdn.com/ts/upload/50/f9/af/0d540e678d0d639d4eba86c1cdd38556.png"
+                                                                    width={14}
+                                                                    height={14}
+                                                                />
+                                                            </span>
+                                                        ))}
                                                     </div>
                                                 </div>
                                                 <div className="sc-4b1322bd-2 qmgSA">
@@ -338,92 +190,51 @@ const Evaluation = () => {
                                                 </div>
                                                 <div className="review-rating__number">1</div>
                                             </div>
+
+                                            {/* 2 stars row - 2 yellow, 3 black */}
                                             <div className="review-rating__level">
-                                                <div
-                                                    className="sc-a236768f-0 fFhahK"
-                                                    style={{ whiteSpace: "nowrap" }}
-                                                >
-                                                    <span>
-                                                        <img
-                                                            alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                            width={14}
-                                                            height={14}
-                                                        />
-                                                    </span>
-                                                    <span>
-                                                        <img
-                                                            alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                            width={14}
-                                                            height={14}
-                                                        />
-                                                    </span>
-                                                    <span>
-                                                        <img
-                                                            alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                            width={14}
-                                                            height={14}
-                                                        />
-                                                    </span>
-                                                    <span>
-                                                        <img
-                                                            alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                            width={14}
-                                                            height={14}
-                                                        />
-                                                    </span>
-                                                    <span>
-                                                        <img
-                                                            alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                            width={14}
-                                                            height={14}
-                                                        />
-                                                    </span>
+                                                <div className="sc-a236768f-0 fFhahK" style={{ whiteSpace: "nowrap" }}>
+                                                    {[...Array(2)].map((_, index) => (
+                                                        <span key={index}>
+                                                            <img
+                                                                alt="star-icon"
+                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
+                                                                width={14}
+                                                                height={14}
+                                                            />
+                                                        </span>
+                                                    ))}
+                                                    {[...Array(3)].map((_, index) => (
+                                                        <span key={index}>
+                                                            <img
+                                                                alt="star-icon"
+                                                                src="https://salt.tikicdn.com/ts/upload/50/f9/af/0d540e678d0d639d4eba86c1cdd38556.png"
+                                                                width={14}
+                                                                height={14}
+                                                            />
+                                                        </span>
+                                                    ))}
                                                     <div style={{ width: "40%" }}>
-                                                        <span>
-                                                            <img
-                                                                alt="star-icon"
-                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                                width={14}
-                                                                height={14}
-                                                            />
-                                                        </span>
-                                                        <span>
-                                                            <img
-                                                                alt="star-icon"
-                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                                width={14}
-                                                                height={14}
-                                                            />
-                                                        </span>
-                                                        <span>
-                                                            <img
-                                                                alt="star-icon"
-                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                                width={14}
-                                                                height={14}
-                                                            />
-                                                        </span>
-                                                        <span>
-                                                            <img
-                                                                alt="star-icon"
-                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                                width={14}
-                                                                height={14}
-                                                            />
-                                                        </span>
-                                                        <span>
-                                                            <img
-                                                                alt="star-icon"
-                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                                width={14}
-                                                                height={14}
-                                                            />
-                                                        </span>
+                                                        {[...Array(2)].map((_, index) => (
+                                                            <span key={index}>
+                                                                <img
+                                                                    alt="star-icon"
+                                                                    src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
+                                                                    width={14}
+                                                                    height={14}
+                                                                />
+                                                            </span>
+                                                        ))}
+                                                        {[...Array(3)].map((_, index) => (
+                                                            <span key={index}>
+                                                                <img
+                                                                    alt="star-icon"
+                                                                    src="https://salt.tikicdn.com/ts/upload/50/f9/af/0d540e678d0d639d4eba86c1cdd38556.png"
+                                                                    width={14}
+                                                                    height={14}
+                                                                />
+                                                            </span>
+                                                        ))}
                                                     </div>
                                                 </div>
                                                 <div className="sc-4b1322bd-2 qmgSA">
@@ -431,11 +242,10 @@ const Evaluation = () => {
                                                 </div>
                                                 <div className="review-rating__number">0</div>
                                             </div>
+
+                                            {/* 1 star row - 1 yellow, 4 black */}
                                             <div className="review-rating__level">
-                                                <div
-                                                    className="sc-a236768f-0 fFhahK"
-                                                    style={{ whiteSpace: "nowrap" }}
-                                                >
+                                                <div className="sc-a236768f-0 fFhahK" style={{ whiteSpace: "nowrap" }}>
                                                     <span>
                                                         <img
                                                             alt="star-icon"
@@ -444,38 +254,16 @@ const Evaluation = () => {
                                                             height={14}
                                                         />
                                                     </span>
-                                                    <span>
-                                                        <img
-                                                            alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                            width={14}
-                                                            height={14}
-                                                        />
-                                                    </span>
-                                                    <span>
-                                                        <img
-                                                            alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                            width={14}
-                                                            height={14}
-                                                        />
-                                                    </span>
-                                                    <span>
-                                                        <img
-                                                            alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                            width={14}
-                                                            height={14}
-                                                        />
-                                                    </span>
-                                                    <span>
-                                                        <img
-                                                            alt="star-icon"
-                                                            src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                            width={14}
-                                                            height={14}
-                                                        />
-                                                    </span>
+                                                    {[...Array(4)].map((_, index) => (
+                                                        <span key={index}>
+                                                            <img
+                                                                alt="star-icon"
+                                                                src="https://salt.tikicdn.com/ts/upload/50/f9/af/0d540e678d0d639d4eba86c1cdd38556.png"
+                                                                width={14}
+                                                                height={14}
+                                                            />
+                                                        </span>
+                                                    ))}
                                                     <div style={{ width: "20%" }}>
                                                         <span>
                                                             <img
@@ -485,38 +273,16 @@ const Evaluation = () => {
                                                                 height={14}
                                                             />
                                                         </span>
-                                                        <span>
-                                                            <img
-                                                                alt="star-icon"
-                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                                width={14}
-                                                                height={14}
-                                                            />
-                                                        </span>
-                                                        <span>
-                                                            <img
-                                                                alt="star-icon"
-                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                                width={14}
-                                                                height={14}
-                                                            />
-                                                        </span>
-                                                        <span>
-                                                            <img
-                                                                alt="star-icon"
-                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                                width={14}
-                                                                height={14}
-                                                            />
-                                                        </span>
-                                                        <span>
-                                                            <img
-                                                                alt="star-icon"
-                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                                width={14}
-                                                                height={14}
-                                                            />
-                                                        </span>
+                                                        {[...Array(4)].map((_, index) => (
+                                                            <span key={index}>
+                                                                <img
+                                                                    alt="star-icon"
+                                                                    src="https://salt.tikicdn.com/ts/upload/50/f9/af/0d540e678d0d639d4eba86c1cdd38556.png"
+                                                                    width={14}
+                                                                    height={14}
+                                                                />
+                                                            </span>
+                                                        ))}
                                                     </div>
                                                 </div>
                                                 <div className="sc-4b1322bd-2 qmgSA">
