@@ -86,7 +86,7 @@ const CarouselItem = ({ productListRef }: { productListRef: React.RefObject<HTML
                         alt="rating-star" className="sc-eaa6b2b1-1 dJHQGE" />
                 </div>
             </div>
-            <div style={{ marginTop: "18px", marginLeft: "-10px" }}>
+            <div style={{ marginTop: "18px", marginLeft: "0px" }}>
                 <div style={{ display: "flex", alignItems: "center" }}>
                     <div
                         ref={productListRef}
