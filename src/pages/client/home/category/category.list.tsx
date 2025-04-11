@@ -66,7 +66,14 @@ const CategoryExplorer = () => {
                                 </div>
                             </div>
                             {expandedCategories[item.label] && nameCategory[item.label] && (
-                                <div className="sc-36d678cb-5 cHTThk">
+                                <div
+                                    className="sc-36d678cb-5 cHTThk"
+                                    style={{
+                                        position: 'relative',
+                                        top: '-5px', // Move it up by 5px
+                                        marginBottom: '-5px' // Compensate for the upward movement
+                                    }}
+                                >
                                     {nameCategory[item.label].map((subItem, subIndex) => (
                                         <div key={subIndex} className="sc-36d678cb-6 jZEauZ">
                                             <a href={`/subcategory/${subItem}`}>{subItem}</a>
