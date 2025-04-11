@@ -136,7 +136,7 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
     .filter-sections-wrapper {
         position: relative;
         overflow: visible;
-        margin-top: -5px;
+        margin-top: -4px;
 
         .left-arrow-button {
             position: absolute;
@@ -170,7 +170,7 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
     .filter-header {
         position: absolute;
         right: 0;
-        top: 54%;
+        top: 58%;
         transform: translateY(-50%);
 
         .filter-button {
@@ -367,7 +367,7 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
 
         .expand-button {
             transition: transform 0.3s ease;
-            margin-left: 10px;
+            margin-left: 8px;
             position: relative;
             @include circular-button;
             width: 34px;
@@ -593,8 +593,8 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
                 }
 
                 .arrow-icon-brand {
-                    width: 16px;
-                    height: 16px;
+                    width: 20px;
+                    height: 20px;
                     object-fit: contain;
                 }
             }
@@ -852,11 +852,16 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
 
 /* Star rating styles */
 .star-rating-no-gap {
-    gap: 0px;
+    gap: 3px !important; // Increased spacing between stars
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .star-icon-negative-margin {
-    margin-right: -1px;
+    width: 12px; // Back to original size
+    height: 12px;
+    margin-right: 2px; // Add positive margin for spacing
 }
 
 /* Filter options and other styles */
@@ -885,4 +890,8 @@ label.option:last-of-type {
 .vertical-divider:nth-last-of-type(1) {
 
     margin-left: 10px;
+}
+
+svg {
+    margin-right: 0.2px !important;
 }
