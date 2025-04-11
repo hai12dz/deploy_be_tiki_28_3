@@ -70,7 +70,8 @@
 
 .cDJOxJ .review-rating__level {
     display: flex;
-    margin: -6px 0px;
+    margin: -2px 0px;
+    /* Changed from -6px to 4px to increase vertical spacing */
     -webkit-box-align: center;
     align-items: center;
 }
