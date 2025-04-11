@@ -751,6 +751,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                             onClick={handleFastDeliveryChange}
                         >
                             <img
+
                                 src="https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png"
                                 alt="Giao siêu tốc 2H"
                                 className="now-tag"

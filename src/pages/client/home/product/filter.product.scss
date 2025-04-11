@@ -156,7 +156,7 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
             margin-right: 16px;
             align-self: center;
             position: absolute;
-            right: 90px;
+            right: 96px;
             top: 15px;
             transition: transform 0.3s ease, opacity 0.3s ease;
             opacity: 0.7;
@@ -177,6 +177,7 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
             @include flex(row, center, center, 8px);
             position: relative;
             background: none;
+            top: 1px;
             font-size: 14px;
             line-height: 21px;
             color: #27272A;
@@ -358,7 +359,7 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
                     height: 33px;
                     background-color: $border-light;
                     opacity: 0.7;
-                    left: 52px; // Position to the right of the button
+                    left: 57px; // Position to the right of the button
                     top: 0;
                 }
             }
@@ -440,11 +441,16 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
 
         .vertical-divider {
             position: relative;
+            left: -1px;
             width: 1px;
             height: 24px;
             background-color: rgb(235, 235, 240);
             align-self: center;
             flex-shrink: 0;
+        }
+
+        .vertical-divider:nth-of-type(3) {
+            margin-left: 7px;
         }
 
         .option {
@@ -509,10 +515,19 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
             }
         }
 
+        .option:not(:first-child) {
+            margin-left: -4px;
+        }
+
+        .option:nth-of-type(7) {
+            margin-left: 5px;
+        }
+
         // Tags and icons
         .now-tag {
             height: 17px;
             width: auto;
+            margin-top: 1px;
         }
 
         .deal-tag,
@@ -536,7 +551,7 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
         }
 
         .option-text {
-            margin-left: 5px;
+            margin-left: 4px;
             font-size: 14px;
             color: $text-color;
         }
@@ -852,4 +867,22 @@ $font-family: 'Inter', Helvetica, Arial, sans-serif;
 
 .translated {
     transition: transform 0.3s ease;
+}
+
+label.option:not(:first-of-type) {
+    margin-left: -4px;
+
+}
+
+label.option:last-of-type {
+
+
+    margin-left: 5px;
+
+
+}
+
+.vertical-divider:nth-last-of-type(1) {
+
+    margin-left: 10px;
 }
