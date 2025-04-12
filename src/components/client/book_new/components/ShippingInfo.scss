@@ -61,6 +61,19 @@
 
 .eEVyHi .title {
     margin: 4px 0px;
+    font-family: Inter, Helvetica, Arial, sans-serif;
+    text-size-adjust: 100%;
+    pointer-events: auto;
+    font-size: 14px;
+    line-height: 21px;
+    color: rgb(39, 39, 42);
+    box-sizing: border-box;
+    font-weight: 600;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    gap: 4px;
+    margin: 4px 0px;
 }
 
 .eEVyHi .text {
@@ -77,20 +90,4 @@
     -webkit-box-align: center;
     align-items: center;
     gap: 4px;
-}
-
-.title {
-    font-family: Inter, Helvetica, Arial, sans-serif;
-    text-size-adjust: 100%;
-    pointer-events: auto;
-    font-size: 14px;
-    line-height: 21px;
-    color: rgb(39, 39, 42);
-    box-sizing: border-box;
-    font-weight: 600;
-    display: inline-flex;
-    -webkit-box-align: center;
-    align-items: center;
-    gap: 4px;
-    margin: 4px 0px;
 }
