@@ -311,46 +311,48 @@ const Evaluation = () => {
                                             <span className="text-bold">Về sản phẩm:</span>{" "}
                                             <span className="text-lighter">(34 tích cực, 0 tiêu cực)</span>
                                         </div>
-                                        <div className="flex text">
-                                            <img
-                                                alt="icon"
-                                                src="https://salt.tikicdn.com/ts/ta/6e/32/bd/0e629541310a1a8132b6ef8666827ba9.png"
-                                                width={16}
-                                                height={16}
-                                            />
-                                            <div>
-                                                Đa số người mua khen ngợi về cách tác giả lồng ghép câu chuyện và
-                                                liên kết tình tiết một cách khéo léo và bất ngờ.
+                                        <div className="content-wrapper">
+                                            <div className="flex text">
+                                                <img
+                                                    alt="icon"
+                                                    src="https://salt.tikicdn.com/ts/ta/6e/32/bd/0e629541310a1a8132b6ef8666827ba9.png"
+                                                    width={16}
+                                                    height={16}
+                                                />
+                                                <div>
+                                                    Đa số người mua khen ngợi về cách tác giả lồng ghép câu chuyện và
+                                                    liên kết tình tiết một cách khéo léo và bất ngờ.
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="flex text">
-                                            <img
-                                                alt="icon"
-                                                src="https://salt.tikicdn.com/ts/ta/6e/32/bd/0e629541310a1a8132b6ef8666827ba9.png"
-                                                width={16}
-                                                height={16}
-                                            />
-                                            <div>
-                                                Sách được đánh giá là hay, cuốn hút và có nội dung nhẹ nhàng.
+                                            <div className="flex text">
+                                                <img
+                                                    alt="icon"
+                                                    src="https://salt.tikicdn.com/ts/ta/6e/32/bd/0e629541310a1a8132b6ef8666827ba9.png"
+                                                    width={16}
+                                                    height={16}
+                                                />
+                                                <div>
+                                                    Sách được đánh giá là hay, cuốn hút và có nội dung nhẹ nhàng.
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="flex text">
-                                            <img
-                                                alt="icon"
-                                                src="https://salt.tikicdn.com/ts/ta/6e/32/bd/0e629541310a1a8132b6ef8666827ba9.png"
-                                                width={16}
-                                                height={16}
-                                            />
-                                            <div>Một số người mua thích hình thức sách, đặc biệt là bìa.</div>
-                                        </div>
-                                        <div className="flex text">
-                                            <img
-                                                alt="icon"
-                                                src="https://salt.tikicdn.com/ts/ta/6e/32/bd/0e629541310a1a8132b6ef8666827ba9.png"
-                                                width={16}
-                                                height={16}
-                                            />
-                                            <div>Có nhận xét rằng sách đẹp và mới.</div>
+                                            <div className="flex text">
+                                                <img
+                                                    alt="icon"
+                                                    src="https://salt.tikicdn.com/ts/ta/6e/32/bd/0e629541310a1a8132b6ef8666827ba9.png"
+                                                    width={16}
+                                                    height={16}
+                                                />
+                                                <div>Một số người mua thích hình thức sách, đặc biệt là bìa.</div>
+                                            </div>
+                                            <div className="flex text">
+                                                <img
+                                                    alt="icon"
+                                                    src="https://salt.tikicdn.com/ts/ta/6e/32/bd/0e629541310a1a8132b6ef8666827ba9.png"
+                                                    width={16}
+                                                    height={16}
+                                                />
+                                                <div>Có nhận xét rằng sách đẹp và mới.</div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="section-item">
@@ -358,27 +360,29 @@ const Evaluation = () => {
                                             <span className="text-bold">Về dịch vụ:</span>{" "}
                                             <span className="text-lighter">(10 tích cực, 0 tiêu cực)</span>
                                         </div>
-                                        <div className="flex text">
-                                            <img
-                                                alt="icon"
-                                                src="https://salt.tikicdn.com/ts/ta/6e/32/bd/0e629541310a1a8132b6ef8666827ba9.png"
-                                                width={16}
-                                                height={16}
-                                            />
-                                            <div>
-                                                Đa số khách hàng hài lòng với giao hàng nhanh và đóng gói cẩn thận.
+                                        <div className="content-wrapper">
+                                            <div className="flex text">
+                                                <img
+                                                    alt="icon"
+                                                    src="https://salt.tikicdn.com/ts/ta/6e/32/bd/0e629541310a1a8132b6ef8666827ba9.png"
+                                                    width={16}
+                                                    height={16}
+                                                />
+                                                <div>
+                                                    Đa số khách hàng hài lòng với giao hàng nhanh và đóng gói cẩn thận.
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="flex text">
-                                            <img
-                                                alt="icon"
-                                                src="https://salt.tikicdn.com/ts/ta/6e/32/bd/0e629541310a1a8132b6ef8666827ba9.png"
-                                                width={16}
-                                                height={16}
-                                            />
-                                            <div>
-                                                Một số người mua đánh giá cao về sự thân thiện và nhanh nhẹn của
-                                                nhân viên giao hàng.
+                                            <div className="flex text">
+                                                <img
+                                                    alt="icon"
+                                                    src="https://salt.tikicdn.com/ts/ta/6e/32/bd/0e629541310a1a8132b6ef8666827ba9.png"
+                                                    width={16}
+                                                    height={16}
+                                                />
+                                                <div>
+                                                    Một số người mua đánh giá cao về sự thân thiện và nhanh nhẹn của
+                                                    nhân viên giao hàng.
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

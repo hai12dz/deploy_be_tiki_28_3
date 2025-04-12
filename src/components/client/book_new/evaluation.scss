@@ -57,7 +57,7 @@
 }
 
 .cDJOxJ .review-rating__detail {
-    margin: 12px 0px 0px;
+    margin: 10px 0px 0px;
 }
 
 .cDJOxJ .review-rating__point {
@@ -700,4 +700,9 @@
     text-decoration-color: #0A68FF;
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
+}
+
+.content-wrapper {
+    margin-top: -2px;
+    /* Negative margin to move content up relative to title */
 }
