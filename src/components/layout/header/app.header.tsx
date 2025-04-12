@@ -1,14 +1,7 @@
 import { useState, useEffect } from 'react';
-import { SearchOutlined, HomeOutlined, UserOutlined, EnvironmentOutlined } from '@ant-design/icons';
-import { Badge, Popover, Empty, message, Input, Dropdown, Space, Avatar } from 'antd';
-import { FiShoppingCart } from 'react-icons/fi';
-import { useNavigate, Link } from 'react-router-dom';
-import { useCurrentApp } from 'components/context/app.context';
-import { logoutAPI } from '@/services/api';
-import ManageAccount from '../client/account';
-import { isMobile } from 'react-device-detect';
+
 import './app.new.header.scss';
-import SearchProducts from './search/search';
+import SearchProducts from '../search/search';
 
 interface IProps {
     searchTerm: string;

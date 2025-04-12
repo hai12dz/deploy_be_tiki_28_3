@@ -36,7 +36,6 @@ const Header: React.FC = () => {
                 )}
             </div>
 
-            {/* Other header content */}
         </header>
     );
 };
