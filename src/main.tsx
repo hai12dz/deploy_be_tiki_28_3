@@ -6,9 +6,6 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import BookPage from 'pages/client/book';
-import AboutPage from 'pages/client/about';
-import LoginPage from 'pages/client/auth/login';
-import RegisterPage from 'pages/client/auth/register';
 import 'styles/global.scss'
 import HomePage from 'pages/client/home';
 import { App, ConfigProvider } from 'antd';
@@ -31,23 +28,13 @@ const router = createBrowserRouter([
         element: <BookPage />,
       },
 
-      {
-        path: "/about",
-        element: <AboutPage />,
-      },
+
 
 
     ]
   },
 
-  {
-    path: "/login",
-    element: <LoginPage />,
-  },
-  {
-    path: "/register",
-    element: <RegisterPage />,
-  },
+
 
 ]);
 
