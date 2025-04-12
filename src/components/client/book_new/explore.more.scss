@@ -7,6 +7,22 @@
     display: flex;
     background: rgb(245, 245, 250);
     flex-direction: column;
+    position: sticky;
+    top: 0;
+    z-index: 997;
+    width: 100%;
+    background-color: #F5F5FA;
+    padding-top: 16px;
+    transition: opacity 0.4s ease;
+}
+
+.explore-more-container {
+    margin-top: -20px;
+    position: relative;
+}
+
+.explore-more-title {
+    height: 48px;
 }
 
 .hMkAQW {
@@ -123,6 +139,10 @@
 .hMkAQW>.content>.tiki-square-ad {
     grid-column: span 2;
     height: 100%;
+    background: white;
+    border-radius: 8px;
+    display: flex;
+    width: 100%;
 }
 
 .hMkAQW>.content>.tiki-square-ad>div {
@@ -162,6 +182,9 @@
     left: 0px;
     right: 0px;
     object-fit: cover;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
 }
 
 .hFEtiz {
@@ -176,6 +199,28 @@
     height: 16px;
     object-fit: contain;
     margin-left: 8px;
+}
+
+// Product item containers
+.product-item-container {
+    background: white;
+    border-radius: 8px;
+    display: flex;
+    width: 100%;
+}
+
+.product-wrapper {
+    width: 100%;
+}
+
+.product-inner {
+    height: 100%;
+    width: 100%;
+}
+
+.product-full-width {
+    height: 100%;
+    width: 100%;
 }
 
 .hMkAQW>.content .product-item {
@@ -215,6 +260,11 @@
     position: relative;
 }
 
+// Product image container
+.product-image-container {
+    position: relative;
+}
+
 .oeQAA {
     flex-shrink: 0;
     text-align: center;
@@ -232,6 +282,13 @@
     line-height: 150%;
 }
 
+.badge-position {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 2;
+}
+
 .oeQAA .image-wrapper {
     position: absolute;
     top: 0px;
@@ -240,11 +297,37 @@
     height: 100%;
 }
 
-.hFEtiz {
-    object-fit: contain;
+.product-image {
     width: 100%;
+    aspect-ratio: 1 / 1;
     height: 100%;
-    display: block;
+    opacity: 1;
+}
+
+.ads-badge {
+    display: inline-block;
+    height: 20px;
+    margin: 0;
+    padding: 2px 4px;
+    background: var(--alias-themeVariant, #F5F5FA);
+    border-radius: 4px;
+    color: rgb(39, 39, 42);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 150%;
+    text-transform: uppercase;
+    border: 1px solid rgb(255, 255, 255);
+    z-index: 2;
+    white-space: nowrap;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
+.iftnV {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
 }
 
 .esCPZO .info {
@@ -254,6 +337,72 @@
     flex: 1 1 0%;
     -webkit-box-pack: justify;
     justify-content: space-between;
+}
+
+.info-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.name-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    height: 58px;
+}
+
+.izNpeL {
+    color: rgb(39, 39, 42);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 150%;
+    word-break: break-word;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    margin: 0px;
+}
+
+.MtbnO {
+    display: flex;
+    -webkit-box-align: baseline;
+    align-items: baseline;
+    font-size: 11px;
+    gap: 2px;
+}
+
+.rating-container {
+    font-size: 12px;
+    display: inline-block;
+    position: relative;
+}
+
+.rating-stars {
+    z-index: 2;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+.rating-stars.width-94 {
+    width: 94%;
+}
+
+.rating-stars.width-96 {
+    width: 96%;
+}
+
+.rating-stars.width-100 {
+    width: 100%;
+}
+
+.star-icon {
+    width: 12px;
+    height: 12px;
 }
 
 sup {
@@ -266,6 +415,16 @@ sup {
     line-height: 0;
     position: relative;
     vertical-align: baseline;
+}
+
+.jVbBhv .price-discount__price {
+    color: rgb(255, 66, 78);
+}
+
+.price-wrapper {
+    display: flex;
+    gap: 4px;
+    height: 18px;
 }
 
 .jVbBhv .price-discount__discount {
@@ -290,6 +449,24 @@ sup {
     font-weight: 400;
     line-height: 150%;
     text-decoration-line: line-through;
+}
+
+.delivery-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.delivery-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.delivery-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .bhuTly {
@@ -329,4 +506,26 @@ sup {
     font-style: normal;
     font-weight: 400;
     line-height: 150%;
+}
+
+.ePleYc {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0%;
+    border-radius: 0px 0px 4px 4px;
+    padding: 8px;
+    gap: 8px;
+}
+
+/* Generic product container */
+.generic-product-container {
+    background: white;
+    border-radius: 8px;
+    display: flex;
+    width: 100%;
+}
+
+/* Hide elements to clean up reduced listings */
+.hidden {
+    display: none;
 }
