@@ -1,54 +1,47 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './explore.more.scss'
 const ExploreMore = () => {
+    // Add state to track scroll position and direction
+    const [scrollY, setScrollY] = useState(0);
+    const [scrollingUp, setScrollingUp] = useState(false);
     const [headerOpacity, setHeaderOpacity] = useState(1);
     const componentRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const handleScroll = () => {
-            if (!componentRef.current) return;
+            const currentScrollY = window.scrollY;
+            const isScrollingUp = currentScrollY < scrollY;
+            setScrollingUp(isScrollingUp);
 
-            const componentEl = componentRef.current;
-            const componentRect = componentEl.getBoundingClientRect();
-            const componentTop = componentRect.top;
-            const componentBottom = componentRect.bottom;
-            const componentHeight = componentRect.height;
+            // Get component dimensions
+            if (componentRef.current) {
+                const componentRect = componentRef.current.getBoundingClientRect();
+                const componentBottom = componentRect.bottom;
+                const componentHeight = componentRect.height;
 
-            // Only apply effect when component is visible in viewport
-            if (componentTop < window.innerHeight && componentTop > -componentHeight) {
-                // Component is visible in the viewport
+                // Calculate distance from component bottom
+                const distanceFromBottom = componentBottom - window.innerHeight;
 
-                // Fade in when component enters viewport from top
-                if (componentTop > 0) {
-                    // Calculate fade in based on how much of the component has entered the viewport
-                    const fadeInProgress = 1 - Math.min(1, componentTop / Math.min(400, componentHeight * 0.3));
-                    setHeaderOpacity(fadeInProgress);
-                }
-                // Only fade out when approaching the VERY END of the component (last 15%)
-                else if (componentBottom < window.innerHeight) {
-                    // Calculate how far we are from the end - only start fading in the last 15% of the component
-                    const endThreshold = Math.max(150, componentHeight * 0.15);
+                // Define the threshold where opacity effects start (e.g., when in the last 30% of the component)
+                const opacityThreshold = componentHeight * 0.3;
 
-                    // Distance from current position to component end
-                    const distanceToEnd = componentBottom;
-
-                    if (distanceToEnd < endThreshold) {
-                        // Apply fade out only in the last portion of the component
-                        const fadeOutProgress = distanceToEnd / endThreshold;
-                        setHeaderOpacity(fadeOutProgress);
-                    } else {
-                        // Keep fully visible through most of the component
-                        setHeaderOpacity(1);
-                    }
-                }
-                // Fully visible when in the middle of viewing the component
-                else {
+                if (distanceFromBottom < opacityThreshold) {
+                    // We're approaching the end of the component, apply opacity effect
+                    // Calculate opacity based on how close to the end (1 → 0.3 as we scroll down)
+                    const calculatedOpacity = Math.max(0.3, distanceFromBottom / opacityThreshold);
+                    setHeaderOpacity(calculatedOpacity);
+                } else if (isScrollingUp && distanceFromBottom < opacityThreshold * 2) {
+                    // When scrolling back up from the bottom area
+                    // Gradually increase opacity back to 1
+                    const calculatedOpacity = Math.min(1, 0.3 + (distanceFromBottom / opacityThreshold) * 0.7);
+                    setHeaderOpacity(calculatedOpacity);
+                } else {
+                    // Otherwise, keep full opacity
                     setHeaderOpacity(1);
                 }
-            } else {
-                // Component is completely out of view
-                setHeaderOpacity(0);
             }
+
+            setScrollY(currentScrollY);
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -57,7 +50,7 @@ const ExploreMore = () => {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, []);
+    }, [scrollY]);
 
     return (
         <div className="sc-25579e0e-0 kzWQME" style={{ marginTop: '-20px', position: "relative" }} ref={componentRef}>
@@ -71,7 +64,7 @@ const ExploreMore = () => {
                     backgroundColor: "#F5F5FA",
                     paddingTop: 16,
                     opacity: headerOpacity,
-                    transition: "opacity 0.5s ease" // Increased transition time for smoother effect
+                    transition: "opacity 0.3s ease" // Always apply smooth transition
                 }}
             >
                 <h2 className="sc-25579e0e-1 EwjD" style={{ height: 48 }}>
