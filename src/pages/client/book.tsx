@@ -1,5 +1,4 @@
-import BookDetail from "@/components/client/book/book.detail";
-import BookLoader from "@/components/client/book/book.loader";
+import BookLoader from "@/components/client/book_new/book.loader";
 import BookNew from "@/components/client/book_new/book.product.new";
 import { getBookByIdAPI } from "@/services/api";
 import { App } from "antd";
