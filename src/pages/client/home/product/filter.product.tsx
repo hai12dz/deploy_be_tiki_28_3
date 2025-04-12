@@ -4,7 +4,7 @@ import './filter.product.scss';
 import { useOutletContext } from 'react-router-dom';
 import { getBooksAPI, getBrandsAPI, getFullCategories, getSuppliersAPI } from '@/services/api';
 import { set } from 'lodash';
-import { useFilterContext } from '@/context/FilterContext';
+import { useFilterContext } from '@/components/context/FilterContext';
 import FilterNewProductModal from './filter.modal.new';
 
 interface ProductFilterProps {

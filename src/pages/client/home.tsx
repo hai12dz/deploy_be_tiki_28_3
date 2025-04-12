@@ -1,61 +1,34 @@
-import MobileFilter from '@/components/client/book/mobile.filter';
 import { filterBookWithFullInfoAPI, getBooksAPI, getBrandsAPI, getCategoryAPI, getFullCategories, getNameCategoryAPI, getSuppliersAPI } from '@/services/api';
-import { FacebookFilled, FilterOutlined, FilterTwoTone, ReloadOutlined, UpOutlined, YoutubeFilled } from '@ant-design/icons';
-import { Card, Carousel, Image, List } from 'antd';
 import {
-    Row, Col, Form, Checkbox, Divider, InputNumber,
-    Button, Rate, Tabs, Pagination, Spin
+    Form
+
 } from 'antd';
 import 'styles/general.scss';
-import type { FormProps } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import 'styles/home.scss';
-import { DownOutlined, SmileOutlined } from '@ant-design/icons';
-import { Space } from 'antd';
-import FilterProduct from './filter';
 import _ from "lodash";
-import { Typography } from 'antd';
-import { Link } from 'react-router-dom';
 import Breadcrumb from './home/bread.crumb';
-import CategoryList from './home/category/category.list';
 import RecentlyViewedProducts from './home/product.seen';
 import CategoryExplorer from './home/category/category.list';
 import TikiBookstore from './home/book.store';
 import TikiAdsComponent from './home/ads';
-import TikiBooksAds from './home/ads';
 import BookShopComponent from './home/danhmuc';
 import RelatedSearch from './home/related.search';
 import TikiBestsellers from './home/best.seller';
 import Product from './home/product/product';
 import FooterWeb from './home/footer';
 
-
-type FieldType = {
-    range: {
-        from: number;
-        to: number
-    }
-    category: string[]
-};
-
-
 const HomePage = () => {
-    const { Title } = Typography;
     const [searchTerm, setSearchTerm] = useOutletContext() as any;
-
-
-
     const [listCategory, setListCategory] = useState<{
         label: string, value: string
     }[]>([]);
-
     const [listBook, setListBook] = useState<IBookTable[]>([]);
     const [sharedListBook, setSharedListBook] = useState<IBookTable[]>([]);
     const [current, setCurrent] = useState<number>(1);
     const [pageSize, setPageSize] = useState<number>(10);
     const [total, setTotal] = useState<number>(0);
-
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [filter, setFilter] = useState<string>("");
     const [sortQuery, setSortQuery] = useState<string>("sort=-sold");
@@ -65,20 +38,13 @@ const HomePage = () => {
     const [listFullCategory, setListFullCategory] = useState<ICategory[]>([])
     const [form] = Form.useForm();
     const navigate = useNavigate();
-    // Change these from string to arrays
     const [brand, setBrand] = useState<string[]>([]);
     const [supplier, setSupplier] = useState<string[]>([]);
     const filteredBooks = useMemo(() => {
         return listBook.filter((book) =>
             book.mainText.toLowerCase().includes(searchTerm.toLowerCase())
         );
-    }, [searchTerm, listBook]); // ✅ Chỉ tính toán lại khi `searchTerm` hoặc `listBook` thay đổi
-    const randomCount = Math.floor(Math.random() * listBook.length) + 1;
-
-    // Trộn ngẫu nhiên danh sách và lấy số lượng sản phẩm ngẫu nhiên
-    const randomBooks = _.shuffle(listBook).slice(0, randomCount);
-
-
+    }, [searchTerm, listBook]);
     useEffect(() => {
         const initCategory = async () => {
             const res = await getCategoryAPI();
@@ -91,18 +57,14 @@ const HomePage = () => {
         }
         initCategory();
     }, []);
-
     useEffect(() => {
-        // Add empty dependency array to prevent infinite rendering
-
         fetchBrand();
         fetchSupplier();
-        fetchFullCategories(); // This function was defined but never called
+        fetchFullCategories();
     }, []);
     useEffect(() => {
         fetchBook();
     }, [current, pageSize, filter, sortQuery]);
-
     const fetchBook = async () => {
         setIsLoading(true)
         let query = `current=${current}&pageSize=${pageSize}`;
@@ -112,11 +74,9 @@ const HomePage = () => {
         if (sortQuery) {
             query += `&${sortQuery}`;
         }
-
         if (searchTerm) {
             query += `&mainText=/${searchTerm}/i`;
         }
-
         const res = await getBooksAPI(query);
         if (res && res.data) {
             setListBook(res.data.items);
@@ -124,38 +84,23 @@ const HomePage = () => {
         }
         setIsLoading(false)
     }
-
-
     const fetchBrand = async () => {
-
         const res = await getBrandsAPI();
         setListBrand(res.data!)
-
     }
     const fetchSupplier = async () => {
-
         const res = await getSuppliersAPI();
         setListSupplier(res.data!)
 
     }
-
     const fetchFullCategories = async () => {
         const res = await getFullCategories()
-
         setListFullCategory(res.data!)
-
     }
-
-
-
-
-
-
     const filterProduct = async () => {
         let query = `current=1&pageSize=${pageSize}`;
         let isChange: boolean = false;
 
-        // Only add parameters to query if they have values
         if (category && category !== "") {
             isChange = true;
             query += `&nameCategory=${category}`;
@@ -169,42 +114,19 @@ const HomePage = () => {
             query += `&nameSupplier=${supplier.join(',')}`;
         }
 
-        // If any filter is applied, use the filter API
         if (isChange === true) {
             const res = await filterBookWithFullInfoAPI(query);
             setTotal(res.data!.meta.totalItems)
             setListBook(res.data?.items || []);
         }
-        // If NO filters are applied, fetch all books
         else {
-            await fetchBook(); // Make sure to await this
+            await fetchBook();
         }
     };
 
-    // Modify the useEffect to run when any filter changes
     useEffect(() => {
-        // Always run filterProduct whether filters are set or reset
         filterProduct();
     }, [category, brand, supplier]);
-
-
-
-    const addViewedProduct = (productId: string) => {
-        const viewedProducts = JSON.parse(localStorage.getItem("viewedProducts") || "[]").map(Number);
-
-        // Nếu sản phẩm chưa có trong danh sách thì thêm vào
-        if (!viewedProducts.includes(productId)) {
-            viewedProducts.push(productId);
-        }
-
-        // Giữ tối đa 10 sản phẩm gần nhất
-        if (viewedProducts.length > 10) {
-            viewedProducts.shift(); // Xóa sản phẩm cũ nhất
-        }
-
-        localStorage.setItem("viewedProducts", JSON.stringify(viewedProducts));
-    };
-
     return (
         <>
             <main>

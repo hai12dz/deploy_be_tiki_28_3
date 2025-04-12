@@ -13,11 +13,9 @@ import 'styles/global.scss'
 import HomePage from 'pages/client/home';
 import { App, ConfigProvider } from 'antd';
 import { AppProvider } from 'components/context/app.context';
-import ProtectedRoute from '@/components/auth';
-import HistoryPage from 'pages/client/history';
 
 import enUS from 'antd/locale/en_US';
-import { FilterProvider } from './context/FilterContext';
+import { FilterProvider } from './components/context/FilterContext';
 
 const router = createBrowserRouter([
   {
@@ -37,14 +35,7 @@ const router = createBrowserRouter([
         path: "/about",
         element: <AboutPage />,
       },
-      {
-        path: "/history",
-        element: (
-          <ProtectedRoute>
-            <HistoryPage />
-          </ProtectedRoute>
-        ),
-      },
+
 
     ]
   },
