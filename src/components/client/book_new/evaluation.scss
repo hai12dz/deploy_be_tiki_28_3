@@ -46,10 +46,11 @@
     display: flex;
     -webkit-box-align: center;
     align-items: center;
+    margin-bottom: 2px;
 }
 
 .cDJOxJ .review-rating__total {
-    margin-top: 1px;
+    margin-top: -1px;
     font-weight: 300;
     font-size: 14px;
     line-height: 150%;
@@ -70,7 +71,7 @@
 
 .cDJOxJ .review-rating__level {
     display: flex;
-    margin: -2px 0px;
+    margin: -1.5px 0px;
     /* Changed from -6px to 4px to increase vertical spacing */
     -webkit-box-align: center;
     align-items: center;
@@ -705,4 +706,9 @@
 .content-wrapper {
     margin-top: -2px;
     /* Negative margin to move content up relative to title */
+}
+
+.rating-summary-container {
+    margin-bottom: 11px;
+    margin-top: -2px;
 }

@@ -39,25 +39,29 @@ const Evaluation = () => {
                                 <div className="sc-4b1322bd-1 cDJOxJ review-rating">
                                     <div className="review-rating__heading">Tổng quan</div>
                                     <div className="review-rating__inner">
-                                        <div className="review-rating__summary">
-                                            <div className="review-rating__point">4.9</div>
-                                            <div className="review-rating__stars">
-                                                {Array(5)
-                                                    .fill(null)
-                                                    .map((_, index) => (
-                                                        <span key={index} className="span-judge">
-                                                            <img
-                                                                alt="star-icon"
-                                                                src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
-                                                                width={24}
-                                                                height={24}
-                                                                style={{ minWidth: '24px', minHeight: '24px', display: 'block' }}
-                                                            />
-                                                        </span>
-                                                    ))}
+                                        <div className="rating-summary-container">
+                                            <div className="review-rating__summary">
+                                                <div
+                                                    style={{ paddingTop: '1px' }}
+                                                    className="review-rating__point">4.9</div>
+                                                <div className="review-rating__stars">
+                                                    {Array(5)
+                                                        .fill(null)
+                                                        .map((_, index) => (
+                                                            <span key={index} className="span-judge">
+                                                                <img
+                                                                    alt="star-icon"
+                                                                    src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"
+                                                                    width={24}
+                                                                    height={24}
+                                                                    style={{ minWidth: '24px', minHeight: '24px', display: 'block' }}
+                                                                />
+                                                            </span>
+                                                        ))}
+                                                </div>
                                             </div>
+                                            <div className="review-rating__total">(96 đánh giá)</div>
                                         </div>
-                                        <div className="review-rating__total">(96 đánh giá)</div>
                                         <div className="review-rating__detail">
                                             {/* 5 stars row - All yellow stars */}
                                             <div className="review-rating__level">
