@@ -15,13 +15,13 @@ import ExploreMore from './explore.more';
 import SlideDetail from './slide.detail';
 import FooterWeb from '@/pages/client/home/footer';
 import ChangeAddress from './change.address';
-import Breadcrumbs from './components/BreadCrumb';
-import ProductGallery from './components/ProductGallery';
-import ProductInfo from './components/ProductInfo';
-import ShippingInfo from './components/ShippingInfo';
-import Promotions from './components/Promotions';
-import AdditionalServices from './components/AdditionalServices';
-import OrderSummary from './components/OrderSummary';
+import Breadcrumbs from '../components/BreadCrumb';
+import ProductGallery from '../components/ProductGallery';
+import ProductInfo from '../components/ProductInfo';
+import ShippingInfo from '../components/ShippingInfo';
+import Promotions from '../components/Promotions';
+import AdditionalServices from '../components/AdditionalServices';
+import OrderSummary from '../components/OrderSummary';
 
 interface IProps {
     currentBook: IBookTable | null;

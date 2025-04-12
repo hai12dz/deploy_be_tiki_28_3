@@ -1,6 +1,6 @@
 import './book.new.scss'
 import React, { useState, useEffect } from 'react';
-import SameProductApp from './SameProduct/SameProduct';
+import SameProductApp from '../SameProduct/SameProduct';
 import { getBooksAPI } from '@/services/api';
 
 const SameProduct = () => {
