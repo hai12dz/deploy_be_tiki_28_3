@@ -64,16 +64,9 @@ const SameProduct = () => {
 
     return (
         <>
-            <div className="sc-34e0efdc-0 dSZwVn">
-                <div className="sc-34e0efdc-1 ddClVB">Sản phẩm tương tự</div>
-                <div
-                    style={{
-                        display: "flex",
-                        flex: "1 1 0%",
-                        overflow: "hidden",
-                        paddingTop: 12
-                    }}
-                >
+            <div className="sc-34e0efdc-0 dSZwVn same-product-container">
+                <div className="sc-34e0efdc-1 ddClVB same-product-title">Sản phẩm tương tự</div>
+                <div className="same-product-wrapper">
                     <div className="sc-a007ec24-0 hVGhMI">
                         <span
                             className={`icon icon-prev ${isPrevDisabled ? 'disabled' : ''}`}
@@ -96,7 +89,7 @@ const SameProduct = () => {
                         </span>
                         <div className="content">
                             <span
-                                className="slider"
+                                className="slider same-product-slider"
                                 style={{
                                     gap: 8,
                                     transform: `translateX(-${currentSlide * slideWidth}px)`,
@@ -107,6 +100,7 @@ const SameProduct = () => {
                                 {Array.from({ length: totalPages }).map((_, index) => (
                                     <div
                                         key={index}
+                                        className="same-product-slide"
                                         style={{
                                             width: slideWidth,
                                             minWidth: slideWidth,
@@ -118,7 +112,7 @@ const SameProduct = () => {
                                 ))}
                             </span>
                             <div
-                                className="pagination"
+                                className="pagination same-product-pagination"
                                 style={{
                                     width: "100%",
                                     display: "flex",
@@ -132,10 +126,11 @@ const SameProduct = () => {
                                     <div
                                         key={index}
                                         onClick={() => handlePaginationClick(index)}
+                                        className={`same-product-pagination-dot ${currentSlide === index ? 'same-product-pagination-dot-active' : 'same-product-pagination-dot-inactive'
+                                            }`}
                                         style={{
                                             width: currentSlide === index ? 24 : 16,
                                             height: 2,
-                                            background: currentSlide === index ? "rgb(10, 104, 255)" : "rgba(0, 0, 0, 0.05)",
                                             borderRadius: 4,
                                             cursor: "pointer",
                                             transition: "all 0.3s ease"
@@ -166,7 +161,6 @@ const SameProduct = () => {
                     </div>
                 </div>
             </div>
-
         </>
     );
 };

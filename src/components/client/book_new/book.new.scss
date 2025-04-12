@@ -3467,3 +3467,64 @@ data-styled.g545[id="sc-43079b3d-0"] {
     width: 16px;
     background: rgba(0, 0, 0, 0.05);
 }
+
+// Same Product Component Styles
+.same-product-container {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border-radius: 8px;
+    padding: 16px;
+    gap: 4px;
+}
+
+.same-product-title {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 150%;
+    color: #27272A;
+}
+
+.same-product-wrapper {
+    display: flex;
+    flex: 1 1 0%;
+    overflow: hidden;
+    padding-top: 12px;
+}
+
+.same-product-slider {
+    gap: 8px;
+    transition: 0.5s ease-in-out;
+}
+
+.same-product-slide {
+    width: 560px;
+    min-width: 560px;
+    display: block;
+}
+
+.same-product-pagination {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    margin-top: 8px;
+}
+
+.same-product-pagination-dot {
+    height: 2px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.same-product-pagination-dot-active {
+    width: 24px;
+    background: rgb(10, 104, 255);
+}
+
+.same-product-pagination-dot-inactive {
+    width: 16px;
+    background: rgba(0, 0, 0, 0.05);
+}
