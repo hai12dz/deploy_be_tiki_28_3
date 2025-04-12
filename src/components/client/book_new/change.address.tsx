@@ -134,32 +134,13 @@ const ChangeAddress = ({ onClose, onSelectAddress }: ChangeAddressProps) => {
     return (
         <div className="ReactModalPortal">
             <div
-                className="ReactModal__Overlay ReactModal__Overlay--after-open"
-                style={{
-                    position: "fixed",
-                    inset: 0,
-                    background: "rgba(0, 0, 0, 0.53)",
-                    overflowY: "scroll",
-                    zIndex: 1000
-                }}
+                className="ReactModal__Overlay ReactModal__Overlay--after-open change-address-modal-overlay"
             >
                 <div
-                    className="ReactModal__Content ReactModal__Content--after-open"
+                    className="ReactModal__Content ReactModal__Content--after-open change-address-modal-content"
                     tabIndex={-1}
                     role="dialog"
                     aria-modal="true"
-                    style={{
-                        position: "relative",
-                        inset: 0,
-                        border: "none",
-                        background: "rgb(255, 255, 255)",
-                        overflow: "unset",
-                        borderRadius: 4,
-                        outline: "none",
-                        padding: 0,
-                        width: 600,
-                        margin: "0px auto"
-                    }}
                     ref={modalRef}
                 >
                     <div className="sc-583a1fc3-0 ljjQmk">
@@ -205,11 +186,11 @@ const ChangeAddress = ({ onClose, onSelectAddress }: ChangeAddressProps) => {
                                                 onClick={() => toggleDropdown('province')}
                                             >
                                                 <div className="css-1hwfws3">
-                                                    <div className="css-dvua67-singleValue">
+                                                    <div className="css-dvua67-singleValue change-address-select-value">
                                                         {province || "Vui lòng chọn tỉnh/thành phố"}
                                                     </div>
-                                                    <div className="css-1g6gooi">
-                                                        <div className="" style={{ display: "inline-block" }}>
+                                                    <div className="css-1g6gooi change-address-select-input">
+                                                        <div className="change-address-inline-block">
                                                             <input
                                                                 autoCapitalize="none"
                                                                 autoComplete="off"
@@ -220,31 +201,21 @@ const ChangeAddress = ({ onClose, onSelectAddress }: ChangeAddressProps) => {
                                                                 type="text"
                                                                 aria-autocomplete="list"
                                                                 defaultValue=""
-                                                                style={{
-                                                                    boxSizing: "content-box",
-                                                                    width: 2,
-                                                                    background: "0px center",
-                                                                    border: 0,
-                                                                    fontSize: "inherit",
-                                                                    opacity: 1,
-                                                                    outline: 0,
-                                                                    padding: 0,
-                                                                    color: "inherit"
-                                                                }}
+                                                                className="change-address-input"
                                                             />
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="css-1wy0on6">
-                                                    <span className="css-bgvzuu-indicatorSeparator" />
-                                                    <div aria-hidden="true" className="css-16pqwjk-indicatorContainer">
+                                                    <span className="css-bgvzuu-indicatorSeparator change-address-separator" />
+                                                    <div aria-hidden="true" className="css-16pqwjk-indicatorContainer change-address-indicator">
                                                         <svg
                                                             height={20}
                                                             width={20}
                                                             viewBox="0 0 20 20"
                                                             aria-hidden="true"
                                                             focusable="false"
-                                                            className="css-19bqh2r"
+                                                            className="css-19bqh2r change-address-svg"
                                                         >
                                                             <path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z" />
                                                         </svg>
@@ -276,11 +247,11 @@ const ChangeAddress = ({ onClose, onSelectAddress }: ChangeAddressProps) => {
                                                 }}
                                             >
                                                 <div className="css-1hwfws3">
-                                                    <div className="css-dvua67-singleValue">
+                                                    <div className="css-dvua67-singleValue change-address-select-value">
                                                         {district || "Vui lòng chọn quận/huyện"}
                                                     </div>
-                                                    <div className="css-1g6gooi">
-                                                        <div className="" style={{ display: "inline-block" }}>
+                                                    <div className="css-1g6gooi change-address-select-input">
+                                                        <div className="change-address-inline-block">
                                                             <input
                                                                 autoCapitalize="none"
                                                                 autoComplete="off"
@@ -291,31 +262,21 @@ const ChangeAddress = ({ onClose, onSelectAddress }: ChangeAddressProps) => {
                                                                 type="text"
                                                                 aria-autocomplete="list"
                                                                 defaultValue=""
-                                                                style={{
-                                                                    boxSizing: "content-box",
-                                                                    width: 2,
-                                                                    background: "0px center",
-                                                                    border: 0,
-                                                                    fontSize: "inherit",
-                                                                    opacity: 1,
-                                                                    outline: 0,
-                                                                    padding: 0,
-                                                                    color: "inherit"
-                                                                }}
+                                                                className="change-address-input"
                                                             />
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="css-1wy0on6">
-                                                    <span className="css-bgvzuu-indicatorSeparator" />
-                                                    <div aria-hidden="true" className="css-16pqwjk-indicatorContainer">
+                                                    <span className="css-bgvzuu-indicatorSeparator change-address-separator" />
+                                                    <div aria-hidden="true" className="css-16pqwjk-indicatorContainer change-address-indicator">
                                                         <svg
                                                             height={20}
                                                             width={20}
                                                             viewBox="0 0 20 20"
                                                             aria-hidden="true"
                                                             focusable="false"
-                                                            className="css-19bqh2r"
+                                                            className="css-19bqh2r change-address-svg"
                                                         >
                                                             <path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z" />
                                                         </svg>
@@ -347,11 +308,11 @@ const ChangeAddress = ({ onClose, onSelectAddress }: ChangeAddressProps) => {
                                                 }}
                                             >
                                                 <div className="css-1hwfws3">
-                                                    <div className="css-dvua67-singleValue">
+                                                    <div className="css-dvua67-singleValue change-address-select-value">
                                                         {ward || "Vui lòng chọn phường/xã"}
                                                     </div>
-                                                    <div className="css-1g6gooi">
-                                                        <div className="" style={{ display: "inline-block" }}>
+                                                    <div className="css-1g6gooi change-address-select-input">
+                                                        <div className="change-address-inline-block">
                                                             <input
                                                                 autoCapitalize="none"
                                                                 autoComplete="off"
@@ -362,31 +323,21 @@ const ChangeAddress = ({ onClose, onSelectAddress }: ChangeAddressProps) => {
                                                                 type="text"
                                                                 aria-autocomplete="list"
                                                                 defaultValue=""
-                                                                style={{
-                                                                    boxSizing: "content-box",
-                                                                    width: 2,
-                                                                    background: "0px center",
-                                                                    border: 0,
-                                                                    fontSize: "inherit",
-                                                                    opacity: 1,
-                                                                    outline: 0,
-                                                                    padding: 0,
-                                                                    color: "inherit"
-                                                                }}
+                                                                className="change-address-input"
                                                             />
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="css-1wy0on6">
-                                                    <span className="css-bgvzuu-indicatorSeparator" />
-                                                    <div aria-hidden="true" className="css-16pqwjk-indicatorContainer">
+                                                    <span className="css-bgvzuu-indicatorSeparator change-address-separator" />
+                                                    <div aria-hidden="true" className="css-16pqwjk-indicatorContainer change-address-indicator">
                                                         <svg
                                                             height={20}
                                                             width={20}
                                                             viewBox="0 0 20 20"
                                                             aria-hidden="true"
                                                             focusable="false"
-                                                            className="css-19bqh2r"
+                                                            className="css-19bqh2r change-address-svg"
                                                         >
                                                             <path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z" />
                                                         </svg>

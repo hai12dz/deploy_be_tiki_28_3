@@ -429,3 +429,89 @@ p {
 .popup-button:hover {
     background-color: #0056b3;
 }
+
+/* New classes with change-address- prefix */
+.change-address-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.53);
+    overflow-y: scroll;
+    z-index: 1000;
+}
+
+.change-address-modal-content {
+    position: relative;
+    inset: 0;
+    border: none;
+    background: rgb(255, 255, 255);
+    overflow: unset;
+    border-radius: 4px;
+    outline: none;
+    padding: 0;
+    width: 600px;
+    margin: 0px auto;
+}
+
+.change-address-input {
+    box-sizing: content-box;
+    width: 2px;
+    background: 0px center;
+    border: 0;
+    font-size: inherit;
+    opacity: 1;
+    outline: 0;
+    padding: 0;
+    color: inherit;
+}
+
+.change-address-inline-block {
+    display: inline-block;
+}
+
+.change-address-separator {
+    align-self: stretch;
+    background-color: rgb(204, 204, 204);
+    margin-bottom: 8px;
+    margin-top: 8px;
+    width: 1px;
+    box-sizing: border-box;
+}
+
+.change-address-indicator {
+    color: rgb(204, 204, 204);
+    display: flex;
+    padding: 8px;
+    transition: color 150ms;
+    box-sizing: border-box;
+}
+
+.change-address-svg {
+    display: inline-block;
+    fill: currentcolor;
+    line-height: 1;
+    stroke: currentcolor;
+    stroke-width: 0;
+}
+
+.change-address-select-value {
+    color: rgb(51, 51, 51);
+    margin-left: 2px;
+    margin-right: 2px;
+    max-width: calc(100% - 8px);
+    overflow: hidden;
+    position: absolute;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    top: 50%;
+    transform: translateY(-50%);
+    box-sizing: border-box;
+}
+
+.change-address-select-input {
+    margin: 2px;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    visibility: visible;
+    color: rgb(51, 51, 51);
+    box-sizing: border-box;
+}
