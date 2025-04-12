@@ -60,7 +60,7 @@ const ExploreMore = () => {
     }, []);
 
     return (
-        <div className="sc-25579e0e-0 kzWQME" style={{ paddingTop: 0, position: "relative" }} ref={componentRef}>
+        <div className="sc-25579e0e-0 kzWQME" style={{ marginTop: '-20px', position: "relative" }} ref={componentRef}>
             <div
                 className="header"
                 style={{
