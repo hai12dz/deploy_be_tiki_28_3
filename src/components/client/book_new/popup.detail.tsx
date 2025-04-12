@@ -24,28 +24,20 @@ const PopupDetail = (props: IProps) => {
     return (
         <>
             <div
-                className="popup-overlay"
+                className="popup-overlay popup-detail-overlay"
                 onClick={handleOutsideClick}
-                style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 100,
-                    right: 0,
-                    bottom: 0,
-                    zIndex: 9998
-                }}
             />
             <div
-                className="popup-content"
+                className="popup-content popup-detail-content"
                 role="tooltip"
                 id="popup-1"
                 onClick={(e) => e.stopPropagation()}
             >
                 <div>
                     <div className="sc-4ade12da-1 cLyYdX">
-                        <div className="title">
+                        <div className="title popup-detail-title">
                             <div>Chi tiết giá</div>
-                            <div style={{ cursor: "pointer" }} onClick={onClose}>
+                            <div className="popup-detail-close-button" onClick={onClose}>
                                 <picture className="webpimg-container">
                                     <source
                                         type="image/webp"
@@ -56,38 +48,37 @@ const PopupDetail = (props: IProps) => {
                                         width={16}
                                         height={16}
                                         alt="close-icon"
-                                        className="sc-900210d0-0 hFEtiz"
-                                        style={{ width: 16, height: 16, opacity: 1 }}
+                                        className="sc-900210d0-0 hFEtiz popup-detail-image"
                                     />
                                 </picture>
                             </div>
                         </div>
-                        <div className="content">
-                            <div className="info">
+                        <div className="content popup-detail-content-inner">
+                            <div className="info popup-detail-info">
                                 <div>Giá gốc</div>
-                                <div className="info__price">
+                                <div className="info__price popup-detail-info-price">
                                     {formatPrice(price)}<sup>₫</sup>
                                 </div>
                             </div>
-                            <div className="info">
+                            <div className="info popup-detail-info">
                                 <div>
                                     <div>Giá bán</div>
-                                    <div className="info__description">
+                                    <div className="info__description popup-detail-info-description">
                                         Giá đã giảm trực tiếp từ nhà bán
                                     </div>
                                 </div>
-                                <div className="info__price">
+                                <div className="info__price popup-detail-info-price">
                                     {formatPrice(discountedPrice)}<sup>₫</sup>
                                 </div>
                             </div>
-                            <div className="info">
+                            <div className="info popup-detail-info">
                                 <div>
                                     <div>Giá sau áp dụng mã khuyến mãi</div>
-                                    <div className="info__description">
+                                    <div className="info__description popup-detail-info-description">
                                         Có thể thay đổi ở bước thanh toán
                                     </div>
                                 </div>
-                                <div className="info__price">
+                                <div className="info__price popup-detail-info-price">
                                     {formatPrice(priceAfterCoupon || discountedPrice * 0.95)}<sup>₫</sup>
                                 </div>
                             </div>
