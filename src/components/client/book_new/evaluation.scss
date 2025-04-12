@@ -429,7 +429,7 @@
     display: flex;
     -webkit-box-align: center;
     align-items: center;
-    margin: 0px 0px 16px;
+    margin: -2px 0px 16px;
 }
 
 .hcsJQG .review-comment__content {
@@ -456,7 +456,7 @@
 }
 
 .hcsJQG .review-comment__title {
-    margin: 0px 0px 0px 12px;
+    margin: 0px 0px 1px 11px;
     font-size: 15px;
     line-height: 24px;
     font-weight: 500;
@@ -716,4 +716,17 @@
 .rating-summary-container {
     margin-bottom: 11px;
     margin-top: -2px;
+}
+
+.hcsJQG .review-comment__check-icon::before {
+    content: "";
+    width: 6px;
+    height: 3px;
+    border-left: 1px solid rgb(255, 255, 255);
+    border-bottom: 1px solid rgb(255, 255, 255);
+    position: absolute;
+    display: block;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -70%) rotate(-45deg);
 }
