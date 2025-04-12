@@ -84,16 +84,9 @@ const TopDeal = () => {
     const isNextDisabled = currentSlide === totalSlides - 1;
 
     return (
-        <div className="sc-34e0efdc-0 dSZwVn" style={{}}>
-            <div className="sc-34e0efdc-1 ddClVB">Top Deals</div>
-            <div
-                style={{
-                    display: "flex",
-                    flex: "1 1 0%",
-                    overflow: "hidden",
-                    paddingTop: 12
-                }}
-            >
+        <div className="sc-34e0efdc-0 dSZwVn top-deal-container">
+            <div className="sc-34e0efdc-1 ddClVB top-deal-title">Top Deals</div>
+            <div className="top-deal-wrapper">
                 <div className="sc-a007ec24-0 hVGhMI">
                     <span
                         className={`icon icon-prev ${isPrevDisabled ? 'disabled' : ''}`}
@@ -116,38 +109,32 @@ const TopDeal = () => {
                     </span>
                     <div className="content">
                         <span
-                            className="slider"
+                            className="slider top-deal-slider"
                             style={{
-                                display: "flex",
-                                gap: 8,
-                                transform: `translateX(-${currentSlide * slideWidth}px)`,
-                                transition: "0.5s ease-in-out"
+                                transform: `translateX(-${currentSlide * slideWidth}px)`
                             }}
                         >
                             {loading ? (
-                                <div style={{ width: slideWidth, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                <div className="top-deal-loading" style={{ width: slideWidth }}>
                                     Loading...
                                 </div>
                             ) : (
                                 bookPages.map((pageBooks, pageIndex) => (
                                     <div
                                         key={pageIndex}
+                                        className="top-deal-page"
                                         style={{
                                             width: slideWidth,
-                                            minWidth: slideWidth,
-                                            display: 'flex',
-                                            gap: 8,
-                                            justifyContent: 'flex-start'
+                                            minWidth: slideWidth
                                         }}
                                     >
                                         {pageBooks.map((book) => (
                                             <div
                                                 key={book.id}
-                                                className="sc-714f5c73-0 dutDwQ"
-                                                style={{ display: "-webkit-box", width: 132 }}
+                                                className="sc-714f5c73-0 dutDwQ top-deal-item"
                                             >
                                                 <div className="sc-e6fb8ae7-1 kTzRAo">
-                                                    <div style={{ height: "100%", width: "100%" }}>
+                                                    <div className="top-deal-item-container">
                                                         <a
                                                             className="sc-8b415d9d-1 iRifC product-item"
                                                             data-view-id="product_list_item"
@@ -155,7 +142,7 @@ const TopDeal = () => {
                                                             href={`/books/${book.id}`}
                                                         >
                                                             <span className="sc-8b415d9d-0 esCPZO">
-                                                                <div style={{ position: "relative" }}>
+                                                                <div className="top-deal-thumbnail-container">
                                                                     <div className="sc-accfdecb-0 oeQAA thumbnail">
                                                                         <div className="image-wrapper">
                                                                             <picture className="webpimg-container">
@@ -166,82 +153,30 @@ const TopDeal = () => {
                                                                                 <img
                                                                                     srcSet={`${book.thumbnail} 1x, ${book.thumbnail} 2x`}
                                                                                     alt={book.mainText}
-                                                                                    className="sc-900210d0-0 hFEtiz"
-                                                                                    style={{
-                                                                                        width: "100%",
-                                                                                        aspectRatio: "1 / 1",
-                                                                                        height: "100%",
-                                                                                        opacity: 1
-                                                                                    }}
+                                                                                    className="sc-900210d0-0 hFEtiz top-deal-thumbnail"
                                                                                 />
                                                                             </picture>
                                                                         </div>
                                                                     </div>
                                                                     {book.promotion > 0 && (
-                                                                        <p
-                                                                            className="ads-badge"
-                                                                            style={{
-                                                                                display: "inline-block",
-                                                                                height: 20,
-                                                                                margin: 0,
-                                                                                padding: "2px 4px",
-                                                                                background: "var(--alias-themeVariant, #F5F5FA)",
-                                                                                borderRadius: 4,
-                                                                                color: "rgb(39, 39, 42)",
-                                                                                fontSize: 10,
-                                                                                fontWeight: 700,
-                                                                                lineHeight: "150%",
-                                                                                textTransform: "uppercase",
-                                                                                border: "1px solid rgb(255, 255, 255)",
-                                                                                zIndex: 2,
-                                                                                whiteSpace: "nowrap",
-                                                                                position: "absolute",
-                                                                                top: 8,
-                                                                                right: 8
-                                                                            }}
-                                                                        >
+                                                                        <p className="ads-badge top-deal-badge">
                                                                             {book.promotion}% OFF
                                                                         </p>
                                                                     )}
                                                                 </div>
                                                                 <div className="sc-8b415d9d-6 ePleYc product-card-content">
                                                                     <div className="info">
-                                                                        <div
-                                                                            style={{
-                                                                                display: "flex",
-                                                                                flexDirection: "column",
-                                                                                gap: 4
-                                                                            }}
-                                                                        >
-                                                                            <div
-                                                                                className="name-wrapper"
-                                                                                style={{
-                                                                                    display: "flex",
-                                                                                    flexDirection: "column",
-                                                                                    gap: 4,
-                                                                                    height: 58
-                                                                                }}
-                                                                            >
+                                                                        <div className="top-deal-info">
+                                                                            <div className="name-wrapper top-deal-name-wrapper">
                                                                                 <h3 className="sc-8b415d9d-5 izNpeL">
                                                                                     {book.mainText}
                                                                                 </h3>
                                                                                 <div className="sc-8b415d9d-4 MtbnO">
-                                                                                    <div
-                                                                                        className="sc-980e9960-0 eTeHeN"
-                                                                                        style={{
-                                                                                            fontSize: 12,
-                                                                                            display: "inline-block"
-                                                                                        }}
-                                                                                    >
+                                                                                    <div className="sc-980e9960-0 eTeHeN top-deal-rating">
                                                                                         <div
+                                                                                            className="top-deal-rating-filled"
                                                                                             style={{
-                                                                                                zIndex: 2,
-                                                                                                position: "absolute",
-                                                                                                left: 0,
-                                                                                                top: 0,
-                                                                                                bottom: 0,
-                                                                                                width: `${book.rating_svg * 20}%`,
-                                                                                                overflow: "hidden"
+                                                                                                width: `${book.rating_svg * 20}%`
                                                                                             }}
                                                                                         >
                                                                                             {/* Star rating filled stars */}
@@ -252,7 +187,6 @@ const TopDeal = () => {
                                                                                                     height={12}
                                                                                                     fill="none"
                                                                                                     xmlns="http://www.w3.org/2000/svg"
-                                                                                                    style={{ width: 12, height: 12 }}
                                                                                                 >
                                                                                                     <g clipPath="url(#a)">
                                                                                                         <path
@@ -303,10 +237,7 @@ const TopDeal = () => {
                                                                             </div>
                                                                             <div className="sc-7615e682-0 jVbBhv">
                                                                                 <div className="price-discount">
-                                                                                    <div
-                                                                                        className="price-discount__price"
-                                                                                        style={{ color: "rgb(39, 39, 42)" }}
-                                                                                    >
+                                                                                    <div className="price-discount__price top-deal-price">
                                                                                         {book.price.toLocaleString()}<sup>₫</sup>
                                                                                     </div>
                                                                                 </div>
@@ -324,29 +255,13 @@ const TopDeal = () => {
                                 ))
                             )}
                         </span>
-                        <div
-                            className="pagination"
-                            style={{
-                                width: "100%",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                gap: 4,
-                                marginTop: 8
-                            }}
-                        >
+                        <div className="pagination top-deal-pagination">
                             {Array.from({ length: totalSlides }).map((_, index) => (
                                 <div
                                     key={index}
                                     onClick={() => handlePaginationClick(index)}
-                                    style={{
-                                        width: currentSlide === index ? 24 : 16,
-                                        height: 2,
-                                        background: currentSlide === index ? "rgb(10, 104, 255)" : "rgba(0, 0, 0, 0.05)",
-                                        borderRadius: 4,
-                                        cursor: "pointer",
-                                        transition: "all 0.3s ease"
-                                    }}
+                                    className={`top-deal-pagination-dot ${currentSlide === index ? 'top-deal-pagination-dot-active' : 'top-deal-pagination-dot-inactive'
+                                        }`}
                                 />
                             ))}
                         </div>
