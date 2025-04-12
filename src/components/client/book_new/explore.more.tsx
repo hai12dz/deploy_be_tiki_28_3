@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './explore.more.scss'
-
 const ExploreMore = () => {
     // Add state to track scroll position and direction
     const [scrollY, setScrollY] = useState(0);
@@ -89,12 +88,21 @@ const ExploreMore = () => {
     }, [scrollY, autoFadeIn, scrollingUp, startAutoFadeIn]);
 
     return (
-        <div className="sc-25579e0e-0 kzWQME explore-more-container" ref={componentRef}>
+        <div className="sc-25579e0e-0 kzWQME" style={{ marginTop: '-20px', position: "relative" }} ref={componentRef}>
             <div
                 className="header"
-                style={{ opacity: headerOpacity }}
+                style={{
+                    position: "sticky",
+                    top: 0,
+                    zIndex: 997,
+                    width: "100%",
+                    backgroundColor: "#F5F5FA",
+                    paddingTop: 16,
+                    opacity: headerOpacity,
+                    transition: "opacity 0.4s ease" // Smooth transition for both manual and auto transitions
+                }}
             >
-                <h2 className="sc-25579e0e-1 EwjD explore-more-title">
+                <h2 className="sc-25579e0e-1 EwjD" style={{ height: 48 }}>
                     Khám phá thêm
                 </h2>
                 <div className="sc-25579e0e-2 fTTOgs">
@@ -186,7 +194,15 @@ const ExploreMore = () => {
             </div>
             <div data-view-id="pdp_infinity_tab_content" className="sc-25579e0e-3 hMkAQW">
                 <div className="content">
-                    <div className="tiki-square-ad">
+                    <div
+                        className="tiki-square-ad"
+                        style={{
+                            background: "white",
+                            borderRadius: 8,
+                            display: "flex",
+                            width: "100%"
+                        }}
+                    >
                         <div>
                             <a
                                 href="https://tiki.vn/khuyen-mai/cong-nghe-gia-hoi?itm_campaign=PDP_YPD_TKA_BNA_UNK_ALL_UNK_UNK_UNK_UNK_X.213283_Y.1795603_Z.3934244_CN.Default-banners-for-all-display-placements&itm_medium=CPM&itm_source=tiki-ads&waypoint_id=giamtoi50"
@@ -203,22 +219,32 @@ const ExploreMore = () => {
                                         srcSet="https://salt.tikicdn.com/cache/w750/ts/tka/f7/4f/e5/285c32d4933f185c9999c7614aec5c2e.png 1x, https://salt.tikicdn.com/cache/w750/ts/tka/f7/4f/e5/285c32d4933f185c9999c7614aec5c2e.png 2x"
                                         alt="square-banner"
                                         className="sc-900210d0-0 hFEtiz banner-image"
+                                        style={{ width: "100%", height: "100%", opacity: 1 }}
                                     />
                                 </picture>
                             </a>
 
                         </div>
                     </div>
-                    <div className="product-item-container">
-                        <div className="product-wrapper">
-                            <div className="product-inner">
-                                <div className="product-full-width">
+                    <div
+                        className=""
+                        style={{
+                            background: "white",
+                            borderRadius: 8,
+                            display: "flex",
+                            width: "100%"
+                        }}
+                    >
+                        <div style={{ width: "100%" }}>
+                            <div style={{ height: "100%", width: "100%" }}>
+                                <div style={{ height: "100%", width: "100%" }}>
                                     <a
                                         className="sc-8b415d9d-1 iRifC product-item"
                                         data-view-id="product_list_item"
                                         data-view-content='{"click_data":{"id":271972235}}'
                                         href="//tka.tiki.vn/pixel/pixel?data=6MoNwDxUJQud-ALI4OSF-Lbj7f8aX9MwdNHKahquUoD_mUdByVP5blHPzSadkBDzXaO4iCMNPTGfctNuwdp5HQjNP7YfybhraB9ZvaQDDnP_FO0G2NFxfjUXGUQ8E-rqvcnYgbAM1pPVCUWh1m6W71KhV72dcRlgd7kI3EovsqwwFQ1mBQjXTRJyGU6jbOHD6L9qCiavPkdC9NflXsX5e7OTskcWedeNXLsq7UJGc_5uSYc_IeWwy4hm9FvexdjQPjUcFd51z9Irz4JPK7oqSM2YjLkoL6glwT4rfA5XDKPZGG4cIjE6xngNBxUM3CQVB_iSatXd7Vx8rGtW3LMekWzs01f4Xnc-6G--4gyCUZiDgTRtapBUFTsghy2hkhgkKOt1cw9cw0ECxawdxX0yLANQpRFVLnCQ0FHUDE0GFUA2NueFmkO5HRFmxaeYFmB-shCfo8Bt9nXuJy7K4T4liCB0azYUSnTdXygWQeQ8aRk0Dff18JwaSNLYkC6RJEB0zjog0wKT6O1LZzHN5XHlCUWSXNv3Xi52mRbtd54EON0tvwRIIiLANF6s_Q3JpGBlvAmQDj6QMutBZXMd4ZDA3ZlLQRce9ntybM3mNnenBiwOBmcV3BFJajtc8rjLzTvIQPegItyJe1tBftX5z3mg-CqFn7AfIKNOu2KAVBRc-ki4FcAMsFvk73eq78lzeTVxL1HSzHjx1ukljM_JZPpeGKmyA_lBfbrhALxZzrifPvh1PkPVYwbohwz-Xc8RMksNoYH9z_3ziIf7URO0uhdigTtP6gK1dlGaGPoMLDtYFg0-qoKneqqvA0Z7U_80rxEMQJtX_ewF5ylUQiRpnLy_f6eFwzXdUPJ_4ammWmDPkYKLyuudXs6SPqlrE5ykFhjRbCHd_NZ3WWdhGCUQUPpcosv6RyZWEFOUacB_eGtL0S1JNoaVQm39NM_dtwKbP2pvMaGdzDoD2appifv3mSSk9kHg4kkapN2s0PLqd3TmaaLxGbF4xddKyP8iVTYXLoPY7osdOP_Q4VdadXWqXvcZyqca4yI6GajDGYPq3bUHQRsH1KaECRFTzOnGafcUvKZKVWk7gTKGGrirLYdMSwsUjah0GcOdYcCOW9tgML9snKSdeF39GRYIUjCeMx9PsOBJew&pos=1&reqid=5b8nT3P65C&type=CLICK"
                                         rel="nofollow"
+                                        style={{ height: "100%" }}
                                     >
                                         <span className="sc-8b415d9d-0 esCPZO">
                                             <div style={{ position: "relative" }}>
@@ -615,7 +641,13 @@ const ExploreMore = () => {
                         </div>
                     </div>
                     <div
-                        className="generic-product-container"
+                        className=""
+                        style={{
+                            background: "white",
+                            borderRadius: 8,
+                            display: "flex",
+                            width: "100%"
+                        }}
                     >
                         <div style={{ width: "100%" }}>
                             <div style={{ height: "100%", width: "100%" }}>
@@ -4494,7 +4526,15 @@ const ExploreMore = () => {
                             </a>
                         </div>
                     </div>
-                    <div className="tiki-square-ad">
+                    <div
+                        className="tiki-square-ad"
+                        style={{
+                            background: "white",
+                            borderRadius: 8,
+                            display: "flex",
+                            width: "100%"
+                        }}
+                    >
                         <div>
                             <a
                                 href="https://tiki.vn/khuyen-mai/dien-tu-dien-gia-dung-dien-lanh?itm_campaign=PDP_YPD_TKA_BNA_UNK_ALL_UNK_UNK_UNK_UNK_X.213283_Y.1795603_Z.3934241_CN.Default-banners-for-all-display-placements&itm_medium=CPM&itm_source=tiki-ads"
