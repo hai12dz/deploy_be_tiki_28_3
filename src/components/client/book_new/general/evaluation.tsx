@@ -1,4 +1,4 @@
-import './evaluation.scss'
+import 'styles/evaluation.scss'
 import { useState } from 'react';
 
 const Evaluation = () => {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import './app.new.header.scss';
+import 'styles/app.new.header.scss';
 import SearchProducts from '../search/search';
 
 interface IProps {

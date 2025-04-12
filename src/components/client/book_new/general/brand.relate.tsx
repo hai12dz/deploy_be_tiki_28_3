@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './brand.relate.scss'
+import 'styles/brand.relate.scss'
 const RelatedBrand = () => {
     // State to track current slide index and hover state
     const [currentSlide, setCurrentSlide] = useState<number>(0);

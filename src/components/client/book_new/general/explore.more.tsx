@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import './explore.more.scss'
+import 'styles/explore.more.scss'
 const ExploreMore = () => {
     // Add state to track scroll position and direction
     const [scrollY, setScrollY] = useState(0);

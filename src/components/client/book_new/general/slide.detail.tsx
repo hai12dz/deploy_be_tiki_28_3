@@ -1,4 +1,4 @@
-import './slide.detail.scss';
+import 'styles/slide.detail.scss';
 
 const SlideDetail = () => {
     return (

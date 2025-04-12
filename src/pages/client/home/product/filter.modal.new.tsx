@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './filter.modal.new.scss';
+import 'styles/filter.modal.new.scss';
 import { getBooksAPI } from '@/services/api';
 import { Form, InputNumber, Row, Col, Divider, Button } from 'antd';
 

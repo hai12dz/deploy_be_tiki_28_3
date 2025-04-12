@@ -1,6 +1,5 @@
 import { App, Button, Divider, Form, Input } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
-import './login.scss';
 import { useState } from 'react';
 import type { FormProps } from 'antd';
 import { loginAPI } from '@/services/api';

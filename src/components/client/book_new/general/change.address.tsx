@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import './change.address.scss';
+import 'styles/change.address.scss';
 
 interface ChangeAddressProps {
     onClose: () => void;

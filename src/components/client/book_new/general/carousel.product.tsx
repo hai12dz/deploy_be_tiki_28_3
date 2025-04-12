@@ -1,4 +1,4 @@
-import './carousel.product.scss';
+import 'styles/carousel.product.scss';
 import React, { useState, useEffect } from 'react';
 
 const CarouselProduct = (): JSX.Element => {

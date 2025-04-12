@@ -1,4 +1,4 @@
-import './popup.detail.scss'
+import 'styles/popup.detail.scss'
 
 interface IProps {
     onClose: () => void;

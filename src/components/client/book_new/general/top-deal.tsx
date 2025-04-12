@@ -1,4 +1,4 @@
-import './book.new.scss'
+import 'styles/book.new.scss'
 import React, { useState, useEffect } from 'react';
 import { getBooksAPI } from '@/services/api';
 
