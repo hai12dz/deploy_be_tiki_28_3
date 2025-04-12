@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import './brand.relate.scss'
 const RelatedBrand = () => {
     // State to track current slide index and hover state
     const [currentSlide, setCurrentSlide] = useState<number>(0);
@@ -66,16 +66,15 @@ const RelatedBrand = () => {
     return (
         <div className="sc-34e0efdc-0 dSZwVn">
             <div className="sc-34e0efdc-1 ddClVB">Thương hiệu liên quan</div>
-            <div style={{ paddingTop: 12 }}>
+            <div className="related-brand__content-wrapper">
                 <div
                     className="sc-a007ec24-0 hVLBTd ad-slider-carousel"
                     onMouseEnter={() => setIsHovering(true)}
                     onMouseLeave={() => setIsHovering(false)}
                 >
                     <span
-                        className={`icon icon-prev ${isPrevDisabled ? 'disabled' : ''}`}
+                        className={`icon icon-prev ${isPrevDisabled ? 'disabled' : ''} related-brand__nav-button--${(isHovering || isPrevDisabled) ? 'visible' : 'hidden'}`}
                         onClick={handlePrevClick}
-                        style={{ opacity: isHovering || isPrevDisabled ? 1 : 0 }}
                     >
                         <svg
                             width={20}
@@ -94,169 +93,85 @@ const RelatedBrand = () => {
                     </span>
                     <div className="content">
                         <span
-                            className="slider"
+                            className="slider related-brand__slider-container"
                             style={{
-                                gap: 12,
-                                transform: `translateX(-${currentSlide * slideWidth}px)`,
-                                transition: "0.5s ease-in-out"
+                                transform: `translateX(-${currentSlide * slideWidth}px)`
                             }}
                         >
-                            <div
-                                className="sc-714f5c73-0 dutDwQ"
-                                style={{ display: "-webkit-box", width: 674 }}
-                            >
+                            <div className="sc-714f5c73-0 dutDwQ related-brand__slide">
                                 <div>
                                     <a
-                                        className="listing-footer-banner-ad"
+                                        className="listing-footer-banner-ad related-brand__banner-link"
                                         href="https://tiki.vn/khuyen-mai/top-dien-thoai-may-tinh-bang?itm_campaign=PDP_YPD_TKA_BNA_UNK_ALL_UNK_UNK_UNK_UNK_X.213283_Y.1795603_Z.3934246_CN.Default-banners-for-all-display-placements&itm_medium=CPM&itm_source=tiki-ads&waypoint_id=tikichon"
                                         target="_blank"
-                                        style={{
-                                            border: "1px solid rgb(166, 166, 176)",
-                                            borderRadius: 8,
-                                            height: "224.667px",
-                                            display: "block",
-                                            boxSizing: "content-box"
-                                        }}
                                     >
                                         <img
                                             src="https://salt.tikicdn.com/ts/tka/a9/ec/4f/e95b916999b2dd40b3a8e2af30e704e8.png"
                                             alt="listing-footer-banner-ad"
-                                            style={{
-                                                borderRadius: 8,
-                                                display: "block",
-                                                width: "100%",
-                                                objectFit: "cover",
-                                                height: "100%"
-                                            }}
+                                            className="related-brand__banner-image"
                                         />
                                     </a>
                                 </div>
                             </div>
-                            <div
-                                className="sc-714f5c73-0 dutDwQ"
-                                style={{ display: "-webkit-box", width: 674 }}
-                            >
+                            <div className="sc-714f5c73-0 dutDwQ related-brand__slide">
                                 <div>
                                     <a
-                                        className="listing-footer-banner-ad"
+                                        className="listing-footer-banner-ad related-brand__banner-link"
                                         href="https://tiki.vn/khuyen-mai/hang-nhap-khau-chinh-hang?itm_campaign=PDP_YPD_TKA_BNA_UNK_ALL_UNK_UNK_UNK_UNK_X.213283_Y.1795603_Z.3934237_CN.Default-banners-for-all-display-placements&itm_medium=CPM&itm_source=tiki-ads&tmsx=009cfe78-c61e-4cec-ac87-3f80ef62f1cf&waypoint_id=HANQUOC"
                                         target="_blank"
-                                        style={{
-                                            border: "1px solid rgb(166, 166, 176)",
-                                            borderRadius: 8,
-                                            height: "224.667px",
-                                            display: "block",
-                                            boxSizing: "content-box"
-                                        }}
                                     >
                                         <img
                                             src="https://salt.tikicdn.com/ts/tka/46/b7/ac/46f02024b577c3e3a825a0c955bda0ea.png"
                                             alt="listing-footer-banner-ad"
-                                            style={{
-                                                borderRadius: 8,
-                                                display: "block",
-                                                width: "100%",
-                                                objectFit: "cover",
-                                                height: "100%"
-                                            }}
+                                            className="related-brand__banner-image"
                                         />
                                     </a>
                                 </div>
                             </div>
-                            <div
-                                className="sc-714f5c73-0 dutDwQ"
-                                style={{ display: "-webkit-box", width: 674 }}
-                            >
+                            <div className="sc-714f5c73-0 dutDwQ related-brand__slide">
                                 <div>
                                     <a
-                                        className="listing-footer-banner-ad"
+                                        className="listing-footer-banner-ad related-brand__banner-link"
                                         href="https://tiki.vn/khuyen-mai/xe-phu-kien-sieu-sale?itm_campaign=PDP_YPD_TKA_BNA_UNK_ALL_UNK_UNK_UNK_UNK_X.213283_Y.1795603_Z.3934248_CN.Default-banners-for-all-display-placements&itm_medium=CPM&itm_source=tiki-ads&waypoint_id=tikichon"
                                         target="_blank"
-                                        style={{
-                                            border: "1px solid rgb(166, 166, 176)",
-                                            borderRadius: 8,
-                                            height: "224.667px",
-                                            display: "block",
-                                            boxSizing: "content-box"
-                                        }}
                                     >
                                         <img
                                             src="https://salt.tikicdn.com/ts/tka/45/7b/70/fb7c0e1414d55ae6ea43af2883f2d842.png"
                                             alt="listing-footer-banner-ad"
-                                            style={{
-                                                borderRadius: 8,
-                                                display: "block",
-                                                width: "100%",
-                                                objectFit: "cover",
-                                                height: "100%"
-                                            }}
+                                            className="related-brand__banner-image"
                                         />
                                     </a>
                                 </div>
                             </div>
-                            <div
-                                className="sc-714f5c73-0 dutDwQ"
-                                style={{ display: "-webkit-box", width: 674 }}
-                            >
+                            <div className="sc-714f5c73-0 dutDwQ related-brand__slide">
                                 <div>
                                     <a
-                                        className="listing-footer-banner-ad"
+                                        className="listing-footer-banner-ad related-brand__banner-link"
                                         href="https://tiki.vn/khuyen-mai/cong-nghe-gia-hoi?itm_campaign=PDP_YPD_TKA_BNA_UNK_ALL_UNK_UNK_UNK_UNK_X.213283_Y.1795603_Z.3934243_CN.Default-banners-for-all-display-placements&itm_medium=CPM&itm_source=tiki-ads&waypoint_id=giamtoi50"
                                         target="_blank"
-                                        style={{
-                                            border: "1px solid rgb(166, 166, 176)",
-                                            borderRadius: 8,
-                                            height: "224.667px",
-                                            display: "block",
-                                            boxSizing: "content-box"
-                                        }}
                                     >
                                         <img
                                             src="https://salt.tikicdn.com/ts/tka/7f/0b/d3/95916a0bd08a84d64206ce6ef9e72010.png"
                                             alt="listing-footer-banner-ad"
-                                            style={{
-                                                borderRadius: 8,
-                                                display: "block",
-                                                width: "100%",
-                                                objectFit: "cover",
-                                                height: "100%"
-                                            }}
+                                            className="related-brand__banner-image"
                                         />
                                     </a>
                                 </div>
                             </div>
                         </span>
-                        <div
-                            className="pagination"
-                            style={{
-                                width: "100%",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                gap: 4,
-                                marginTop: 8
-                            }}
-                        >
+                        <div className="pagination related-brand__pagination">
                             {Array.from({ length: totalSlides }).map((_, index) => (
                                 <div
                                     key={index}
                                     onClick={() => handlePaginationClick(index)}
-                                    style={{
-                                        width: currentSlide === index ? 24 : 16,
-                                        height: 2,
-                                        background: currentSlide === index ? "rgb(10, 104, 255)" : "rgba(0, 0, 0, 0.05)",
-                                        borderRadius: 4,
-                                        cursor: "pointer",
-                                        transition: "all 0.3s ease"
-                                    }}
+                                    className={`related-brand__pagination-dot related-brand__pagination-dot--${currentSlide === index ? 'active' : 'inactive'}`}
                                 />
                             ))}
                         </div>
                     </div>
                     <span
-                        className={`icon icon-next ${isNextDisabled ? 'disabled' : ''}`}
+                        className={`icon icon-next ${isNextDisabled ? 'disabled' : ''} related-brand__nav-button--${(isHovering || isNextDisabled) ? 'visible' : 'hidden'}`}
                         onClick={handleNextClick}
-                        style={{ opacity: isHovering || isNextDisabled ? 1 : 0 }}
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
