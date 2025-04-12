@@ -720,7 +720,8 @@ const Evaluation = () => {
                                                 height={20}
                                             />
                                         </span>
-                                        <span>
+                                        <span
+                                        >
                                             <img
                                                 alt="star-icon"
                                                 src="https://salt.tikicdn.com/ts/upload/e3/f0/86/efd76e1d41c00ad8ebb7287c66b559fd.png"

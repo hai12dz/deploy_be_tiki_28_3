@@ -467,8 +467,13 @@
     -webkit-line-clamp: 1;
 }
 
-.hcsJQG .review-comment__rating span:first-child {
-    margin: 0px 1px 0px 0px;
+// .hcsJQG .review-comment__rating span:first-child {
+//     margin: 0px 1px 0px 0px;
+// }
+
+.hcsJQG .review-comment__rating span {
+    margin-right: 2px;
+    /* Added horizontal spacing between rating stars */
 }
 
 .fFhahK span {
