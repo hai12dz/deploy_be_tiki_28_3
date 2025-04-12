@@ -1,42 +1,73 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './explore.more.scss'
 const ExploreMore = () => {
     // Add state to track scroll position and direction
     const [scrollY, setScrollY] = useState(0);
     const [scrollingUp, setScrollingUp] = useState(false);
     const [headerOpacity, setHeaderOpacity] = useState(1);
+    const [autoFadeIn, setAutoFadeIn] = useState(false);
     const componentRef = useRef<HTMLDivElement>(null);
+    const fadeTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+    // Function to handle automatic fade-in
+    const startAutoFadeIn = useCallback(() => {
+        // Clear any existing fade timer
+        if (fadeTimerRef.current) {
+            clearTimeout(fadeTimerRef.current);
+        }
+
+        // Start the auto-fade in process
+        setAutoFadeIn(true);
+
+        // Set header to full opacity after a short delay (400ms)
+        fadeTimerRef.current = setTimeout(() => {
+            setHeaderOpacity(1);
+            setAutoFadeIn(false);
+        }, 400);
+    }, []);
 
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
             const isScrollingUp = currentScrollY < scrollY;
-            setScrollingUp(isScrollingUp);
+
+            // Detect direction change to scrolling up
+            if (isScrollingUp && !scrollingUp) {
+                setScrollingUp(true);
+                startAutoFadeIn();
+            } else if (!isScrollingUp) {
+                setScrollingUp(false);
+                // Cancel auto-fade when scrolling down
+                if (autoFadeIn && fadeTimerRef.current) {
+                    clearTimeout(fadeTimerRef.current);
+                    setAutoFadeIn(false);
+                }
+            }
 
             // Get component dimensions
             if (componentRef.current) {
                 const componentRect = componentRef.current.getBoundingClientRect();
-                const componentBottom = componentRect.bottom;
+                const componentTop = componentRect.top;
                 const componentHeight = componentRect.height;
+                const componentBottom = componentRect.bottom;
 
-                // Calculate distance from component bottom
-                const distanceFromBottom = componentBottom - window.innerHeight;
+                // Check if component is starting to leave the viewport
+                if (componentBottom <= window.innerHeight && !isScrollingUp) {
+                    // Only update opacity when scrolling down and not in auto-fade mode
+                    if (!autoFadeIn) {
+                        // Calculate how much of the component is still visible
+                        const visiblePortion = Math.max(0, componentBottom);
+                        const opacityFactor = Math.min(1, visiblePortion / (window.innerHeight * 0.5));
 
-                // Define the threshold where opacity effects start (e.g., when in the last 30% of the component)
-                const opacityThreshold = componentHeight * 0.3;
-
-                if (distanceFromBottom < opacityThreshold) {
-                    // We're approaching the end of the component, apply opacity effect
-                    // Calculate opacity based on how close to the end (1 → 0.3 as we scroll down)
-                    const calculatedOpacity = Math.max(0.3, distanceFromBottom / opacityThreshold);
-                    setHeaderOpacity(calculatedOpacity);
-                } else if (isScrollingUp && distanceFromBottom < opacityThreshold * 2) {
-                    // When scrolling back up from the bottom area
-                    // Gradually increase opacity back to 1
-                    const calculatedOpacity = Math.min(1, 0.3 + (distanceFromBottom / opacityThreshold) * 0.7);
-                    setHeaderOpacity(calculatedOpacity);
-                } else {
-                    // Otherwise, keep full opacity
+                        // As component leaves viewport, reduce opacity
+                        const calculatedOpacity = Math.max(0, opacityFactor);
+                        setHeaderOpacity(calculatedOpacity);
+                    }
+                } else if (componentTop < 0 && isScrollingUp && !autoFadeIn) {
+                    // When scrolling up and component is coming back into view, trigger auto fade-in
+                    startAutoFadeIn();
+                } else if (!autoFadeIn && componentBottom > window.innerHeight) {
+                    // Component is fully visible within viewport
                     setHeaderOpacity(1);
                 }
             }
@@ -49,8 +80,12 @@ const ExploreMore = () => {
 
         return () => {
             window.removeEventListener('scroll', handleScroll);
+            // Clean up timer on unmount
+            if (fadeTimerRef.current) {
+                clearTimeout(fadeTimerRef.current);
+            }
         };
-    }, [scrollY]);
+    }, [scrollY, autoFadeIn, scrollingUp, startAutoFadeIn]);
 
     return (
         <div className="sc-25579e0e-0 kzWQME" style={{ marginTop: '-20px', position: "relative" }} ref={componentRef}>
@@ -64,7 +99,7 @@ const ExploreMore = () => {
                     backgroundColor: "#F5F5FA",
                     paddingTop: 16,
                     opacity: headerOpacity,
-                    transition: "opacity 0.3s ease" // Always apply smooth transition
+                    transition: "opacity 0.4s ease" // Smooth transition for both manual and auto transitions
                 }}
             >
                 <h2 className="sc-25579e0e-1 EwjD" style={{ height: 48 }}>
